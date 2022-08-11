@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./follower.css" />
+    <title>Data Entry System</title>
+  </head>
+  <body>
+    <div>
+      <div class="nav-bar">
+        <div class="user-mode">
+          <p id="user-mode-name"><%= username %></p>
+        </div>
+        <div class="app-name-div">
+          <h2 id="app-name">Data Entry System</h2>
+        </div>
+      </div>
+      <div class="form-content">
+        <form action="/firstlayer" method="post">
+          <label for="bodyNumber" id="bodyNumber">Enter Body Number :</label>
+          <input type="number" name="bodyNumber" maxlength="4" required />
+          <button id ='body-number-submit-button' type="submit">Enter</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

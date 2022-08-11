@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./home.css" />
+    <title>Data Entry System</title>
+  </head>
+  <body>
+    <div>
+      <div class="nav-bar">
+        <div class="logo-image">
+          <img id="logo" src="./logo.png" alt="Deevia" />
+        </div>
+        <div class="app-name-div">
+          <h2 id="app-name">Data Entry System</h2>
+        </div>
+      </div>
+
+      <div class="login-content">
+        <div class="login-heading">
+          <p>Login</p>
+        </div>
+        <hr />
+        <div class="login-form">
+          <form action="/login" method="post">
+            <div class="input-item-set">
+              <p class="form-label">Username</p>
+              <input
+                class="input-box"
+                type="text"
+                name="username"
+                required
+              /><br />
+            </div>
+            <div class="input-item-set">
+              <p class="form-label">Password</p>
+              <input type="password" name="password" required /><br />
+            </div>
+            <div class="login-button-content">
+              <button id="login-button" type="submit">
+                <h4 id="login-text">Login</h4>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
