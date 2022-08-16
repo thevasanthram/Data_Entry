@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./admin.css" />
+    <title>Data Entry System</title>
+  </head>
+  <body>
+    <div>
+      <div class="nav-bar">
+        <div class="user-mode">
+          <p id="user-mode-name"><%= username %></p>
+        </div>
+        <div class="app-name-div">
+          <h2 id="app-name">Data Entry System</h2>
+        </div>
+      </div>
+      <div class="main-content">
+        <form action="/lookup" method="get">
+          <button class="button-content">Lookup</button>
+        </form>
+        <form action="/filtering" method="get">
+          <button class="button-content">Filtering</button>
+        </form>
+        <form action="/visualization" method="get">
+          <button class="button-content">Visualization</button>
+        </form>
+        <!-- <div class="button-content">
+          <p>Lookup</p>
+        </div>
+        <div class="button-content">
+          <p>Filtering</p>
+        </div>
+        <div class="button-content">
+          <p>Visualization</p>
+        </div> -->
+      </div>
+    </div>
+  </body>
+</html>

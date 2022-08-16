@@ -20,6 +20,14 @@ body {
 
 #app-name {
   font-size: 250%;
+  float: left;
+  color: white;
+}
+
+.selected-message {
+  text-align: center;
+  padding: 14px;
+  font-size: 120%;
   color: white;
 }
 
@@ -47,7 +55,7 @@ body {
 .main-content {
   width: 60%;
   margin-left: 20%;
-  /* margin-top: 1%; */
+  margin-top: 3%;
 }
 
 .form-content {
@@ -58,12 +66,13 @@ body {
   font-size: 130%;
   padding: 2%;
   margin: 1%;
-  margin-left: 40%;
   border: 1px solid #64666a;
   border-radius: 4px;
   background-color: black;
   color: white;
+  float: right;
 }
+
 #second-layer-button-first-set2 {
   font-size: 130%;
   padding: 2%;
@@ -72,8 +81,8 @@ body {
   border-radius: 4px;
   background-color: black;
   color: white;
-  float: right;
 }
+
 #second-layer-button-first-set3 {
   font-size: 130%;
   padding: 2%;
@@ -82,8 +91,20 @@ body {
   border-radius: 4px;
   background-color: black;
   color: white;
+  float: right;
 }
+
 #second-layer-button-first-set4 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-first-set5 {
   font-size: 130%;
   padding: 2%;
   margin: 1%;
@@ -93,7 +114,120 @@ body {
   color: white;
   float: right;
 }
-#second-layer-button-first-set5 {
+
+#second-layer-button-first-set6 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-first-set7 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-first-set8 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-first-set9 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-first-set10 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-first-set11 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-first-set12 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-second-set1 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  margin-left: 40%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+#second-layer-button-second-set2 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+#second-layer-button-second-set3 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+#second-layer-button-second-set4 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+#second-layer-button-second-set5 {
   font-size: 130%;
   padding: 2%;
   margin: 1%;

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./secondLayer.css" />
+    <link rel="stylesheet" href="./thirdLayer.css" />
     <title>Data Entry System</title>
   </head>
   <body>
@@ -15,36 +15,29 @@
         </div>
         <div class="app-name-div">
           <h2 id="app-name">Data Entry System</h2>
-          <p class="selected-message">Body Number : <%= enteredBodyNumber %> | Category : <%= selectedCategory %></p>
+          <p class="selected-message">
+            Body Number : <%= enteredBodyNumber %> | Category : <%=
+            selectedCategory %> | Sub-Category : <%= selectedSubCategory %>
+          </p>
         </div>
       </div>
       <div id="title-name-content">
         <p id="title-name">Select Sub-Category :</p>
       </div>
       <div class="main-content">
-        <% for(let i = 0 ; i < ShortlistedCategoryOptions.length ; i++){ %>
-        <form action="/selectsubcategory" method="post">
+        <% for(let i = 0 ; i < ShortlistedSubCategoryOptions.length ; i++){ %>
+        <form action="/handlesave" method="post">
           <input
             type="hidden"
-            name="selectedCategory"
-            value="<%= ShortlistedCategoryOptions[i] %>"
+            name="ShortlistedSubCategoryOption"
+            value="<%= ShortlistedSubCategoryOptions[i] %>"
           />
-          <button
-            type="submit"
-            class="form-content"
-            <% if((ShortlistedCategoryOptions.length % 2) == 0){ %>
-              id="second-layer-button-first-set<%= i+1 %>"  
-            <% }else{ %>
-              id="second-layer-button-second-set<%= i+1 %>"
-            <% } %>
-          >
-            <%= ShortlistedCategoryOptions[i]%>
-          </button>
+          <button type="submit"><%= ShortlistedSubCategoryOptions[i]%></button>
         </form>
         <%}%>
       </div>
     </div>
-    <!-- <form action="/firstlayer" method="get">
+    <!-- <form action="/secondlayer" method="get">
       <button type="submit">Go Back</button>
     </form> -->
   </body>

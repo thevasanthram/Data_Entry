@@ -19,7 +19,6 @@ const db = mongoose
 
 const Options = {
   'UNDER BODY': {
-    'RADIATOR SUPPORT': ['A1A', 'A1B', 'A1C', 'A1D'],
     'RH APRON': ['A2A', 'A2B', 'A2C', 'A2D'],
     'LH APRON': ['A3A', 'A3B', 'A3C', 'A3D'],
     'FRONT FLOOR TOP SIDE': ['A4A', 'A4B', 'A4C', 'A4D'],
@@ -30,33 +29,34 @@ const Options = {
     'REAR FLOOR BOTTOM SIDE': ['A4A', 'A4B', 'A4C', 'A4D'],
     'DASH OUTER': ['A4A', 'A4B', 'A4C', 'A4D'],
     'DASH INNER': ['A4A', 'A4B', 'A4C', 'A4D'],
+    'RADIATOR SUPPORT': ['A1A', 'A1B', 'A1C', 'A1D'],
     'LOWER BACK': ['A4A', 'A4B', 'A4C', 'A4D'],
   },
 
   'RH MAIN BODY': {
-    'A-PILLAR - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'C-PILLAR - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'B-PILLAR - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'A-PILLAR - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
+    COWL: ['C1A', 'C1B', 'C1C', 'C1D'],
+    'C-PILLAR - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'BACK DOOR OPENING - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'FRONT DOOR OPENING - RH': ['C2A', 'C2B', 'C2C', 'C2D'],
     'QUARTER - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'REAR DOOR OPENING - RH': ['C3A', 'C3B', 'C3C', 'C3D'],
     'ROCKER PANEL SIDE - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'ROOF SIDE - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    COWL: ['C1A', 'C1B', 'C1C', 'C1D'],
   },
 
   'LH MAIN BODY': {
-    'A-PILLAR - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'C-PILLAR - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'B-PILLAR - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'A-PILLAR - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
+    COWL: ['C1A', 'C1B', 'C1C', 'C1D'],
+    'C-PILLAR - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'BACK DOOR OPENING - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'FRONT DOOR OPENING - LH': ['C2A', 'C2B', 'C2C', 'C2D'],
     'QUARTER - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'REAR DOOR OPENING - LH': ['C3A', 'C3B', 'C3C', 'C3D'],
     'ROCKER PANEL SIDE - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
     'ROOF SIDE - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    COWL: ['C1A', 'C1B', 'C1C', 'C1D'],
   },
 
   'RH SHELL BODY SUB-LINE': {
@@ -71,10 +71,10 @@ const Options = {
   'LH SHELL BODY SUB-LINE': {
     'FRONT DOOR OUTER - LH': ['D1A', 'D1B', 'D1C', 'D1D'],
     'FRONT DOOR INNER - LH': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'REAR DOOR OUTER - LH': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'REAR DOOR INNER - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
     'BACK DOOR OUTER': ['D4A', 'D4B', 'D4C', 'D4D'],
     'BACK DOOR INNER': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'REAR DOOR OUTER - LH': ['D3A', 'D3B', 'D3C', 'D3D'],
+    'REAR DOOR INNER - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
   },
 
   'RH SHELL BODY MAIN-LINE': {
@@ -125,9 +125,11 @@ const Options = {
 let username = ' ';
 
 let enteredBodyNumber = 0;
-let selectedBodyNumberGlobal = '';
-let selectedCategoryGlobal = '';
+let selectedCategory = '';
+let selectedSubCategory = '';
 let selectedSubCategoryGlobal = '';
+
+let Data;
 
 app.get('/', (req, res) => {
   res.render(path.join(__dirname, '/views/home.ejs'));
@@ -154,6 +156,7 @@ app.post('/firstlayer', (req, res) => {
     bodyNumberOptions = Object.keys(Options);
     res.render(path.join(__dirname, '/views/firstLayer.ejs'), {
       username,
+      enteredBodyNumber,
       bodyNumberOptions: bodyNumberOptions,
     });
   } catch (err) {
@@ -161,15 +164,16 @@ app.post('/firstlayer', (req, res) => {
   }
 });
 
-app.post('/selectcategory', (req, res) => {
+app.post('/secondlayer', (req, res) => {
   try {
-    selectedBodyNumberGlobal = req.body.selectedBodyNumber;
-    const categoryOptions = Options[selectedBodyNumberGlobal];
+    selectedCategory = req.body.selectedCategory;
+    const categoryOptions = Options[selectedCategory];
     let ShortlistedCategoryOptions = Object.keys(categoryOptions);
 
     res.render(path.join(__dirname, '/views/secondLayer.ejs'), {
       username,
-      selectedBodyNumberGlobal,
+      enteredBodyNumber,
+      selectedCategory,
       ShortlistedCategoryOptions,
     });
   } catch (err) {
@@ -179,15 +183,18 @@ app.post('/selectcategory', (req, res) => {
 
 app.post('/selectsubcategory', (req, res) => {
   try {
-    selectedCategoryGlobal = req.body.selectedCategoryOption;
+    const selectedSubCategory = req.body.selectedCategory;
 
-    var SubCategoryOptions = Options[selectedBodyNumberGlobal];
-    SubCategoryOptions = SubCategoryOptions[selectedCategoryGlobal];
+    var SubCategoryOptions = Options[selectedCategory];
+    SubCategoryOptions = SubCategoryOptions[selectedSubCategory];
 
     ShortlistedSubCategoryOptions = SubCategoryOptions;
 
-    res.render(path.join(__dirname, '/views/subCategory.ejs'), {
-      selectedCategoryGlobal,
+    res.render(path.join(__dirname, '/views/thirdLayer.ejs'), {
+      username,
+      enteredBodyNumber,
+      selectedCategory,
+      selectedSubCategory,
       ShortlistedSubCategoryOptions,
     });
   } catch (err) {
@@ -199,8 +206,8 @@ app.post('/handlesave', (req, res) => {
   try {
     selectedSubCategoryGlobal = req.body.ShortlistedSubCategoryOption;
 
-    // console.log('selectedBodyNumber:', selectedBodyNumberGlobal);
-    // console.log('selectedCategory: ', selectedCategoryGlobal);
+    // console.log('selectedBodyNumber:', selectedCategory);
+    // console.log('selectedCategory: ', selectedSubCategory);
     // console.log('selectedSubCategory: ', selectedSubCategoryGlobal);
 
     res.render(path.join(__dirname, '/views/handleSave.ejs'));
@@ -213,8 +220,8 @@ app.post('/store', async (req, res) => {
   const handlesave = req.body.handlesave;
   if (handlesave == 'yes') {
     await DataSchema.create({
-      optionChosen: selectedBodyNumberGlobal,
-      categoryChosen: selectedCategoryGlobal,
+      optionChosen: selectedCategory,
+      categoryChosen: selectedSubCategory,
       subCategoryChosen: selectedSubCategoryGlobal,
     });
 
@@ -225,9 +232,24 @@ app.post('/store', async (req, res) => {
 });
 
 app.get('/administrator', async (req, res) => {
-  const Data = await DataSchema.find();
+  Data = await DataSchema.find();
   // console.log(Data);
 
+  res.render(path.join(__dirname, '/views/admin.ejs'), { username });
+});
+
+app.get('/lookup', (req, res) => {
+  res.render(path.join(__dirname, '/views/lookup.ejs'), {
+    data: Data,
+    username,
+  });
+});
+
+app.get('/filtering', (req, res) => {
+  res.render(path.join(__dirname, '/views/statistics.ejs'), { data: Data });
+});
+
+app.get('/visualization', (req, res) => {
   res.render(path.join(__dirname, '/views/statistics.ejs'), { data: Data });
 });
 
@@ -241,7 +263,9 @@ app.post('/delete', async (req, res) => {
     subCategoryChosen: deleteSubCategoryChosen,
   });
 
-  res.redirect('/administrator');
+  Data = await DataSchema.find();
+
+  res.redirect('/lookup');
 });
 
 app.post('/visualization', async (req, res) => {

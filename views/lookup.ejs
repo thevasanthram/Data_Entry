@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./lookup.css">
+    <title>Data Entry System</title>
+  </head>
+  <body>
+    <div>
+      <div class="nav-bar">
+        <div class="user-mode">
+          <p id="user-mode-name"><%= username %></p>
+        </div>
+        <div class="app-name-div">
+          <h2 id="app-name">Data Entry System</h2>
+        </div>
+      </div>
+      <div id="title-name-content">
+        <p id="title-name">Data Records :</p>
+      </div>
+      <div class="table-content">
+        <table id="table-data">
+          <tr>
+            <th>S.No</th>
+            <th>Option Chosen</th>
+            <th>Category Chosen</th>
+            <th>Sub-Category Chosen</th>
+            <th>Action</th>
+          </tr>
+          <% for(let i=0; i<data.length; i++) { %>
+          <tr>
+              <td><%= i+1 %></td>
+              <td><%= data[i].optionChosen %></td>
+              <td><%= data[i].categoryChosen %></td>
+              <td><%= data[i].subCategoryChosen %></td>
+              <td>
+                <form action="/delete" method="post">
+                  <input type="hidden" name="optionChosen" value= <%= data[i].optionChosen %>>
+                  <input type="hidden" name="categoryChosen" value= <%= data[i].categoryChosen %>>
+                  <input type="hidden" name="subCategoryChosen" value= <%= data[i].subCategoryChosen %>>
+                  <button type="submit" id="button-delete">Delete</button>
+                </form>
+              </td>
+          </tr>
+          <% } %>  
+        </table>
+      </div>
+    </div>
+    
+    <!-- <br>
+    <form action="/visualization" method="post">
+      <label for="chosenColumn">Column: </label>
+      <select name="chosenColumn" required>
+        <option value="optionChosen">Option Chosen</option>
+        <option value="categoryChosen">Category Chosen</option>
+        <option value="subCategoryChosen">Sub-Category Chosen</option>
+      </select>
+      <button type="submit">Generate Chart</button>
+    </form>
+    <br> -->
+  </body>
+</html>

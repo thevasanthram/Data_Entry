@@ -1,0 +1,68 @@
+* {
+  margin: 0px;
+}
+
+body {
+  background-color: #282c34;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+.nav-bar {
+  width: 100%;
+  height: 30%;
+  background-color: rgb(29, 23, 23);
+}
+
+.app-name-div {
+  padding: 10px;
+}
+
+#app-name {
+  font-size: 250%;
+  color: white;
+}
+
+.user-mode {
+  float: right;
+  width: auto;
+  padding: 10px;
+}
+
+#user-mode-name {
+  font-size: 200%;
+  color: #61dafb;
+}
+
+.main-content {
+  width: 80%;
+  margin-left: 10%;
+  margin-top: 9%;
+}
+
+.button-content {
+  float: left;
+  color: white;
+  font-size: 200%;
+  text-align: center;
+  background-color: #282c34;
+  width: 30%;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  border: 2px solid black;
+  border-radius: 4px;
+  margin-left: 3%;
+  margin-top: 2%;
+  cursor: pointer;
+}
+
+.button-content:hover {
+  background-color: black;
+  border: 2px solid #64666a;
+  border-radius: 4px;
+  transition-duration: 0.1s;
+  margin-left: 2%;
+  margin-top: 1%;
+  width: 31%;
+  padding-top: 11%;
+  padding-bottom: 11%;
+}

@@ -20,6 +20,14 @@ body {
 
 #app-name {
   font-size: 250%;
+  float: left;
+  color: white;
+}
+
+.selected-message {
+  text-align: center;
+  padding: 14px;
+  font-size: 120%;
   color: white;
 }
 
@@ -34,14 +42,14 @@ body {
   color: #61dafb;
 }
 
-#title-name-content{
-    margin-left: 10%;
-    margin-top: 2%;
+#title-name-content {
+  margin-left: 10%;
+  margin-top: 2%;
 }
 
-#title-name{
-    font-size: 200%;
-    color: white;
+#title-name {
+  font-size: 200%;
+  color: white;
 }
 
 .main-content {
