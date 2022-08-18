@@ -61,7 +61,7 @@ body {
   position: absolute;
   margin-left: 10%;
   margin-top: 2%;
-  background-color: #47494d;
+  background-color: white;
   overflow-y: scroll;
   scrollbar-color: black white;
 }
@@ -81,11 +81,11 @@ body {
 }
 
 #table-data tr:nth-child(even) {
-  background-color: #454545;
+  background-color: #464545;
 }
 
 #table-data tr:nth-child(odd) {
-  background-color: rgb(50, 49, 49);
+  background-color: rgb(48, 47, 47);
 }
 
 #table-data tr:hover {
@@ -112,4 +112,8 @@ body {
 
 #button-delete:hover {
   cursor: pointer;
+}
+
+.filtering-content {
+  margin-left: 15%;
 }

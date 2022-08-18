@@ -11,7 +11,14 @@
     <div>
       <div class="nav-bar">
         <div class="user-mode">
-          <p id="user-mode-name"><%= username %></p>
+          <div class="button-logout-content">
+            <form action="/logout" method="get">
+              <button type="submit" class="button-logout">Log-out</button>
+            </form>
+          </div>
+          <div id="user-mode-name">
+            <p><%= username %></p>
+          </div>
         </div>
         <div class="app-name-div">
           <h2 id="app-name">Data Entry System</h2>

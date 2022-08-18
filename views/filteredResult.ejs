@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./lookup.css">
+    <link rel="stylesheet" href="./filteredResult.css">
     <title>Data Entry System</title>
   </head>
   <body>
@@ -25,9 +25,10 @@
         </div>
       </div>
       <div id="title-name-content">
-        <p id="title-name">Data Records :</p>
+        <p id="title-name">Fetched Records :</p>
       </div>
       <div class="table-content">
+        <%if(dataFetching){%>
         <table id="table-data">
           <tr>
             <th>S.No</th>
@@ -38,7 +39,6 @@
             <th>Created Date</th>
             <th>Created Time</th>
             <th>Created By</th>
-            <th>Action</th>
           </tr>
           <% for(let i=0; i<data.length; i++) { %>
           <tr>
@@ -50,34 +50,13 @@
               <td><%= data[i].date %></td>
               <td><%= data[i].time %></td>
               <td><%= data[i].username%></td>
-              <td>
-                <form action="/delete" method="post">
-                  <input type="hidden" name="bodyNumber" value="<%= data[i].bodyNumber %>">
-                  <input type="hidden" name="categoryChosen" value= "<%= data[i].categoryChosen %>">
-                  <input type="hidden" name="subCategoryChosen" value= "<%= data[i].subCategoryChosen %>">
-                  <input type="hidden" name="defectArea" value="<%= data[i].defectArea %>">
-                  <input type="hidden" name="date" value="<%= data[i].date %>">
-                  <input type="hidden" name="time" value="<%= data[i].time%>">
-                  <input type="hidden" name="username" value="<%= data[i].username%>">
-                  <button type="submit" id="button-delete">Delete</button>
-                </form>
-              </td>
           </tr>
           <% } %>  
         </table>
+        <%}else{%>
+          <p id="data-not-found-message">Data could not be found !</p>
+        <%}%>
       </div>
     </div>
-    
-    <!-- <br>
-    <form action="/visualization" method="post">
-      <label for="chosenColumn">Column: </label>
-      <select name="chosenColumn" required>
-        <option value="optionChosen">Option Chosen</option>
-        <option value="categoryChosen">Category Chosen</option>
-        <option value="subCategoryChosen">Sub-Category Chosen</option>
-      </select>
-      <button type="submit">Generate Chart</button>
-    </form>
-    <br> -->
   </body>
 </html>

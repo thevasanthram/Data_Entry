@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./filtering.css" />
+    <title>Data Entry System</title>
+  </head>
+  <body>
+    <div>
+      <div class="nav-bar">
+        <div class="user-mode">
+          <div class="button-logout-content">
+            <form action="/logout" method="get">
+              <button type="submit" class="button-logout">Log-out</button>
+            </form>
+          </div>
+          <div id="user-mode-name">
+            <p><%= username %></p>
+          </div>
+        </div>
+        <div class="app-name-div">
+          <h2 id="app-name">Data Entry System</h2>
+        </div>
+      </div>
+      <div id="title-name-content">
+        <p id="title-name">Filtering Condition :</p>
+      </div>
+      <div class="filtering-content">
+        <form action="/filtered-result-temp" method="post">
+          <div class="bodyNumber-content">
+            <p>Body Number :</p>
+            <select name="bodyNumber" id="bodyNumber">
+              <option selected disabled hidden>Select Body Number</option>
+              <% for(let i=0; i<bodyNumberList.length; i++){ %>
+                <option value="<%= bodyNumberList[i]%>"><%= bodyNumberList[i]%></option>
+              <%}%>
+            </select>
+          </div>
+          <div class="category-content">
+            <p>Category :</p>
+            <select name="category" id="category">
+              <option selected disabled hidden>Select Category</option>
+              <% for(let i=0; i<categoryChosenList.length; i++){ %>
+                <option value="<%= categoryChosenList[i]%>"><%= categoryChosenList[i]%></option>
+              <%}%>
+            </select>
+          </div>
+          <div class="subcategory-content">
+            <p>Sub Category :</p>
+            <select name="subcategory" id="subcategory">
+              <option selected disabled hidden>Select Sub-Category</option>
+              <% for(let i=0; i<subCategoryChosenList.length; i++){ %>
+                <option value="<%= subCategoryChosenList[i]%>"><%= subCategoryChosenList[i]%></option>
+              <%}%>
+            </select>
+          </div>
+          <div class="defectarea-content">
+            <p>Defect Area :</p>
+            <select name="defectarea" id="defectarea">
+              <option selected disabled hidden>Select Defect Area</option>
+              <% for(let i=0; i<defectAreaList.length; i++){ %>
+                <option value="<%= defectAreaList[i]%>"><%= defectAreaList[i]%></option>
+              <%}%>
+            </select>
+          </div>
+          <div class="time-content">
+            <div class="radio-button-content">
+              <input type="radio" name="dateSelectingMode" id="available-date-radio-button" value="available-date-mode">
+              <p>Available Date :</p>
+              <select name="availableDate" id="time">
+                <option selected disabled hidden>Select Available Date</option>
+              <% for(let i=0; i<timeList.length; i++){ %>
+                <option value="<%= timeList[i]%>"><%= timeList[i]%></option>
+              <%}%>
+              </select>
+            </div>
+            <div class="radio-button-content">
+              <input type="radio" name="dateSelectingMode" id="from-to-date-radio-button" value="from-to-date-mode">
+              <p>From: </p>
+              <input type="date" name="fromDate" id="fromdate">
+              <p>To: </p>
+              <input type="date" name="toDate" id="fromdate">
+            </div>
+          </div>
+          <div class="username-content">
+            <p>Created By :</p>
+            <select name="username" id="username">
+              <option selected disabled hidden>Select Created By</option>
+              <% for(let i=0; i<usernameList.length; i++){ %>
+                <option value="<%= usernameList[i]%>"><%= usernameList[i]%></option>
+              <%}%>
+            </select>
+          </div>
+          <button type="submit" id="filter-submit-button">Filter</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- <br>
+    <form action="/visualization" method="post">
+      <label for="chosenColumn">Column: </label>
+      <select name="chosenColumn" required>
+        <option value="optionChosen">Option Chosen</option>
+        <option value="categoryChosen">Category Chosen</option>
+        <option value="subCategoryChosen">Sub-Category Chosen</option>
+      </select>
+      <button type="submit">Generate Chart</button>
+    </form>
+    <br> -->
+  </body>
+</html>

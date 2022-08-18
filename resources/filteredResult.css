@@ -66,6 +66,13 @@ body {
   scrollbar-color: black white;
 }
 
+#data-not-found-message{
+  margin-top: 18%;
+  margin-left: 35%;
+  font-size: 200%;
+  color: black;
+}
+
 #table-data {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;

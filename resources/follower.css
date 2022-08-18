@@ -30,13 +30,25 @@ body {
 
 .user-mode {
   float: right;
-  width: auto;
   padding: 10px;
 }
 
 #user-mode-name {
+  float: left;
   font-size: 200%;
   color: #61dafb;
+}
+
+.button-logout-content {
+  float: right;
+}
+
+.button-logout {
+  color: white;
+  background-color: black;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  margin-top: 25%;
 }
 
 .form-content {

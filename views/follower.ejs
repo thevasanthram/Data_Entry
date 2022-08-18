@@ -11,7 +11,14 @@
     <div>
       <div class="nav-bar">
         <div class="user-mode">
-          <p id="user-mode-name"><%= username %></p>
+          <div class="button-logout-content">
+            <form action="/logout" method="get">
+              <button type="submit" class="button-logout">Log-out</button>
+            </form>
+          </div>
+          <div id="user-mode-name">
+            <p><%= username %></p>
+          </div>
         </div>
         <div class="app-name-div">
           <h2 id="app-name">Data Entry System</h2>
@@ -21,7 +28,7 @@
         <form action="/firstlayer" method="post">
           <label for="bodyNumber" id="bodyNumber">Enter Body Number :</label>
           <input type="number" name="bodyNumber" maxlength="4" required />
-          <button id ='body-number-submit-button' type="submit">Enter</button>
+          <button id="body-number-submit-button" type="submit">Enter</button>
         </form>
       </div>
     </div>

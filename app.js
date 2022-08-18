@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const DataSchema = require('./DataSchema');
+const { time } = require('console');
 
 const app = express();
 app.use(express.json());
@@ -127,27 +128,39 @@ let username = ' ';
 let enteredBodyNumber = 0;
 let selectedCategory = '';
 let selectedSubCategory = '';
-let selectedSubCategoryGlobal = '';
+let defectArea = '';
 
 let Data;
 
 app.get('/', (req, res) => {
-  res.render(path.join(__dirname, '/views/home.ejs'));
+  try {
+    res.render(path.join(__dirname, '/views/home.ejs'));
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.post('/login', (req, res) => {
-  username = req.body.username;
-  const password = req.body.password;
+  try {
+    username = req.body.username;
+    const password = req.body.password;
 
-  if (username == 'Administrator') {
-    res.redirect('/administrator');
-  } else {
-    res.redirect('/follower');
+    if (username == 'Administrator') {
+      res.redirect('/administrator');
+    } else {
+      res.redirect('/follower');
+    }
+  } catch (err) {
+    console.log(err);
   }
 });
 
 app.get('/follower', (req, res) => {
-  res.render(path.join(__dirname, '/views/follower.ejs'), { username });
+  try {
+    res.render(path.join(__dirname, '/views/follower.ejs'), { username });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.post('/firstlayer', (req, res) => {
@@ -183,7 +196,7 @@ app.post('/secondlayer', (req, res) => {
 
 app.post('/selectsubcategory', (req, res) => {
   try {
-    const selectedSubCategory = req.body.selectedCategory;
+    selectedSubCategory = req.body.selectedSubCategory;
 
     var SubCategoryOptions = Options[selectedCategory];
     SubCategoryOptions = SubCategoryOptions[selectedSubCategory];
@@ -204,11 +217,7 @@ app.post('/selectsubcategory', (req, res) => {
 
 app.post('/handlesave', (req, res) => {
   try {
-    selectedSubCategoryGlobal = req.body.ShortlistedSubCategoryOption;
-
-    // console.log('selectedBodyNumber:', selectedCategory);
-    // console.log('selectedCategory: ', selectedSubCategory);
-    // console.log('selectedSubCategory: ', selectedSubCategoryGlobal);
+    defectArea = req.body.defectAreaChosen;
 
     res.render(path.join(__dirname, '/views/handleSave.ejs'));
   } catch (err) {
@@ -217,87 +226,321 @@ app.post('/handlesave', (req, res) => {
 });
 
 app.post('/store', async (req, res) => {
-  const handlesave = req.body.handlesave;
-  if (handlesave == 'yes') {
-    await DataSchema.create({
-      optionChosen: selectedCategory,
-      categoryChosen: selectedSubCategory,
-      subCategoryChosen: selectedSubCategoryGlobal,
-    });
+  try {
+    const handlesave = req.body.handlesave;
 
-    res.render(path.join(__dirname, '/views/result.ejs'));
-  } else {
-    res.redirect('/follower');
+    if (handlesave == 'yes') {
+      const currentdate = new Date();
+      const date =
+        String(currentdate.getFullYear()) +
+        '-' +
+        (currentdate.getMonth() + 1 <= 9
+          ? '0' + Number(currentdate.getMonth() + 1)
+          : Number(currentdate.getMonth() + 1)) +
+        '-' +
+        String(currentdate.getDate());
+
+      const time =
+        String(currentdate.getHours()) +
+        ':' +
+        String(currentdate.getMinutes()) +
+        ':' +
+        String(currentdate.getSeconds());
+
+      await DataSchema.create({
+        bodyNumber: enteredBodyNumber,
+        categoryChosen: selectedCategory,
+        subCategoryChosen: selectedSubCategory,
+        defectArea: defectArea,
+        date: date,
+        time: time,
+        username: username,
+      });
+
+      res.render(path.join(__dirname, '/views/result.ejs'));
+    } else {
+      enteredBodyNumber = 0;
+      selectedCategory = '';
+      selectedSubCategory = '';
+      selectedSubCategoryGlobal = '';
+      res.redirect('/follower');
+    }
+  } catch (err) {
+    console.log(err);
   }
 });
 
 app.get('/administrator', async (req, res) => {
-  Data = await DataSchema.find();
-  // console.log(Data);
-
-  res.render(path.join(__dirname, '/views/admin.ejs'), { username });
+  try {
+    if (username == 'Administrator') {
+      Data = await DataSchema.find();
+      res.render(path.join(__dirname, '/views/admin.ejs'), { username });
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-app.get('/lookup', (req, res) => {
-  res.render(path.join(__dirname, '/views/lookup.ejs'), {
-    data: Data,
-    username,
-  });
+app.get('/lookup', async (req, res) => {
+  try {
+    Data = await DataSchema.find();
+    if (username == 'Administrator') {
+      res.render(path.join(__dirname, '/views/lookup.ejs'), {
+        data: Data,
+        username,
+      });
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-app.get('/filtering', (req, res) => {
-  res.render(path.join(__dirname, '/views/statistics.ejs'), { data: Data });
+app.get('/filtering', async (req, res) => {
+  try {
+    // console.log(Data);
+
+    if (username == 'Administrator') {
+      Data = await DataSchema.find();
+      let bodyNumberList = [];
+      let categoryChosenList = [];
+      let subCategoryChosenList = [];
+      let defectAreaList = [];
+      let timeList = [];
+      let usernameList = [];
+
+      for (let i = 0; i < Data.length; i++) {
+        if (!bodyNumberList.includes(Data[i].bodyNumber))
+          bodyNumberList.push(Data[i].bodyNumber);
+        if (!categoryChosenList.includes(Data[i].categoryChosen))
+          categoryChosenList.push(Data[i].categoryChosen);
+        if (!subCategoryChosenList.includes(Data[i].subCategoryChosen))
+          subCategoryChosenList.push(Data[i].subCategoryChosen);
+        if (!defectAreaList.includes(Data[i].defectArea))
+          defectAreaList.push(Data[i].defectArea);
+        if (!timeList.includes(Data[0].date)) {
+          timeList.push(Data[0].date);
+        }
+        if (!usernameList.includes(Data[i].username))
+          usernameList.push(Data[i].username);
+      }
+
+      bodyNumberList.sort();
+      categoryChosenList.sort();
+      subCategoryChosenList.sort();
+      defectAreaList.sort();
+      timeList.sort();
+      usernameList.sort();
+
+      res.render(path.join(__dirname, '/views/filtering.ejs'), {
+        bodyNumberList,
+        categoryChosenList,
+        subCategoryChosenList,
+        defectAreaList,
+        timeList,
+        usernameList,
+        username,
+      });
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/filtered-result-temp', (req, res) => {
+  try {
+    if (username == 'Administrator') {
+      let fetchedRecords = [];
+      let dateSelectingMode = req.body.dateSelectingMode;
+      const fromDateCondition = req.body.fromDate;
+      const toDateCondition = req.body.toDate;
+
+      let definedCondition = {
+        bodyNumber: req.body.bodyNumber,
+        categoryChosen: req.body.category,
+        subCategoryChosen: req.body.subcategory,
+        defectArea: req.body.defectarea,
+        date: req.body.availableDate,
+        username: req.body.username,
+      };
+
+      Object.keys(definedCondition).forEach((key) => {
+        if (definedCondition[key] == null || definedCondition[key] == '') {
+          delete definedCondition[key];
+        }
+      });
+
+      if (dateSelectingMode == 'from-to-date-mode') {
+        fromDateParser = fromDateCondition.split('-');
+        toDateParser = toDateCondition.split('-');
+        delete definedCondition['date'];
+      }
+
+      let definedConditionKeys = Object.keys(definedCondition);
+      let definedConditionValues = Object.values(definedCondition);
+
+      let exceptionalCase = false;
+      let dataFetching = false;
+      if (dateSelectingMode == undefined && definedConditionKeys.length == 0) {
+        exceptionalCase = true;
+      }
+
+      for (let i = 0; i < Data.length; i++) {
+        let count = 0;
+        let count2 = 0;
+
+        if (dateSelectingMode == 'from-to-date-mode') {
+          savedDateParser = Data[i].date.split('-');
+        }
+
+        for (let j = 0; j < definedConditionKeys.length; j++) {
+          if (definedConditionValues[j] == Data[i][definedConditionKeys[j]]) {
+            count++;
+          }
+        }
+
+        if (dateSelectingMode == 'from-to-date-mode') {
+          if (
+            fromDateParser[0] <= savedDateParser[0] &&
+            fromDateParser[1] <= savedDateParser[1] &&
+            fromDateParser[2] <= savedDateParser[2] &&
+            toDateParser[0] >= savedDateParser[0] &&
+            toDateParser[1] >= savedDateParser[1] &&
+            toDateParser[2] >= savedDateParser[2]
+          ) {
+            count2++;
+          }
+
+          if (count == definedConditionKeys.length && count2 == 1) {
+            fetchedRecords.push(Data[i]);
+            dataFetching = true;
+          }
+        } else if (dateSelectingMode == 'available-date-mode') {
+          if (definedConditionKeys.length > 0) {
+            if (count == definedConditionKeys.length) {
+              fetchedRecords.push(Data[i]);
+              dataFetching = true;
+            }
+          }
+        } else if (dateSelectingMode == undefined) {
+          if (count == definedConditionKeys.length) {
+            fetchedRecords.push(Data[i]);
+            dataFetching = true;
+          }
+        } else if (exceptionalCase) {
+          fetchedRecords.push(Data[i]);
+          dataFetching = true;
+        }
+      }
+      res.render(path.join(__dirname, './views/filteredResult.ejs'), {
+        data: fetchedRecords,
+        username,
+        dataFetching,
+      });
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.get('/visualization', (req, res) => {
-  res.render(path.join(__dirname, '/views/statistics.ejs'), { data: Data });
+  try {
+    if (username == 'Administrator') {
+      res.render(path.join(__dirname, '/views/statistics.ejs'), { data: Data });
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.post('/delete', async (req, res) => {
-  const deleteOption = req.body.optionChosen;
-  const deleteCategoryChosen = req.body.categoryChosen;
-  const deleteSubCategoryChosen = req.body.subCategoryChosen;
-  await DataSchema.deleteOne({
-    optionChosen: deleteOption,
-    categoryChosen: deleteCategoryChosen,
-    subCategoryChosen: deleteSubCategoryChosen,
-  });
+  try {
+    if (username == 'Administrator') {
+      const deleteBodyNumber = req.body.bodyNumber;
+      const deleteCategoryChosen = req.body.categoryChosen;
+      const deleteSubCategoryChosen = req.body.subCategoryChosen;
+      const deleteDefectArea = req.body.defectArea;
+      const deleteDate = req.body.date;
+      const deleteTime = req.body.time;
+      const deleteUsername = req.body.username;
 
-  Data = await DataSchema.find();
+      // console.log(deleteOption, deleteCategoryChosen, deleteSubCategoryChosen);
 
-  res.redirect('/lookup');
+      await DataSchema.deleteOne({
+        bodyNumber: deleteBodyNumber,
+        categoryChosen: deleteCategoryChosen,
+        subCategoryChosen: deleteSubCategoryChosen,
+        defectArea: deleteDefectArea,
+        date: deleteDate,
+        time: deleteTime,
+        username: deleteUsername,
+      });
+
+      res.redirect('/lookup');
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.post('/visualization', async (req, res) => {
-  const column = req.body.chosenColumn;
+  try {
+    if (username == 'Administrator') {
+      const column = req.body.chosenColumn;
 
-  const Data = await DataSchema.find();
+      const Data = await DataSchema.find();
 
-  const columnData = [];
-  for (let i = 0; i < Data.length; i++) {
-    columnData.push(Data[i].optionChosen);
+      const columnData = [];
+      for (let i = 0; i < Data.length; i++) {
+        columnData.push(Data[i].optionChosen);
+      }
+
+      let uniquevalues = new Set(columnData);
+      uniquevalues = Array.from(uniquevalues);
+
+      // creating an object with unique values for counting occurrence
+      let columnDataObj = {};
+      for (let i = 0; i < uniquevalues.length; i++) {
+        columnDataObj[`${uniquevalues[i]}`] = 0;
+      }
+
+      //counting each unique values occurrence
+      for (let i = 0; i < columnData.length; i++) {
+        columnDataObj[`${columnData[i]}`]++;
+      }
+
+      let occurrence = Object.values(columnDataObj);
+
+      res.render(path.join(__dirname, '/views/chart.ejs'), {
+        xvalues: uniquevalues,
+        yvalues: occurrence,
+      });
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.log(err);
   }
+});
 
-  let uniquevalues = new Set(columnData);
-  uniquevalues = Array.from(uniquevalues);
-
-  // creating an object with unique values for counting occurrence
-  let columnDataObj = {};
-  for (let i = 0; i < uniquevalues.length; i++) {
-    columnDataObj[`${uniquevalues[i]}`] = 0;
+app.get('/logout', (req, res) => {
+  try {
+    username = '';
+    res.redirect('/');
+  } catch (err) {
+    console.log(err);
   }
-
-  //counting each unique values occurrence
-  for (let i = 0; i < columnData.length; i++) {
-    columnDataObj[`${columnData[i]}`]++;
-  }
-
-  let occurrence = Object.values(columnDataObj);
-
-  res.render(path.join(__dirname, '/views/chart.ejs'), {
-    xvalues: uniquevalues,
-    yvalues: occurrence,
-  });
 });
 
 app.listen(8000, () => {
