@@ -56,5 +56,260 @@ body {
 }
 
 .filtering-content {
+  color: black;
+  font-size: 150%;
+  background-color: #47494d;
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 70%;
   margin-left: 15%;
+  margin-top: 2%;
 }
+
+.bodyNumber-content {
+  padding: 0.5%;
+  margin-left: 30%;
+}
+
+#bodyNumber {
+  float: left;
+  margin-right: 2%;
+}
+
+#bodyNumber-input {
+  margin-top: 0.5%;
+  appearance: none;
+  background-color: rgb(27, 27, 27);
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 0;
+  padding: 0.5%;
+  width: 25%;
+  font-family: inherit;
+  font-size: 80%;
+  color: white;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+.category-content {
+  padding: 0.5%;
+  float: left;
+  margin-left: 10%;
+  margin-top: 4%;
+}
+
+#category {
+  float: left;
+  margin-right: 2%;
+}
+
+#category-input {
+  appearance: none;
+  background-color: rgb(27, 27, 27);
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 0;
+  padding: 0.5%;
+  width: 42%;
+  font-family: inherit;
+  font-size: 80%;
+  color: white;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+.subcategory-content {
+  padding: 0.5%;
+  margin-left: 50%;
+  margin-top: 4%;
+}
+
+#subcategory {
+  float: left;
+  margin-right: 2%;
+}
+
+#subcategory-input {
+  appearance: none;
+  background-color: rgb(27, 27, 27);
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 0;
+  padding: 0.5%;
+  width: 35%;
+  font-family: inherit;
+  font-size: 80%;
+  color: white;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+.defectarea-content {
+  padding: 0.5%;
+  float: left;
+  margin-left: 10%;
+  margin-top: 4%;
+}
+
+#defectarea {
+  float: left;
+  margin-right: 2%;
+}
+
+#defectarea-input {
+  appearance: none;
+  background-color: rgb(27, 27, 27);
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 0;
+  padding: 0.5%;
+  width: 50%;
+  font-family: inherit;
+  font-size: 80%;
+  color: white;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+.username-content {
+  padding: 0.5%;
+  margin-left: 50%;
+  margin-top: 4%;
+}
+
+#username {
+  float: left;
+  margin-right: 2%;
+}
+
+#username-input {
+  appearance: none;
+  background-color: rgb(27, 27, 27);
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 0;
+  padding: 0.5%;
+  width: 30%;
+  font-family: inherit;
+  font-size: 80%;
+  color: white;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+.time-content {
+  padding: 0.5%;
+  margin-top: 1%;
+}
+
+.available-mode-content {
+  padding: 0.5%;
+  float: left;
+  margin-left: 9%;
+  margin-top: 2%;
+}
+
+#available-date-radio-button {
+  margin-top: 3%;
+  float: left;
+}
+
+#available-date-mode-topic {
+  margin-left: 6%;
+}
+
+.available-date-content {
+  margin-top: 10%;
+  margin-left: 30px;
+}
+
+#available-date-topic {
+  float: left;
+  margin-right: 2%;
+}
+
+#available-date-input {
+  appearance: none;
+  background-color: rgb(27, 27, 27);
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 0;
+  padding: 0.5%;
+  width: 50%;
+  font-family: inherit;
+  font-size: 80%;
+  color: white;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+.from-to-mode-content {
+  padding: 0.5%;
+  margin-left: 50%;
+  margin-top: 2%;
+}
+
+#from-to-date-radio-button {
+  margin-top: 2%;
+  float: left;
+}
+
+#from-to-mode-topic {
+  margin-left: 4%;
+}
+
+.from-date-to-date-content-holder {
+  margin-top: 7%;
+  margin-left: 5%;
+}
+
+.from-date-content {
+  float: left;
+}
+
+#from-date-topic {
+  float: left;
+}
+
+#from-date-input {
+  margin-left: 10px;
+}
+
+.to-date-content {
+  margin-top: 2%;
+  margin-left: 5%;
+}
+
+#to-date-topic {
+  float: left;
+  margin-left: 10%;
+}
+
+#to-date-input {
+  margin-left: 2%;
+}
+
+#filter-submit-button {
+  font-size: 100%;
+  margin-top: 4%;
+  margin-bottom: 2%;
+  margin-left: 42%;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  color: white;
+  background-color: black;
+  border: 2px solid #64666a;
+  border-radius: 4px;
+}
+
+#filter-submit-button:hover {
+  cursor: pointer;
+  transition-duration: 0.5s;
+}
+
+/* select.decorated option:hover {
+  background-color: #47494d;
+} */
