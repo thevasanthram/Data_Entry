@@ -27,6 +27,30 @@
       <div id="title-name-content">
         <p id="title-name">Filtering Condition :</p>
       </div>
+      <div class="filtering-condition-content">
+        <div class="filtering-condition-form">
+          <form action="/filtered-result" method="post">
+            <div class="from-date-condition-content">
+              <p id="from-date-condition-topic">From :</p>
+              <input type="date" name="fromDateCondition" id="from-date-condition-input" required/>
+             </div>
+            <div class="to-date-condition-content">
+              <p id="to-date-condition-topic">To :</p>
+              <input type="date" name="toDateCondition" id="to-date-condition-input" required />
+            </div>
+            <div class="chart-condition-content">
+              <p id="chart-Condition-topic"> Chart :</p>
+              <div id="chart-condition-select-content">
+                <select name="chartCondition" id="chart-condition-input">
+                  <option value="bar">Bar Chart</option>
+                  <option value="pie">Pie Chart</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" id="filtering-condition-submit-button">Filter</button>
+        </div>
+          </form>
+      </div>
     </div>
   </body>
 </html>

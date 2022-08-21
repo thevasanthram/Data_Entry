@@ -32,6 +32,326 @@
         <p id="title-name">Select Defect Area :</p>
       </div>
       <div class="main-content">
+        <form action="/receive-thirdLayer-temp" method="post">
+          <div class="defect-category-content">
+            <button
+              type="button"
+              class="defect-category"
+              style="background-color: #3b3b3b; color: black"
+              onclick="defectCategorySwitch('surface')"
+            >
+              Surface
+            </button>
+            <button
+              type="button"
+              class="defect-category"
+              onclick="defectCategorySwitch('bodyFitting')"
+            >
+              Body Fitting
+            </button>
+            <button
+              type="button"
+              class="defect-category"
+              onclick="defectCategorySwitch('missingWrongPart')"
+            >
+              Missing & Wrong Part
+            </button>
+            <button
+              type="button"
+              class="defect-category"
+              onclick="defectCategorySwitch('welding')"
+            >
+              Welding
+            </button>
+            <button
+              type="button"
+              class="defect-category"
+              onclick="defectCategorySwitch('waterLeak')"
+            >
+              Water Leak
+            </button>
+          </div>
+          <div class="sub-content">
+            <div id="surface" class="defectName">
+              <div>
+                <button
+                  type="button"
+                  class="sub-defect-category surface-buttons"
+                  style="background-color: #3b3b3b; color: black"
+                  onclick="subdefectCategorySwitch(event,'surface-dent')"
+                >
+                  Dent
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category surface-buttons"
+                  onclick="subdefectCategorySwitch(event,'surface-bump')"
+                >
+                  Bump
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category surface-buttons"
+                  onclick="subdefectCategorySwitch(event,'surface-burrs')"
+                >
+                  Burrs
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category surface-buttons"
+                  onclick="subdefectCategorySwitch(event,'surface-spatters')"
+                >
+                  Spatters
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category surface-buttons"
+                  onclick="subdefectCategorySwitch(event,'surface-others')"
+                >
+                  Others
+                </button>
+              </div>
+
+              <div id="surface-dent" class="surface">
+                <input type="checkbox" name="something" value="1" />
+                <p>Zone 1</p>
+                <input type="checkbox" name="something" value="2" />
+                <p>Zone 2</p>
+                <input type="checkbox" name="something" value="3" />
+                <p>Zone 3</p>
+              </div>
+              <div id="surface-bump" class="surface" style="display: none">
+                <p>Surface - Bump</p>
+              </div>
+              <div id="surface-burrs" class="surface" style="display: none">
+                <p>Surface - Burrs</p>
+              </div>
+              <div id="surface-spatters" class="surface" style="display: none">
+                <p>Surface - Spatters</p>
+              </div>
+              <div id="surface-others" class="surface" style="display: none">
+                <p>Surface - Others</p>
+              </div>
+            </div>
+            <div id="bodyFitting" class="defectName" style="display: none">
+              <div>
+                <button
+                  type="button"
+                  class="sub-defect-category bodyFitting-buttons"
+                  style="background-color: #3b3b3b; color: black"
+                  onclick="subdefectCategorySwitch(event,'body-fitting-1')"
+                >
+                  Body Fitting 1
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category bodyFitting-buttons"
+                  onclick="subdefectCategorySwitch(event,'body-fitting-2')"
+                >
+                  Body Fitting 2
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category bodyFitting-buttons"
+                  onclick="subdefectCategorySwitch(event,'body-fitting-others')"
+                >
+                  Body Fitting Others
+                </button>
+              </div>
+
+              <div id="body-fitting-1" class="bodyFitting">
+                <p>Body Fitting 1</p>
+              </div>
+              <div
+                id="body-fitting-2"
+                class="bodyFitting"
+                style="display: none"
+              >
+                <p>Body Fitting 2</p>
+              </div>
+              <div
+                id="body-fitting-others"
+                class="bodyFitting"
+                style="display: none"
+              >
+                <p>Body Fitting Others</p>
+              </div>
+            </div>
+            <div id="missingWrongPart" class="defectName" style="display: none">
+              <div>
+                <button
+                  type="button"
+                  class="sub-defect-category missingWrongPart-buttons"
+                  style="background-color: #3b3b3b; color: black"
+                  onclick="subdefectCategorySwitch(event,'missing-part')"
+                >
+                  Missing Part
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category missingWrongPart-buttons"
+                  onclick="subdefectCategorySwitch(event,'wrong-part')"
+                >
+                  Wrong Part
+                </button>
+              </div>
+
+              <div id="missing-part" class="missingWrongPart">
+                <p>Missing Part</p>
+              </div>
+              <div
+                id="wrong-part"
+                class="missingWrongPart"
+                style="display: none"
+              >
+                <p>Wrong Part</p>
+              </div>
+            </div>
+            <div id="welding" class="defectName" style="display: none">
+              <div>
+                <button
+                  type="button"
+                  class="sub-defect-category welding-buttons"
+                  style="background-color: #3b3b3b; color: black"
+                  onclick="subdefectCategorySwitch(event,'welding-part-1')"
+                >
+                  Welding Part 1
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category welding-buttons"
+                  onclick="subdefectCategorySwitch(event,'welding-part-2')"
+                >
+                  Welding Part 2
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category welding-buttons"
+                  onclick="subdefectCategorySwitch(event,'welding-part-3')"
+                >
+                  Welding Part 3
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category welding-buttons"
+                  onclick="subdefectCategorySwitch(event,'welding-part-others')"
+                >
+                  Welding Part Others
+                </button>
+              </div>
+
+              <div id="welding-part-1" class="welding">
+                <p>Welding Part 1</p>
+              </div>
+              <div id="welding-part-2" class="welding" style="display: none">
+                <p>Welding Part 2</p>
+              </div>
+              <div id="welding-part-3" class="welding" style="display: none">
+                <p>Welding Part 3</p>
+              </div>
+              <div
+                id="welding-part-others"
+                class="welding"
+                style="display: none"
+              >
+                <p>Welding Part Others</p>
+              </div>
+            </div>
+            <div id="waterLeak" class="defectName" style="display: none">
+              <div>
+                <button
+                  type="button"
+                  class="sub-defect-category waterLeak-buttons"
+                  style="background-color: #3b3b3b; color: black"
+                  onclick="subdefectCategorySwitch(event,'water-leak-1')"
+                >
+                  Water Leak 1
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category waterLeak-buttons"
+                  onclick="subdefectCategorySwitch(event,'water-leak-2')"
+                >
+                  Water Leak 2
+                </button>
+                <button
+                  type="button"
+                  class="sub-defect-category waterLeak-buttons"
+                  onclick="subdefectCategorySwitch(event,'water-leak-others')"
+                >
+                  Water Leak Others
+                </button>
+              </div>
+
+              <div id="water-leak-1" class="waterLeak">
+                <p>Water Leak 1</p>
+              </div>
+              <div id="water-leak-2" class="waterLeak" style="display: none">
+                <p>Water Leak 2</p>
+              </div>
+              <div
+                id="water-leak-others"
+                class="waterLeak"
+                style="display: none"
+              >
+                <p>Water Leak Others</p>
+              </div>
+            </div>
+          </div>
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function defectCategorySwitch(clickedDefect) {
+        var i;
+        var defectCategory = document.getElementsByClassName('defectName');
+
+        //code block to displaying the selected defect division only
+        for (i = 0; i < defectCategory.length; i++) {
+          defectCategory[i].style.display = 'none';
+        }
+        document.getElementById(clickedDefect).style.display = 'block';
+
+        //code block to highlight the selected defect button only
+        var y = document.getElementsByClassName(event.target.className);
+        for (i = 0; i < y.length; i++) {
+          y[i].style.background = '#000000';
+          y[i].style.color = '#ffffff';
+        }
+        event.target.style.background = '#3B3B3B';
+        event.target.style.color = '#000000';
+      }
+
+      function subdefectCategorySwitch(event, clickedSubDefect) {
+        var i;
+        var subDefectCategory = document.getElementsByClassName(
+          event.target.parentElement.parentElement.id
+        );
+
+        // code block to displaying the selected sub-defect division only
+        for (i = 0; i < subDefectCategory.length; i++) {
+          subDefectCategory[i].style.display = 'none';
+        }
+        document.getElementById(clickedSubDefect).style.display = 'block';
+
+        //code block to highlight the selected sub-defect button only
+        var y = document.getElementsByClassName(
+          event.target.parentElement.parentElement.id + '-buttons'
+        );
+        for (i = 0; i < y.length; i++) {
+          y[i].style.background = '#000000';
+          y[i].style.color = '#ffffff';
+        }
+        event.target.style.background = '#3B3B3B';
+        event.target.style.color = '#000000';
+      }
+    </script>
+  </body>
+</html>
+
+<!-- <div class="main-content">
         <% for(let i = 0 ; i < ShortlistedSubCategoryOptions.length ; i++){ %>
         <form action="/handlesave" method="post">
           <input
@@ -42,10 +362,4 @@
           <button type="submit"><%= ShortlistedSubCategoryOptions[i]%></button>
         </form>
         <%}%>
-      </div>
-    </div>
-    <!-- <form action="/secondlayer" method="get">
-      <button type="submit">Go Back</button>
-    </form> -->
-  </body>
-</html>
+      </div> -->

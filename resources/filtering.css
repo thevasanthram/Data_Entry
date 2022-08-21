@@ -54,3 +54,73 @@ body {
   font-size: 200%;
   color: white;
 }
+
+.filtering-condition-content {
+  margin-left: 20%;
+  margin-top: 2%;
+}
+
+.from-date-condition-content {
+  float: left;
+}
+
+#from-date-condition-topic {
+  font-size: 150%;
+  margin-right: 20px;
+  float: left;
+}
+
+#from-date-condition-input {
+  margin-top: 10px;
+}
+
+.to-date-condition-content {
+  margin-left: 4%;
+  float: left;
+}
+
+#to-date-condition-topic {
+  font-size: 150%;
+  margin-right: 20px;
+  float: left;
+}
+
+#to-date-condition-input {
+  margin-top: 10px;
+}
+
+.chart-condition-content {
+  margin-left: 4%;
+  float: left;
+}
+
+#chart-Condition-topic {
+  font-size: 150%;
+  margin-right: 20px;
+  float: left;
+}
+
+#chart-condition-input {
+  appearance: auto;
+  display: inline-block;
+  margin-top: 3%;
+  background-color: rgb(36, 36, 36);
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 0;
+  padding: 0.5%;
+  width: 50%;
+  font-family: inherit;
+  font-size: 100%;
+  color: white;
+  cursor: pointer;
+  line-height: 150%;
+}
+
+#filtering-condition-submit-button {
+  font-size: 100%;
+  padding: 0.5% 1.5% 0.5% 1.5%;
+  margin-left: 5%;
+  margin-top: 0.3%;
+  cursor: pointer;
+}

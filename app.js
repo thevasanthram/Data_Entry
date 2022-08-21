@@ -215,6 +215,10 @@ app.post('/selectsubcategory', (req, res) => {
   }
 });
 
+app.post('/receive-thirdLayer-temp', (req, res) => {
+  res.send('Page under construction');
+});
+
 app.post('/handlesave', (req, res) => {
   try {
     defectArea = req.body.defectAreaChosen;
@@ -304,44 +308,7 @@ app.get('/filtering', async (req, res) => {
     // console.log(Data);
 
     if (username == 'Administrator') {
-      Data = await DataSchema.find();
-      let bodyNumberList = [];
-      let categoryChosenList = [];
-      let subCategoryChosenList = [];
-      let defectAreaList = [];
-      let timeList = [];
-      let usernameList = [];
-
-      for (let i = 0; i < Data.length; i++) {
-        if (!bodyNumberList.includes(Data[i].bodyNumber))
-          bodyNumberList.push(Data[i].bodyNumber);
-        if (!categoryChosenList.includes(Data[i].categoryChosen))
-          categoryChosenList.push(Data[i].categoryChosen);
-        if (!subCategoryChosenList.includes(Data[i].subCategoryChosen))
-          subCategoryChosenList.push(Data[i].subCategoryChosen);
-        if (!defectAreaList.includes(Data[i].defectArea))
-          defectAreaList.push(Data[i].defectArea);
-        if (!timeList.includes(Data[0].date)) {
-          timeList.push(Data[0].date);
-        }
-        if (!usernameList.includes(Data[i].username))
-          usernameList.push(Data[i].username);
-      }
-
-      bodyNumberList.sort();
-      categoryChosenList.sort();
-      subCategoryChosenList.sort();
-      defectAreaList.sort();
-      timeList.sort();
-      usernameList.sort();
-
       res.render(path.join(__dirname, '/views/filtering.ejs'), {
-        bodyNumberList,
-        categoryChosenList,
-        subCategoryChosenList,
-        defectAreaList,
-        timeList,
-        usernameList,
         username,
       });
     } else {
@@ -352,96 +319,15 @@ app.get('/filtering', async (req, res) => {
   }
 });
 
-app.post('/filtered-result-temp', (req, res) => {
+app.post('/filtered-result', (req, res) => {
   try {
     if (username == 'Administrator') {
-      let fetchedRecords = [];
-      let dateSelectingMode = req.body.dateSelectingMode;
-      const fromDateCondition = req.body.fromDate;
-      const toDateCondition = req.body.toDate;
+      const fromDateCondition = req.body.fromDateCondition;
+      const toDateCondition = req.body.toDateCondition;
+      const chartCondition = req.body.chartCondition;
 
-      let definedCondition = {
-        bodyNumber: req.body.bodyNumber,
-        categoryChosen: req.body.category,
-        subCategoryChosen: req.body.subcategory,
-        defectArea: req.body.defectarea,
-        date: req.body.availableDate,
-        username: req.body.username,
-      };
-
-      Object.keys(definedCondition).forEach((key) => {
-        if (definedCondition[key] == null || definedCondition[key] == '') {
-          delete definedCondition[key];
-        }
-      });
-
-      if (dateSelectingMode == 'from-to-date-mode') {
-        fromDateParser = fromDateCondition.split('-');
-        toDateParser = toDateCondition.split('-');
-        delete definedCondition['date'];
-      }
-
-      let definedConditionKeys = Object.keys(definedCondition);
-      let definedConditionValues = Object.values(definedCondition);
-
-      let exceptionalCase = false;
-      let dataFetching = false;
-      if (dateSelectingMode == undefined && definedConditionKeys.length == 0) {
-        exceptionalCase = true;
-      }
-
-      for (let i = 0; i < Data.length; i++) {
-        let count = 0;
-        let count2 = 0;
-
-        if (dateSelectingMode == 'from-to-date-mode') {
-          savedDateParser = Data[i].date.split('-');
-        }
-
-        for (let j = 0; j < definedConditionKeys.length; j++) {
-          if (definedConditionValues[j] == Data[i][definedConditionKeys[j]]) {
-            count++;
-          }
-        }
-
-        if (dateSelectingMode == 'from-to-date-mode') {
-          if (
-            fromDateParser[0] <= savedDateParser[0] &&
-            fromDateParser[1] <= savedDateParser[1] &&
-            fromDateParser[2] <= savedDateParser[2] &&
-            toDateParser[0] >= savedDateParser[0] &&
-            toDateParser[1] >= savedDateParser[1] &&
-            toDateParser[2] >= savedDateParser[2]
-          ) {
-            count2++;
-          }
-
-          if (count == definedConditionKeys.length && count2 == 1) {
-            fetchedRecords.push(Data[i]);
-            dataFetching = true;
-          }
-        } else if (dateSelectingMode == 'available-date-mode') {
-          if (definedConditionKeys.length > 0) {
-            if (count == definedConditionKeys.length) {
-              fetchedRecords.push(Data[i]);
-              dataFetching = true;
-            }
-          }
-        } else if (dateSelectingMode == undefined) {
-          if (count == definedConditionKeys.length) {
-            fetchedRecords.push(Data[i]);
-            dataFetching = true;
-          }
-        } else if (exceptionalCase) {
-          fetchedRecords.push(Data[i]);
-          dataFetching = true;
-        }
-      }
-      res.render(path.join(__dirname, './views/filteredResult.ejs'), {
-        data: fetchedRecords,
-        username,
-        dataFetching,
-      });
+      // console.log(fromDateCondition, toDateCondition);
+      res.send('Page under construction');
     } else {
       res.redirect('/');
     }
