@@ -82,7 +82,7 @@ body {
 
 .defect-category:hover {
   cursor: pointer;
-  background-color: #3b3b3b !important;
+  background-color: #ffffff !important;
   color: #000000 !important;
 }
 
@@ -102,7 +102,7 @@ body {
 
 .sub-defect-category:hover {
   cursor: pointer;
-  background-color: #3b3b3b !important;
+  background-color: #ffffff !important;
   color: #000000 !important;
 }
 
