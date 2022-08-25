@@ -54,8 +54,18 @@ body {
   margin-top: 25%;
 }
 #title-name-content {
-  margin-left: 10%;
   margin-top: 2%;
+}
+
+#go-back-icon {
+  float: left;
+  margin-left: 4%;
+  margin-right: 3%;
+  width: 3%;
+}
+
+#go-back-icon:hover {
+  cursor: pointer;
 }
 
 #title-name {
@@ -64,13 +74,14 @@ body {
 }
 
 .main-content {
-  width: 60%;
-  margin-left: 20%;
-  margin-top: 3%;
+  width: 70%;
+  margin-left: 15%;
+  margin-top: 1%;
 }
 
 .form-content {
   cursor: pointer;
+  width: 35%;
 }
 
 #second-layer-button-first-set1 {
@@ -203,7 +214,7 @@ body {
   font-size: 130%;
   padding: 2%;
   margin: 1%;
-  margin-left: 40%;
+  margin-left: 32%;
   border: 1px solid #64666a;
   border-radius: 4px;
   background-color: black;

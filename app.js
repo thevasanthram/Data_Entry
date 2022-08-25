@@ -1,22 +1,26 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
-const DataSchema = require('./DataSchema');
-const { time } = require('console');
-
+const pgtools = require('pgtools');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('resources'));
 
-const db = mongoose
-  .connect(
-    'mongodb+srv://admin:admin@dataentry.bclsrir.mongodb.net/?retryWrites=true&w=majority'
-  )
-  .then(console.log('Database connection established'))
-  .catch((err) => {
-    console.log(err);
-  });
+const config = {
+  user: 'postgres',
+  host: 'localhost',
+  password: 'admin',
+  port: 5432,
+};
+
+// pgtools.createdb(config, 'defectDB', function (err, res) {
+//   if (err) {
+//     console.log('Database connection establishment failure');
+//     console.error(err);
+//     process.exit(-1);
+//   }
+//   console.log('Database connection established');
+// });
 
 const Options = {
   'UNDER BODY': {
@@ -79,7 +83,7 @@ const Options = {
   },
 
   'RH SHELL BODY MAIN-LINE': {
-    'FENDER - RH': ['D3A', 'D3B', 'D3C', 'D3D'],
+    'FENDER - RH': [1, 2, 3, 4, 5, 6, 7],
     'HOOD S/A OUTER': ['D1A', 'D1B', 'D1C', 'D1D'],
     'HOOD S/A INNER': ['D2A', 'D2B', 'D2C', 'D2D'],
     'FRONT DOOR OUTER - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
@@ -89,7 +93,7 @@ const Options = {
   },
 
   'LH SHELL BODY MAIN-LINE': {
-    'FENDER - LH': ['D1A', 'D1B', 'D1C', 'D1D'],
+    'FENDER - LH': [1, 2, 3, 4, 5, 6, 7],
     'FRONT DOOR OUTER - LH': ['D2A', 'D2B', 'D2C', 'D2D'],
     'FRONT DOOR INNER - LH': ['D3A', 'D3B', 'D3C', 'D3D'],
     'REAR DOOR OUTER - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
@@ -203,20 +207,95 @@ app.post('/selectsubcategory', (req, res) => {
 
     ShortlistedSubCategoryOptions = SubCategoryOptions;
 
-    res.render(path.join(__dirname, '/views/thirdLayer.ejs'), {
+    const defectObject = {
+      surface: {
+        name: 'Surface',
+        subdefects: {
+          dent: 'Dent',
+          bump: 'Bump',
+          burrs: 'Burrs',
+          spatters: 'Spatters',
+          others: 'Others',
+        },
+      },
+      bodyFitting: {
+        name: 'Body Fitting',
+        subdefects: {
+          'body-fitting-1': 'Body Fitting 1',
+          'body-fitting-2': 'Body Fitting 2',
+          'body-fitting-others': 'Body Fitting Others',
+        },
+      },
+      missingWrongPart: {
+        name: 'Missing & Wrong Part',
+        subdefects: {
+          'missing-part': 'Missing Part',
+          'wrong-part': 'Wrong Part',
+        },
+      },
+      welding: {
+        name: 'Welding',
+        subdefects: {
+          'welding-part-1': 'Welding Part 1',
+          'welding-part-2': 'Welding Part 2',
+          'welding-part-3': 'Welding Part 3',
+          'welding-part-others': 'Welding Part Others',
+        },
+      },
+      waterLeak: {
+        name: 'Water Leak',
+        subdefects: {
+          'water-leak-1': 'Water Leak 1',
+          'water-leak-2': 'Water Leak 2',
+          'water-leak-others': 'Water Leak Others',
+        },
+      },
+    };
+
+    let categoryId = selectedCategory.replaceAll(' ', '_');
+    let subcategoryId = selectedSubCategory.replaceAll(' ', '');
+
+    console.log(categoryId, subcategoryId);
+
+    res.render(path.join(__dirname, '/views/thirdLayer copy.ejs'), {
       username,
       enteredBodyNumber,
       selectedCategory,
       selectedSubCategory,
+      defectObject,
       ShortlistedSubCategoryOptions,
+      categoryId,
+      subcategoryId,
     });
   } catch (err) {
     console.log(err);
   }
 });
 
-app.post('/receive-thirdLayer-temp', (req, res) => {
-  res.send('Page under construction');
+app.post('/receive-thirdLayer-temp', async (req, res) => {
+  try {
+    let filledDefects = {};
+    let tempSubDefectCategory = {};
+    let defectCategory, subDefectCategory;
+    for (let i in req.body) {
+      defectCategory = i.split('_')[0];
+      subDefectCategory = i.split('_')[1];
+      tempSubDefectCategory[subDefectCategory] = req.body[i];
+      if (filledDefects.hasOwnProperty(defectCategory)) {
+        temp = filledDefects[defectCategory];
+        temp[subDefectCategory] = req.body[i];
+        filledDefects[defectCategory] = temp;
+        temp = {};
+      } else {
+        filledDefects[defectCategory] = tempSubDefectCategory;
+      }
+      tempSubDefectCategory = {};
+    }
+    res.send(filledDefects);
+    console.log(filledDefects);
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.post('/handlesave', (req, res) => {
@@ -229,196 +308,196 @@ app.post('/handlesave', (req, res) => {
   }
 });
 
-app.post('/store', async (req, res) => {
-  try {
-    const handlesave = req.body.handlesave;
+// app.post('/store', async (req, res) => {
+//   try {
+//     const handlesave = req.body.handlesave;
 
-    if (handlesave == 'yes') {
-      const currentdate = new Date();
-      const date =
-        String(currentdate.getFullYear()) +
-        '-' +
-        (currentdate.getMonth() + 1 <= 9
-          ? '0' + Number(currentdate.getMonth() + 1)
-          : Number(currentdate.getMonth() + 1)) +
-        '-' +
-        String(currentdate.getDate());
+//     if (handlesave == 'yes') {
+//       const currentdate = new Date();
+//       const date =
+//         String(currentdate.getFullYear()) +
+//         '-' +
+//         (currentdate.getMonth() + 1 <= 9
+//           ? '0' + Number(currentdate.getMonth() + 1)
+//           : Number(currentdate.getMonth() + 1)) +
+//         '-' +
+//         String(currentdate.getDate());
 
-      const time =
-        String(currentdate.getHours()) +
-        ':' +
-        String(currentdate.getMinutes()) +
-        ':' +
-        String(currentdate.getSeconds());
+//       const time =
+//         String(currentdate.getHours()) +
+//         ':' +
+//         String(currentdate.getMinutes()) +
+//         ':' +
+//         String(currentdate.getSeconds());
 
-      await DataSchema.create({
-        bodyNumber: enteredBodyNumber,
-        categoryChosen: selectedCategory,
-        subCategoryChosen: selectedSubCategory,
-        defectArea: defectArea,
-        date: date,
-        time: time,
-        username: username,
-      });
+//       await DataSchema.create({
+//         bodyNumber: enteredBodyNumber,
+//         categoryChosen: selectedCategory,
+//         subCategoryChosen: selectedSubCategory,
+//         defectArea: defectArea,
+//         date: date,
+//         time: time,
+//         username: username,
+//       });
 
-      res.render(path.join(__dirname, '/views/result.ejs'));
-    } else {
-      enteredBodyNumber = 0;
-      selectedCategory = '';
-      selectedSubCategory = '';
-      selectedSubCategoryGlobal = '';
-      res.redirect('/follower');
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+//       res.render(path.join(__dirname, '/views/result.ejs'));
+//     } else {
+//       enteredBodyNumber = 0;
+//       selectedCategory = '';
+//       selectedSubCategory = '';
+//       selectedSubCategoryGlobal = '';
+//       res.redirect('/follower');
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
-app.get('/administrator', async (req, res) => {
-  try {
-    if (username == 'Administrator') {
-      Data = await DataSchema.find();
-      res.render(path.join(__dirname, '/views/admin.ejs'), { username });
-    } else {
-      res.redirect('/');
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+// app.get('/administrator', async (req, res) => {
+//   try {
+//     if (username == 'Administrator') {
+//       Data = await DataSchema.find();
+//       res.render(path.join(__dirname, '/views/admin.ejs'), { username });
+//     } else {
+//       res.redirect('/');
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
-app.get('/lookup', async (req, res) => {
-  try {
-    Data = await DataSchema.find();
-    if (username == 'Administrator') {
-      res.render(path.join(__dirname, '/views/lookup.ejs'), {
-        data: Data,
-        username,
-      });
-    } else {
-      res.redirect('/');
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+// app.get('/lookup', async (req, res) => {
+//   try {
+//     Data = await DataSchema.find();
+//     if (username == 'Administrator') {
+//       res.render(path.join(__dirname, '/views/lookup.ejs'), {
+//         data: Data,
+//         username,
+//       });
+//     } else {
+//       res.redirect('/');
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
-app.get('/filtering', async (req, res) => {
-  try {
-    // console.log(Data);
+// app.get('/filtering', async (req, res) => {
+//   try {
+//     // console.log(Data);
 
-    if (username == 'Administrator') {
-      res.render(path.join(__dirname, '/views/filtering.ejs'), {
-        username,
-      });
-    } else {
-      res.redirect('/');
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+//     if (username == 'Administrator') {
+//       res.render(path.join(__dirname, '/views/filtering.ejs'), {
+//         username,
+//       });
+//     } else {
+//       res.redirect('/');
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
-app.post('/filtered-result', (req, res) => {
-  try {
-    if (username == 'Administrator') {
-      const fromDateCondition = req.body.fromDateCondition;
-      const toDateCondition = req.body.toDateCondition;
-      const chartCondition = req.body.chartCondition;
+// app.post('/filtered-result', (req, res) => {
+//   try {
+//     if (username == 'Administrator') {
+//       const fromDateCondition = req.body.fromDateCondition;
+//       const toDateCondition = req.body.toDateCondition;
+//       const chartCondition = req.body.chartCondition;
 
-      // console.log(fromDateCondition, toDateCondition);
-      res.send('Page under construction');
-    } else {
-      res.redirect('/');
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+//       // console.log(fromDateCondition, toDateCondition);
+//       res.send('Page under construction');
+//     } else {
+//       res.redirect('/');
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
-app.get('/visualization', (req, res) => {
-  try {
-    if (username == 'Administrator') {
-      res.render(path.join(__dirname, '/views/statistics.ejs'), { data: Data });
-    } else {
-      res.redirect('/');
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+// app.get('/visualization', (req, res) => {
+//   try {
+//     if (username == 'Administrator') {
+//       res.render(path.join(__dirname, '/views/statistics.ejs'), { data: Data });
+//     } else {
+//       res.redirect('/');
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
-app.post('/delete', async (req, res) => {
-  try {
-    if (username == 'Administrator') {
-      const deleteBodyNumber = req.body.bodyNumber;
-      const deleteCategoryChosen = req.body.categoryChosen;
-      const deleteSubCategoryChosen = req.body.subCategoryChosen;
-      const deleteDefectArea = req.body.defectArea;
-      const deleteDate = req.body.date;
-      const deleteTime = req.body.time;
-      const deleteUsername = req.body.username;
+// app.post('/delete', async (req, res) => {
+//   try {
+//     if (username == 'Administrator') {
+//       const deleteBodyNumber = req.body.bodyNumber;
+//       const deleteCategoryChosen = req.body.categoryChosen;
+//       const deleteSubCategoryChosen = req.body.subCategoryChosen;
+//       const deleteDefectArea = req.body.defectArea;
+//       const deleteDate = req.body.date;
+//       const deleteTime = req.body.time;
+//       const deleteUsername = req.body.username;
 
-      // console.log(deleteOption, deleteCategoryChosen, deleteSubCategoryChosen);
+//       // console.log(deleteOption, deleteCategoryChosen, deleteSubCategoryChosen);
 
-      await DataSchema.deleteOne({
-        bodyNumber: deleteBodyNumber,
-        categoryChosen: deleteCategoryChosen,
-        subCategoryChosen: deleteSubCategoryChosen,
-        defectArea: deleteDefectArea,
-        date: deleteDate,
-        time: deleteTime,
-        username: deleteUsername,
-      });
+//       await DataSchema.deleteOne({
+//         bodyNumber: deleteBodyNumber,
+//         categoryChosen: deleteCategoryChosen,
+//         subCategoryChosen: deleteSubCategoryChosen,
+//         defectArea: deleteDefectArea,
+//         date: deleteDate,
+//         time: deleteTime,
+//         username: deleteUsername,
+//       });
 
-      res.redirect('/lookup');
-    } else {
-      res.redirect('/');
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+//       res.redirect('/lookup');
+//     } else {
+//       res.redirect('/');
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
-app.post('/visualization', async (req, res) => {
-  try {
-    if (username == 'Administrator') {
-      const column = req.body.chosenColumn;
+// app.post('/visualization', async (req, res) => {
+//   try {
+//     if (username == 'Administrator') {
+//       const column = req.body.chosenColumn;
 
-      const Data = await DataSchema.find();
+//       const Data = await DataSchema.find();
 
-      const columnData = [];
-      for (let i = 0; i < Data.length; i++) {
-        columnData.push(Data[i].optionChosen);
-      }
+//       const columnData = [];
+//       for (let i = 0; i < Data.length; i++) {
+//         columnData.push(Data[i].optionChosen);
+//       }
 
-      let uniquevalues = new Set(columnData);
-      uniquevalues = Array.from(uniquevalues);
+//       let uniquevalues = new Set(columnData);
+//       uniquevalues = Array.from(uniquevalues);
 
-      // creating an object with unique values for counting occurrence
-      let columnDataObj = {};
-      for (let i = 0; i < uniquevalues.length; i++) {
-        columnDataObj[`${uniquevalues[i]}`] = 0;
-      }
+//       // creating an object with unique values for counting occurrence
+//       let columnDataObj = {};
+//       for (let i = 0; i < uniquevalues.length; i++) {
+//         columnDataObj[`${uniquevalues[i]}`] = 0;
+//       }
 
-      //counting each unique values occurrence
-      for (let i = 0; i < columnData.length; i++) {
-        columnDataObj[`${columnData[i]}`]++;
-      }
+//       //counting each unique values occurrence
+//       for (let i = 0; i < columnData.length; i++) {
+//         columnDataObj[`${columnData[i]}`]++;
+//       }
 
-      let occurrence = Object.values(columnDataObj);
+//       let occurrence = Object.values(columnDataObj);
 
-      res.render(path.join(__dirname, '/views/chart.ejs'), {
-        xvalues: uniquevalues,
-        yvalues: occurrence,
-      });
-    } else {
-      res.redirect('/');
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
+//       res.render(path.join(__dirname, '/views/chart.ejs'), {
+//         xvalues: uniquevalues,
+//         yvalues: occurrence,
+//       });
+//     } else {
+//       res.redirect('/');
+//     }
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
 
 app.get('/logout', (req, res) => {
   try {

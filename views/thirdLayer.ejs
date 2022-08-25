@@ -29,10 +29,20 @@
         </div>
       </div>
       <div id="title-name-content">
+        <img
+          src="./arrow.png"
+          id="go-back-icon"
+          alt="Go Back"
+          onclick="history.back()"
+        />
         <p id="title-name">Select Defect Area :</p>
       </div>
       <div class="main-content">
-        <form action="/receive-thirdLayer-temp" method="post">
+        <form
+          id="defectLayerForm"
+          action="/receive-thirdLayer-temp"
+          method="post"
+        >
           <div class="defect-category-content">
             <button
               type="button"
@@ -111,46 +121,141 @@
                   Others
                 </button>
               </div>
-
-              <div id="surface-dent" class="surface">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div id="surface-bump" class="surface" style="display: none">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div id="surface-burrs" class="surface" style="display: none">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div id="surface-spatters" class="surface" style="display: none">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div id="surface-others" class="surface" style="display: none">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
+              <div class="zone-division">
+                <div id="surface-dent" class="surface">
+                  <div class="surfaceDent3" onclick="makeChecked(event)">
+                    <input
+                      type="checkbox"
+                      id="surfaceDent3"
+                      name="surface_Dent"
+                      value="3"
+                    />
+                    <p>3</p>
+                  </div>
+                  <div class="surfaceDent2" onclick="makeChecked(event)">
+                    <input
+                      type="checkbox"
+                      id="surfaceDent2"
+                      name="surface_Dent"
+                      value="2"
+                    />
+                    <p>2</p>
+                  </div>
+                  <div class="surfaceDent4" onclick="makeChecked(event)">
+                    <input
+                      type="checkbox"
+                      id="surfaceDent4"
+                      name="surface_Dent"
+                      value="4"
+                    />
+                    <p>4</p>
+                  </div>
+                  <div class="surfaceDent1" onclick="makeChecked(event)">
+                    <input
+                      type="checkbox"
+                      id="surfaceDent1"
+                      name="surface_Dent"
+                      value="1"
+                    />
+                    <p>1</p>
+                  </div>
+                  <div class="surfaceDent5" onclick="makeChecked(event)">
+                    <input
+                      type="checkbox"
+                      id="surfaceDent5"
+                      name="surface_Dent"
+                      value="5"
+                    />
+                    <p>5</p>
+                  </div>
+                  <div class="surfaceDent6" onclick="makeChecked(event)">
+                    <input
+                      type="checkbox"
+                      id="surfaceDent6"
+                      name="surface_Dent"
+                      value="6"
+                    />
+                    <p>6</p>
+                  </div>
+                  <div class="surfaceDent7" onclick="makeChecked(event)">
+                    <input
+                      type="checkbox"
+                      id="surfaceDent7"
+                      name="surface_Dent"
+                      value="7"
+                    />
+                    <p>7</p>
+                  </div>
+                </div>
+                <div id="surface-bump" class="surface" style="display: none">
+                  <input type="checkbox" name="surface_Bump" value="1" />
+                  <p>1</p>
+                  <input type="checkbox" name="surface_Bump" value="2" />
+                  <p>2</p>
+                  <input type="checkbox" name="surface_Bump" value="3" />
+                  <p>3</p>
+                  <input type="checkbox" name="surface_Bump" value="4" />
+                  <p>4</p>
+                  <input type="checkbox" name="surface_Bump" value="5" />
+                  <p>5</p>
+                  <input type="checkbox" name="surface_Bump" value="6" />
+                  <p>6</p>
+                  <input type="checkbox" name="surface_Bump" value="7" />
+                  <p>7</p>
+                </div>
+                <div id="surface-burrs" class="surface" style="display: none">
+                  <input type="checkbox" name="surface_Burrs" value="1" />
+                  <p>1</p>
+                  <input type="checkbox" name="surface_Burrs" value="2" />
+                  <p>2</p>
+                  <input type="checkbox" name="surface_Burrs" value="3" />
+                  <p>3</p>
+                  <input type="checkbox" name="surface_Burrs" value="3" />
+                  <p>4</p>
+                  <input type="checkbox" name="surface_Burrs" value="4" />
+                  <p>5</p>
+                  <input type="checkbox" name="surface_Burrs" value="5" />
+                  <p>6</p>
+                  <input type="checkbox" name="surface_Burrs" value="6" />
+                  <p>7</p>
+                  <input type="checkbox" name="surface_Burrs" value="7" />
+                </div>
+                <div
+                  id="surface-spatters"
+                  class="surface"
+                  style="display: none"
+                >
+                  <input type="checkbox" name="surface_Spatters" value="1" />
+                  <p>1</p>
+                  <input type="checkbox" name="surface_Spatters" value="2" />
+                  <p>2</p>
+                  <input type="checkbox" name="surface_Spatters" value="3" />
+                  <p>3</p>
+                  <input type="checkbox" name="surface_Spatters" value="4" />
+                  <p>4</p>
+                  <input type="checkbox" name="surface_Spatters" value="5" />
+                  <p>5</p>
+                  <input type="checkbox" name="surface_Spatters" value="6" />
+                  <p>6</p>
+                  <input type="checkbox" name="surface_Spatters" value="7" />
+                  <p>7</p>
+                </div>
+                <div id="surface-others" class="surface" style="display: none">
+                  <input type="checkbox" name="surface_Others" value="1" />
+                  <p>1</p>
+                  <input type="checkbox" name="surface_Others" value="2" />
+                  <p>2</p>
+                  <input type="checkbox" name="surface_Others" value="3" />
+                  <p>3</p>
+                  <input type="checkbox" name="surface_Others" value="4" />
+                  <p>4</p>
+                  <input type="checkbox" name="surface_Others" value="5" />
+                  <p>5</p>
+                  <input type="checkbox" name="surface_Others" value="6" />
+                  <p>6</p>
+                  <input type="checkbox" name="surface_Others" value="7" />
+                  <p>7</p>
+                </div>
               </div>
             </div>
             <div id="bodyFitting" class="defectName" style="display: none">
@@ -179,37 +284,147 @@
                 </button>
               </div>
 
-              <div id="body-fitting-1" class="bodyFitting">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div
-                id="body-fitting-2"
-                class="bodyFitting"
-                style="display: none"
-              >
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div
-                id="body-fitting-others"
-                class="bodyFitting"
-                style="display: none"
-              >
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
+              <div class="zone-division">
+                <div id="body-fitting-1" class="bodyFitting">
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting1"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting1"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting1"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting1"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting1"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting1"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting1"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
+                <div
+                  id="body-fitting-2"
+                  class="bodyFitting"
+                  style="display: none"
+                >
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting2"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting2"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting2"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting2"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting2"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting2"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting2"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
+                <div
+                  id="body-fitting-others"
+                  class="bodyFitting"
+                  style="display: none"
+                >
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting3"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting3"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting3"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting3"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting3"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting3"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="bodyFitting_bodyFitting3"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
               </div>
             </div>
             <div id="missingWrongPart" class="defectName" style="display: none">
@@ -231,25 +446,99 @@
                 </button>
               </div>
 
-              <div id="missing-part" class="missingWrongPart">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div
-                id="wrong-part"
-                class="missingWrongPart"
-                style="display: none"
-              >
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
+              <div class="zone-division">
+                <div id="missing-part" class="missingWrongPart">
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_missingPart"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_missingPart"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_missingPart"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_missingPart"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_missingPart"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_missingPart"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_missingPart"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
+                <div
+                  id="wrong-part"
+                  class="missingWrongPart"
+                  style="display: none"
+                >
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_wrongPart"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_wrongPart"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_wrongPart"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_wrongPart"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_wrongPart"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_wrongPart"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="missingWrongPart_wrongPart"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
               </div>
             </div>
             <div id="welding" class="defectName" style="display: none">
@@ -285,41 +574,187 @@
                 </button>
               </div>
 
-              <div id="welding-part-1" class="welding">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div id="welding-part-2" class="welding" style="display: none">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div id="welding-part-3" class="welding" style="display: none">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div
-                id="welding-part-others"
-                class="welding"
-                style="display: none"
-              >
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
+              <div class="zone-division">
+                <div id="welding-part-1" class="welding">
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart1"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart1"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart1"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart1"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart1"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart1"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart1"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
+                <div id="welding-part-2" class="welding" style="display: none">
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart2"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart2"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart2"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart2"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart2"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart2"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart2"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
+                <div id="welding-part-3" class="welding" style="display: none">
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart3"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart3"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart3"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart3"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart3"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart3"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPart3"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
+                <div
+                  id="welding-part-others"
+                  class="welding"
+                  style="display: none"
+                >
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPartOthers"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPartOthers"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPartOthers"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPartOthers"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPartOthers"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPartOthers"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="welding_weldingPartOthers"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
               </div>
             </div>
             <div id="waterLeak" class="defectName" style="display: none">
@@ -348,37 +783,149 @@
                 </button>
               </div>
 
-              <div id="water-leak-1" class="waterLeak">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div id="water-leak-2" class="waterLeak" style="display: none">
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
-              </div>
-              <div
-                id="water-leak-others"
-                class="waterLeak"
-                style="display: none"
-              >
-                <input type="checkbox" name="something" value="1" />
-                <p>Zone 1</p>
-                <input type="checkbox" name="something" value="2" />
-                <p>Zone 2</p>
-                <input type="checkbox" name="something" value="3" />
-                <p>Zone 3</p>
+              <div class="zone-division">
+                <div id="water-leak-1" class="waterLeak">
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak1"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak1"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak1"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak1"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak1"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak1"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak1"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
+                <div id="water-leak-2" class="waterLeak" style="display: none">
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak2"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak2"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak2"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak2"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak2"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak2"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeak2"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
+                <div
+                  id="water-leak-others"
+                  class="waterLeak"
+                  style="display: none"
+                >
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeakOthers"
+                    value="1"
+                  />
+                  <p>1</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeakOthers"
+                    value="2"
+                  />
+                  <p>2</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeakOthers"
+                    value="3"
+                  />
+                  <p>3</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeakOthers"
+                    value="4"
+                  />
+                  <p>4</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeakOthers"
+                    value="5"
+                  />
+                  <p>5</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeakOthers"
+                    value="6"
+                  />
+                  <p>6</p>
+                  <input
+                    type="checkbox"
+                    name="waterLeak_waterLeakOthers"
+                    value="7"
+                  />
+                  <p>7</p>
+                </div>
               </div>
             </div>
           </div>
-          <button type="submit">Save</button>
+          <button type="button" class="save-button" onclick="handleSave()">
+            Save
+          </button>
         </form>
       </div>
     </div>
@@ -427,19 +974,20 @@
         event.target.style.background = '#ffffff';
         event.target.style.color = '#000000';
       }
+
+      function handleSave() {
+        if (confirm('Confirm saving') == true) {
+          document.getElementById('defectLayerForm').submit();
+        }
+      }
+
+      function makeChecked(event) {
+        if (document.getElementById(event.target.className).checked) {
+          document.getElementById(event.target.className).checked = false;
+        } else {
+          document.getElementById(event.target.className).checked = true;
+        }
+      }
     </script>
   </body>
 </html>
-
-<!-- <div class="main-content">
-        <% for(let i = 0 ; i < ShortlistedSubCategoryOptions.length ; i++){ %>
-        <form action="/handlesave" method="post">
-          <input
-            type="hidden"
-            name="defectAreaChosen"
-            value="<%= ShortlistedSubCategoryOptions[i] %>"
-          />
-          <button type="submit"><%= ShortlistedSubCategoryOptions[i]%></button>
-        </form>
-        <%}%>
-      </div> -->

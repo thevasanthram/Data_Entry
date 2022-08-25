@@ -25,12 +25,28 @@
         </div>
       </div>
       <div class="form-content">
-        <form action="/firstlayer" method="post">
+        <form action="/firstlayer" method="post" id="bodyNumberForm">
           <label for="bodyNumber" id="bodyNumber">Enter Body Number :</label>
           <input type="number" name="bodyNumber" maxlength="4" required />
           <button id="body-number-submit-button" type="submit">Enter</button>
+          <button
+            id="body-number-submit-button"
+            type="button"
+            onclick="passCar()"
+          >
+            Pass
+          </button>
         </form>
       </div>
     </div>
+
+    <script>
+      function passCar() {
+        var bodyNumber = document.getElementsByName('bodyNumber').value;
+        if (confirm('Are you sure want to Pass the Car ?') == true) {
+          document.getElementById('bodyNumberForm').reset();
+        }
+      }
+    </script>
   </body>
 </html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./thirdLayer.css" />
+    <title>Data Entry System</title>
+  </head>
+  <body>
+    <div>
+      <div class="nav-bar">
+        <div class="user-mode">
+          <div class="button-logout-content">
+            <form action="/logout" method="get">
+              <button type="submit" class="button-logout">Log-out</button>
+            </form>
+          </div>
+          <div id="user-mode-name">
+            <p><%= username %></p>
+          </div>
+        </div>
+        <div class="app-name-div">
+          <h2 id="app-name">Data Entry System</h2>
+          <p class="selected-message">
+            Body Number : <%= enteredBodyNumber %> | Category : <%=
+            selectedCategory %> | Sub-Category : <%= selectedSubCategory %>
+          </p>
+        </div>
+      </div>
+      <div id="title-name-content">
+        <img
+          src="./arrow.png"
+          id="go-back-icon"
+          alt="Go Back"
+          onclick="history.back()"
+        />
+        <p id="title-name">Select Defect Area :</p>
+      </div>
+      <div class="main-content">
+        <form
+          id="defectLayerForm"
+          action="/receive-thirdLayer-temp"
+          method="post"
+        >
+          <div class="defect-category-content">
+            <% 
+              const defectListId = Object.keys(defectObject);
+              let subDefectListId = [];
+              let subDefectListName = [];
+            %>
+            <% for (let i=0; i < defectListId.length; i++){%>
+            <button
+              type="button"
+              class="defect-category"
+              id="<%= defectListId[i] %>-main-defect-button"
+              onclick="defectCategorySwitch('<%= defectListId[i] %>')"
+            >
+              <%= defectObject[defectListId[i]].name%>
+            </button>
+            <%}%>
+          </div>
+          <div class="sub-content">
+            <%for ( let i=0; i < defectListId.length; i++){
+              subDefectListId = Object.keys(defectObject[defectListId[i]]['subdefects']);
+              subDefectListName = Object.values(defectObject[defectListId[i]]['subdefects']); %>
+              <div id="<%= defectListId[i] %>" class="defectName" style='display:none'>
+                <div>
+                  <%for (let j = 0; j < subDefectListId.length; j++){%>
+                    <button type="button" class="sub-defect-category <%= defectListId[i] %>-buttons" onclick="subdefectCategorySwitch(event , '<%= defectListId[i] %>-<%= subDefectListId[j] %>')">
+                      <%= subDefectListName[j] %>
+                    </button>
+                  <%}%>
+                </div>
+                <div class="zone-division">
+                  <%for(let k = 0; k < subDefectListId.length; k++){%>
+                    <div id="<%= defectListId[i] %>-<%= subDefectListId[k] %>" class="<%= defectListId[i] %>" style='display:none'>
+                      <% for (let l = 0; l < ShortlistedSubCategoryOptions.length; l++){%>
+                        <div class="<%= categoryId %>_<%= subcategoryId %><%= l+1 %>" onclick="makeChecked(event)">
+                          <input
+                            type="checkbox"
+                            id="<%= defectListId[i] %><%= subDefectListName[k]%><%=l %>"
+                            name="<%= defectListId[i] %>_<%= subDefectListName[k] %>"
+                            value="<%= l+1 %>"
+                          />
+                          <p><%= ShortlistedSubCategoryOptions[l] %></p>
+                        </div>
+                      <%}%>
+                    </div>
+                  <%}%>
+                </div>
+              </div>
+            <%}%>
+          </div>
+          <button type="button" class="save-button" onclick="handleSave()">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // first defect button format (autoselect and auto display)
+      document.getElementById('<%= defectListId[0] %>').removeAttribute('style')
+      document.getElementById('<%= defectListId[0] %>-main-defect-button').style.background = '#ffffff';
+      document.getElementById('<%= defectListId[0] %>-main-defect-button').style.color = '#000000';
+
+      let defectObj = JSON.parse('<%- JSON.stringify(defectObject) %>');
+      const mainDefectId = Object.keys(defectObj);
+
+      // first sub-defect button format (autoselect and auto display)
+      for(let i = 0; i < mainDefectId.length; i++){
+        document.getElementById(mainDefectId[i]+'-'+Object.keys(defectObj[mainDefectId[i]].subdefects)[0]).removeAttribute('style')
+        document.getElementsByClassName(mainDefectId[i]+'-buttons')[0].style.background = '#ffffff';
+        document.getElementsByClassName(mainDefectId[i]+'-buttons')[0].style.color = '#000000';
+      }
+
+      console.log(mainDefectId[0]+'-'+Object.keys(defectObj[mainDefectId[0]].subdefects)[0])
+
+      function defectCategorySwitch(clickedDefect) {
+        var i;
+        var defectCategory = document.getElementsByClassName('defectName');
+
+        //code block to displaying the selected defect division only
+        for (i = 0; i < defectCategory.length; i++) {
+          defectCategory[i].style.display = 'none';
+        }
+        document.getElementById(clickedDefect).style.display = 'block';
+
+        //code block to highlight the selected defect button only
+        var y = document.getElementsByClassName(event.target.className);
+        for (i = 0; i < y.length; i++) {
+          y[i].style.background = '#000000';
+          y[i].style.color = '#ffffff';
+        }
+        event.target.style.background = '#ffffff';
+        event.target.style.color = '#000000';
+      }
+
+      function subdefectCategorySwitch(event, clickedSubDefect) {
+        var i;
+        var subDefectCategory = document.getElementsByClassName(
+          event.target.parentElement.parentElement.id
+        );
+
+        // code block to displaying the selected sub-defect division only
+        for (i = 0; i < subDefectCategory.length; i++) {
+          subDefectCategory[i].style.display = 'none';
+        }
+        document.getElementById(clickedSubDefect).style.display = 'block';
+
+        //code block to highlight the selected sub-defect button only
+        var y = document.getElementsByClassName(
+          event.target.parentElement.parentElement.id + '-buttons'
+        );
+        for (i = 0; i < y.length; i++) {
+          y[i].style.background = '#000000';
+          y[i].style.color = '#ffffff';
+        }
+        event.target.style.background = '#ffffff';
+        event.target.style.color = '#000000';
+      }
+
+      function handleSave() {
+        if (confirm('Confirm saving') == true) {
+          document.getElementById('defectLayerForm').submit();
+        }
+      }
+
+      function makeChecked(event) {
+        if (document.getElementById(event.target.className).checked) {
+          document.getElementById(event.target.className).checked = false;
+        } else {
+          document.getElementById(event.target.className).checked = true;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -55,8 +55,22 @@ body {
 }
 
 #title-name-content {
-  margin-left: 10%;
   margin-top: 2%;
+}
+
+#title-name-content {
+  margin-top: 2%;
+}
+
+#go-back-icon {
+  float: left;
+  margin-left: 4%;
+  margin-right: 3%;
+  width: 3%;
+}
+
+#go-back-icon:hover {
+  cursor: pointer;
 }
 
 #title-name {
@@ -66,15 +80,15 @@ body {
 
 .main-content {
   width: 60%;
-  margin-left: 20%;
-  margin-top: 1%;
+  margin-left: 18%;
+  /* margin-top: 1%; */
 }
 
 #first-layer-button1 {
   font-size: 130%;
   padding: 2%;
   margin: 2%;
-  margin-left: 40%;
+  margin-left: 33%;
   border: 1px solid #64666a;
   border-radius: 4px;
   background-color: black;
@@ -160,4 +174,5 @@ body {
 
 .form-content {
   cursor: pointer;
+  width: 35%;
 }
