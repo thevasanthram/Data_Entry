@@ -169,7 +169,9 @@ app.get('/follower', (req, res) => {
 
 app.post('/firstlayer', (req, res) => {
   try {
-    enteredBodyNumber = req.body.bodyNumber;
+    if (Object.keys(req.body).length > 0) {
+      enteredBodyNumber = req.body.bodyNumber;
+    }
     bodyNumberOptions = Object.keys(Options);
     res.render(path.join(__dirname, '/views/firstLayer.ejs'), {
       username,
@@ -183,7 +185,11 @@ app.post('/firstlayer', (req, res) => {
 
 app.post('/secondlayer', (req, res) => {
   try {
-    selectedCategory = req.body.selectedCategory;
+    if (Object.keys(req.body).length > 0) {
+      selectedCategory = req.body.selectedCategory;
+      console.log(req.body);
+    }
+
     const categoryOptions = Options[selectedCategory];
     let ShortlistedCategoryOptions = Object.keys(categoryOptions);
 
@@ -198,7 +204,7 @@ app.post('/secondlayer', (req, res) => {
   }
 });
 
-app.post('/selectsubcategory', (req, res) => {
+app.post('/thirdlayer', (req, res) => {
   try {
     selectedSubCategory = req.body.selectedSubCategory;
 

@@ -35,7 +35,12 @@
           alt="Go Back"
           onclick="history.back()"
         />
-        <p id="title-name">Select Defect Area :</p>
+        <div>
+          <button type="button" class="save-button" onclick="handleSave()">
+            Save
+          </button>
+          <p id="title-name">Select Defect Area :</p>
+        </div>
       </div>
       <div class="main-content">
         <form
@@ -44,12 +49,12 @@
           method="post"
         >
           <div class="defect-category-content">
-            <% 
-              const defectListId = Object.keys(defectObject);
-              let subDefectListId = [];
-              let subDefectListName = [];
-            %>
-            <% for (let i=0; i < defectListId.length; i++){%>
+            <div class="defect-title-name">
+              <p>Defect:</p>
+            </div>
+            <% const defectListId = Object.keys(defectObject); let
+            subDefectListId = []; let subDefectListName = []; %> <% for (let
+            i=0; i < defectListId.length; i++){%>
             <button
               type="button"
               class="defect-category"
@@ -61,61 +66,104 @@
             <%}%>
           </div>
           <div class="sub-content">
-            <%for ( let i=0; i < defectListId.length; i++){
-              subDefectListId = Object.keys(defectObject[defectListId[i]]['subdefects']);
-              subDefectListName = Object.values(defectObject[defectListId[i]]['subdefects']); %>
-              <div id="<%= defectListId[i] %>" class="defectName" style='display:none'>
-                <div>
-                  <%for (let j = 0; j < subDefectListId.length; j++){%>
-                    <button type="button" class="sub-defect-category <%= defectListId[i] %>-buttons" onclick="subdefectCategorySwitch(event , '<%= defectListId[i] %>-<%= subDefectListId[j] %>')">
-                      <%= subDefectListName[j] %>
-                    </button>
-                  <%}%>
+            <div class="sub-defect-title-name">
+              <p>Sub-Defect:</p>
+            </div>
+            <%for ( let i=0; i < defectListId.length; i++){ subDefectListId =
+            Object.keys(defectObject[defectListId[i]]['subdefects']);
+            subDefectListName =
+            Object.values(defectObject[defectListId[i]]['subdefects']); %>
+            <div
+              id="<%= defectListId[i] %>"
+              class="defectName"
+              style="display: none"
+            >
+              <div>
+                <%for (let j = 0; j < subDefectListId.length; j++){%>
+                <button
+                  type="button"
+                  class="sub-defect-category <%= defectListId[i] %>-buttons"
+                  onclick="subdefectCategorySwitch(event , '<%= defectListId[i] %>-<%= subDefectListId[j] %>')"
+                >
+                  <%= subDefectListName[j] %>
+                </button>
+                <%}%>
+              </div>
+              <div>
+                <div class="zones-title-name">
+                  <p>Zones:</p>
                 </div>
-                <div class="zone-division">
+                <div id="zone-division<%= i+1 %>">
                   <%for(let k = 0; k < subDefectListId.length; k++){%>
-                    <div id="<%= defectListId[i] %>-<%= subDefectListId[k] %>" class="<%= defectListId[i] %>" style='display:none'>
-                      <% for (let l = 0; l < ShortlistedSubCategoryOptions.length; l++){%>
-                        <div class="<%= categoryId %>_<%= subcategoryId %><%= l+1 %>" onclick="makeChecked(event)">
-                          <input
-                            type="checkbox"
-                            id="<%= defectListId[i] %><%= subDefectListName[k]%><%=l %>"
-                            name="<%= defectListId[i] %>_<%= subDefectListName[k] %>"
-                            value="<%= l+1 %>"
-                          />
-                          <p><%= ShortlistedSubCategoryOptions[l] %></p>
-                        </div>
-                      <%}%>
+                  <div
+                    id="<%= defectListId[i] %>-<%= subDefectListId[k] %>"
+                    class="<%= defectListId[i] %>"
+                    style="display: none"
+                  >
+                    <% for (let l = 0; l < ShortlistedSubCategoryOptions.length;
+                    l++){%>
+                    <div
+                      class="<%= categoryId %>_<%= subcategoryId %><%= l+1 %>"
+                      id="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
+                      onclick="makeChecked(event)"
+                    >
+                      <input
+                        type="checkbox"
+                        class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
+                        name="<%= defectListId[i] %>_<%= subDefectListName[k] %>"
+                        value="<%= l+1 %>"
+                      />
+                      <p><%= ShortlistedSubCategoryOptions[l] %></p>
                     </div>
+                    <%}%>
+                  </div>
                   <%}%>
                 </div>
               </div>
+            </div>
             <%}%>
           </div>
-          <button type="button" class="save-button" onclick="handleSave()">
-            Save
-          </button>
         </form>
       </div>
     </div>
 
     <script>
       // first defect button format (autoselect and auto display)
-      document.getElementById('<%= defectListId[0] %>').removeAttribute('style')
-      document.getElementById('<%= defectListId[0] %>-main-defect-button').style.background = '#ffffff';
-      document.getElementById('<%= defectListId[0] %>-main-defect-button').style.color = '#000000';
+      document
+        .getElementById('<%= defectListId[0] %>')
+        .removeAttribute('style');
+      document.getElementById(
+        '<%= defectListId[0] %>-main-defect-button'
+      ).style.background = '#ffffff';
+      document.getElementById(
+        '<%= defectListId[0] %>-main-defect-button'
+      ).style.color = '#000000';
 
       let defectObj = JSON.parse('<%- JSON.stringify(defectObject) %>');
       const mainDefectId = Object.keys(defectObj);
 
       // first sub-defect button format (autoselect and auto display)
-      for(let i = 0; i < mainDefectId.length; i++){
-        document.getElementById(mainDefectId[i]+'-'+Object.keys(defectObj[mainDefectId[i]].subdefects)[0]).removeAttribute('style')
-        document.getElementsByClassName(mainDefectId[i]+'-buttons')[0].style.background = '#ffffff';
-        document.getElementsByClassName(mainDefectId[i]+'-buttons')[0].style.color = '#000000';
+      for (let i = 0; i < mainDefectId.length; i++) {
+        document
+          .getElementById(
+            mainDefectId[i] +
+              '-' +
+              Object.keys(defectObj[mainDefectId[i]].subdefects)[0]
+          )
+          .removeAttribute('style');
+        document.getElementsByClassName(
+          mainDefectId[i] + '-buttons'
+        )[0].style.background = '#ffffff';
+        document.getElementsByClassName(
+          mainDefectId[i] + '-buttons'
+        )[0].style.color = '#000000';
       }
 
-      console.log(mainDefectId[0]+'-'+Object.keys(defectObj[mainDefectId[0]].subdefects)[0])
+      // code to set corresponding background image for zone-divisions
+      for (let i = 1; i <= mainDefectId.length; i++) {
+        document.getElementById('zone-division' + i).style.backgroundImage =
+          'url(<%= categoryId %>_<%= subcategoryId %>.jpg)';
+      }
 
       function defectCategorySwitch(clickedDefect) {
         var i;
@@ -168,10 +216,11 @@
       }
 
       function makeChecked(event) {
-        if (document.getElementById(event.target.className).checked) {
-          document.getElementById(event.target.className).checked = false;
+        console.log(document.getElementById(event.target.id));
+        if (document.getElementsByClassName(event.target.id)[0].checked) {
+          document.getElementsByClassName(event.target.id)[0].checked = false;
         } else {
-          document.getElementById(event.target.className).checked = true;
+          document.getElementsByClassName(event.target.id)[0].checked = true;
         }
       }
     </script>
