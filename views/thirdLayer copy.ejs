@@ -50,7 +50,7 @@
         >
           <div class="defect-category-content">
             <div class="defect-title-name">
-              <p>Defect:</p>
+              <p>Defect :</p>
             </div>
             <% const defectListId = Object.keys(defectObject); let
             subDefectListId = []; let subDefectListName = []; %> <% for (let
@@ -67,7 +67,7 @@
           </div>
           <div class="sub-content">
             <div class="sub-defect-title-name">
-              <p>Sub-Defect:</p>
+              <p>Sub-Defect :</p>
             </div>
             <%for ( let i=0; i < defectListId.length; i++){ subDefectListId =
             Object.keys(defectObject[defectListId[i]]['subdefects']);
@@ -91,7 +91,7 @@
               </div>
               <div>
                 <div class="zones-title-name">
-                  <p>Zones:</p>
+                  <p>Zones</p>
                 </div>
                 <div id="zone-division<%= i+1 %>">
                   <%for(let k = 0; k < subDefectListId.length; k++){%>

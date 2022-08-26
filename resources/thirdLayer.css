@@ -72,7 +72,6 @@ body {
   width: 30%;
   font-size: 200%;
   color: white;
-  margin-bottom: 2%;
 }
 
 .main-content {
@@ -147,8 +146,8 @@ body {
   clear: left;
   font-size: 170%;
   color: white;
-  margin-top: 17%;
-  margin-right: 2%;
+  margin-top: 1%;
+  margin-left: 37%;
   float: left;
 }
 
@@ -160,8 +159,8 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  margin-top: 5%;
-  margin-left: 10.5%;
+  margin-top: 7%;
+  margin-left: 11%;
   width: 35%;
   height: 50%;
   position: absolute;
@@ -180,11 +179,13 @@ input[type='checkbox']:hover {
 .save-button {
   float: right;
   background-color: black;
+  position: absolute;
   color: white;
   border: 1px solid #64666a;
   border-radius: 4px;
-  margin-right: 10%;
-  padding: .7% 1.5% .7% 1.5%;
+  margin-top: 35%;
+  margin-left: 65%;
+  padding: 0.7% 1.5% 0.7% 1.5%;
   font-size: 100%;
 }
 

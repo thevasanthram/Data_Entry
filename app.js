@@ -1,26 +1,59 @@
 const express = require('express');
 const path = require('path');
-const pgtools = require('pgtools');
+const Pool = require('pg').Pool;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('resources'));
 
-const config = {
+const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   password: 'admin',
   port: 5432,
-};
+});
 
-// pgtools.createdb(config, 'defectDB', function (err, res) {
-//   if (err) {
-//     console.log('Database connection establishment failure');
-//     console.error(err);
-//     process.exit(-1);
-//   }
-//   console.log('Database connection established');
-// });
+// creating database and tables if not exists
+pool.query(
+  `SELECT FROM pg_database WHERE datname = 'data_entry_systems'`,
+  (error, results) => {
+    if (error) {
+      throw error;
+    } else {
+      if (results.rowCount == 0) {
+        pool.query(`CREATE DATABASE data_entry_systems`, (err, res) => {
+          if (err) {
+            throw error;
+          } else {
+            console.log('database created');
+            let dbConnectedPool = new Pool({
+              user: 'postgres',
+              host: 'localhost',
+              database: 'data_entry_systems',
+              password: 'admin',
+              port: 5432,
+            });
+
+            dbConnectedPool.query(
+              `CREATE TABLE IF NOT EXISTS defect_table(body_number int , category char(30 )) `,
+              (err, result) => {
+                if (err) {
+                  throw err;
+                } else {
+                  console.log('executed dbConnected Pool');
+                  console.log(result);
+                }
+              }
+            );
+          }
+        });
+        console.log('Database and Table Created & Connection established');
+      } else {
+        console.log('Database connection established');
+      }
+    }
+  }
+);
 
 const Options = {
   'UNDER BODY': {
