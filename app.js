@@ -1,4 +1,5 @@
 const express = require('express');
+const { type } = require('os');
 const path = require('path');
 const Pool = require('pg').Pool;
 const app = express();
@@ -25,7 +26,6 @@ pool.query(
           if (err) {
             throw error;
           } else {
-            console.log('database created');
             let dbConnectedPool = new Pool({
               user: 'postgres',
               host: 'localhost',
@@ -35,19 +35,19 @@ pool.query(
             });
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS defect_table(body_number int , category char(30 )) `,
+              `CREATE TABLE IF NOT EXISTS defect_table(body_number int , mode varchar (8) , category varchar(30), subcategory varchar(30), defect varchar(20), subdefect varchar(20), zones text[], date text, username varchar(30));`,
               (err, result) => {
                 if (err) {
                   throw err;
                 } else {
-                  console.log('executed dbConnected Pool');
-                  console.log(result);
+                  console.log(
+                    'Database and Table Created & Connection established'
+                  );
                 }
               }
             );
           }
         });
-        console.log('Database and Table Created & Connection established');
       } else {
         console.log('Database connection established');
       }
@@ -163,11 +163,9 @@ const Options = {
 let username = ' ';
 
 let enteredBodyNumber = 0;
+let mode = 'online';
 let selectedCategory = '';
 let selectedSubCategory = '';
-let defectArea = '';
-
-let Data;
 
 app.get('/', (req, res) => {
   try {
@@ -220,7 +218,6 @@ app.post('/secondlayer', (req, res) => {
   try {
     if (Object.keys(req.body).length > 0) {
       selectedCategory = req.body.selectedCategory;
-      console.log(req.body);
     }
 
     const categoryOptions = Options[selectedCategory];
@@ -316,6 +313,8 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
     let filledDefects = {};
     let tempSubDefectCategory = {};
     let defectCategory, subDefectCategory;
+    let date = Date();
+
     for (let i in req.body) {
       defectCategory = i.split('_')[0];
       subDefectCategory = i.split('_')[1];
@@ -330,18 +329,66 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
       }
       tempSubDefectCategory = {};
     }
-    res.send(filledDefects);
-    console.log(filledDefects);
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    for (let i in filledDefects) {
+      let subdefects = filledDefects[i];
+      for (let j in subdefects) {
+        if (Array.isArray(subdefects[j])) {
+          console.log(
+            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`
+          );
+          dbConnectedPool.query(
+            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`,
+            (error, result) => {
+              if (error) {
+                console.log(filledDefects);
+                console.log(error);
+              }
+            }
+          );
+        } else {
+          // let temp = [subdefects[j]];
+          // subdefects[j] = temp;
+          console.log(
+            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},${mode},${selectedCategory},${selectedSubCategory},${i},${j},ARRAY[${subdefects[j]}],${date},${username});`
+          );
+          dbConnectedPool.query(
+            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`,
+            (error, results) => {
+              if (error) {
+                console.log(filledDefects);
+                console.log(error);
+              }
+            }
+          );
+        }
+      }
+    }
+
+    selectedCategory = '';
+    selectedSubCategory = '';
+    res.redirect('/redirectedfirstlayer');
   } catch (err) {
     console.log(err);
   }
 });
 
-app.post('/handlesave', (req, res) => {
+app.get('/redirectedfirstlayer', (req, res) => {
   try {
-    defectArea = req.body.defectAreaChosen;
-
-    res.render(path.join(__dirname, '/views/handleSave.ejs'));
+    bodyNumberOptions = Object.keys(Options);
+    res.render(path.join(__dirname, '/views/redirectedFirstLayer.ejs'), {
+      username,
+      enteredBodyNumber,
+      bodyNumberOptions: bodyNumberOptions,
+    });
   } catch (err) {
     console.log(err);
   }

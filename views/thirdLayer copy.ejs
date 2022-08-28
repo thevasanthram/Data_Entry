@@ -36,9 +36,14 @@
           onclick="history.back()"
         />
         <div>
-          <button type="button" class="save-button" onclick="handleSave()">
-            Save
-          </button>
+          <div class="save-reset-content">
+            <button type="button" class="save-button" onclick="handleSave()">
+              Save
+            </button>
+            <button type="button" class="reset-button" onclick="handleReset()">
+              Reset
+            </button>
+          </div>
           <p id="title-name">Select Defect Area :</p>
         </div>
       </div>
@@ -110,8 +115,9 @@
                       <input
                         type="checkbox"
                         class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
-                        name="<%= defectListId[i] %>_<%= subDefectListName[k] %>"
+                        name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>"
                         value="<%= l+1 %>"
+                        required
                       />
                       <p><%= ShortlistedSubCategoryOptions[l] %></p>
                     </div>
@@ -213,6 +219,10 @@
         if (confirm('Confirm saving') == true) {
           document.getElementById('defectLayerForm').submit();
         }
+      }
+
+      function handleReset() {
+        document.getElementById('defectLayerForm').reset();
       }
 
       function makeChecked(event) {

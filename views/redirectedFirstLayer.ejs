@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./firstLayer.css" />
+    <title>Data Entry System</title>
+  </head>
+  <body>
+    <div>
+      <div class="nav-bar">
+        <div class="user-mode">
+          <div class="button-logout-content">
+            <form action="/logout" method="get">
+              <button type="submit" class="button-logout">Log-out</button>
+            </form>
+          </div>
+          <div id="user-mode-name">
+            <p><%= username %></p>
+          </div>
+        </div>
+        <div class="app-name-div">
+          <h2 id="app-name">Data Entry System</h2>
+          <p class="selected-message">Body Number : <%= enteredBodyNumber %></p>
+        </div>
+      </div>
+      <div id="title-name-content">
+        <img
+          src="./arrow.png"
+          id="go-back-icon"
+          alt="Go Back"
+          onclick="document.getElementById('forRedirectingFollower').submit()"
+        />
+        <form
+          action="/follower"
+          method="get"
+          id="forRedirectingFollower"
+        ></form>
+        <p id="title-name">Select Category :</p>
+      </div>
+      <div class="main-content">
+        <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
+        <form action="/secondlayer" method="post">
+          <input
+            type="hidden"
+            name="selectedCategory"
+            value="<%= bodyNumberOptions[i] %>"
+          />
+          <button
+            type="submit"
+            class="form-content"
+            id="first-layer-button<%= i+1 %>"
+          >
+            <%= bodyNumberOptions[i]%>
+          </button>
+        </form>
+        <%}%>
+      </div>
+    </div>
+  </body>
+</html>
