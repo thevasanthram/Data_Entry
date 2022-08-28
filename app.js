@@ -341,35 +341,18 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
     for (let i in filledDefects) {
       let subdefects = filledDefects[i];
       for (let j in subdefects) {
-        if (Array.isArray(subdefects[j])) {
-          console.log(
-            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`
-          );
-          dbConnectedPool.query(
-            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`,
-            (error, result) => {
-              if (error) {
-                console.log(filledDefects);
-                console.log(error);
-              }
+        console.log(
+          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`
+        );
+        dbConnectedPool.query(
+          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`,
+          (error, result) => {
+            if (error) {
+              console.log(filledDefects);
+              console.log(error);
             }
-          );
-        } else {
-          // let temp = [subdefects[j]];
-          // subdefects[j] = temp;
-          console.log(
-            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},${mode},${selectedCategory},${selectedSubCategory},${i},${j},ARRAY[${subdefects[j]}],${date},${username});`
-          );
-          dbConnectedPool.query(
-            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`,
-            (error, results) => {
-              if (error) {
-                console.log(filledDefects);
-                console.log(error);
-              }
-            }
-          );
-        }
+          }
+        );
       }
     }
 

@@ -58,5 +58,16 @@
         <%}%>
       </div>
     </div>
+
+    <script>
+      // alert('Defects Saved');
+
+      if (
+        confirm('Defects Saved. Okay to add more defects to the same car ?') ==
+        false
+      ) {
+        document.getElementById('forRedirectingFollower').submit();
+      }
+    </script>
   </body>
 </html>
