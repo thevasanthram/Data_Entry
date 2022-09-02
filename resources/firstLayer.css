@@ -78,6 +78,32 @@ body {
   color: white;
 }
 
+.connectionMode {
+  position: absolute;
+  margin-top: 3%;
+  margin-left: 75%;
+  font-size: 130%;
+  width: 20%;
+  color: white;
+}
+
+.connectionModeOnline {
+  float: left;
+}
+#onlineModeRadioButton {
+}
+#connectionModeOnlineText {
+  float: right;
+}
+
+.connectionModeOffline {
+  margin-left: 35%;
+}
+#offlineModeRadioButton {
+  margin-top: 5%;
+  float: left;
+}
+
 .main-content {
   width: 60%;
   margin-left: 20%;

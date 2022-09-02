@@ -30,11 +30,24 @@
           <input
             type="number"
             name="bodyNumber"
+            id="bodyNumberfield"
             maxlength="4"
             required
             min="1"
           />
-          <button id="body-number-submit-button" type="submit">Enter</button>
+          <input
+            type="hidden"
+            name="bodyNumberStatus"
+            value=""
+            id="bodyNumberStatus"
+          />
+          <button
+            id="body-number-submit-button"
+            type="button"
+            onclick="submitBodyNumber()"
+          >
+            Enter
+          </button>
           <button
             id="body-number-submit-button"
             type="button"
@@ -45,13 +58,122 @@
         </form>
       </div>
     </div>
+    <div id="message-content">
+      <span id="message"></span>
+    </div>
 
     <script>
+      var bodyNumberRecords;
+
+      function submitBodyNumber() {
+        var BodyNumberform = document.getElementById('bodyNumberForm');
+
+        fetch('http://localhost:8000/bodyNumber', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            enteredBodyNumberValue:
+              document.getElementById('bodyNumberfield').value,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            bodyNumberRecords = data;
+
+            if (data.data.length == 0) {
+              document.getElementById('bodyNumberStatus').value =
+                'newBodyNumber';
+              BodyNumberform.submit();
+            } else {
+              if (data.data[0].status == 'No Defect') {
+                document.getElementById('message').innerHTML =
+                  'Car already passed today';
+                setTimeout(() => {
+                  document.getElementById('message').innerHTML = '';
+                }, 4000);
+              } else {
+                document.getElementById('bodyNumberStatus').value =
+                  'existingBodyNumber';
+                BodyNumberform.submit();
+              }
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
       function passCar() {
-        var bodyNumber = document.getElementsByName('bodyNumber').value;
-        if (confirm('Are you sure want to Pass the Car ?') == true) {
-          document.getElementById('bodyNumberForm').reset();
-        }
+        var BodyNumberform = document.getElementById('bodyNumberForm');
+
+        fetch('http://localhost:8000/bodyNumber', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            enteredBodyNumberValue:
+              document.getElementById('bodyNumberfield').value,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            bodyNumberRecords = data;
+
+            if (data.data.length == 0) {
+              if (confirm('Are you sure want to Pass the Car ?') == true) {
+                document.getElementById('bodyNumberStatus').value =
+                  'newBodyNumber';
+                handlePassCarSave();
+              }
+            } else {
+              if (data.data[0].status == 'No Defect') {
+                document.getElementById('message').innerHTML =
+                  'Car already passed today';
+                setTimeout(() => {
+                  document.getElementById('message').innerHTML = '';
+                }, 4000);
+              } else {
+                document.getElementById('message').innerHTML =
+                  'Car has defects today';
+                setTimeout(() => {
+                  document.getElementById('message').innerHTML = '';
+                }, 4000);
+              }
+            }
+            // console.log(bodyNumberRecords);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+
+      function handlePassCarSave() {
+        var bodyNumberValue = document.getElementById('bodyNumberfield').value;
+        var bodyNumberStatus =
+          document.getElementById('bodyNumberStatus').value;
+
+        fetch('http://localhost:8000/passcar', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            bodyNumber: bodyNumberValue,
+            bodyNumberStatus: bodyNumberStatus,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data.status == 'success');
+            alert('Car Passed with no defects');
+            document.getElementById('bodyNumberForm').reset();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     </script>
   </body>

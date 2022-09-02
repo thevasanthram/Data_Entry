@@ -94,3 +94,10 @@ select {
 #body-number-submit-button:hover {
   cursor: pointer;
 }
+
+#message-content {
+  position: absolute;
+  color: rgb(249, 28, 28);
+  margin-left: 40.5%;
+  font-style: italic;
+}

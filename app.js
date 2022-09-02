@@ -1,6 +1,8 @@
+const { json } = require('body-parser');
 const express = require('express');
 const { type } = require('os');
 const path = require('path');
+const { user } = require('pg/lib/defaults');
 const Pool = require('pg').Pool;
 const app = express();
 app.use(express.json());
@@ -13,7 +15,7 @@ const pool = new Pool({
   password: 'admin',
   port: 5432,
 });
-
+console.log('Wait few seconds for database connection');
 // creating database and tables if not exists
 pool.query(
   `SELECT FROM pg_database WHERE datname = 'data_entry_systems'`,
@@ -35,14 +37,23 @@ pool.query(
             });
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS defect_table(body_number int , mode varchar (8) , category varchar(30), subcategory varchar(30), defect varchar(20), subdefect varchar(20), zones text[], date text, username varchar(30));`,
+              `CREATE TABLE IF NOT EXISTS defect_table(body_number int , mode varchar (8) , category varchar(30), subcategory varchar(30), defect varchar(20), subdefect varchar(20), zones text[], date varchar(10), time varchar(8), username varchar(30));`,
               (err, result) => {
                 if (err) {
                   throw err;
                 } else {
-                  console.log(
-                    'Database and Table Created & Connection established'
-                  );
+                  console.log('Defect Table Created');
+                }
+              }
+            );
+
+            dbConnectedPool.query(
+              `CREATE TABLE IF NOT EXISTS body_number_table(body_number int , status varchar(10) , date varchar(10), time varchar(8), username varchar(30));`,
+              (err, result) => {
+                if (err) {
+                  throw err;
+                } else {
+                  console.log('Body Number Table Created');
                 }
               }
             );
@@ -166,6 +177,7 @@ let enteredBodyNumber = 0;
 let mode = 'online';
 let selectedCategory = '';
 let selectedSubCategory = '';
+let defectBodyNumberStatus = '';
 
 app.get('/', (req, res) => {
   try {
@@ -181,7 +193,7 @@ app.post('/login', (req, res) => {
     const password = req.body.password;
 
     if (username == 'Administrator') {
-      res.redirect('/administrator');
+      res.redirect('/filter');
     } else {
       res.redirect('/follower');
     }
@@ -198,11 +210,132 @@ app.get('/follower', (req, res) => {
   }
 });
 
+app.post('/bodyNumber', (req, res) => {
+  try {
+    const enteredBodyNumberValue = req.body.enteredBodyNumberValue;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    // console.log(
+    //   `SELECT * FROM body_number_table WHERE body_number=${enteredBodyNumberValue};`
+    // );
+
+    let currentDate = new Date();
+
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      String(currentDate.getDate());
+
+    dbConnectedPool.query(
+      `SELECT * FROM body_number_table WHERE body_number=${enteredBodyNumberValue} and date ='${date}';`,
+      (error, result) => {
+        if (error) {
+          console.log(error);
+        } else {
+          if (result.rows.length == 0) {
+            let response = {
+              status: 'success',
+              data: [],
+            };
+
+            // console.log(JSON.stringify(response));
+
+            res.send(JSON.stringify(response));
+          } else {
+            let response = {
+              status: 'success',
+              data: result.rows,
+            };
+
+            // console.log(JSON.stringify(response));
+
+            res.end(JSON.stringify(response));
+          }
+        }
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/passcar', (req, res) => {
+  try {
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let currentDate = new Date();
+
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      String(currentDate.getDate());
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
+    bodyNumber = req.body.bodyNumber;
+    bodyNumberStatus = req.body.bodyNumberStatus;
+
+    console.log(bodyNumber, bodyNumberStatus);
+
+    if (bodyNumberStatus == 'newBodyNumber') {
+      console.log(
+        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}','${username}')`
+      );
+      dbConnectedPool.query(
+        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}','${username}')`,
+        (error, result) => {
+          if (error) {
+            throw error;
+          } else {
+            // console.log('New Body Number', result);
+          }
+        }
+      );
+    }
+
+    let response = {
+      status: 'success',
+    };
+
+    res.end(JSON.stringify(response));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.post('/firstlayer', (req, res) => {
   try {
     if (Object.keys(req.body).length > 0) {
       enteredBodyNumber = req.body.bodyNumber;
+      defectBodyNumberStatus = req.body.bodyNumberStatus;
     }
+
     bodyNumberOptions = Object.keys(Options);
     res.render(path.join(__dirname, '/views/firstLayer.ejs'), {
       username,
@@ -218,8 +351,8 @@ app.post('/secondlayer', (req, res) => {
   try {
     if (Object.keys(req.body).length > 0) {
       selectedCategory = req.body.selectedCategory;
+      // mode = req.body.connectionMode;
     }
-
     const categoryOptions = Options[selectedCategory];
     let ShortlistedCategoryOptions = Object.keys(categoryOptions);
 
@@ -236,7 +369,11 @@ app.post('/secondlayer', (req, res) => {
 
 app.post('/thirdlayer', (req, res) => {
   try {
-    selectedSubCategory = req.body.selectedSubCategory;
+    if (Object.keys(req.body).length > 0) {
+      selectedSubCategory = req.body.selectedSubCategory;
+    }
+
+    console.log(selectedSubCategory);
 
     var SubCategoryOptions = Options[selectedCategory];
     SubCategoryOptions = SubCategoryOptions[selectedSubCategory];
@@ -313,7 +450,23 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
     let filledDefects = {};
     let tempSubDefectCategory = {};
     let defectCategory, subDefectCategory;
-    let date = Date();
+    let currentDate = new Date();
+
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      String(currentDate.getDate());
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
 
     for (let i in req.body) {
       defectCategory = i.split('_')[0];
@@ -342,13 +495,13 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
       let subdefects = filledDefects[i];
       for (let j in subdefects) {
         console.log(
-          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`
+          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${time}','${username}');`
         );
         dbConnectedPool.query(
-          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${username}');`,
+          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${time}','${username}');`,
           (error, result) => {
             if (error) {
-              console.log(filledDefects);
+              // console.log(filledDefects);
               console.log(error);
             }
           }
@@ -356,8 +509,39 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
       }
     }
 
-    selectedCategory = '';
-    selectedSubCategory = '';
+    console.log(defectBodyNumberStatus);
+
+    if (defectBodyNumberStatus == 'newBodyNumber') {
+      console.log(
+        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`
+      );
+      dbConnectedPool.query(
+        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`,
+        (error, result) => {
+          if (error) {
+            throw error;
+          } else {
+            // console.log('New Body Number', result);
+          }
+        }
+      );
+      defectBodyNumberStatus = 'existingBodyNumber';
+    } else if (defectBodyNumberStatus == 'existingBodyNumber') {
+      console.log(
+        `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`
+      );
+      dbConnectedPool.query(
+        `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`,
+        (error, result) => {
+          if (error) {
+            throw error;
+          } else {
+            // console.log('Body Number Modified', result);
+          }
+        }
+      );
+    }
+
     res.redirect('/redirectedfirstlayer');
   } catch (err) {
     console.log(err);
@@ -377,63 +561,29 @@ app.get('/redirectedfirstlayer', (req, res) => {
   }
 });
 
-// app.post('/store', async (req, res) => {
-//   try {
-//     const handlesave = req.body.handlesave;
+app.get('/administrator', async (req, res) => {
+  try {
+    if (username == 'Administrator') {
+      res.render(path.join(__dirname, '/views/admin.ejs'), { username });
+    } else {
+      res.redirect('/');
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
 
-//     if (handlesave == 'yes') {
-//       const currentdate = new Date();
-//       const date =
-//         String(currentdate.getFullYear()) +
-//         '-' +
-//         (currentdate.getMonth() + 1 <= 9
-//           ? '0' + Number(currentdate.getMonth() + 1)
-//           : Number(currentdate.getMonth() + 1)) +
-//         '-' +
-//         String(currentdate.getDate());
-
-//       const time =
-//         String(currentdate.getHours()) +
-//         ':' +
-//         String(currentdate.getMinutes()) +
-//         ':' +
-//         String(currentdate.getSeconds());
-
-//       await DataSchema.create({
-//         bodyNumber: enteredBodyNumber,
-//         categoryChosen: selectedCategory,
-//         subCategoryChosen: selectedSubCategory,
-//         defectArea: defectArea,
-//         date: date,
-//         time: time,
-//         username: username,
-//       });
-
-//       res.render(path.join(__dirname, '/views/result.ejs'));
-//     } else {
-//       enteredBodyNumber = 0;
-//       selectedCategory = '';
-//       selectedSubCategory = '';
-//       selectedSubCategoryGlobal = '';
-//       res.redirect('/follower');
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-
-// app.get('/administrator', async (req, res) => {
-//   try {
-//     if (username == 'Administrator') {
-//       Data = await DataSchema.find();
-//       res.render(path.join(__dirname, '/views/admin.ejs'), { username });
-//     } else {
-//       res.redirect('/');
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
+app.get('/filter', async (req, res) => {
+  try {
+    if (username == 'Administrator') {
+      res.render(path.join(__dirname, '/views/filtering.ejs'), { username });
+    } else {
+      res.send('Enter as Administrator mode');
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 // app.get('/lookup', async (req, res) => {
 //   try {
@@ -459,35 +609,6 @@ app.get('/redirectedfirstlayer', (req, res) => {
 //       res.render(path.join(__dirname, '/views/filtering.ejs'), {
 //         username,
 //       });
-//     } else {
-//       res.redirect('/');
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-
-// app.post('/filtered-result', (req, res) => {
-//   try {
-//     if (username == 'Administrator') {
-//       const fromDateCondition = req.body.fromDateCondition;
-//       const toDateCondition = req.body.toDateCondition;
-//       const chartCondition = req.body.chartCondition;
-
-//       // console.log(fromDateCondition, toDateCondition);
-//       res.send('Page under construction');
-//     } else {
-//       res.redirect('/');
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-
-// app.get('/visualization', (req, res) => {
-//   try {
-//     if (username == 'Administrator') {
-//       res.render(path.join(__dirname, '/views/statistics.ejs'), { data: Data });
 //     } else {
 //       res.redirect('/');
 //     }

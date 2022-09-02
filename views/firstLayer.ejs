@@ -25,6 +25,29 @@
           <p class="selected-message">Body Number : <%= enteredBodyNumber %></p>
         </div>
       </div>
+      <div class="connectionMode">
+        <div class="connectionModeOnline">
+          <input
+            type="radio"
+            form="firstLayerForm"
+            name="connectionMode"
+            value="online"
+            id="onlineModeRadioButton"
+            checked="true"
+          />
+          <p id="connectionModeOnlineText">Online</p>
+        </div>
+        <div class="connectionModeOffline">
+          <input
+            type="radio"
+            form="firstLayerForm"
+            name="connectionMode"
+            value="offline"
+            id="offlineModeRadioButton"
+          />
+          <p>Offline</p>
+        </div>
+      </div>
       <div id="title-name-content">
         <img
           src="./arrow.png"
@@ -34,9 +57,10 @@
         />
         <p id="title-name">Select Category :</p>
       </div>
+
       <div class="main-content">
         <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
-        <form action="/secondlayer" method="post">
+        <form action="/secondlayer" id="firstLayerForm" method="post">
           <input
             type="hidden"
             name="selectedCategory"
@@ -53,5 +77,19 @@
         <%}%>
       </div>
     </div>
+
+    <script>
+      function setConnectionMode(event) {
+        var radioElement = event.target;
+
+        var hiddenConnectionRadio = document.getElementById(
+          'hiddenConnectionMode'
+        );
+
+        hiddenConnectionRadio.value = radioElement.value;
+
+        console.log(hiddenConnectionRadio.value);
+      }
+    </script>
   </body>
 </html>

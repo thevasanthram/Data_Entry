@@ -46,8 +46,9 @@ body {
 }
 
 #title-name-content {
-  margin-left: 10%;
-  margin-top: 2%;
+  margin-left: 8%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 #title-name {
@@ -56,8 +57,11 @@ body {
 }
 
 .filtering-condition-content {
-  margin-left: 20%;
-  margin-top: 2%;
+  color: white;
+  position: absolute;
+  width: 70%;
+  margin-left: 28.5%;
+  margin-top: -3.25%;
 }
 
 .from-date-condition-content {
@@ -71,11 +75,12 @@ body {
 }
 
 #from-date-condition-input {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .to-date-condition-content {
   margin-left: 4%;
+  margin-top: 0.1%;
   float: left;
 }
 
@@ -86,23 +91,31 @@ body {
 }
 
 #to-date-condition-input {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .chart-condition-content {
+  margin-top: -0.4%;
   margin-left: 4%;
   float: left;
 }
 
 #chart-Condition-topic {
   font-size: 150%;
+  margin-top: 5%;
   margin-right: 20px;
   float: left;
 }
 
+#chart-condition-select-content {
+  position: absolute;
+  margin-left: 9%;
+  margin-top: 0.8%;
+  width: 45%;
+}
+
 #chart-condition-input {
   appearance: auto;
-  display: inline-block;
   margin-top: 3%;
   background-color: rgb(36, 36, 36);
   border: 1px solid black;
@@ -114,13 +127,30 @@ body {
   font-size: 100%;
   color: white;
   cursor: pointer;
-  line-height: 150%;
 }
 
 #filtering-condition-submit-button {
-  font-size: 100%;
+  position: absolute;
+  font-size: 130%;
   padding: 0.5% 1.5% 0.5% 1.5%;
-  margin-left: 5%;
-  margin-top: 0.3%;
+  margin-left: 25%;
+  margin-top: -0.1%;
   cursor: pointer;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+}
+
+#filtering-condition-submit-button:active {
+  transform: scale(0.98);
+}
+
+.report-content {
+  background-color: rgb(111, 111, 111);
+  position: absolute;
+  overflow-y: auto;
+  height: 79%;
+  width: 100%;
 }

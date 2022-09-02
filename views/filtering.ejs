@@ -29,7 +29,7 @@
       </div>
       <div class="filtering-condition-content">
         <div class="filtering-condition-form">
-          <form action="/filtered-result" method="post">
+          <form action="/filtered-result" method="post" id="filterForm">
             <div class="from-date-condition-content">
               <p id="from-date-condition-topic">From :</p>
               <input type="date" name="fromDateCondition" id="from-date-condition-input" required/>
@@ -39,18 +39,73 @@
               <input type="date" name="toDateCondition" id="to-date-condition-input" required />
             </div>
             <div class="chart-condition-content">
-              <p id="chart-Condition-topic"> Chart :</p>
+              <p id="chart-Condition-topic"> Report :</p>
               <div id="chart-condition-select-content">
-                <select name="chartCondition" id="chart-condition-input">
-                  <option value="bar">Bar Chart</option>
-                  <option value="pie">Pie Chart</option>
+                <select name="chartCondition" id="chart-condition-input" required>
+                  <option value="dpv">DPV (Defects Per Vehicle)</option>
+                  <option value="master">Master Report</option>
+                  <option value="pareto">Pareto Report</option>
+                  <option value="surface">Surface Summary</option>
+                  <option value="bodyFitting">Body Fitting Summary</option>
+                  <option value="missingWrongPart">Missing & Wrong Part Summary</option>
+                  <option value="welding">Welding Summary</option>
+                  <option value="waterLeak">Water Leak Summary</option>
                 </select>
               </div>
             </div>
-            <button type="submit" id="filtering-condition-submit-button">Filter</button>
-        </div>
-          </form>
+          </div>
+          <button type="button" id="filtering-condition-submit-button" onclick="validate()">Generate</button>
+        </form>
+      </div>
+      <div class="report-content">
+        
       </div>
     </div>
+
+    <script>
+      function validate(){
+        var filterForm = document.getElementById('filterForm')
+
+        if (!filterForm.checkValidity()) {
+          if (filterForm.reportValidity) {
+            filterForm.reportValidity();
+          } else {
+            alert(msg.ieErrorForm);
+          }
+        } else {
+          generateReport()
+        }
+      }
+
+      function generateReport(){
+        var report = document.getElementById('chart-condition-input').value;
+        switch(report){
+          case 'dpv': dpv(); break;
+          case 'master': master(); break;
+          case 'pareto': pareto(); break;
+          case 'surface': individualSummary('surface'); break;
+          case 'bodyFitting': individualSummary('bodyFitting'); break;
+          case 'missingWrongPart': individualSummary('missingWrongPart'); break;
+          case 'welding': individualSummary('welding'); break;
+          case 'waterLeak': individualSummary('waterLeak'); break;
+          default: break;
+        }
+      }
+
+      function dpv(){
+        console.log('dpv');
+      }
+
+      function master(){
+        console.log('master');
+      }
+      function pareto(){ 
+        console.log('pareto');
+      }
+      function individualSummary(SummaryName){
+        console.log(SummaryName);
+      }
+    </script>
+
   </body>
 </html>
