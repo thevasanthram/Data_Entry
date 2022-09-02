@@ -93,7 +93,32 @@
       }
 
       function dpv(){
-        console.log('dpv');
+        var fromDate = document.getElementById('from-date-condition-input').value
+        var toDate = document.getElementById('to-date-condition-input').value
+
+        var querySender = {
+          'UB': [`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Surface';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Body Fitting';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Missing & Wrong Part';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Welding';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Water Leak';`],
+          'MB': [`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Water Leak'`],
+          'SB SA': [`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Water Leak'`],
+          'SB ML': [`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Water Leak'`],
+          'SM': [`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Water Leak'`],
+        }
+        
+        fetch('http://localhost:8000/reportDataProvider', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            querySender,
+            fromDate,
+            toDate,
+          })
+        }).then((response) => response.json()).then((data) => {
+          console.log(data)
+        }).catch((error) => {
+          console.log(error)
+        })
       }
 
       function master(){

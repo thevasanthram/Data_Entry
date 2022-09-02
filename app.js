@@ -1,8 +1,10 @@
 const { json } = require('body-parser');
+const { count } = require('console');
+const { query } = require('express');
 const express = require('express');
 const { type } = require('os');
 const path = require('path');
-const { user } = require('pg/lib/defaults');
+const { user, password } = require('pg/lib/defaults');
 const Pool = require('pg').Pool;
 const app = express();
 app.use(express.json());
@@ -289,7 +291,9 @@ app.post('/passcar', (req, res) => {
         ? '0' + Number(currentDate.getMonth() + 1)
         : Number(currentDate.getMonth() + 1)) +
       '-' +
-      String(currentDate.getDate());
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
 
     const time =
       String(currentDate.getHours()) +
@@ -459,7 +463,9 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
         ? '0' + Number(currentDate.getMonth() + 1)
         : Number(currentDate.getMonth() + 1)) +
       '-' +
-      String(currentDate.getDate());
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
 
     const time =
       String(currentDate.getHours()) +
@@ -580,6 +586,63 @@ app.get('/filter', async (req, res) => {
     } else {
       res.send('Enter as Administrator mode');
     }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/reportDataProvider', async (req, res) => {
+  try {
+    const queryReceiver = req.body.querySender;
+    const fromDate = req.body.fromDate;
+    const toDate = req.body.toDate;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let queryResult = {
+      UB: [],
+      MB: [],
+      'SB SA': [],
+      'SB ML': [],
+      SM: [],
+    };
+
+    for (let i in queryReceiver) {
+      let queryReceiverValue = queryReceiver[i];
+      for (let j = 0; j < queryReceiverValue.length; j++) {
+        dbConnectedPool.query(queryReceiverValue[j], (error, result) => {
+          if (error) {
+            throw error;
+          } else {
+            let fetchedRows = result.rows;
+            let defectsCount = 0;
+            for (let k = 0; k < fetchedRows.length; k++) {
+              if (
+                Date.parse(fetchedRows[k].date) <= Date.parse(toDate) &&
+                Date.parse(fetchedRows[k].date) >= Date.parse(fromDate)
+              ) {
+                defectsCount += fetchedRows[k].zones.length;
+              }
+            }
+            queryResult[i].push(defectsCount);
+            console.log(queryResult);
+          }
+        });
+      }
+    }
+
+    res.end(
+      JSON.stringify({
+        status: 'success',
+        data: queryResult,
+      })
+    );
   } catch (err) {
     console.log(err);
   }

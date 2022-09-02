@@ -148,7 +148,7 @@ body {
 }
 
 .report-content {
-  background-color: rgb(111, 111, 111);
+  background-color: rgba(0, 0, 0, 0.386);
   position: absolute;
   overflow-y: auto;
   height: 79%;
