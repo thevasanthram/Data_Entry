@@ -591,56 +591,63 @@ app.get('/filter', async (req, res) => {
   }
 });
 
+async function dataFetcher(queryReceiver, fromDate, toDate) {
+  let dbConnectedPool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'data_entry_systems',
+    password: 'admin',
+    port: 5432,
+  });
+
+  let queryResult = {
+    UB: [],
+    MB: [],
+    'SB SA': [],
+    'SB ML': [],
+    SM: [],
+  };
+
+  for (let i in queryReceiver) {
+    let queryReceiverValue = queryReceiver[i];
+    for (let j = 0; j < queryReceiverValue.length; j++) {
+      dbConnectedPool.query(queryReceiverValue[j], (error, result) => {
+        if (error) {
+          throw error;
+        } else {
+          let fetchedRows = result.rows;
+          let defectsCount = 0;
+          for (let k = 0; k < fetchedRows.length; k++) {
+            if (
+              Date.parse(fetchedRows[k].date) <= Date.parse(toDate) &&
+              Date.parse(fetchedRows[k].date) >= Date.parse(fromDate)
+            ) {
+              defectsCount += fetchedRows[k].zones.length;
+            }
+          }
+          queryResult[i].push(defectsCount);
+        }
+      });
+    }
+  }
+
+  return queryResult;
+}
+
 app.post('/reportDataProvider', async (req, res) => {
   try {
     const queryReceiver = req.body.querySender;
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
 
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
-
-    let queryResult = {
-      UB: [],
-      MB: [],
-      'SB SA': [],
-      'SB ML': [],
-      SM: [],
-    };
-
-    for (let i in queryReceiver) {
-      let queryReceiverValue = queryReceiver[i];
-      for (let j = 0; j < queryReceiverValue.length; j++) {
-        dbConnectedPool.query(queryReceiverValue[j], (error, result) => {
-          if (error) {
-            throw error;
-          } else {
-            let fetchedRows = result.rows;
-            let defectsCount = 0;
-            for (let k = 0; k < fetchedRows.length; k++) {
-              if (
-                Date.parse(fetchedRows[k].date) <= Date.parse(toDate) &&
-                Date.parse(fetchedRows[k].date) >= Date.parse(fromDate)
-              ) {
-                defectsCount += fetchedRows[k].zones.length;
-              }
-            }
-            queryResult[i].push(defectsCount);
-            console.log(queryResult);
-          }
-        });
-      }
-    }
+    dataFetcher(queryReceiver, fromDate, toDate)
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
 
     res.end(
       JSON.stringify({
         status: 'success',
-        data: queryResult,
+        data: 'Will be sent',
       })
     );
   } catch (err) {
