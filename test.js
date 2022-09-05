@@ -1,7 +1,15 @@
-console.log(Date.parse('2022-9-2'));
+const express = require('express');
 
-console.log(Date.parse('2022-09-02'));
+const app = express();
 
-if (Date.parse('2022-09-5') > Date.parse('2022-09-2')) {
-  console.log('first is greater than second');
-}
+app.get('/home', (req, res) => {
+  res.redirect('/next');
+});
+
+app.get('/next', (req, res) => {
+  res.end('data passing');
+});
+
+app.listen(5000, () => {
+  console.log('listening on 5000');
+});

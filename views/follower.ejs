@@ -120,8 +120,7 @@
         })
           .then((response) => response.json())
           .then((data) => {
-            bodyNumberRecords = data;
-
+            console.log(data.data);
             if (data.data.length == 0) {
               if (confirm('Are you sure want to Pass the Car ?') == true) {
                 document.getElementById('bodyNumberStatus').value =
@@ -143,7 +142,6 @@
                 }, 4000);
               }
             }
-            // console.log(bodyNumberRecords);
           })
           .catch((err) => {
             console.log(err);

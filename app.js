@@ -2,6 +2,7 @@ const { json } = require('body-parser');
 const { count } = require('console');
 const { query } = require('express');
 const express = require('express');
+const { set } = require('mongoose');
 const { type } = require('os');
 const path = require('path');
 const { user, password } = require('pg/lib/defaults');
@@ -237,7 +238,9 @@ app.post('/bodyNumber', (req, res) => {
         ? '0' + Number(currentDate.getMonth() + 1)
         : Number(currentDate.getMonth() + 1)) +
       '-' +
-      String(currentDate.getDate());
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
 
     dbConnectedPool.query(
       `SELECT * FROM body_number_table WHERE body_number=${enteredBodyNumberValue} and date ='${date}';`,
@@ -640,14 +643,53 @@ app.post('/reportDataProvider', async (req, res) => {
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
 
-    dataFetcher(queryReceiver, fromDate, toDate)
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+    // dataFetcher(queryReceiver, fromDate, toDate)
+    //   .then((data) => console.log(data))
+    //   .catch((error) => console.log(error));
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let queryResult = {
+      UB: [],
+      MB: [],
+      'SB SA': [],
+      'SB ML': [],
+      SM: [],
+    };
+
+    let bodyNumberData = [];
+
+    for (let [key, value] of Object.entries(queryReceiver)) {
+      console.log('Hiiiiii');
+      for (let j = 0; j < value.length; j++) {
+        result = await dbConnectedPool.query(value[j]);
+        let fetchedRows = result.rows;
+        let defectsCount = 0;
+        for (let k = 0; k < fetchedRows.length; k++) {
+          if (
+            Date.parse(fetchedRows[k].date) <= Date.parse(toDate) &&
+            Date.parse(fetchedRows[k].date) >= Date.parse(fromDate)
+          ) {
+            defectsCount += fetchedRows[k].zones.length;
+            bodyNumberData.push(fetchedRows[k].body_number);
+          }
+        }
+        queryResult[key].push(defectsCount);
+        console.log('Inside For loop', queryResult);
+      }
+    }
 
     res.end(
       JSON.stringify({
         status: 'success',
-        data: 'Will be sent',
+        uniqueBodyNumberData: Array.from(new Set(bodyNumberData)),
+        data: queryResult,
       })
     );
   } catch (err) {

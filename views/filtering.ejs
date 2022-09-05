@@ -42,14 +42,14 @@
               <p id="chart-Condition-topic"> Report :</p>
               <div id="chart-condition-select-content">
                 <select name="chartCondition" id="chart-condition-input" required>
-                  <option value="dpv">DPV (Defects Per Vehicle)</option>
-                  <option value="master">Master Report</option>
-                  <option value="pareto">Pareto Report</option>
-                  <option value="surface">Surface Summary</option>
-                  <option value="bodyFitting">Body Fitting Summary</option>
-                  <option value="missingWrongPart">Missing & Wrong Part Summary</option>
-                  <option value="welding">Welding Summary</option>
-                  <option value="waterLeak">Water Leak Summary</option>
+                  <option value="DPV (Defects Per Vehicle) Report">DPV (Defects Per Vehicle) Report</option>
+                  <option value="Master Report">Master Report</option>
+                  <option value="Pareto Report">Pareto Report</option>
+                  <option value="Surface Summary">Surface Summary</option>
+                  <option value="Body Fitting Summary">Body Fitting Summary</option>
+                  <option value="Missing & Wrong Part Summary">Missing & Wrong Part Summary</option>
+                  <option value="Welding Summary">Welding Summary</option>
+                  <option value="Water Leak Summary">Water Leak Summary</option>
                 </select>
               </div>
             </div>
@@ -58,7 +58,12 @@
         </form>
       </div>
       <div class="report-content">
-        
+        <div id="report-topic">
+          <p id="report-topic-data"></p>
+        </div>
+        <div class="report-content-data">
+
+        </div>
       </div>
     </div>
 
@@ -79,15 +84,16 @@
 
       function generateReport(){
         var report = document.getElementById('chart-condition-input').value;
+        document.getElementById('report-topic').style.color = '#ffffff'
         switch(report){
-          case 'dpv': dpv(); break;
-          case 'master': master(); break;
-          case 'pareto': pareto(); break;
-          case 'surface': individualSummary('surface'); break;
-          case 'bodyFitting': individualSummary('bodyFitting'); break;
-          case 'missingWrongPart': individualSummary('missingWrongPart'); break;
-          case 'welding': individualSummary('welding'); break;
-          case 'waterLeak': individualSummary('waterLeak'); break;
+          case 'DPV (Defects Per Vehicle) Report': dpv(); break;
+          case 'Master Report': master(); break;
+          case 'Pareto Report': pareto(); break;
+          case 'Surface Summary': individualSummary('surface'); break;
+          case 'Body Fitting Summary': individualSummary('bodyFitting'); break;
+          case 'Missing & Wrong Part Summary': individualSummary('missingWrongPart'); break;
+          case 'Welding Summary': individualSummary('welding'); break;
+          case 'Water Leak Summary': individualSummary('waterLeak'); break;
           default: break;
         }
       }
@@ -115,19 +121,71 @@
             toDate,
           })
         }).then((response) => response.json()).then((data) => {
-          console.log(data)
+          console.log(data.data)
+
+          document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
+
+          var reportContentData = document.getElementsByClassName('report-content-data')
+          reportContentData[0].style.color = '#ffffff'
+
+
+          var tbl = document.createElement('table');
+          tbl.style.width = '100%';
+          tbl.setAttribute('border', '1');
+          reportContentData[0].appendChild(tbl)
+
+          var tblRowforHeading = document.createElement('tr')
+          tbl.appendChild(tblRowforHeading)
+
+          var tableHeading = ['Section','Surface','Body Fitting','Missing & Wrong Part', 'Welding', 'Water Leak', 'Total', 'Total DPV']
+
+          for(let i of tableHeading){
+            var tblHeading = document.createElement('th')
+            tblHeading.innerHTML = i
+            tblRowforHeading.appendChild(tblHeading)
+          }
+
+          for(let [key,value] of Object.entries(data.data)){
+            var tblRowforData = document.createElement('tr')
+            tbl.appendChild(tblRowforData)
+
+            var tblDataforDefectName = document.createElement('td')
+            tblDataforDefectName.innerHTML = key
+            tblRowforData.appendChild(tblDataforDefectName)
+            
+            let horizontalTotal = 0
+            let horizontalTotalDPV = [0,0,0,0,0]
+
+            for(let j=0; j< value.length; j++){
+              var tblDataforDefectName = document.createElement('td')
+              tblDataforDefectName.innerHTML = value[j]
+              tblRowforData.appendChild(tblDataforDefectName)
+              horizontalTotal += value[j]
+            }
+            var tblDataforTotal = document.createElement('td')
+            tblDataforTotal.innerHTML = horizontalTotal
+            tblRowforData.appendChild(tblDataforTotal)
+
+            var tblDataforTotalDPV = document.createElement('td')
+            tblDataforTotalDPV.innerHTML = (horizontalTotal/data.uniqueBodyNumberData.length)
+            tblRowforData.appendChild(tblDataforTotalDPV)
+          }
+
         }).catch((error) => {
           console.log(error)
         })
       }
 
       function master(){
+        document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
         console.log('master');
       }
       function pareto(){ 
+        document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
         console.log('pareto');
       }
       function individualSummary(SummaryName){
+        document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
         console.log(SummaryName);
       }
     </script>
