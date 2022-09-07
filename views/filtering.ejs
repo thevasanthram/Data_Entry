@@ -78,6 +78,10 @@
             alert(msg.ieErrorForm);
           }
         } else {
+          var reportContentData = document.getElementsByClassName("report-content-data")[0];
+          var childNodes = reportContentData.childNodes;
+          Object.values(childNodes).map((child) => child.remove())
+          document.getElementById('report-topic-data').innerHTML = ''
           generateReport()
         }
       }
@@ -85,15 +89,16 @@
       function generateReport(){
         var report = document.getElementById('chart-condition-input').value;
         document.getElementById('report-topic').style.color = '#ffffff'
+        document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
         switch(report){
           case 'DPV (Defects Per Vehicle) Report': dpv(); break;
           case 'Master Report': master(); break;
           case 'Pareto Report': pareto(); break;
-          case 'Surface Summary': individualSummary('surface'); break;
-          case 'Body Fitting Summary': individualSummary('bodyFitting'); break;
-          case 'Missing & Wrong Part Summary': individualSummary('missingWrongPart'); break;
-          case 'Welding Summary': individualSummary('welding'); break;
-          case 'Water Leak Summary': individualSummary('waterLeak'); break;
+          case 'Surface Summary': individualSummary('Surface',['Dent','Bump','Burrs','Spatters','Others']); break;
+          case 'Body Fitting Summary': individualSummary('Body Fitting',['Body Fitting 1','Body Fitting 2','Body Fitting 3','Body Fitting Others']); break;
+          case 'Missing & Wrong Part Summary': individualSummary('Missing & Wrong Part',['Missing Part', 'Wrong Part']); break;
+          case 'Welding Summary': individualSummary('Welding', ['Welding Part 1','Welding Part 2','Welding Part 3','Welding Part Others']); break;
+          case 'Water Leak Summary': individualSummary('Water Leak',['Water Leak 1','Water Leak 2','Water Leak Others']); break;
           default: break;
         }
       }
@@ -145,6 +150,13 @@
             tblRowforHeading.appendChild(tblHeading)
           }
 
+          var horizontalTotalArray = [0,0,0,0,0]
+          var horizontalTotalDPVArray = [0,0,0,0,0]
+          var individualDefectTotal = [0,0,0,0,0]
+
+
+          var i=0;
+
           for(let [key,value] of Object.entries(data.data)){
             var tblRowforData = document.createElement('tr')
             tbl.appendChild(tblRowforData)
@@ -152,41 +164,144 @@
             var tblDataforDefectName = document.createElement('td')
             tblDataforDefectName.innerHTML = key
             tblRowforData.appendChild(tblDataforDefectName)
-            
-            let horizontalTotal = 0
-            let horizontalTotalDPV = [0,0,0,0,0]
 
             for(let j=0; j< value.length; j++){
               var tblDataforDefectName = document.createElement('td')
               tblDataforDefectName.innerHTML = value[j]
               tblRowforData.appendChild(tblDataforDefectName)
-              horizontalTotal += value[j]
+
+              horizontalTotalArray[i] += value[j]
+
+              individualDefectTotal[j] += value[j]
             }
             var tblDataforTotal = document.createElement('td')
-            tblDataforTotal.innerHTML = horizontalTotal
+            tblDataforTotal.innerHTML = horizontalTotalArray[i]
             tblRowforData.appendChild(tblDataforTotal)
 
             var tblDataforTotalDPV = document.createElement('td')
-            tblDataforTotalDPV.innerHTML = (horizontalTotal/data.uniqueBodyNumberData.length)
+            horizontalTotalDPVArray[i] = (horizontalTotalArray[i]/data.uniqueBodyNumberData.length)
+            tblDataforTotalDPV.innerHTML = horizontalTotalDPVArray[i].toFixed(2)
             tblRowforData.appendChild(tblDataforTotalDPV)
+
+            i++;
           }
+
+          var tblRowforTotal = document.createElement('tr')
+          tbl.appendChild(tblRowforTotal)
+
+          var tblDataforTotal = document.createElement('td')
+          tblDataforTotal.innerHTML = 'Total'
+          tblRowforTotal.appendChild(tblDataforTotal)
+
+          for(let j = 0; j < individualDefectTotal.length; j++){
+            var tblDataforIndividualDefect = document.createElement('td')
+            tblDataforIndividualDefect.innerHTML = individualDefectTotal[j]
+            tblRowforTotal.appendChild(tblDataforIndividualDefect) 
+          }
+
+          var tblDataforHorizontalTotal = document.createElement('td')
+          const horizontalTotal = horizontalTotalArray.reduce((partialSum, a) => partialSum + a, 0);
+          tblDataforHorizontalTotal.innerHTML = horizontalTotal
+          tblRowforTotal.appendChild(tblDataforHorizontalTotal)
+
+          var tblDataforHorizontalTotalDPV = document.createElement('td')
+          const horizontalTotalDPV = horizontalTotalDPVArray.reduce((partialSum, a) => partialSum + a, 0);
+          tblDataforHorizontalTotalDPV.innerHTML = horizontalTotalDPV.toFixed(2)
+          tblRowforTotal.appendChild(tblDataforHorizontalTotalDPV)
+
+          var tblRowforProduction = document.createElement('tr')
+          tbl.appendChild(tblRowforProduction)
+
+          var tblDataforProduction = document.createElement('td')
+          tblDataforProduction.colSpan = 7
+          tblDataforProduction.innerHTML = 'Line off(Production)'
+          tblRowforProduction.appendChild(tblDataforProduction)
+
+          var tblDataforBodyNumbers = document.createElement('td')
+          tblDataforBodyNumbers.innerHTML = data.uniqueBodyNumberData.length
+          tblRowforProduction.appendChild(tblDataforBodyNumbers)
 
         }).catch((error) => {
           console.log(error)
         })
       }
 
-      function master(){
+     async function master(){
+        var fromDate = document.getElementById('from-date-condition-input').value
+        var toDate = document.getElementById('to-date-condition-input').value
+
+        var querySender = {
+          'UB': [`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Surface';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Body Fitting';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Missing & Wrong Part';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Welding';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Water Leak';`],
+          'MB': [`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Water Leak'`],
+          'SB SA': [`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='Water Leak'`],
+          'SB ML': [`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='Water Leak'`],
+          'SM': [`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Water Leak'`],
+        }
+        
+        const response = await fetch('http://localhost:8000/reportDataProvider', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            querySender,
+            fromDate,
+            toDate,
+          })
+        })
+        const data = await response.json();
+        
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
-        console.log('master');
+        var reportContentData = document.getElementsByClassName('report-content-data')
+        reportContentData[0].style.color = '#ffffff'
+
+        var tableHeading = ['Section','Surface','Body Fitting','Missing & Wrong Part', 'Welding', 'Water Leak', 'Total', 'Total DPV']
+
+        var horizontalTotalArray = [0,0,0,0,0]
+        var horizontalTotalDPVArray = [0,0,0,0,0]
+        var individualDefectTotal = [0,0,0,0,0]
+
+        var i=0;
+        for(let [key,value] of Object.entries(data.data)){
+          for(let j=0; j< value.length; j++){
+            horizontalTotalArray[i] += value[j]
+            individualDefectTotal[j] += value[j]
+          }
+          horizontalTotalDPVArray[i] = (horizontalTotalArray[i]/data.uniqueBodyNumberData.length)
+          i++;
+        }
+
+        const horizontalTotal = horizontalTotalArray.reduce((partialSum, a) => partialSum + a, 0);
+        const horizontalTotalDPV = horizontalTotalDPVArray.reduce((partialSum, a) => partialSum + a, 0);
+
+
+        console.log(individualDefectTotal,data.data,horizontalTotal, horizontalTotalDPV)
       }
+
+
       function pareto(){ 
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
         console.log('pareto');
       }
-      function individualSummary(SummaryName){
+      function individualSummary(majorDefectName, minorDefectsList){
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
         console.log(SummaryName);
+
+        var fromDate = document.getElementById('from-date-condition-input').value
+        var toDate = document.getElementById('to-date-condition-input').value
+
+        fetch('http://localhost:8000/individualSummaryReport',{
+          method: 'POST',
+          headers:{
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            majorDefectName,
+            minorDefectsList,
+            fromDate,
+            toDate
+          })
+        })
       }
     </script>
 

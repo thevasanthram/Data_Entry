@@ -154,3 +154,16 @@ body {
   height: 79%;
   width: 100%;
 }
+
+#report-topic {
+  margin-left: 2%;
+  margin-top: 1%;
+  font-size: 140%;
+  position: absolute;
+}
+
+.report-content-data {
+  position: absolute;
+  margin-top: 5%;
+  width: 100%;
+}

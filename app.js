@@ -666,7 +666,6 @@ app.post('/reportDataProvider', async (req, res) => {
     let bodyNumberData = [];
 
     for (let [key, value] of Object.entries(queryReceiver)) {
-      console.log('Hiiiiii');
       for (let j = 0; j < value.length; j++) {
         result = await dbConnectedPool.query(value[j]);
         let fetchedRows = result.rows;
@@ -681,7 +680,6 @@ app.post('/reportDataProvider', async (req, res) => {
           }
         }
         queryResult[key].push(defectsCount);
-        console.log('Inside For loop', queryResult);
       }
     }
 
@@ -695,6 +693,34 @@ app.post('/reportDataProvider', async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+});
+
+app.post('/individualSummaryReport', async (req, res) => {
+  const fromDate = req.body.fromDate;
+  const toDate = req.body.toDate;
+  const majorDefectName = req.body.majorDefectName
+  const minorDefectsList = req.body.minorDefectsList
+
+  let dbConnectedPool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'data_entry_systems',
+    password: 'admin',
+    port: 5432,
+  });
+
+  // queryList = {
+  //   'SIDE MEMBER':{
+  //     'RIGHT': ,
+  //     'LEFT': ,
+  //   }
+  // }
+
+
+
+  // let queryResult = {
+  //   ''
+  // }
 });
 
 // app.get('/lookup', async (req, res) => {
