@@ -150,20 +150,21 @@ body {
 .report-content {
   background-color: rgba(0, 0, 0, 0.386);
   position: absolute;
-  overflow-y: auto;
   height: 79%;
   width: 100%;
 }
 
 #report-topic {
   margin-left: 2%;
-  margin-top: 1%;
+  margin-top: 0.5%;
   font-size: 140%;
   position: absolute;
 }
 
 .report-content-data {
   position: absolute;
-  margin-top: 5%;
+  overflow-y: auto;
+  margin-top: 3.5%;
   width: 100%;
+  height: 85%;
 }

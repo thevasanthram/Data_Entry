@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../resources/canvasjs.min.js"></script>
+  </head>
+  <body>
+    <div id="chartContainer" style="height: 300px; width: 40%"></div>
+    <script type="text/javascript">
+      window.onload = function () {
+        var chart = [];
+
+        for (let i = 0; i < 5; i++) {
+          chart.push(
+            new CanvasJS.Chart('chartContainer', {
+              animationEnabled: true,
+              title: {
+                text: 'My First Chart in CanvasJS',
+              },
+              data: [
+                {
+                  // Change type to "doughnut", "line", "splineArea", etc.
+                  type: 'doughnut',
+                  dataPoints: [
+                    { label: 'UB', y: 10 },
+                    { label: 'SM', y: 15 },
+                    { label: 'MB', y: 25 },
+                    { label: 'SB ML', y: 30 },
+                    { label: 'SB SA', y: 28 },
+                  ],
+                },
+              ],
+            })
+          );
+          chart[i].render();
+        }
+      };
+    </script>
+  </body>
+</html>

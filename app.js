@@ -1,16 +1,11 @@
-const { json } = require('body-parser');
-const { count } = require('console');
-const { query } = require('express');
 const express = require('express');
-const { set } = require('mongoose');
-const { type } = require('os');
+const { rmSync } = require('fs');
 const path = require('path');
-const { user, password } = require('pg/lib/defaults');
 const Pool = require('pg').Pool;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('resources'));
+app.use(express.static('./resources'));
 
 const pool = new Pool({
   user: 'postgres',
@@ -594,58 +589,11 @@ app.get('/filter', async (req, res) => {
   }
 });
 
-async function dataFetcher(queryReceiver, fromDate, toDate) {
-  let dbConnectedPool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'data_entry_systems',
-    password: 'admin',
-    port: 5432,
-  });
-
-  let queryResult = {
-    UB: [],
-    MB: [],
-    'SB SA': [],
-    'SB ML': [],
-    SM: [],
-  };
-
-  for (let i in queryReceiver) {
-    let queryReceiverValue = queryReceiver[i];
-    for (let j = 0; j < queryReceiverValue.length; j++) {
-      dbConnectedPool.query(queryReceiverValue[j], (error, result) => {
-        if (error) {
-          throw error;
-        } else {
-          let fetchedRows = result.rows;
-          let defectsCount = 0;
-          for (let k = 0; k < fetchedRows.length; k++) {
-            if (
-              Date.parse(fetchedRows[k].date) <= Date.parse(toDate) &&
-              Date.parse(fetchedRows[k].date) >= Date.parse(fromDate)
-            ) {
-              defectsCount += fetchedRows[k].zones.length;
-            }
-          }
-          queryResult[i].push(defectsCount);
-        }
-      });
-    }
-  }
-
-  return queryResult;
-}
-
 app.post('/reportDataProvider', async (req, res) => {
   try {
     const queryReceiver = req.body.querySender;
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
-
-    // dataFetcher(queryReceiver, fromDate, toDate)
-    //   .then((data) => console.log(data))
-    //   .catch((error) => console.log(error));
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -695,11 +643,149 @@ app.post('/reportDataProvider', async (req, res) => {
   }
 });
 
+app.post('/majorDefectDetail', async (req, res) => {
+  try {
+    const majorDefectsInAllGroup = req.body.majorDefectsInAllGroup;
+    const fromDate = req.body.fromDate;
+    const toDate = req.body.toDate;
+    // console.log(majorDefectsInAllGroup);
+
+    function filter(fetchedRows, defectName) {
+      const defectObject = {
+        Surface: {
+          Dent: 0,
+          Bump: 0,
+          Burrs: 0,
+          Spatters: 0,
+          Others: 0,
+        },
+        'Body Fitting': {
+          'Body Fitting 1': 0,
+          'Body Fitting 2': 0,
+          'Body Fitting Others': 0,
+        },
+        'Missing & Wrong Part': {
+          'Missing Part': 0,
+          'Wrong Part': 0,
+        },
+        Welding: {
+          'Welding Part 1': 0,
+          'Welding Part 2': 0,
+          'Welding Part 3': 0,
+          'Welding Part Others': 0,
+        },
+        'Water Leak': {
+          'Water Leak 1': 0,
+          'Water Leak 2': 0,
+          'Water Leak Others': 0,
+        },
+      };
+
+      let tempDataStoringObj = defectObject[defectName];
+
+      fetchedRows.map((record) => {
+        if (
+          Date.parse(record.date) <= Date.parse(toDate) &&
+          Date.parse(record.date) >= Date.parse(fromDate)
+        ) {
+          tempDataStoringObj[record.subdefect] += record.zones.length;
+        }
+      });
+
+      return tempDataStoringObj;
+    }
+
+    async function dataFetcher(groupCode) {
+      let dbConnectedPool = new Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'data_entry_systems',
+        password: 'admin',
+        port: 5432,
+      });
+
+      switch (groupCode) {
+        case 'UB':
+          const data1 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='${majorDefectsInAllGroup['UB']}';`
+          );
+          const data1response = filter(
+            data1.rows,
+            majorDefectsInAllGroup['UB']
+          );
+          // console.log('dataUB', data1response);
+          return data1response;
+        case 'MB':
+          const data2 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='${majorDefectsInAllGroup['MB']}'`
+          );
+          const data2response = filter(
+            data2.rows,
+            majorDefectsInAllGroup['MB']
+          );
+          // console.log('dataMB', data2response);
+          return data2response;
+        case 'SB SA':
+          const data3 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and defect='${majorDefectsInAllGroup['SB SA']}'`
+          );
+          const data3response = filter(
+            data3.rows,
+            majorDefectsInAllGroup['SB SA']
+          );
+          // console.log('dataSB SA', data3response);
+          return data3response;
+        case 'SB ML':
+          const data4 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and defect='${majorDefectsInAllGroup['SB ML']}'`
+          );
+          const data4reponse = filter(
+            data4.rows,
+            majorDefectsInAllGroup['SB ML']
+          );
+          // console.log('dataSB ML', data4reponse);
+          return data4reponse;
+        case 'SM':
+          const data5 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='${majorDefectsInAllGroup['SM']}'`
+          );
+          const data5response = filter(
+            data5.rows,
+            majorDefectsInAllGroup['SM']
+          );
+          // console.log('dataSM', data5response);
+          return data5response;
+        default:
+          break;
+      }
+    }
+
+    let majorDefectsDataInAllGroup = {
+      UB: await dataFetcher('UB'),
+      MB: await dataFetcher('MB'),
+      'SB SA': await dataFetcher('SB SA'),
+      'SB ML': await dataFetcher('SB ML'),
+      SM: await dataFetcher('SM'),
+    };
+
+    console.log(majorDefectsDataInAllGroup);
+
+    let response = {
+      status: 'success',
+      data: majorDefectsDataInAllGroup,
+    };
+
+    res.send(JSON.stringify(response));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.post('/individualSummaryReport', async (req, res) => {
   const fromDate = req.body.fromDate;
   const toDate = req.body.toDate;
-  const majorDefectName = req.body.majorDefectName
-  const minorDefectsList = req.body.minorDefectsList
+  const majorDefectName = req.body.majorDefectName;
+  const minorDefectsList = req.body.minorDefectsList;
 
   let dbConnectedPool = new Pool({
     user: 'postgres',
@@ -715,8 +801,6 @@ app.post('/individualSummaryReport', async (req, res) => {
   //     'LEFT': ,
   //   }
   // }
-
-
 
   // let queryResult = {
   //   ''

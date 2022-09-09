@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./filtering.css" />
     <title>Data Entry System</title>
+    <script src="./canvasjs.min.js"></script>
   </head>
   <body>
     <div>
@@ -274,8 +275,310 @@
         const horizontalTotal = horizontalTotalArray.reduce((partialSum, a) => partialSum + a, 0);
         const horizontalTotalDPV = horizontalTotalDPVArray.reduce((partialSum, a) => partialSum + a, 0);
 
+        function findMajorDefect(position){
+          switch(position){
+            case 0: return 'Surface';break;
+            case 1: return 'Body Fitting';break;
+            case 2: return 'Missing & Wrong Part';break;
+            case 3: return 'Welding';break;
+            case 4: return 'Water Leak';break;
+            default: break;
+          }
+        }
 
-        console.log(individualDefectTotal,data.data,horizontalTotal, horizontalTotalDPV)
+        const majorDefectsInAllGroup = {
+          'UB': findMajorDefect(data.data.UB.indexOf(Math.max(...data.data.UB))),
+          'MB': findMajorDefect(data.data.MB.indexOf(Math.max(...data.data.MB))),
+          'SB SA': findMajorDefect(data.data['SB SA'].indexOf(Math.max(...data.data['SB SA']))),
+          'SB ML': findMajorDefect(data.data['SB ML'].indexOf(Math.max(...data.data['SB ML']))),
+          'SM': findMajorDefect(data.data.SM.indexOf(Math.max(...data.data.SM))),
+        }
+        const newResponse = await fetch('http://localhost:8000/majorDefectDetail' , {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            majorDefectsInAllGroup,
+            fromDate,
+            toDate,
+          })
+        })
+
+        const majorDefectsDataAllGroup = await newResponse.json()
+        const majorDefectsDataInAllGroup = majorDefectsDataAllGroup.data;
+
+        console.log('majorDefectsInAllGroup:',majorDefectsInAllGroup)
+        console.log('majorDefectsDataInAllGroup:',majorDefectsDataInAllGroup)
+
+        // const array = [    
+        //   { y: 3, label: "Dent" },
+        //   { y: 0,  label: "Bump" },
+        //   { y: 0,  label: "Burrs" },
+        //   { y: 0,  label: "Spatters" },
+        //   { y: 0,  label: "Others" },
+        // ]
+
+        const labelSetForMajorDefects = []
+        const labelSetForMajorDefectsTitle = Object.values(majorDefectsInAllGroup)
+        Object.keys(majorDefectsDataInAllGroup).map( (group) => {
+          let tempArr = []
+          Object.keys(majorDefectsDataInAllGroup[group]).map( (defect) => {
+            tempArr.push({y: majorDefectsDataInAllGroup[group][defect] , label: defect})
+          })
+          labelSetForMajorDefects.push(tempArr)
+        } )
+
+        console.log('labelSetForMajorDefects: ', labelSetForMajorDefects)
+        
+        console.log('Total DPV: ', horizontalTotalDPV)
+        console.log('Category wise: ', individualDefectTotal)
+        console.log('Group wise: ', horizontalTotalArray)
+        console.log('Individual Group defects:',data.data)
+        console.log('Group wise Total DPV: ',horizontalTotalDPVArray)
+
+        var reportContent = document.getElementsByClassName('report-content-data')[0]
+
+        var firstSection = document.createElement('div')
+        firstSection.id = 'firstSection'
+        reportContent.appendChild(firstSection)
+
+        var totalDPV = document.createElement('div')
+        totalDPV.id = 'totalDPV'
+        totalDPV.style.width = '30%'
+        totalDPV.style.marginLeft = '2%'
+        firstSection.appendChild(totalDPV)
+
+        var totalDPVChart= new CanvasJS.Chart("totalDPV", {
+          animationEnabled: true,
+          backgroundColor: "rgba(0, 0, 0, 0)",
+          theme: "dark1", // "light1", "light2", "dark1", "dark2"
+          title:{
+            text: "Total DPV",
+            fontFamily: 'tahoma',
+            fontSize: 18,
+          },
+          axisX: {
+            title: "No of Vehicle",
+            titleFontFamily: 'tahoma'
+          },
+          axisY: {
+            title: "Defects per Vehicle",
+            titleFontFamily: 'tahoma'
+          },
+          data: [{        
+            type: "column",  
+            dataPoints: [      
+              { y: horizontalTotalDPV, label: "1" },
+            ]
+          }]
+        });
+
+        totalDPVChart.render();
+
+
+        var categoryWise = document.createElement('div')
+        categoryWise.id = 'categoryWise'
+        categoryWise.style.width = '30%'
+        categoryWise.style.marginLeft = '35%'
+        firstSection.appendChild(categoryWise)
+
+        var categoryWiseChart = new CanvasJS.Chart("categoryWise", {
+          animationEnabled: true,
+          backgroundColor: "rgba(0, 0, 0, 0)",
+          theme: "dark1",
+          title:{
+            text: "Category DPV",
+            fontFamily: 'tahoma',
+            fontSize: 18,
+            // horizontalAlign: "left"
+          },
+          data: [{
+            type: "doughnut",
+            startAngle: 60,
+            // innerRadius: 70,
+            indexLabelFontSize: 15,
+            indexLabel: "{label} - {y}, #percent%",
+            toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+            dataPoints: [
+              { y: individualDefectTotal[0], label: "Surface" },
+              { y: individualDefectTotal[1], label: "Body Fitting" },
+              { y: individualDefectTotal[2], label: "Missing & Wrong Part" },
+              { y: individualDefectTotal[3], label: "Welding"},
+              { y: individualDefectTotal[4], label: "Water Leak"},
+            ]
+          }]
+        });
+
+        categoryWiseChart.render();
+
+
+        var groupWise = document.createElement('div')
+        groupWise.id = 'groupWise'
+        groupWise.style.width = '30%'
+        groupWise.style.marginLeft = '68%'
+        firstSection.appendChild(groupWise)
+
+        var groupWiseChart = new CanvasJS.Chart("groupWise", {
+          animationEnabled: true,
+          backgroundColor: "rgba(0, 0, 0, 0)",
+          theme: "dark1",
+          title:{
+            text: "Group DPV",
+            fontFamily: 'tahoma',
+            fontSize: 18,
+            // horizontalAlign: "left"
+          },
+          data: [{
+            type: "doughnut",
+            startAngle: 60,
+            // innerRadius: 70,
+            indexLabelFontSize: 15,
+            indexLabel: "{label} - {y}, #percent%",
+            toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+            dataPoints: [
+              { y: horizontalTotalArray[0], label: "UB" },
+              { y: horizontalTotalArray[1], label: "MB" },
+              { y: horizontalTotalArray[2], label: "SB SA" },
+              { y: horizontalTotalArray[3], label: "SB ML"},
+              { y: horizontalTotalArray[4], label: "SM"},
+            ]
+          }]
+        });
+
+        groupWiseChart.render();
+
+
+        const groupName = ['UNDER BODY', 'MAIN BODY', 'SHELL BODY SUB-LINE','SHELL BODY MAIN-LINE','SIDE MEMBER']
+        const groupID = ['UB','MB','SBSA','SBML','SM']
+        const groupKeyForDataObj = ['UB','MB','SB SA','SB ML','SM']
+
+        var groupDPVChart = [];
+        var individualGroupWisechart = [];
+        var groupWiseMajorDefectChart = [];
+
+        for(let i = 0; i < 5; i++){
+          var divElement = document.createElement('div');
+          divElement.id=`${groupID[i]}`
+          divElement.style.marginTop = `30%`
+          reportContent.appendChild(divElement)
+
+          var groupTitleDiv = document.createElement('div')
+          groupTitleDiv.id = `${groupID[i]}_titleName`
+          groupTitleDiv.style.textAlign = 'center'
+          if(i>0){
+            groupTitleDiv.style.paddingTop = '4%'
+          }
+          groupTitleDiv.style.marginBottom = '3%'
+          divElement.appendChild(groupTitleDiv)
+
+          var groupTitleContent = document.createElement('p')
+          groupTitleContent.innerHTML = groupName[i]
+          groupTitleContent.style.fontSize = '130%'
+          groupTitleDiv.appendChild(groupTitleContent)
+
+          var horizontalRule = document.createElement('hr')
+          groupTitleDiv.appendChild(horizontalRule)
+
+          var groupTotalDPV = document.createElement('div')
+          groupTotalDPV.id=`${groupID[i]}_TotalDPV`
+          groupTotalDPV.style.width = '30%'
+          groupTotalDPV.style.marginLeft = '2%'
+          // groupTotalDPV.style.marginTop = '30%'
+          divElement.appendChild(groupTotalDPV)
+
+          groupDPVChart.push(new CanvasJS.Chart( groupTotalDPV.id, {
+            animationEnabled: true,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            theme: "dark1",
+            title:{
+              text: `${groupName[i]} DPV`,
+              fontFamily: 'tahoma',
+              fontSize: 18,
+            },
+            axisX: {
+              title: "No of Vehicle"
+            },
+            axisY: {
+              title: "Defects per Vehicle"
+            },
+            data: [{        
+              type: "column",  
+              dataPoints: [      
+                { y: horizontalTotalDPVArray[i], label: "1" },
+              ]
+            }]
+          }));
+
+          groupDPVChart[i].render();
+
+
+          var categoryWiseChartDivision= document.createElement('div')
+          categoryWiseChartDivision.id=`${groupID[i]}_Category_DPV`
+          categoryWiseChartDivision.style.width = '30%'
+          categoryWiseChartDivision.style.marginLeft = '35%'
+          // categoryWiseChartDivision.style.marginTop = '30%'
+          divElement.appendChild(categoryWiseChartDivision)
+
+          individualGroupWisechart.push(new CanvasJS.Chart(categoryWiseChartDivision.id, {
+            animationEnabled: true,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            theme: "dark1", // "light1", "light2", "dark1", "dark2"
+            title:{
+              text: "Category DPV",
+              fontFamily: 'tahoma',
+              fontSize: 18,
+            },
+            axisX: {
+              title: "Category"
+            },
+            axisY: {
+              title: "Total no of defects"
+            },
+            data: [{        
+              type: "column",  
+              dataPoints: [    
+                { y: data.data[groupKeyForDataObj[i]][0], label: "Surface" },
+                { y: data.data[groupKeyForDataObj[i]][1],  label: "Body Fitting" },
+                { y: data.data[groupKeyForDataObj[i]][2],  label: "Missing & Wrong Part" },
+                { y: data.data[groupKeyForDataObj[i]][3],  label: "Welding" },
+                { y: data.data[groupKeyForDataObj[i]][4],  label: "Water Leak" },
+              ]
+            }]
+          }));
+
+          individualGroupWisechart[i].render();
+
+
+          var groupWiseMajorDefectChartDivision= document.createElement('div')
+          groupWiseMajorDefectChartDivision.id=`${groupID[i]}_GroupWise_Major_Defect_Counts`
+          groupWiseMajorDefectChartDivision.style.width = '30%'
+          groupWiseMajorDefectChartDivision.style.marginLeft = '68%'
+          divElement.appendChild(groupWiseMajorDefectChartDivision)
+
+          groupWiseMajorDefectChart.push(new CanvasJS.Chart(groupWiseMajorDefectChartDivision.id, {
+            animationEnabled: true,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            theme: "dark1", // "light1", "light2", "dark1", "dark2"
+            title:{
+              text: `${labelSetForMajorDefectsTitle[i]} Category`,
+              fontFamily: 'tahoma',
+              fontSize: 18,
+            },
+            axisX: {
+              title: "Sub-Defects"
+            },
+            axisY: {
+              title: "Total no of defects"
+            },
+            data: [{        
+              type: "column",  
+              dataPoints: labelSetForMajorDefects[i]
+            }]
+          }))
+
+          groupWiseMajorDefectChart[i].render();
+        }
       }
 
 
