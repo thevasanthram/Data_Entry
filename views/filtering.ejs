@@ -358,18 +358,15 @@
             fontFamily: 'tahoma',
             fontSize: 18,
           },
-          axisX: {
-            title: "No of Vehicle",
-            titleFontFamily: 'tahoma'
-          },
+          dataPointWidth: 35,
           axisY: {
-            title: "Defects per Vehicle",
+            title: "Defects",
             titleFontFamily: 'tahoma'
           },
           data: [{        
             type: "column",  
             dataPoints: [      
-              { y: horizontalTotalDPV, label: "1" },
+              { y: horizontalTotalDPV , label: 'Vehicle'},
             ]
           }]
         });
@@ -496,6 +493,7 @@
               fontFamily: 'tahoma',
               fontSize: 18,
             },
+            dataPointWidth: 30,
             axisX: {
               title: "No of Vehicle"
             },
@@ -529,6 +527,7 @@
               fontFamily: 'tahoma',
               fontSize: 18,
             },
+            dataPointWidth: 30,
             axisX: {
               title: "Category"
             },
@@ -565,6 +564,7 @@
               fontFamily: 'tahoma',
               fontSize: 18,
             },
+            dataPointWidth: 30,
             axisX: {
               title: "Sub-Defects"
             },
@@ -582,10 +582,190 @@
       }
 
 
-      function pareto(){ 
+      async function pareto(){ 
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
+        var fromDate = document.getElementById('from-date-condition-input').value
+        var toDate = document.getElementById('to-date-condition-input').value
         console.log('pareto');
+
+        const response = await fetch('http://localhost:8000/pareto',{
+          method: 'POST',
+          headers:{
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            fromDate,
+            toDate,
+          })
+        })
+        const data = await response.json()
+
+        // console.log('data', data.data)
+
+        let bodyNumberCountProvider = JSON.parse(JSON.stringify(data.data))
+        let categoryCountProvider= JSON.parse(JSON.stringify(data.data))
+        let defectCountProvider = JSON.parse(JSON.stringify(data.data))
+
+
+        Object.keys(bodyNumberCountProvider).map ( (category) => {
+          if(isNaN(categoryCountProvider[category])){
+            categoryCountProvider[category] = 0
+          }
+          let categoryCountManager = 0;
+          Object.keys(bodyNumberCountProvider[category]).map( (defect) => {
+            if(isNaN(defectCountProvider[category][defect])){
+              defectCountProvider[category][defect] = 0;
+            }
+            let defectCountManager = 0;
+            Object.keys(bodyNumberCountProvider[category][defect]).map( (subDefect) => {
+              Object.keys(bodyNumberCountProvider[category][defect][subDefect]).map( (bodyNumber) => {
+                bodyNumberCountProvider[category][defect][subDefect][bodyNumber] = bodyNumberCountProvider[category][defect][subDefect][bodyNumber].length
+                defectCountManager += bodyNumberCountProvider[category][defect][subDefect][bodyNumber]
+              })
+            })
+            defectCountProvider[category][defect] += defectCountManager;
+            categoryCountManager += defectCountManager;
+            defectCountManager = 0;
+          })
+          categoryCountProvider[category] += categoryCountManager;
+          categoryCountManager = 0;
+        })
+
+        // console.log('bodyNumberCountProvider: ',bodyNumberCountProvider)
+        console.log('categoryCountProvider: ',categoryCountProvider)
+        console.log('defectCountProvider:' ,defectCountProvider)
+
+        const sortedCategoryCountProvider = Object.entries(categoryCountProvider)
+          .sort(([, a], [, b]) => b - a)
+          .reduce(
+            (r, [k, v]) => ({
+              ...r,
+              [k]: v
+            }),
+            {}
+          )
+        
+        // console.log('sort: ', sortedCategoryCountProvider)
+
+        const mainParetoChartDivision = document.createElement('div')
+        mainParetoChartDivision.id = 'mainParetoChartDivision'
+        document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoChartDivision)
+        mainParetoChartDivision.style.width = '80%'
+        mainParetoChartDivision.style.height = '100%'
+        mainParetoChartDivision.style.marginLeft = '10%'
+
+        let mainParetoChartDataset = []
+
+        Object.entries(sortedCategoryCountProvider).map( (element) => {
+          mainParetoChartDataset.push({label: element[0], y: element[1]})
+        })
+
+        var mainParetoChart= new CanvasJS.Chart("mainParetoChartDivision", {
+          animationEnabled: true,
+          backgroundColor: "rgba(0, 0, 0, 0)",
+          theme: "dark1",
+          title:{
+            text: "Main Pareto Visualization",
+            fontFamily: 'tahoma',
+            fontSize: 18,
+          },
+          dataPointWidth: 30,
+          axisY: {
+            title: "No of Defects",
+            lineColor: "#4F81BC",
+            tickColor: "#4F81BC",
+            labelFontColor: "#4F81BC",
+            labelFontFamily: 'tahoma',
+            labelFontSize: 20,
+          },
+          axisX:{
+            labelFontFamily:'tahoma',
+            labelFontSize: 8,
+          },
+          data: [{
+            type: "column",
+            dataPoints: mainParetoChartDataset
+          }]
+        });
+        mainParetoChart.render();
+
+        
+        const individualDefectParetoDivision = document.createElement('div')
+        individualDefectParetoDivision.id = 'individualDefectParetoDivision'
+        individualDefectParetoDivision.style.width='100%'
+        individualDefectParetoDivision.style.marginTop = '3%'
+        document.getElementsByClassName('report-content-data')[0].appendChild(individualDefectParetoDivision)
+
+        // const sortedDefectCountProvider = Object.entries(defectCountProvider)
+        //   .sort(([, a], [, b]) => b - a)
+        //   .reduce(
+        //     (r, [k, v]) => ({
+        //       ...r,
+        //       [k]: v
+        //     }),
+        //     {}
+        //   )
+
+        const defectList = ['Surface','Body Fitting','Missing & Wrong Part','Welding','Water Leak']
+        var individualParetoChartHolder = []
+        let chartCounter = 0;
+        defectList.map( (defectName) => {
+          // creating division for individual defect pareto chart
+          let individualDefectPareto = document.createElement('div')
+          individualDefectPareto.id = defectName+'ParetoDivision'
+          individualDefectParetoDivision.appendChild(individualDefectPareto)
+          individualDefectPareto.style.width = '40%'
+          individualDefectPareto.style.height = '60%'
+          individualDefectPareto.style.marginLeft = '7%'
+          individualDefectPareto.style.marginBottom = '30%'
+          individualDefectPareto.style.cssFloat = 'left'
+
+          let individualParetoChartDataset = []
+
+          Object.keys(defectCountProvider).map( (category) => {
+            individualParetoChartDataset.push( {label: category , y:defectCountProvider[category][defectName]} )
+          })
+
+          console.log(`${defectName}: `, individualParetoChartDataset)
+
+          // pareto chart for individual defect
+          individualParetoChartHolder.push( new CanvasJS.Chart(individualDefectPareto.id, {
+            animationEnabled: true,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            theme: "dark1",
+            title:{
+              text: `${defectName} Pareto Visualization`,
+              fontFamily: 'tahoma',
+              fontSize: 18,
+            },
+            dataPointWidth: 30,
+            axisY: {
+              title: "No of Defects",
+              lineColor: "#4F81BC",
+              tickColor: "#4F81BC",
+              labelFontColor: "#4F81BC",
+              labelFontFamily: 'tahoma',
+              labelFontSize: 18,
+            },
+            axisX: {
+              labelFontFamily: 'tahoma',
+              labelFontSize: 8,
+            },
+            data: [{
+              type: "column",
+              dataPoints: individualParetoChartDataset
+            }]
+          }))
+          individualParetoChartHolder[chartCounter].render();
+          chartCounter = chartCounter + 1;
+        })
+
+        document.getElementById('Water LeakParetoDivision').style.clear = 'left'
+        document.getElementById('Water LeakParetoDivision').style.marginLeft = '30%'
+
+        console.log('individualParetoChartHolder:',individualParetoChartHolder)
       }
+
       function individualSummary(majorDefectName, minorDefectsList){
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
         console.log(SummaryName);

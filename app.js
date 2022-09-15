@@ -781,6 +781,328 @@ app.post('/majorDefectDetail', async (req, res) => {
   }
 });
 
+app.post('/pareto', async (req, res) => {
+  try {
+    console.log('Pareto chart');
+    const fromDate = req.body.fromDate;
+    const toDate = req.body.toDate;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const records = await dbConnectedPool.query(`SELECT * FROM defect_table`);
+
+    let dataFetcher = {};
+
+    records.rows.map((record) => {
+      if (
+        Date.parse(record.date) <= Date.parse(toDate) &&
+        Date.parse(record.date) >= Date.parse(fromDate)
+      ) {
+        if (!dataFetcher[`${record.category}_${record.subcategory}`]) {
+          // block to create new carPart in object
+          dataFetcher[`${record.category}_${record.subcategory}`] = {};
+
+          if (
+            !dataFetcher[`${record.category}_${record.subcategory}`][
+              record.defect
+            ]
+          ) {
+            // block to create new defectName in carPart
+            dataFetcher[`${record.category}_${record.subcategory}`][
+              record.defect
+            ] = {};
+
+            if (
+              !dataFetcher[`${record.category}_${record.subcategory}`][
+                record.defect
+              ][record.subdefect]
+            ) {
+              // block to create new subDefectName in defectName
+              dataFetcher[`${record.category}_${record.subcategory}`][
+                record.defect
+              ][record.subdefect] = {};
+
+              if (
+                !dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number]
+              ) {
+                // block to create new bodyNumber in subDefectName
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = record.zones;
+              } else {
+                // block to modify values of existing bodyNumber in subDefectName
+                let tempArray = [
+                  ...dataFetcher[`${record.category}_${record.subcategory}`][
+                    record.defect
+                  ][record.subdefect][record.body_number],
+                  ...record.zones,
+                ];
+
+                let tempSet = new Set(tempArray);
+
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = Array.from(tempSet);
+              }
+            } else {
+              // block to modify values of existing subDefectName in defectName
+
+              if (
+                !dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number]
+              ) {
+                // block to create new bodyNumber in subDefectName
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = record.zones;
+              } else {
+                // block to modify values of existing bodyNumber in subDefectName
+                let tempArray = [
+                  ...dataFetcher[`${record.category}_${record.subcategory}`][
+                    record.defect
+                  ][record.subdefect][record.body_number],
+                  ...record.zones,
+                ];
+
+                let tempSet = new Set(tempArray);
+
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = Array.from(tempSet);
+              }
+            }
+          } else {
+            // block to change values of existing defectName property inside car part
+
+            if (
+              !dataFetcher[`${record.category}_${record.subcategory}`][
+                record.defect
+              ][record.subdefect]
+            ) {
+              // block to create new subDefectName in defectName
+              dataFetcher[`${record.category}_${record.subcategory}`][
+                record.defect
+              ][record.subdefect] = {};
+
+              if (
+                !dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number]
+              ) {
+                // block to create new bodyNumber in subDefectName
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = record.zones;
+              } else {
+                // block to modify values of existing bodyNumber in subDefectName
+                let tempArray = [
+                  ...dataFetcher[`${record.category}_${record.subcategory}`][
+                    record.defect
+                  ][record.subdefect][record.body_number],
+                  ...record.zones,
+                ];
+
+                let tempSet = new Set(tempArray);
+
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = Array.from(tempSet);
+              }
+            } else {
+              // block to modify values of existing subDefectName in defectName
+
+              if (
+                !dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number]
+              ) {
+                // block to create new bodyNumber in subDefectName
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = record.zones;
+              } else {
+                // block to modify values of existing bodyNumber in subDefectName
+                let tempArray = [
+                  ...dataFetcher[`${record.category}_${record.subcategory}`][
+                    record.defect
+                  ][record.subdefect][record.body_number],
+                  ...record.zones,
+                ];
+
+                let tempSet = new Set(tempArray);
+
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = Array.from(tempSet);
+              }
+            }
+          }
+        } else {
+          // block to modify values of existing carPart in Object
+
+          if (
+            !dataFetcher[`${record.category}_${record.subcategory}`][
+              record.defect
+            ]
+          ) {
+            // block to create new defectName in carPart
+            dataFetcher[`${record.category}_${record.subcategory}`][
+              record.defect
+            ] = {};
+
+            if (
+              !dataFetcher[`${record.category}_${record.subcategory}`][
+                record.defect
+              ][record.subdefect]
+            ) {
+              // block to create new subDefectName in defectName
+              dataFetcher[`${record.category}_${record.subcategory}`][
+                record.defect
+              ][record.subdefect] = {};
+
+              if (
+                !dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number]
+              ) {
+                // block to create new bodyNumber in subDefectName
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = record.zones;
+              } else {
+                // block to modify values of existing bodyNumber in subDefectName
+                let tempArray = [
+                  ...dataFetcher[`${record.category}_${record.subcategory}`][
+                    record.defect
+                  ][record.subdefect][record.body_number],
+                  ...record.zones,
+                ];
+
+                let tempSet = new Set(tempArray);
+
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = Array.from(tempSet);
+              }
+            } else {
+              // block to modify values of existing subDefectName in defectName
+
+              if (
+                !dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number]
+              ) {
+                // block to create new bodyNumber in subDefectName
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = record.zones;
+              } else {
+                // block to modify values of existing bodyNumber in subDefectName
+                let tempArray = [
+                  ...dataFetcher[`${record.category}_${record.subcategory}`][
+                    record.defect
+                  ][record.subdefect][record.body_number],
+                  ...record.zones,
+                ];
+
+                let tempSet = new Set(tempArray);
+
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = Array.from(tempSet);
+              }
+            }
+          } else {
+            // block to change values of existing defectName property inside car part
+
+            if (
+              !dataFetcher[`${record.category}_${record.subcategory}`][
+                record.defect
+              ][record.subdefect]
+            ) {
+              // block to create new subDefectName in defectName
+              dataFetcher[`${record.category}_${record.subcategory}`][
+                record.defect
+              ][record.subdefect] = {};
+
+              if (
+                !dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number]
+              ) {
+                // block to create new bodyNumber in subDefectName
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = record.zones;
+              } else {
+                // block to modify values of existing bodyNumber in subDefectName
+                let tempArray = [
+                  ...dataFetcher[`${record.category}_${record.subcategory}`][
+                    record.defect
+                  ][record.subdefect][record.body_number],
+                  ...record.zones,
+                ];
+
+                let tempSet = new Set(tempArray);
+
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = Array.from(tempSet);
+              }
+            } else {
+              // block to modify values of existing subDefectName in defectName
+
+              if (
+                !dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number]
+              ) {
+                // block to create new bodyNumber in subDefectName
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = record.zones;
+              } else {
+                // block to modify values of existing bodyNumber in subDefectName
+                let tempArray = [
+                  ...dataFetcher[`${record.category}_${record.subcategory}`][
+                    record.defect
+                  ][record.subdefect][record.body_number],
+                  ...record.zones,
+                ];
+
+                let tempSet = new Set(tempArray);
+
+                dataFetcher[`${record.category}_${record.subcategory}`][
+                  record.defect
+                ][record.subdefect][record.body_number] = Array.from(tempSet);
+              }
+            }
+          }
+        }
+      }
+    });
+    // console.log('dataFetcher', dataFetcher);
+
+    let response = {
+      message: 'success',
+      data: dataFetcher,
+    };
+
+    res.send(JSON.stringify(response));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.post('/individualSummaryReport', async (req, res) => {
   const fromDate = req.body.fromDate;
   const toDate = req.body.toDate;
@@ -806,110 +1128,6 @@ app.post('/individualSummaryReport', async (req, res) => {
   //   ''
   // }
 });
-
-// app.get('/lookup', async (req, res) => {
-//   try {
-//     Data = await DataSchema.find();
-//     if (username == 'Administrator') {
-//       res.render(path.join(__dirname, '/views/lookup.ejs'), {
-//         data: Data,
-//         username,
-//       });
-//     } else {
-//       res.redirect('/');
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-
-// app.get('/filtering', async (req, res) => {
-//   try {
-//     // console.log(Data);
-
-//     if (username == 'Administrator') {
-//       res.render(path.join(__dirname, '/views/filtering.ejs'), {
-//         username,
-//       });
-//     } else {
-//       res.redirect('/');
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-
-// app.post('/delete', async (req, res) => {
-//   try {
-//     if (username == 'Administrator') {
-//       const deleteBodyNumber = req.body.bodyNumber;
-//       const deleteCategoryChosen = req.body.categoryChosen;
-//       const deleteSubCategoryChosen = req.body.subCategoryChosen;
-//       const deleteDefectArea = req.body.defectArea;
-//       const deleteDate = req.body.date;
-//       const deleteTime = req.body.time;
-//       const deleteUsername = req.body.username;
-
-//       // console.log(deleteOption, deleteCategoryChosen, deleteSubCategoryChosen);
-
-//       await DataSchema.deleteOne({
-//         bodyNumber: deleteBodyNumber,
-//         categoryChosen: deleteCategoryChosen,
-//         subCategoryChosen: deleteSubCategoryChosen,
-//         defectArea: deleteDefectArea,
-//         date: deleteDate,
-//         time: deleteTime,
-//         username: deleteUsername,
-//       });
-
-//       res.redirect('/lookup');
-//     } else {
-//       res.redirect('/');
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
-
-// app.post('/visualization', async (req, res) => {
-//   try {
-//     if (username == 'Administrator') {
-//       const column = req.body.chosenColumn;
-
-//       const Data = await DataSchema.find();
-
-//       const columnData = [];
-//       for (let i = 0; i < Data.length; i++) {
-//         columnData.push(Data[i].optionChosen);
-//       }
-
-//       let uniquevalues = new Set(columnData);
-//       uniquevalues = Array.from(uniquevalues);
-
-//       // creating an object with unique values for counting occurrence
-//       let columnDataObj = {};
-//       for (let i = 0; i < uniquevalues.length; i++) {
-//         columnDataObj[`${uniquevalues[i]}`] = 0;
-//       }
-
-//       //counting each unique values occurrence
-//       for (let i = 0; i < columnData.length; i++) {
-//         columnDataObj[`${columnData[i]}`]++;
-//       }
-
-//       let occurrence = Object.values(columnDataObj);
-
-//       res.render(path.join(__dirname, '/views/chart.ejs'), {
-//         xvalues: uniquevalues,
-//         yvalues: occurrence,
-//       });
-//     } else {
-//       res.redirect('/');
-//     }
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
 
 app.get('/logout', (req, res) => {
   try {
