@@ -63,7 +63,7 @@
           <p id="report-topic-data"></p>
         </div>
         <div class="report-content-data">
-
+          
         </div>
       </div>
     </div>
@@ -136,7 +136,11 @@
 
 
           var tbl = document.createElement('table');
-          tbl.style.width = '100%';
+          tbl.style.width = '80%';
+          tbl.style.marginLeft = '10%'
+          tbl.style.marginTop = '4%'
+          tbl.style.border = '1px solid #64666a'
+          tbl.style.borderRadius = '4px'
           tbl.setAttribute('border', '1');
           reportContentData[0].appendChild(tbl)
 
@@ -145,11 +149,14 @@
 
           var tableHeading = ['Section','Surface','Body Fitting','Missing & Wrong Part', 'Welding', 'Water Leak', 'Total', 'Total DPV']
 
-          for(let i of tableHeading){
+          tableHeading.map( (singleHeading) => {
             var tblHeading = document.createElement('th')
-            tblHeading.innerHTML = i
+            tblHeading.style.backgroundColor = '#000000'
+            tblHeading.style.padding = '1%'
+            tblHeading.style.fontSize = '100%'
+            tblHeading.innerHTML = singleHeading
             tblRowforHeading.appendChild(tblHeading)
-          }
+          })
 
           var horizontalTotalArray = [0,0,0,0,0]
           var horizontalTotalDPVArray = [0,0,0,0,0]
@@ -164,11 +171,15 @@
 
             var tblDataforDefectName = document.createElement('td')
             tblDataforDefectName.innerHTML = key
+            tblDataforDefectName.style.backgroundColor = '#000000'
+            tblDataforDefectName.style.padding = '0.5%'
             tblRowforData.appendChild(tblDataforDefectName)
 
             for(let j=0; j< value.length; j++){
               var tblDataforDefectName = document.createElement('td')
               tblDataforDefectName.innerHTML = value[j]
+              tblDataforDefectName.style.padding = '0.5%'
+              tblDataforDefectName.style.textAlign = 'center'
               tblRowforData.appendChild(tblDataforDefectName)
 
               horizontalTotalArray[i] += value[j]
@@ -177,11 +188,15 @@
             }
             var tblDataforTotal = document.createElement('td')
             tblDataforTotal.innerHTML = horizontalTotalArray[i]
+            tblDataforTotal.style.padding = '0.5%'
+            tblDataforTotal.style.textAlign = 'center'
             tblRowforData.appendChild(tblDataforTotal)
 
             var tblDataforTotalDPV = document.createElement('td')
             horizontalTotalDPVArray[i] = (horizontalTotalArray[i]/data.uniqueBodyNumberData.length)
             tblDataforTotalDPV.innerHTML = horizontalTotalDPVArray[i].toFixed(2)
+            tblDataforTotalDPV.style.padding = '0.5%'
+            tblDataforTotalDPV.style.textAlign = 'center'
             tblRowforData.appendChild(tblDataforTotalDPV)
 
             i++;
@@ -192,22 +207,30 @@
 
           var tblDataforTotal = document.createElement('td')
           tblDataforTotal.innerHTML = 'Total'
+          tblDataforTotal.style.backgroundColor = '#000000'
+          tblDataforTotal.style.padding = '0.5%'
           tblRowforTotal.appendChild(tblDataforTotal)
 
           for(let j = 0; j < individualDefectTotal.length; j++){
             var tblDataforIndividualDefect = document.createElement('td')
             tblDataforIndividualDefect.innerHTML = individualDefectTotal[j]
+            tblDataforIndividualDefect.style.padding = '0.5%'
+            tblDataforIndividualDefect.style.textAlign = 'center'
             tblRowforTotal.appendChild(tblDataforIndividualDefect) 
           }
 
           var tblDataforHorizontalTotal = document.createElement('td')
           const horizontalTotal = horizontalTotalArray.reduce((partialSum, a) => partialSum + a, 0);
           tblDataforHorizontalTotal.innerHTML = horizontalTotal
+          tblDataforHorizontalTotal.style.padding = '0.5%'
+          tblDataforHorizontalTotal.style.textAlign = 'center'
           tblRowforTotal.appendChild(tblDataforHorizontalTotal)
 
           var tblDataforHorizontalTotalDPV = document.createElement('td')
           const horizontalTotalDPV = horizontalTotalDPVArray.reduce((partialSum, a) => partialSum + a, 0);
           tblDataforHorizontalTotalDPV.innerHTML = horizontalTotalDPV.toFixed(2)
+          tblDataforHorizontalTotalDPV.style.padding = '0.5%'
+          tblDataforHorizontalTotalDPV.style.textAlign = 'center'
           tblRowforTotal.appendChild(tblDataforHorizontalTotalDPV)
 
           var tblRowforProduction = document.createElement('tr')
@@ -216,10 +239,16 @@
           var tblDataforProduction = document.createElement('td')
           tblDataforProduction.colSpan = 7
           tblDataforProduction.innerHTML = 'Line off(Production)'
+          tblDataforProduction.style.padding = '0.5%'
+          tblDataforProduction.style.textAlign = 'right'
+          tblDataforProduction.style.paddingRight = '2%'
+          tblDataforProduction.style.fontSize = '120%'
           tblRowforProduction.appendChild(tblDataforProduction)
 
           var tblDataforBodyNumbers = document.createElement('td')
           tblDataforBodyNumbers.innerHTML = data.uniqueBodyNumberData.length
+          tblDataforBodyNumbers.style.padding = '0.5%'
+          tblDataforBodyNumbers.style.textAlign = 'center'
           tblRowforProduction.appendChild(tblDataforBodyNumbers)
 
         }).catch((error) => {
@@ -361,7 +390,16 @@
           dataPointWidth: 35,
           axisY: {
             title: "Defects",
-            titleFontFamily: 'tahoma'
+            titleFontFamily: 'tahoma',
+            gridThickness: 0,
+              stripLines: [
+                {
+                  value: 0,
+                  showOnTop: true,
+                  color: "gray",
+                  thickness: 2
+                }
+              ]
           },
           data: [{        
             type: "column",  
@@ -409,6 +447,8 @@
 
         categoryWiseChart.render();
 
+        console.log('categoryWiseChart: ',categoryWiseChart)
+
 
         var groupWise = document.createElement('div')
         groupWise.id = 'groupWise'
@@ -428,6 +468,7 @@
           },
           data: [{
             type: "doughnut",
+            click: function(){console.log('Element clicked')},
             startAngle: 60,
             // innerRadius: 70,
             indexLabelFontSize: 15,
@@ -498,7 +539,16 @@
               title: "No of Vehicle"
             },
             axisY: {
-              title: "Defects per Vehicle"
+              title: "Defects per Vehicle",
+              gridThickness: 0,
+              stripLines: [
+                {
+                  value: 0,
+                  showOnTop: true,
+                  color: "gray",
+                  thickness: 2
+                }
+              ]
             },
             data: [{        
               type: "column",  
@@ -515,7 +565,7 @@
           categoryWiseChartDivision.id=`${groupID[i]}_Category_DPV`
           categoryWiseChartDivision.style.width = '30%'
           categoryWiseChartDivision.style.marginLeft = '35%'
-          // categoryWiseChartDivision.style.marginTop = '30%'
+          categoryWiseChartDivision.style.marginTop = '3.5%'
           divElement.appendChild(categoryWiseChartDivision)
 
           individualGroupWisechart.push(new CanvasJS.Chart(categoryWiseChartDivision.id, {
@@ -532,7 +582,16 @@
               title: "Category"
             },
             axisY: {
-              title: "Total no of defects"
+              title: "Total no of defects",
+              gridThickness: 0,
+              stripLines: [
+                {
+                  value: 0,
+                  showOnTop: true,
+                  color: "gray",
+                  thickness: 2
+                }
+              ]
             },
             data: [{        
               type: "column",  
@@ -569,7 +628,16 @@
               title: "Sub-Defects"
             },
             axisY: {
-              title: "Total no of defects"
+              title: "Total no of defects",
+              gridThickness: 0,
+              stripLines: [
+                {
+                  value: 0,
+                  showOnTop: true,
+                  color: "gray",
+                  thickness: 2
+                }
+              ]
             },
             data: [{        
               type: "column",  
@@ -600,13 +668,13 @@
         })
         const data = await response.json()
 
-        // console.log('data', data.data)
+        console.log('data', data.data)
 
         let bodyNumberCountProvider = JSON.parse(JSON.stringify(data.data))
         let categoryCountProvider= JSON.parse(JSON.stringify(data.data))
         let defectCountProvider = JSON.parse(JSON.stringify(data.data))
 
-
+        // counting no of defects in each bodyNumber, category, defect
         Object.keys(bodyNumberCountProvider).map ( (category) => {
           if(isNaN(categoryCountProvider[category])){
             categoryCountProvider[category] = 0
@@ -656,10 +724,12 @@
 
         let mainParetoChartDataset = []
 
+        // populating dataset for main Pareto Visualization
         Object.entries(sortedCategoryCountProvider).map( (element) => {
           mainParetoChartDataset.push({label: element[0], y: element[1]})
         })
 
+        // chart configuration
         var mainParetoChart= new CanvasJS.Chart("mainParetoChartDivision", {
           animationEnabled: true,
           backgroundColor: "rgba(0, 0, 0, 0)",
@@ -677,10 +747,24 @@
             labelFontColor: "#4F81BC",
             labelFontFamily: 'tahoma',
             labelFontSize: 20,
+            gridThickness: 0,
+            stripLines: [
+              {
+                value: 0,
+                showOnTop: true,
+                color: "gray",
+                thickness: 2
+              }
+            ]
           },
           axisX:{
-            labelFontFamily:'tahoma',
-            labelFontSize: 8,
+            title: 'Category',
+            gridThickness: 0,
+            tickLength: 0,
+            lineThickness: 0,
+            labelFormatter: function(){
+              return " ";
+            }
           },
           data: [{
             type: "column",
@@ -689,30 +773,83 @@
         });
         mainParetoChart.render();
 
-        
+        // division for all individual defect Pareto Visualization
         const individualDefectParetoDivision = document.createElement('div')
         individualDefectParetoDivision.id = 'individualDefectParetoDivision'
         individualDefectParetoDivision.style.width='100%'
         individualDefectParetoDivision.style.marginTop = '3%'
         document.getElementsByClassName('report-content-data')[0].appendChild(individualDefectParetoDivision)
+        
+        // category template for sortedIndividualCountProvider populating
+        let categoryTemplate = JSON.parse(JSON.stringify(defectCountProvider))
+        Object.keys(categoryTemplate).map( (category) => {
+          categoryTemplate[category] = ''
+        })
 
-        // const sortedDefectCountProvider = Object.entries(defectCountProvider)
-        //   .sort(([, a], [, b]) => b - a)
-        //   .reduce(
-        //     (r, [k, v]) => ({
-        //       ...r,
-        //       [k]: v
-        //     }),
-        //     {}
-        //   )
+        // storing surface-correspondingCategory value in 0th index and so on
+        let sortedIndividualCountProvider = [JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate))]
+
+        // copying corresponding values into sortedIndividualCountProvider from defectCountProvider 
+        Object.keys(defectCountProvider).map( (category) => {
+          Object.keys(defectCountProvider[category]).map( (defectName) => {
+            switch(defectName){
+              case 'Surface':
+                sortedIndividualCountProvider[0][category] = defectCountProvider[category][defectName]
+                break;
+              case 'Body Fitting':
+                // if(category == 'LH SHELL BODY SUB-LINE_FRONT DOOR INNER - LH'){
+                //   console.log('category: ',category)
+                //   console.log('sortedIndividualCountProvider[1][category]: Before' ,sortedIndividualCountProvider[1][category])
+                // }
+                sortedIndividualCountProvider[1][category] = defectCountProvider[category][defectName]
+                // if(category == 'LH SHELL BODY SUB-LINE_FRONT DOOR INNER - LH'){
+                //   console.log('sortedIndividualCountProvider[1][category]: After' ,sortedIndividualCountProvider[1][category])  
+                // }
+                break;  
+              case 'Missing & Wrong Part':
+                sortedIndividualCountProvider[2][category] = defectCountProvider[category][defectName]
+                break;
+              case 'Welding':
+                sortedIndividualCountProvider[3][category] = defectCountProvider[category][defectName]
+                break;
+              case 'Water Leak':
+                sortedIndividualCountProvider[4][category] = defectCountProvider[category][defectName]
+                break;
+              default: break;
+            }
+          })
+        } )
+
+        // deleting empty valued categories of Each DefectName
+        sortedIndividualCountProvider.map( (individualDefect) => {
+          Object.keys(individualDefect).map( (category) => {
+            if(!individualDefect[category]){
+              delete individualDefect[category];
+            }
+          })
+        })
+
+        // sorting (descending) each sortedIndividualCountProvider elements property based on the defect Count 
+        for(let i=0; i<sortedIndividualCountProvider.length; i++){
+          sortedIndividualCountProvider[i] = Object.entries(sortedIndividualCountProvider[i])
+            .sort(([, a], [, b]) => b - a)
+            .reduce(
+              (r, [k, v]) => ({
+                ...r,
+                [k]: v
+              }),
+              {}
+            )
+        }
+
+        console.log('sortedIndividualCountProvider:' ,sortedIndividualCountProvider)
 
         const defectList = ['Surface','Body Fitting','Missing & Wrong Part','Welding','Water Leak']
         var individualParetoChartHolder = []
-        let chartCounter = 0;
-        defectList.map( (defectName) => {
+        for(let i = 0; i < defectList.length; i++){
           // creating division for individual defect pareto chart
           let individualDefectPareto = document.createElement('div')
-          individualDefectPareto.id = defectName+'ParetoDivision'
+          individualDefectPareto.id = defectList[i]+'ParetoDivision'
           individualDefectParetoDivision.appendChild(individualDefectPareto)
           individualDefectPareto.style.width = '40%'
           individualDefectPareto.style.height = '60%'
@@ -720,13 +857,13 @@
           individualDefectPareto.style.marginBottom = '30%'
           individualDefectPareto.style.cssFloat = 'left'
 
+          // populating points into array for datapoints
           let individualParetoChartDataset = []
-
-          Object.keys(defectCountProvider).map( (category) => {
-            individualParetoChartDataset.push( {label: category , y:defectCountProvider[category][defectName]} )
+          Object.keys(sortedIndividualCountProvider[i]).map( (category) => {
+            individualParetoChartDataset.push( {label: category , y: sortedIndividualCountProvider[i][category]} )
           })
 
-          console.log(`${defectName}: `, individualParetoChartDataset)
+          console.log(`${defectList[i]}: `, individualParetoChartDataset)
 
           // pareto chart for individual defect
           individualParetoChartHolder.push( new CanvasJS.Chart(individualDefectPareto.id, {
@@ -734,7 +871,7 @@
             backgroundColor: "rgba(0, 0, 0, 0)",
             theme: "dark1",
             title:{
-              text: `${defectName} Pareto Visualization`,
+              text: `${defectList[i]} Pareto Visualization`,
               fontFamily: 'tahoma',
               fontSize: 18,
             },
@@ -746,24 +883,35 @@
               labelFontColor: "#4F81BC",
               labelFontFamily: 'tahoma',
               labelFontSize: 18,
+              gridThickness: 0,
+              stripLines: [
+                {
+                  value: 0,
+                  showOnTop: true,
+                  color: "gray",
+                  thickness: 2
+                }
+              ]
             },
             axisX: {
-              labelFontFamily: 'tahoma',
-              labelFontSize: 8,
+              title: 'Category',
+              gridThickness: 0,
+              tickLength: 0,
+              lineThickness: 0,
+              labelFormatter: function(){
+                return " ";
+              }
             },
             data: [{
               type: "column",
               dataPoints: individualParetoChartDataset
             }]
           }))
-          individualParetoChartHolder[chartCounter].render();
-          chartCounter = chartCounter + 1;
-        })
+          individualParetoChartHolder[i].render();
+        }
 
         document.getElementById('Water LeakParetoDivision').style.clear = 'left'
         document.getElementById('Water LeakParetoDivision').style.marginLeft = '30%'
-
-        console.log('individualParetoChartHolder:',individualParetoChartHolder)
       }
 
       function individualSummary(majorDefectName, minorDefectsList){

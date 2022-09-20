@@ -1,6 +1,8 @@
+const { json } = require('body-parser');
 const express = require('express');
 const { rmSync } = require('fs');
 const path = require('path');
+const { measureMemory } = require('vm');
 const Pool = require('pg').Pool;
 const app = express();
 app.use(express.json());
@@ -13,7 +15,9 @@ const pool = new Pool({
   password: 'admin',
   port: 5432,
 });
-console.log('Wait few seconds for database connection');
+console.log(
+  'Please, wait for Database confirmation message. Start, once you receive'
+);
 // creating database and tables if not exists
 pool.query(
   `SELECT FROM pg_database WHERE datname = 'data_entry_systems'`,
@@ -449,6 +453,7 @@ app.post('/thirdlayer', (req, res) => {
 
 app.post('/receive-thirdLayer-temp', async (req, res) => {
   try {
+    const defectObj = req.body.defectObj;
     let filledDefects = {};
     let tempSubDefectCategory = {};
     let defectCategory, subDefectCategory;
@@ -472,20 +477,22 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
       ':' +
       String(currentDate.getSeconds());
 
-    for (let i in req.body) {
+    Object.keys(defectObj).map((i) => {
       defectCategory = i.split('_')[0];
       subDefectCategory = i.split('_')[1];
-      tempSubDefectCategory[subDefectCategory] = req.body[i];
+      tempSubDefectCategory[subDefectCategory] = defectObj[i];
       if (filledDefects.hasOwnProperty(defectCategory)) {
         temp = filledDefects[defectCategory];
-        temp[subDefectCategory] = req.body[i];
+        temp[subDefectCategory] = defectObj[i];
         filledDefects[defectCategory] = temp;
         temp = {};
       } else {
         filledDefects[defectCategory] = tempSubDefectCategory;
       }
       tempSubDefectCategory = {};
-    }
+    });
+
+    console.log('filledDefects:', filledDefects);
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -495,23 +502,188 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
       port: 5432,
     });
 
-    for (let i in filledDefects) {
-      let subdefects = filledDefects[i];
-      for (let j in subdefects) {
-        console.log(
-          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${time}','${username}');`
-        );
-        dbConnectedPool.query(
-          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${i}','${j}',ARRAY[${subdefects[j]}],'${date}','${time}','${username}');`,
-          (error, result) => {
-            if (error) {
-              // console.log(filledDefects);
-              console.log(error);
-            }
-          }
-        );
-      }
+    let messageObject = {};
+
+    async function messageObjectCreator(
+      propertyName,
+      correspondingZone,
+      defectNameSubDefectName
+    ) {
+      messageObject[propertyName][correspondingZone] = [
+        defectNameSubDefectName,
+      ];
     }
+
+    async function messageObjectModifier(
+      propertyName,
+      correspondingZone,
+      defectNameSubDefectName
+    ) {
+      messageObject[propertyName][correspondingZone].push(
+        defectNameSubDefectName
+      );
+    }
+
+    // storing the defects or modifying
+    Object.keys(filledDefects).map((defectName) => {
+      Object.keys(filledDefects[defectName]).map(async (subDefectName) => {
+        // checking whether already record exists with same aspects
+        let result = await dbConnectedPool.query(
+          `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
+        );
+        if (result.rows.length == 0) {
+          // block to save defects record for the first time
+          console.log(
+            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',ARRAY[${filledDefects[defectName][subDefectName]}],'${date}','${time}','${username}');`
+          );
+          const newRecord = await dbConnectedPool.query(
+            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',ARRAY[${filledDefects[defectName][subDefectName]}],'${date}','${time}','${username}');`
+          );
+          if (!messageObject['Newly Saved Zones']) {
+            messageObject['Newly Saved Zones'] = {};
+            filledDefects[defectName][subDefectName].map(async (singleZone) => {
+              if (!messageObject['Newly Saved Zones'][singleZone]) {
+                // creating the zone for the first time
+                // messageObject['Newly Saved Zones'][singleZone] = [
+                //   `${defectName} -> ${subDefectName}`,
+                // ];
+                await messageObjectCreator(
+                  'Newly Saved Zones',
+                  singleZone,
+                  `${defectName} -> ${subDefectName}`
+                );
+              } else {
+                // adding the defect & subdefect in the same existing zone in the newly created zone property
+                // messageObject['Newly Saved Zones'][singleZone].push(
+                //   `${defectName} -> ${subDefectName}`
+                // );
+                await messageObjectModifier(
+                  'Newly Saved Zones',
+                  singleZone,
+                  `${defectName} -> ${subDefectName}`
+                );
+              }
+            });
+          }
+        } else {
+          // block to modify existing defect records
+          console.log('result:', result.rows);
+          let temp = result.rows[0].zones;
+          // console.log('Existing ZONES: ', temp);
+          temp.push(...filledDefects[defectName][subDefectName]);
+          // console.log(
+          //   'New ZONES: ',
+          //   filledDefects[defectName][subDefectName]
+          // );
+          let tempSet = new Set(temp);
+          let updatedZones = Array.from(tempSet);
+          // console.log('Updated ZONES: ', updatedZones);
+
+          console.log(
+            `UPDATE defect_table SET zones=ARRAY[${updatedZones}],date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
+          );
+
+          const updateRecord = await dbConnectedPool.query(
+            `UPDATE defect_table SET zones=ARRAY[${updatedZones}],date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
+          );
+
+          // getting the modified zones
+          filledDefects[defectName][subDefectName].map(
+            async (singleFilledDefectZone) => {
+              if (result.rows[0].zones.includes(singleFilledDefectZone)) {
+                // code for Existing Zones in messageObject
+                if (!messageObject['Already Saved Zones']) {
+                  messageObject['Already Saved Zones'] = {};
+                  if (
+                    !messageObject['Already Saved Zones'][
+                      singleFilledDefectZone
+                    ]
+                  ) {
+                    // messageObject['Already Saved Zones'][singleFilledDefectZone] = [
+                    //   `${defectName} -> ${subDefectName}`,
+                    // ];
+
+                    await messageObjectCreator(
+                      'Already Saved Zones',
+                      singleFilledDefectZone,
+                      `${defectName} -> ${subDefectName}`
+                    );
+                  }
+                } else {
+                  if (
+                    !messageObject['Already Saved Zones'][
+                      singleFilledDefectZone
+                    ]
+                  ) {
+                    // messageObject['Already Saved Zones'][singleFilledDefectZone] = [
+                    //   `${defectName} -> ${subDefectName}`,
+                    // ];
+
+                    await messageObjectCreator(
+                      'Already Saved Zones',
+                      singleFilledDefectZone,
+                      `${defectName} -> ${subDefectName}`
+                    );
+                  } else {
+                    // messageObject['Already Saved Zones'][
+                    //   singleFilledDefectZone
+                    // ].push(`${defectName} -> ${subDefectName}`);
+
+                    await messageObjectModifier(
+                      'Already Saved Zones',
+                      singleFilledDefectZone,
+                      `${defectName} -> ${subDefectName}`
+                    );
+                  }
+                }
+              } else {
+                // code for Creating zones in messageObject
+                if (!messageObject['Newly Saved Zones']) {
+                  messageObject['Newly Saved Zones'] = {};
+                  if (
+                    !messageObject['Newly Saved Zones'][singleFilledDefectZone]
+                  ) {
+                    // messageObject['Newly Saved Zones'][
+                    //   singleFilledDefectZone
+                    // ] = [`${defectName} -> ${subDefectName}`];
+
+                    await messageObjectCreator(
+                      'Newly Saved Zones',
+                      singleFilledDefectZone,
+                      `${defectName} -> ${subDefectName}`
+                    );
+                  }
+                } else {
+                  if (
+                    !messageObject['Newly Saved Zones'][singleFilledDefectZone]
+                  ) {
+                    // messageObject['Newly Saved Zones'][
+                    //   singleFilledDefectZone
+                    // ] = [`${defectName} -> ${subDefectName}`];
+
+                    await messageObjectCreator(
+                      'Newly Saved Zones',
+                      singleFilledDefectZone,
+                      `${defectName} -> ${subDefectName}`
+                    );
+                  } else {
+                    messageObject['Newly Saved Zones'][
+                      singleFilledDefectZone
+                    ].push(`${defectName} -> ${subDefectName}`);
+
+                    await messageObjectModifier(
+                      'Newly Saved Zones',
+                      singleFilledDefectZone,
+                      `${defectName} -> ${subDefectName}`
+                    );
+                  }
+                }
+              }
+            }
+          );
+        }
+      });
+    });
 
     console.log(defectBodyNumberStatus);
 
@@ -546,7 +718,17 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
       );
     }
 
-    res.redirect('/redirectedfirstlayer');
+    setTimeout(() => {
+      res.send(
+        JSON.stringify({
+          status: 'success',
+          data: messageObject,
+        })
+      );
+    }, 2000);
+    // console.log('messageObject -> without timeOUT', messageObject);
+
+    // res.redirect('/redirectedfirstlayer');
   } catch (err) {
     console.log(err);
   }

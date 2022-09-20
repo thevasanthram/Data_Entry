@@ -53,7 +53,7 @@
           src="./arrow.png"
           id="go-back-icon"
           alt="Go Back"
-          onclick="history.back()"
+          onclick="document.getElementById('followerForm').submit();"
         />
         <p id="title-name">Select Category :</p>
       </div>
@@ -76,6 +76,7 @@
         </form>
         <%}%>
       </div>
+      <form action="/follower" method="get" id="followerForm"></form>
     </div>
 
     <script>

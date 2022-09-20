@@ -37,7 +37,7 @@
         />
         <div>
           <div class="save-reset-content">
-            <button type="button" class="save-button" onclick="handleSave()">
+            <button type="button" class="save-button" onclick="validate()">
               Save
             </button>
             <button type="button" class="reset-button" onclick="handleReset()">
@@ -131,6 +131,10 @@
           </div>
         </form>
       </div>
+      <div>
+        <form action="/follower" method="get" id="followerForm"></form>
+        <form action="/firstlayer" method="post" id="firstLayerform"></form>
+      </div>
     </div>
 
     <script>
@@ -167,6 +171,7 @@
 
       // code to set corresponding background image for zone-divisions
       for (let i = 1; i <= mainDefectId.length; i++) {
+        // console.log(`<%= categoryId %>_<%= subcategoryId %>`);
         document.getElementById('zone-division' + i).style.backgroundImage =
           'url(<%= categoryId %>_<%= subcategoryId %>.jpg)';
       }
@@ -215,10 +220,79 @@
         event.target.style.color = '#000000';
       }
 
-      function handleSave() {
-        if (confirm('Confirm saving') == true) {
-          document.getElementById('defectLayerForm').submit();
+      function validate() {
+        var defectLayerFormInputElements =
+          document.getElementsByTagName('input');
+        var checkBoxNotSelectedCount = 0;
+        Object.values(defectLayerFormInputElements).map((singleInput) => {
+          if (!singleInput.checked) {
+            checkBoxNotSelectedCount++;
+          }
+        });
+        if (checkBoxNotSelectedCount == defectLayerFormInputElements.length) {
+          alert('No Zones were Selected. Atleast select a zone');
+        } else {
+          handleSave();
         }
+      }
+
+      async function handleSave() {
+        const defectLayerForm = document.getElementById('defectLayerForm');
+        var defectLayerFormData = {};
+        var defectLayerFormInputElements =
+          document.getElementsByTagName('input');
+
+        Object.values(defectLayerFormInputElements).map((singleInput) => {
+          if (singleInput.checked) {
+            if (!defectLayerFormData[singleInput.name]) {
+              defectLayerFormData[singleInput.name] = [singleInput.value];
+            } else {
+              defectLayerFormData[singleInput.name].push(singleInput.value);
+            }
+          }
+        });
+
+        //disabling onclick function of the save button, :- save button can be clicked only once.
+        const saveButton = document.getElementsByClassName('save-button')[0];
+        saveButton.removeAttribute('onclick');
+
+        const response = await fetch(
+          'http://localhost:8000/receive-thirdLayer-temp',
+          {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              defectObj: defectLayerFormData,
+            }),
+          }
+        );
+
+        const messageObject = await response.json();
+
+        console.log('messageObject: ', messageObject);
+
+        let message =
+          'Defects Saved. Click OK to add more defects to the same body number\n\n';
+
+        // making up zone report for prompt box
+        for (let i in messageObject.data) {
+          message = message + i + ': \n';
+          for (let j in messageObject.data[i]) {
+            message =
+              message + ' ' + j + ': ' + messageObject.data[i][j] + '\n';
+          }
+        }
+        console.log('message: ', message);
+
+        if (confirm(message) == false) {
+          document.getElementById('followerForm').submit();
+        } else {
+          document.getElementById('firstLayerform').submit();
+        }
+
+        // console.log(defectLayerFormData);
       }
 
       function handleReset() {
@@ -226,7 +300,7 @@
       }
 
       function makeChecked(event) {
-        console.log(document.getElementById(event.target.id));
+        // console.log(document.getElementById(event.target.id));
         if (document.getElementsByClassName(event.target.id)[0].checked) {
           document.getElementsByClassName(event.target.id)[0].checked = false;
         } else {
