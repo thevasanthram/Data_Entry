@@ -567,7 +567,7 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
           }
         } else {
           // block to modify existing defect records
-          console.log('result:', result.rows);
+          // console.log('result:', result.rows);
           let temp = result.rows[0].zones;
           // console.log('Existing ZONES: ', temp);
           temp.push(...filledDefects[defectName][subDefectName]);
@@ -725,7 +725,7 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
           data: messageObject,
         })
       );
-    }, 2000);
+    }, 3000);
     // console.log('messageObject -> without timeOUT', messageObject);
 
     // res.redirect('/redirectedfirstlayer');

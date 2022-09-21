@@ -366,10 +366,12 @@
         console.log('Individual Group defects:',data.data)
         console.log('Group wise Total DPV: ',horizontalTotalDPVArray)
 
+
         var reportContent = document.getElementsByClassName('report-content-data')[0]
 
         var firstSection = document.createElement('div')
         firstSection.id = 'firstSection'
+        // firstSection.style.marginBottom = '30%'
         reportContent.appendChild(firstSection)
 
         var totalDPV = document.createElement('div')
@@ -456,6 +458,12 @@
         groupWise.style.marginLeft = '68%'
         firstSection.appendChild(groupWise)
 
+        // function for navigating to the corresponding group function
+        function navigate(event){
+          document.getElementById(event.dataPoint.label.replace(' ','')).scrollIntoView({ behavior: "smooth" })
+          // console.log('id: ',event.dataPoint.label.replace(' ',''))
+        }
+
         var groupWiseChart = new CanvasJS.Chart("groupWise", {
           animationEnabled: true,
           backgroundColor: "rgba(0, 0, 0, 0)",
@@ -468,18 +476,17 @@
           },
           data: [{
             type: "doughnut",
-            click: function(){console.log('Element clicked')},
             startAngle: 60,
             // innerRadius: 70,
             indexLabelFontSize: 15,
             indexLabel: "{label} - {y}, #percent%",
             toolTipContent: "<b>{label}:</b> {y} (#percent%)",
             dataPoints: [
-              { y: horizontalTotalArray[0], label: "UB" },
-              { y: horizontalTotalArray[1], label: "MB" },
-              { y: horizontalTotalArray[2], label: "SB SA" },
-              { y: horizontalTotalArray[3], label: "SB ML"},
-              { y: horizontalTotalArray[4], label: "SM"},
+              { y: horizontalTotalArray[0], label: "UB" ,click: navigate},
+              { y: horizontalTotalArray[1], label: "MB" ,click: navigate},
+              { y: horizontalTotalArray[2], label: "SB SA" ,click: navigate},
+              { y: horizontalTotalArray[3], label: "SB ML" ,click: navigate},
+              { y: horizontalTotalArray[4], label: "SM" ,click: navigate},
             ]
           }]
         });
@@ -494,12 +501,15 @@
         var groupDPVChart = [];
         var individualGroupWisechart = [];
         var groupWiseMajorDefectChart = [];
-
+        var divElementHolder = document.createElement('div')
+        divElementHolder.style.marginTop='30%'
+        divElementHolder.id = 'AllGroupChartDivision'
+        reportContent.appendChild(divElementHolder)
         for(let i = 0; i < 5; i++){
           var divElement = document.createElement('div');
           divElement.id=`${groupID[i]}`
-          divElement.style.marginTop = `30%`
-          reportContent.appendChild(divElement)
+          divElement.style.marginBottom = `30%`
+          divElementHolder.appendChild(divElement)
 
           var groupTitleDiv = document.createElement('div')
           groupTitleDiv.id = `${groupID[i]}_titleName`
@@ -703,6 +713,7 @@
         console.log('categoryCountProvider: ',categoryCountProvider)
         console.log('defectCountProvider:' ,defectCountProvider)
 
+        // sorting the categoryCountProvider in descending order
         const sortedCategoryCountProvider = Object.entries(categoryCountProvider)
           .sort(([, a], [, b]) => b - a)
           .reduce(
@@ -713,7 +724,13 @@
             {}
           )
         
-        // console.log('sort: ', sortedCategoryCountProvider)
+        console.log('categorySORT: ', Object.keys(sortedCategoryCountProvider))
+        // sorting category with individual defect count based on total no of category count
+        let sortedCategoryDefectCountProvider = {}
+        Object.keys(sortedCategoryCountProvider).map( (categoryName) => {
+          sortedCategoryDefectCountProvider[categoryName] = defectCountProvider[categoryName]
+        })
+        console.log('sortedCategoryDefectCountProvider: ',sortedCategoryDefectCountProvider)
 
         const mainParetoChartDivision = document.createElement('div')
         mainParetoChartDivision.id = 'mainParetoChartDivision'
@@ -723,11 +740,46 @@
         mainParetoChartDivision.style.marginLeft = '10%'
 
         let mainParetoChartDataset = []
+        const defectList = ['Surface','Body Fitting','Missing & Wrong Part','Welding','Water Leak']
 
-        // populating dataset for main Pareto Visualization
-        Object.entries(sortedCategoryCountProvider).map( (element) => {
-          mainParetoChartDataset.push({label: element[0], y: element[1]})
+        /*
+          {
+          type: "stackedColumn",
+          showInLegend: true,
+          color: "#696661",
+          name: "Q1",
+          dataPoints: [
+              { y: 6.75, x: new Date(2010,0) },
+              { y: 8.57, x: new Date(2011,0) },           
+              { y: 10.64, x: new Date(2012,0) },
+              { y: 13.97, x: new Date(2013,0) },
+              { y: 15.42, x: new Date(2014,0) },
+              { y: 17.26, x: new Date(2015,0) },
+              { y: 20.26, x: new Date(2016,0) }
+            ]
+          }
+
+        */
+
+      // populating data attribute for main Pareto Visualization
+        defectList.map( (defectName) => {
+          let dataPoints = []
+          Object.keys(sortedCategoryDefectCountProvider).map( (categoryName) => {
+            let yValue = 0
+            if(sortedCategoryDefectCountProvider[categoryName][defectName]){
+              yValue = sortedCategoryDefectCountProvider[categoryName][defectName]
+            }
+            dataPoints.push({label: categoryName, y: yValue})
+          })
+          mainParetoChartDataset.push({
+            type:'stackedColumn',
+            showInLegend: true,
+            name: defectName,
+            dataPoints: dataPoints
+          })
         })
+
+        console.log('mainParetoChartDataset: ',mainParetoChartDataset)
 
         // chart configuration
         var mainParetoChart= new CanvasJS.Chart("mainParetoChartDivision", {
@@ -766,10 +818,7 @@
               return " ";
             }
           },
-          data: [{
-            type: "column",
-            dataPoints: mainParetoChartDataset
-          }]
+          data: mainParetoChartDataset
         });
         mainParetoChart.render();
 
@@ -844,7 +893,7 @@
 
         console.log('sortedIndividualCountProvider:' ,sortedIndividualCountProvider)
 
-        const defectList = ['Surface','Body Fitting','Missing & Wrong Part','Welding','Water Leak']
+        
         var individualParetoChartHolder = []
         for(let i = 0; i < defectList.length; i++){
           // creating division for individual defect pareto chart
