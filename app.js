@@ -437,7 +437,7 @@ app.post('/thirdlayer', (req, res) => {
 
     console.log(categoryId, subcategoryId);
 
-    res.render(path.join(__dirname, '/views/thirdLayer copy.ejs'), {
+    res.render(path.join(__dirname, '/views/thirdLayer.ejs'), {
       username,
       enteredBodyNumber,
       selectedCategory,
