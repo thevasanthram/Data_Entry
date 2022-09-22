@@ -207,7 +207,7 @@ input[type='checkbox']:hover {
   margin-left: 20px;
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH1 {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML1 {
   margin-top: 20%;
   width: 5%;
   margin-left: 5%;
@@ -216,11 +216,11 @@ input[type='checkbox']:hover {
   position: absolute;
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH1:hover {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML1:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH2 {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML2 {
   margin-top: 13%;
   width: 5%;
   margin-left: 30%;
@@ -229,11 +229,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH2:hover {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML2:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH3 {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML3 {
   margin-left: 55%;
   width: 5%;
   padding: 15% 10% 5% 10%;
@@ -241,11 +241,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH3:hover {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML3:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH4 {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML4 {
   margin-top: 24%;
   width: 5%;
   margin-left: 55%;
@@ -254,11 +254,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH4:hover {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML4:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH5 {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML5 {
   margin-top: 27%;
   width: 5%;
   margin-left: 30%;
@@ -267,11 +267,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH5:hover {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML5:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH6 {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML6 {
   margin-top: 36%;
   width: 5%;
   margin-left: 5%;
@@ -280,11 +280,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH6:hover {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML6:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH7 {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML7 {
   margin-top: 48%;
   width: 5%;
   margin-left: 65%;
@@ -293,11 +293,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.LH_SHELL_BODY_MAIN-LINE_FENDER-LH7:hover {
+.LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML7:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH1 {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML1 {
   margin-top: 20%;
   width: 5%;
   margin-left: 65%;
@@ -306,11 +306,11 @@ input[type='checkbox']:hover {
   position: absolute;
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH1:hover {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML1:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH2 {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML2 {
   margin-top: 13%;
   width: 5%;
   margin-left: 40%;
@@ -319,11 +319,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH2:hover {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML2:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH3 {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML3 {
   margin-left: 15%;
   width: 5%;
   padding: 15% 10% 5% 10%;
@@ -331,11 +331,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH3:hover {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML3:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH4 {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML4 {
   margin-top: 24%;
   width: 5%;
   margin-left: 12%;
@@ -344,11 +344,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH4:hover {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML4:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH5 {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML5 {
   margin-top: 27%;
   width: 5%;
   margin-left: 40%;
@@ -357,11 +357,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH5:hover {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML5:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH6 {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML6 {
   margin-top: 36%;
   width: 5%;
   margin-left: 65%;
@@ -370,11 +370,11 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH6:hover {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML6:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH7 {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML7 {
   margin-top: 48%;
   width: 5%;
   margin-left: 10%;
@@ -383,6 +383,6 @@ input[type='checkbox']:hover {
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
-.RH_SHELL_BODY_MAIN-LINE_FENDER-RH7:hover {
+.RH_SHELL_BODY_MAIN-LINE_FENDER-RHSBML7:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }

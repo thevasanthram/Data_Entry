@@ -1,4 +1,5 @@
 const { json } = require('body-parser');
+const { response } = require('express');
 const express = require('express');
 const { rmSync } = require('fs');
 const path = require('path');
@@ -85,91 +86,91 @@ const Options = {
   },
 
   'RH MAIN BODY': {
-    'B-PILLAR - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'A-PILLAR - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    COWL: ['C1A', 'C1B', 'C1C', 'C1D'],
-    'C-PILLAR - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'BACK DOOR OPENING - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'FRONT DOOR OPENING - RH': ['C2A', 'C2B', 'C2C', 'C2D'],
-    'QUARTER - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'REAR DOOR OPENING - RH': ['C3A', 'C3B', 'C3C', 'C3D'],
-    'ROCKER PANEL SIDE - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'ROOF SIDE - RH': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'B-PILLAR - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'A-PILLAR - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'COWL-RH MB': ['C1A', 'C1B', 'C1C', 'C1D'],
+    'C-PILLAR - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'BACK DOOR OPENING - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'FRONT DOOR OPENING - RH MB': ['C2A', 'C2B', 'C2C', 'C2D'],
+    'QUARTER - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'REAR DOOR OPENING - RH MB': ['C3A', 'C3B', 'C3C', 'C3D'],
+    'ROCKER PANEL SIDE - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'ROOF SIDE - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
   },
 
   'LH MAIN BODY': {
-    'B-PILLAR - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'A-PILLAR - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    COWL: ['C1A', 'C1B', 'C1C', 'C1D'],
-    'C-PILLAR - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'BACK DOOR OPENING - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'FRONT DOOR OPENING - LH': ['C2A', 'C2B', 'C2C', 'C2D'],
-    'QUARTER - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'REAR DOOR OPENING - LH': ['C3A', 'C3B', 'C3C', 'C3D'],
-    'ROCKER PANEL SIDE - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'ROOF SIDE - LH': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'B-PILLAR - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'A-PILLAR - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'COWL-LH MB': ['C1A', 'C1B', 'C1C', 'C1D'],
+    'C-PILLAR - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'BACK DOOR OPENING - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'FRONT DOOR OPENING - LH MB': ['C2A', 'C2B', 'C2C', 'C2D'],
+    'QUARTER - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'REAR DOOR OPENING - LH MB': ['C3A', 'C3B', 'C3C', 'C3D'],
+    'ROCKER PANEL SIDE - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'ROOF SIDE - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
   },
 
   'RH SHELL BODY SUB-LINE': {
-    'HOOD S/A OUTER': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'HOOD S/A INNER': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'FRONT DOOR OUTER - RH': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'FRONT DOOR INNER - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OUTER - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR INNER - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'HOOD S/A OUTER - RH SBSA': ['D1A', 'D1B', 'D1C', 'D1D'],
+    'HOOD S/A INNER - RH SBSA': ['D2A', 'D2B', 'D2C', 'D2D'],
+    'FRONT DOOR OUTER - RH SBSA': ['D3A', 'D3B', 'D3C', 'D3D'],
+    'FRONT DOOR INNER - RH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'REAR DOOR OUTER - RH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'REAR DOOR INNER - RH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
   },
 
   'LH SHELL BODY SUB-LINE': {
-    'FRONT DOOR OUTER - LH': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'FRONT DOOR INNER - LH': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'BACK DOOR OUTER': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'BACK DOOR INNER': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OUTER - LH': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'REAR DOOR INNER - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'FRONT DOOR OUTER - LH SBSA': ['D1A', 'D1B', 'D1C', 'D1D'],
+    'FRONT DOOR INNER - LH SBSA': ['D2A', 'D2B', 'D2C', 'D2D'],
+    'BACK DOOR OUTER - LH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'BACK DOOR INNER - LH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'REAR DOOR OUTER - LH SBSA': ['D3A', 'D3B', 'D3C', 'D3D'],
+    'REAR DOOR INNER - LH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
   },
 
   'RH SHELL BODY MAIN-LINE': {
-    'FENDER - RH': [1, 2, 3, 4, 5, 6, 7],
-    'HOOD S/A OUTER': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'HOOD S/A INNER': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'FRONT DOOR OUTER - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'FRONT DOOR INNER - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OUTER - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR INNER - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'FENDER - RH SBML': [1, 2, 3, 4, 5, 6, 7],
+    'HOOD S/A OUTER SBML': ['D1A', 'D1B', 'D1C', 'D1D'],
+    'HOOD S/A INNER SBML': ['D2A', 'D2B', 'D2C', 'D2D'],
+    'FRONT DOOR OUTER - RH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'FRONT DOOR INNER - RH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'REAR DOOR OUTER - RH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'REAR DOOR INNER - RH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
   },
 
   'LH SHELL BODY MAIN-LINE': {
-    'FENDER - LH': [1, 2, 3, 4, 5, 6, 7],
-    'FRONT DOOR OUTER - LH': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'FRONT DOOR INNER - LH': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'REAR DOOR OUTER - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR INNER - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'BACK DOOR OUTER': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'BACK DOOR INNER': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'FENDER - LH SBML': [1, 2, 3, 4, 5, 6, 7],
+    'FRONT DOOR OUTER - LH SBML': ['D2A', 'D2B', 'D2C', 'D2D'],
+    'FRONT DOOR INNER - LH SBML': ['D3A', 'D3B', 'D3C', 'D3D'],
+    'REAR DOOR OUTER - LH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'REAR DOOR INNER - LH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'BACK DOOR OUTER SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'BACK DOOR INNER SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
   },
 
   'RH SIDE MEMBER': {
-    'A-PILLAR - RH': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'C-PILLAR - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'B-PILLAR - RH': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'BACK DOOR OPENING - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'FRONT DOOR OPENING - RH': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'QUARTER - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OPENING - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'ROCKER PANEL SIDE - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'ROOF SIDE - RH': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'A-PILLAR - RH SM': ['D1A', 'D1B', 'D1C', 'D1D'],
+    'C-PILLAR - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'B-PILLAR - RH SM': ['D2A', 'D2B', 'D2C', 'D2D'],
+    'BACK DOOR OPENING - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'FRONT DOOR OPENING - RH SM': ['D3A', 'D3B', 'D3C', 'D3D'],
+    'QUARTER - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'REAR DOOR OPENING - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'ROCKER PANEL SIDE - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'ROOF SIDE - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
   },
 
   'LEFT SIDE MEMBER': {
-    'A-PILLAR - LH': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'C-PILLAR - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'B-PILLAR - LH': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'BACK DOOR OPENING - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'FRONT DOOR OPENING - LH': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'QUARTER - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OPENING - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'ROCKER PANEL SIDE - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'ROOF SIDE - LH': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'A-PILLAR - LH SM': ['D1A', 'D1B', 'D1C', 'D1D'],
+    'C-PILLAR - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'B-PILLAR - LH SM': ['D2A', 'D2B', 'D2C', 'D2D'],
+    'BACK DOOR OPENING - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'FRONT DOOR OPENING - LH SM': ['D3A', 'D3B', 'D3C', 'D3D'],
+    'QUARTER - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'REAR DOOR OPENING - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'ROCKER PANEL SIDE - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'ROOF SIDE - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
   },
 };
 
@@ -950,7 +951,7 @@ app.post('/majorDefectDetail', async (req, res) => {
       SM: await dataFetcher('SM'),
     };
 
-    console.log(majorDefectsDataInAllGroup);
+    // console.log(majorDefectsDataInAllGroup);
 
     let response = {
       status: 'success',
@@ -958,6 +959,87 @@ app.post('/majorDefectDetail', async (req, res) => {
     };
 
     res.send(JSON.stringify(response));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/majorSubDefectDetail', async (req, res) => {
+  try {
+    const majorSubDefectsDataInAllGroup =
+      req.body.majorSubDefectsDataInAllGroup;
+    const fromDate = req.body.fromDate;
+    const toDate = req.body.toDate;
+
+    async function dataFetcher(groupCode, subDefectName) {
+      let dbConnectedPool = new Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'data_entry_systems',
+        password: 'admin',
+        port: 5432,
+      });
+
+      switch (groupCode) {
+        case 'UB':
+          const data1 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE category='UNDER BODY' and subdefect='${subDefectName}';`
+          );
+          return data1.rows;
+        case 'MB':
+          const data2 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and subdefect='${subDefectName}'`
+          );
+          return data2.rows;
+        case 'SB SA':
+          const data3 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE (category='LH SHELL BODY SUB-LINE' or category='RH SHELL BODY SUB-LINE') and subdefect='${subDefectName}'`
+          );
+          return data3.rows;
+        case 'SB ML':
+          const data4 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE (category='LH SHELL BODY MAIN-LINE' or category='RH SHELL BODY MAIN-LINE') and subdefect='${subDefectName}'`
+          );
+          return data4.rows;
+        case 'SM':
+          const data5 = await dbConnectedPool.query(
+            `SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and subdefect='${subDefectName}'`
+          );
+          return data5.rows;
+        default:
+          break;
+      }
+    }
+
+    let responseObject = {};
+    async function responseGenerator() {
+      await Promise.all(
+        Object.keys(majorSubDefectsDataInAllGroup).map(async (groupCode) => {
+          let result = await dataFetcher(
+            groupCode,
+            Object.keys(majorSubDefectsDataInAllGroup[groupCode])[0]
+          );
+          responseObject[groupCode] = {};
+          result.map((singleRecord) => {
+            if (
+              Date.parse(singleRecord.date) <= Date.parse(toDate) &&
+              Date.parse(singleRecord.date) >= Date.parse(fromDate)
+            ) {
+              responseObject[groupCode][singleRecord.subcategory] =
+                singleRecord.zones;
+            }
+          });
+        })
+      );
+    }
+    responseGenerator().then(() => {
+      res.send(
+        JSON.stringify({
+          status: 'success',
+          data: responseObject,
+        })
+      );
+    });
   } catch (err) {
     console.log(err);
   }

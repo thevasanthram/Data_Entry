@@ -1,1 +1,6 @@
-console.log('string \nstring');
+let obj = {
+  something: 'value',
+};
+
+obj = {};
+console.log(obj);

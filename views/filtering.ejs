@@ -69,6 +69,8 @@
     </div>
 
     <script>
+      document.getElementById('from-date-condition-input').valueAsDate = new Date();
+      document.getElementById('to-date-condition-input').valueAsDate = new Date();
       function validate(){
         var filterForm = document.getElementById('filterForm')
 
@@ -340,6 +342,40 @@
         console.log('majorDefectsInAllGroup:',majorDefectsInAllGroup)
         console.log('majorDefectsDataInAllGroup:',majorDefectsDataInAllGroup)
 
+        const majorSubDefectsInAllGroup = []
+        const majorSubDefectsDataInAllGroup = JSON.parse(JSON.stringify(majorDefectsDataInAllGroup))
+        // populating the object with each group's maximum subDefects and value
+        Object.keys(majorDefectsDataInAllGroup).map( (group) => {
+          let maxSubdefect = {}
+          //getting the first property and its value
+          maxSubdefect[Object.keys(majorDefectsDataInAllGroup[group])[0]] = majorDefectsDataInAllGroup[group][Object.keys(majorDefectsDataInAllGroup[group])[0]]
+          Object.keys(majorDefectsDataInAllGroup[group]).map( (subDefectName) => {
+            if(maxSubdefect[subDefectName] < majorDefectsDataInAllGroup[group][subDefectName]){
+              maxSubdefect = {}
+              maxSubdefect[subDefectName] = majorDefectsDataInAllGroup[group][subDefectName]
+            }
+          })
+          majorSubDefectsDataInAllGroup[group] = maxSubdefect
+        })
+
+        console.log('majorSubDefectsDataInAllGroup: ', majorSubDefectsDataInAllGroup)
+
+        const majorSubDefectsResponse = await fetch('http://localhost:8000/majorSubDefectDetail' , {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            majorSubDefectsDataInAllGroup,
+            fromDate,
+            toDate
+          })
+        })
+
+        const majorSubDefectsResponseData = await majorSubDefectsResponse.json()
+
+        console.log('majorSubDefectsResponseData: ',majorSubDefectsResponseData.data)
+
         // const array = [    
         //   { y: 3, label: "Dent" },
         //   { y: 0,  label: "Bump" },
@@ -371,7 +407,7 @@
 
         var firstSection = document.createElement('div')
         firstSection.id = 'firstSection'
-        // firstSection.style.marginBottom = '30%'
+        firstSection.style.marginTop = '3%'
         reportContent.appendChild(firstSection)
 
         var totalDPV = document.createElement('div')
@@ -425,7 +461,7 @@
           backgroundColor: "rgba(0, 0, 0, 0)",
           theme: "dark1",
           title:{
-            text: "Category DPV",
+            text: "Defect Based Visualization",
             fontFamily: 'tahoma',
             fontSize: 18,
             // horizontalAlign: "left"
@@ -460,7 +496,7 @@
 
         // function for navigating to the corresponding group function
         function navigate(event){
-          document.getElementById(event.dataPoint.label.replace(' ','')).scrollIntoView({ behavior: "smooth" })
+          document.getElementById(`${event.dataPoint.label.replace(' ','')}_GroupTotalDPV`).scrollIntoView({ behavior: "smooth" })
           // console.log('id: ',event.dataPoint.label.replace(' ',''))
         }
 
@@ -469,7 +505,7 @@
           backgroundColor: "rgba(0, 0, 0, 0)",
           theme: "dark1",
           title:{
-            text: "Group DPV",
+            text: "Category Based Visualization",
             fontFamily: 'tahoma',
             fontSize: 18,
             // horizontalAlign: "left"
@@ -502,13 +538,14 @@
         var individualGroupWisechart = [];
         var groupWiseMajorDefectChart = [];
         var divElementHolder = document.createElement('div')
-        divElementHolder.style.marginTop='30%'
+        divElementHolder.style.marginTop='33%'
         divElementHolder.id = 'AllGroupChartDivision'
         reportContent.appendChild(divElementHolder)
+
         for(let i = 0; i < 5; i++){
           var divElement = document.createElement('div');
           divElement.id=`${groupID[i]}`
-          divElement.style.marginBottom = `30%`
+          divElement.style.marginBottom = `27%`
           divElementHolder.appendChild(divElement)
 
           var groupTitleDiv = document.createElement('div')
@@ -528,53 +565,24 @@
           var horizontalRule = document.createElement('hr')
           groupTitleDiv.appendChild(horizontalRule)
 
-          var groupTotalDPV = document.createElement('div')
-          groupTotalDPV.id=`${groupID[i]}_TotalDPV`
-          groupTotalDPV.style.width = '30%'
-          groupTotalDPV.style.marginLeft = '2%'
-          // groupTotalDPV.style.marginTop = '30%'
-          divElement.appendChild(groupTotalDPV)
+          // division for groupTotalDPVData
+          var groupTotalDPVDivision = document.createElement('div')
+          groupTotalDPVDivision.id = `groupTotalDPVDivision`
+          divElement.appendChild(groupTotalDPVDivision)
 
-          groupDPVChart.push(new CanvasJS.Chart( groupTotalDPV.id, {
-            animationEnabled: true,
-            backgroundColor: "rgba(0, 0, 0, 0)",
-            theme: "dark1",
-            title:{
-              text: `${groupName[i]} DPV`,
-              fontFamily: 'tahoma',
-              fontSize: 18,
-            },
-            dataPointWidth: 30,
-            axisX: {
-              title: "No of Vehicle"
-            },
-            axisY: {
-              title: "Defects per Vehicle",
-              gridThickness: 0,
-              stripLines: [
-                {
-                  value: 0,
-                  showOnTop: true,
-                  color: "gray",
-                  thickness: 2
-                }
-              ]
-            },
-            data: [{        
-              type: "column",  
-              dataPoints: [      
-                { y: horizontalTotalDPVArray[i], label: "1" },
-              ]
-            }]
-          }));
-
-          groupDPVChart[i].render();
+          var groupTotalDPVData = document.createElement('p')
+          groupTotalDPVData.id = `${groupID[i]}_GroupTotalDPV`
+          groupTotalDPVData.style.textAlign = 'center'
+          groupTotalDPVData.style.marginTop = '-2%'
+          groupTotalDPVData.style.fontSize = '100%'
+          groupTotalDPVData.innerHTML = `${groupName[i]} DPV: ${horizontalTotalDPVArray[i]}`
+          groupTotalDPVDivision.appendChild(groupTotalDPVData)
 
 
           var categoryWiseChartDivision= document.createElement('div')
           categoryWiseChartDivision.id=`${groupID[i]}_Category_DPV`
           categoryWiseChartDivision.style.width = '30%'
-          categoryWiseChartDivision.style.marginLeft = '35%'
+          categoryWiseChartDivision.style.marginLeft = '2%'
           categoryWiseChartDivision.style.marginTop = '3.5%'
           divElement.appendChild(categoryWiseChartDivision)
 
@@ -583,13 +591,13 @@
             backgroundColor: "rgba(0, 0, 0, 0)",
             theme: "dark1", // "light1", "light2", "dark1", "dark2"
             title:{
-              text: "Category DPV",
+              text: "Defect Visualization",
               fontFamily: 'tahoma',
               fontSize: 18,
             },
             dataPointWidth: 30,
             axisX: {
-              title: "Category"
+              labelFontSize: 10,
             },
             axisY: {
               title: "Total no of defects",
@@ -621,7 +629,7 @@
           var groupWiseMajorDefectChartDivision= document.createElement('div')
           groupWiseMajorDefectChartDivision.id=`${groupID[i]}_GroupWise_Major_Defect_Counts`
           groupWiseMajorDefectChartDivision.style.width = '30%'
-          groupWiseMajorDefectChartDivision.style.marginLeft = '68%'
+          groupWiseMajorDefectChartDivision.style.marginLeft = '35%' // 68%
           divElement.appendChild(groupWiseMajorDefectChartDivision)
 
           groupWiseMajorDefectChart.push(new CanvasJS.Chart(groupWiseMajorDefectChartDivision.id, {
@@ -629,13 +637,13 @@
             backgroundColor: "rgba(0, 0, 0, 0)",
             theme: "dark1", // "light1", "light2", "dark1", "dark2"
             title:{
-              text: `${labelSetForMajorDefectsTitle[i]} Category`,
+              text: `Sub-Defect Visualization`, //${labelSetForMajorDefectsTitle[i]} Category
               fontFamily: 'tahoma',
               fontSize: 18,
             },
             dataPointWidth: 30,
             axisX: {
-              title: "Sub-Defects"
+              labelFontSize: 10,
             },
             axisY: {
               title: "Total no of defects",
