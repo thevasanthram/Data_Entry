@@ -282,6 +282,8 @@
           })
         })
         const data = await response.json();
+
+        console.log('Group Defects Data: ',data.data)
         
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
         var reportContentData = document.getElementsByClassName('report-content-data')
@@ -341,24 +343,32 @@
 
         console.log('majorDefectsInAllGroup:',majorDefectsInAllGroup)
         console.log('majorDefectsDataInAllGroup:',majorDefectsDataInAllGroup)
-
-        const majorSubDefectsInAllGroup = []
-        const majorSubDefectsDataInAllGroup = JSON.parse(JSON.stringify(majorDefectsDataInAllGroup))
-        // populating the object with each group's maximum subDefects and value
-        Object.keys(majorDefectsDataInAllGroup).map( (group) => {
-          let maxSubdefect = {}
-          //getting the first property and its value
-          maxSubdefect[Object.keys(majorDefectsDataInAllGroup[group])[0]] = majorDefectsDataInAllGroup[group][Object.keys(majorDefectsDataInAllGroup[group])[0]]
-          Object.keys(majorDefectsDataInAllGroup[group]).map( (subDefectName) => {
-            if(maxSubdefect[subDefectName] < majorDefectsDataInAllGroup[group][subDefectName]){
-              maxSubdefect = {}
-              maxSubdefect[subDefectName] = majorDefectsDataInAllGroup[group][subDefectName]
-            }
-          })
-          majorSubDefectsDataInAllGroup[group] = maxSubdefect
+        
+        // sorting majorDefectsDataInAllGroup based on defectCount of each DefectType
+        Object.keys(majorDefectsDataInAllGroup).map( (groupName) => {
+          majorDefectsDataInAllGroup[groupName] = Object.entries(majorDefectsDataInAllGroup[groupName])
+            .sort(([, a], [, b]) => b - a)
+            .reduce(
+              (r, [k, v]) => ({
+                ...r,
+                [k]: v
+              }),
+              {}
+            )
         })
 
-        console.log('majorSubDefectsDataInAllGroup: ', majorSubDefectsDataInAllGroup)
+        console.log('sortedMajorDefectsDataInAllGroup: ', Object.keys(majorDefectsDataInAllGroup['UB']))
+
+        const majorSubDefectsInAllGroup = JSON.parse(JSON.stringify(majorDefectsDataInAllGroup))
+        // populating the object with each group's maximum subDefects and value
+        Object.keys(majorDefectsDataInAllGroup).map( (group) => {
+          //getting the first property and its value in descendingly sorted object
+          let maxSubdefect = {}
+          maxSubdefect[Object.keys(majorDefectsDataInAllGroup[group])[0]] = majorDefectsDataInAllGroup[group][Object.keys(majorDefectsDataInAllGroup[group])[0]]
+          majorSubDefectsInAllGroup[group] = maxSubdefect
+        })
+
+        console.log('majorSubDefectsInAllGroup: ', majorSubDefectsInAllGroup)
 
         const majorSubDefectsResponse = await fetch('http://localhost:8000/majorSubDefectDetail' , {
           method: 'POST',
@@ -366,15 +376,41 @@
             'Content-type': 'application/json'
           },
           body: JSON.stringify({
-            majorSubDefectsDataInAllGroup,
+            majorSubDefectsInAllGroup,
             fromDate,
             toDate
           })
         })
 
-        const majorSubDefectsResponseData = await majorSubDefectsResponse.json()
+        const majorSubDefectsDataInAllGroup = await majorSubDefectsResponse.json()
 
-        console.log('majorSubDefectsResponseData: ',majorSubDefectsResponseData.data)
+        console.log('majorSubDefectsDataInAllGroup: ',majorSubDefectsDataInAllGroup.data)
+
+        // sorting majorSubDefectsDataInAllGroup.data in descending based on no of zones
+        let sortedMajorSubDefectsDataInAllGroup= JSON.parse(JSON.stringify(majorSubDefectsDataInAllGroup.data))
+
+        Object.keys(majorSubDefectsDataInAllGroup.data).map( (groupName) => {
+          // counting no of zones in each subCategory
+          Object.keys(majorSubDefectsDataInAllGroup.data[groupName]).map( (subCategoryName) =>{
+            sortedMajorSubDefectsDataInAllGroup[groupName][subCategoryName] = sortedMajorSubDefectsDataInAllGroup[groupName][subCategoryName].length;
+          })
+          // sorting based on Zone Count & storing it in duplicate Obj
+          sortedMajorSubDefectsDataInAllGroup[groupName] = Object.entries(sortedMajorSubDefectsDataInAllGroup[groupName])
+            .sort(([, a], [, b]) => b - a)
+            .reduce(
+              (r, [k, v]) => ({
+                ...r,
+                [k]: v
+              }),
+              {}
+            )
+          // arranging the data in original obj by referrring sorted duplicate Obj
+          let temp = {}
+          Object.keys(sortedMajorSubDefectsDataInAllGroup[groupName]).map( (subCategoryName) => {
+            temp[subCategoryName] = majorSubDefectsDataInAllGroup.data[groupName][subCategoryName]
+          })
+          majorSubDefectsDataInAllGroup.data[groupName] = temp
+        })
 
         // const array = [    
         //   { y: 3, label: "Dent" },
@@ -396,11 +432,11 @@
 
         console.log('labelSetForMajorDefects: ', labelSetForMajorDefects)
         
-        console.log('Total DPV: ', horizontalTotalDPV)
-        console.log('Category wise: ', individualDefectTotal)
-        console.log('Group wise: ', horizontalTotalArray)
-        console.log('Individual Group defects:',data.data)
-        console.log('Group wise Total DPV: ',horizontalTotalDPVArray)
+        // console.log('Total DPV: ', horizontalTotalDPV)
+        // console.log('Category wise: ', individualDefectTotal)
+        // console.log('Group wise: ', horizontalTotalArray)
+        // console.log('Individual Group defects:',data.data)
+        // console.log('Group wise Total DPV: ',horizontalTotalDPVArray)
 
 
         var reportContent = document.getElementsByClassName('report-content-data')[0]
@@ -485,7 +521,7 @@
 
         categoryWiseChart.render();
 
-        console.log('categoryWiseChart: ',categoryWiseChart)
+        // console.log('categoryWiseChart: ',categoryWiseChart)
 
 
         var groupWise = document.createElement('div')
@@ -537,6 +573,7 @@
         var groupDPVChart = [];
         var individualGroupWisechart = [];
         var groupWiseMajorDefectChart = [];
+        var groupWiseMajorSubDefectChart = [];
         var divElementHolder = document.createElement('div')
         divElementHolder.style.marginTop='33%'
         divElementHolder.id = 'AllGroupChartDivision'
@@ -637,7 +674,7 @@
             backgroundColor: "rgba(0, 0, 0, 0)",
             theme: "dark1", // "light1", "light2", "dark1", "dark2"
             title:{
-              text: `Sub-Defect Visualization`, //${labelSetForMajorDefectsTitle[i]} Category
+              text: `${majorDefectsInAllGroup[[groupKeyForDataObj[i]]]} Visualization`, //${labelSetForMajorDefectsTitle[i]} Category
               fontFamily: 'tahoma',
               fontSize: 18,
             },
@@ -664,6 +701,90 @@
           }))
 
           groupWiseMajorDefectChart[i].render();
+
+
+
+          var groupWiseMajorSubDefectChartDivision= document.createElement('div')
+          groupWiseMajorSubDefectChartDivision.id=`${groupID[i]}_GroupWise_Major_SubDefect_Counts`
+          groupWiseMajorSubDefectChartDivision.style.width = '30%'
+          groupWiseMajorSubDefectChartDivision.style.marginLeft = '68%'
+          divElement.appendChild(groupWiseMajorSubDefectChartDivision)
+
+          // generating data attribute individual Group's Major subDefect
+          let singleGroupChartMainData = []
+          let chartConfigurationBlockAccess= true;
+            // storing all the zones in list for chartStacked configuration
+          let TotalZones = []
+          Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
+            TotalZones.push(...majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName])
+          })
+          let TotalZonesSet = new Set(TotalZones)
+          TotalZones = Array.from(TotalZonesSet)
+          // console.log('Total Zones: ',TotalZones)
+
+          TotalZones.map( (singleZone) => {
+            let dataPoints = []
+            Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
+              if(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName].includes(singleZone)){
+                dataPoints.push({y:1, label: subCategoryName})
+              }else{
+                dataPoints.push({y:0, label: subCategoryName})
+              }
+            })
+            singleGroupChartMainData.push({
+              type: 'stackedColumn',
+              name: singleZone,
+              showInLegend: true,
+              dataPoints: dataPoints
+            })
+          })
+          // console.log('singleGroupChartMainData: ',singleGroupChartMainData);
+        /*
+          {
+          type: "stackedColumn",
+          showInLegend: true,
+          color: "#696661",
+          name: "Zones",
+          dataPoints: [
+              { y: 1, x: subCategoryName },
+              { y: 8.57, x: new Date(2011,0) },           
+              { y: 10.64, x: new Date(2012,0) },
+              { y: 13.97, x: new Date(2013,0) },
+              { y: 15.42, x: new Date(2014,0) },
+              { y: 17.26, x: new Date(2015,0) },
+              { y: 20.26, x: new Date(2016,0) }
+            ]
+          }
+        */
+
+          groupWiseMajorSubDefectChart.push(new CanvasJS.Chart(groupWiseMajorSubDefectChartDivision.id, {
+            animationEnabled: true,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            theme: "dark1", // "light1", "light2", "dark1", "dark2"
+            title:{
+              text: `${Object.keys(majorSubDefectsInAllGroup[groupKeyForDataObj[i]])[0]} Visualization`, //${labelSetForMajorDefectsTitle[i]} Category
+              fontFamily: 'tahoma',
+              fontSize: 18,
+            },
+            dataPointWidth: 30,
+            axisX: {
+              labelFontSize: 10,
+            },
+            axisY: {
+              title: "Total no of defects",
+              gridThickness: 0,
+              stripLines: [
+                {
+                  value: 0,
+                  showOnTop: true,
+                  color: "gray",
+                  thickness: 2
+                }
+              ]
+            },
+            data: singleGroupChartMainData
+          }))
+          groupWiseMajorSubDefectChart[i].render();
         }
       }
 
@@ -766,7 +887,6 @@
               { y: 20.26, x: new Date(2016,0) }
             ]
           }
-
         */
 
       // populating data attribute for main Pareto Visualization
@@ -826,6 +946,10 @@
               return " ";
             }
           },
+          // toolTip: {
+          //   shared: true,
+          //   content: 'toolTipContent'
+          // },
           data: mainParetoChartDataset
         });
         mainParetoChart.render();

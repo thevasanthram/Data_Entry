@@ -1,9 +1,5 @@
-const { json } = require('body-parser');
-const { response } = require('express');
 const express = require('express');
-const { rmSync } = require('fs');
 const path = require('path');
-const { measureMemory } = require('vm');
 const Pool = require('pg').Pool;
 const app = express();
 app.use(express.json());
@@ -535,10 +531,14 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
         if (result.rows.length == 0) {
           // block to save defects record for the first time
           console.log(
-            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',ARRAY[${filledDefects[defectName][subDefectName]}],'${date}','${time}','${username}');`
+            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',ARRAY['${filledDefects[
+              defectName
+            ][subDefectName].join(`','`)}'],'${date}','${time}','${username}');`
           );
           const newRecord = await dbConnectedPool.query(
-            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',ARRAY[${filledDefects[defectName][subDefectName]}],'${date}','${time}','${username}');`
+            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',ARRAY['${filledDefects[
+              defectName
+            ][subDefectName].join(`','`)}'],'${date}','${time}','${username}');`
           );
           if (!messageObject['Newly Saved Zones']) {
             messageObject['Newly Saved Zones'] = {};
@@ -581,11 +581,19 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
           // console.log('Updated ZONES: ', updatedZones);
 
           console.log(
-            `UPDATE defect_table SET zones=ARRAY[${updatedZones}],date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
+            `UPDATE defect_table SET zones=ARRAY['${filledDefects[defectName][
+              subDefectName
+            ].join(
+              `','`
+            )}'],date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
           );
 
           const updateRecord = await dbConnectedPool.query(
-            `UPDATE defect_table SET zones=ARRAY[${updatedZones}],date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
+            `UPDATE defect_table SET zones=ARRAY['${filledDefects[defectName][
+              subDefectName
+            ].join(
+              `','`
+            )}'],date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
           );
 
           // getting the modified zones
@@ -966,8 +974,7 @@ app.post('/majorDefectDetail', async (req, res) => {
 
 app.post('/majorSubDefectDetail', async (req, res) => {
   try {
-    const majorSubDefectsDataInAllGroup =
-      req.body.majorSubDefectsDataInAllGroup;
+    const majorSubDefectsInAllGroup = req.body.majorSubDefectsInAllGroup;
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
 
@@ -1014,10 +1021,10 @@ app.post('/majorSubDefectDetail', async (req, res) => {
     let responseObject = {};
     async function responseGenerator() {
       await Promise.all(
-        Object.keys(majorSubDefectsDataInAllGroup).map(async (groupCode) => {
+        Object.keys(majorSubDefectsInAllGroup).map(async (groupCode) => {
           let result = await dataFetcher(
             groupCode,
-            Object.keys(majorSubDefectsDataInAllGroup[groupCode])[0]
+            Object.keys(majorSubDefectsInAllGroup[groupCode])[0]
           );
           responseObject[groupCode] = {};
           result.map((singleRecord) => {
