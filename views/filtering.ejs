@@ -861,35 +861,17 @@
         })
         console.log('sortedCategoryDefectCountProvider: ',sortedCategoryDefectCountProvider)
 
-        const mainParetoChartDivision = document.createElement('div')
-        mainParetoChartDivision.id = 'mainParetoChartDivision'
-        document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoChartDivision)
-        mainParetoChartDivision.style.width = '80%'
-        mainParetoChartDivision.style.height = '100%'
-        mainParetoChartDivision.style.marginLeft = '10%'
+        const mainParetoCategoryChartDivision= document.createElement('div')
+        mainParetoCategoryChartDivision.id = 'mainParetoCategoryChartDivision'
+        document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoCategoryChartDivision)
+        mainParetoCategoryChartDivision.style.width = '80%'
+        mainParetoCategoryChartDivision.style.height = '100%'
+        mainParetoCategoryChartDivision.style.marginLeft = '10%'
 
-        let mainParetoChartDataset = []
+        let mainParetoCategoryChartDataset = []
         const defectList = ['Surface','Body Fitting','Missing & Wrong Part','Welding','Water Leak']
 
-        /*
-          {
-          type: "stackedColumn",
-          showInLegend: true,
-          color: "#696661",
-          name: "Q1",
-          dataPoints: [
-              { y: 6.75, x: new Date(2010,0) },
-              { y: 8.57, x: new Date(2011,0) },           
-              { y: 10.64, x: new Date(2012,0) },
-              { y: 13.97, x: new Date(2013,0) },
-              { y: 15.42, x: new Date(2014,0) },
-              { y: 17.26, x: new Date(2015,0) },
-              { y: 20.26, x: new Date(2016,0) }
-            ]
-          }
-        */
-
-      // populating data attribute for main Pareto Visualization
+        // populating data attribute for mainPareto Category Visualization
         defectList.map( (defectName) => {
           let dataPoints = []
           Object.keys(sortedCategoryDefectCountProvider).map( (categoryName) => {
@@ -899,7 +881,7 @@
             }
             dataPoints.push({label: categoryName, y: yValue})
           })
-          mainParetoChartDataset.push({
+          mainParetoCategoryChartDataset.push({
             type:'stackedColumn',
             showInLegend: true,
             name: defectName,
@@ -907,15 +889,15 @@
           })
         })
 
-        console.log('mainParetoChartDataset: ',mainParetoChartDataset)
+        console.log('mainParetoCategoryChartDataset: ',mainParetoCategoryChartDataset)
 
         // chart configuration
-        var mainParetoChart= new CanvasJS.Chart("mainParetoChartDivision", {
+        var mainParetoCategoryChart= new CanvasJS.Chart("mainParetoCategoryChartDivision", {
           animationEnabled: true,
           backgroundColor: "rgba(0, 0, 0, 0)",
           theme: "dark1",
           title:{
-            text: "Main Pareto Visualization",
+            text: "Category Pareto Visualization",
             fontFamily: 'tahoma',
             fontSize: 18,
           },
@@ -950,149 +932,341 @@
           //   shared: true,
           //   content: 'toolTipContent'
           // },
-          data: mainParetoChartDataset
+          data: mainParetoCategoryChartDataset
         });
-        mainParetoChart.render();
+        mainParetoCategoryChart.render();
 
-        // division for all individual defect Pareto Visualization
-        const individualDefectParetoDivision = document.createElement('div')
-        individualDefectParetoDivision.id = 'individualDefectParetoDivision'
-        individualDefectParetoDivision.style.width='100%'
-        individualDefectParetoDivision.style.marginTop = '3%'
-        document.getElementsByClassName('report-content-data')[0].appendChild(individualDefectParetoDivision)
-        
-        // category template for sortedIndividualCountProvider populating
-        let categoryTemplate = JSON.parse(JSON.stringify(defectCountProvider))
-        Object.keys(categoryTemplate).map( (category) => {
-          categoryTemplate[category] = ''
-        })
 
-        // storing surface-correspondingCategory value in 0th index and so on
-        let sortedIndividualCountProvider = [JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate))]
 
-        // copying corresponding values into sortedIndividualCountProvider from defectCountProvider 
-        Object.keys(defectCountProvider).map( (category) => {
-          Object.keys(defectCountProvider[category]).map( (defectName) => {
-            switch(defectName){
-              case 'Surface':
-                sortedIndividualCountProvider[0][category] = defectCountProvider[category][defectName]
-                break;
-              case 'Body Fitting':
-                // if(category == 'LH SHELL BODY SUB-LINE_FRONT DOOR INNER - LH'){
-                //   console.log('category: ',category)
-                //   console.log('sortedIndividualCountProvider[1][category]: Before' ,sortedIndividualCountProvider[1][category])
-                // }
-                sortedIndividualCountProvider[1][category] = defectCountProvider[category][defectName]
-                // if(category == 'LH SHELL BODY SUB-LINE_FRONT DOOR INNER - LH'){
-                //   console.log('sortedIndividualCountProvider[1][category]: After' ,sortedIndividualCountProvider[1][category])  
-                // }
-                break;  
-              case 'Missing & Wrong Part':
-                sortedIndividualCountProvider[2][category] = defectCountProvider[category][defectName]
-                break;
-              case 'Welding':
-                sortedIndividualCountProvider[3][category] = defectCountProvider[category][defectName]
-                break;
-              case 'Water Leak':
-                sortedIndividualCountProvider[4][category] = defectCountProvider[category][defectName]
-                break;
-              default: break;
+        const mainParetoSubCategoryChartDivision = document.createElement('div')
+        mainParetoSubCategoryChartDivision.id = 'mainParetoSubCategoryChartDivision'
+        document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoSubCategoryChartDivision)
+        mainParetoSubCategoryChartDivision.style.width = '80%'
+        mainParetoSubCategoryChartDivision.style.height = '100%'
+        mainParetoSubCategoryChartDivision.style.marginLeft = '10%'
+
+        let mainParetoSubCategoryChartDataset = []
+
+        /*
+          {
+          type: "stackedColumn",
+          showInLegend: true,
+          color: "#696661",
+          name: "Q1",
+          dataPoints: [
+              { y: 6.75, x: new Date(2010,0) },
+              { y: 8.57, x: new Date(2011,0) },           
+              { y: 10.64, x: new Date(2012,0) },
+              { y: 13.97, x: new Date(2013,0) },
+              { y: 15.42, x: new Date(2014,0) },
+              { y: 17.26, x: new Date(2015,0) },
+              { y: 20.26, x: new Date(2016,0) }
+            ]
+          }
+        */
+
+      // populating data attribute for main Pareto Visualization
+        defectList.map( (defectName) => {
+          let dataPoints = []
+          Object.keys(sortedCategoryDefectCountProvider).map( (categoryName) => {
+            let yValue = 0
+            if(sortedCategoryDefectCountProvider[categoryName][defectName]){
+              yValue = sortedCategoryDefectCountProvider[categoryName][defectName]
             }
+            dataPoints.push({label: categoryName, y: yValue})
           })
-        } )
-
-        // deleting empty valued categories of Each DefectName
-        sortedIndividualCountProvider.map( (individualDefect) => {
-          Object.keys(individualDefect).map( (category) => {
-            if(!individualDefect[category]){
-              delete individualDefect[category];
-            }
+          mainParetoSubCategoryChartDataset.push({
+            type:'stackedColumn',
+            showInLegend: true,
+            name: defectName,
+            dataPoints: dataPoints
           })
         })
 
-        // sorting (descending) each sortedIndividualCountProvider elements property based on the defect Count 
-        for(let i=0; i<sortedIndividualCountProvider.length; i++){
-          sortedIndividualCountProvider[i] = Object.entries(sortedIndividualCountProvider[i])
-            .sort(([, a], [, b]) => b - a)
-            .reduce(
-              (r, [k, v]) => ({
-                ...r,
-                [k]: v
-              }),
-              {}
-            )
-        }
+        // console.log('mainParetoSubCategoryChartDataset: ',mainParetoSubCategoryChartDataset)
 
-        console.log('sortedIndividualCountProvider:' ,sortedIndividualCountProvider)
-
-        
-        var individualParetoChartHolder = []
-        for(let i = 0; i < defectList.length; i++){
-          // creating division for individual defect pareto chart
-          let individualDefectPareto = document.createElement('div')
-          individualDefectPareto.id = defectList[i]+'ParetoDivision'
-          individualDefectParetoDivision.appendChild(individualDefectPareto)
-          individualDefectPareto.style.width = '40%'
-          individualDefectPareto.style.height = '60%'
-          individualDefectPareto.style.marginLeft = '7%'
-          individualDefectPareto.style.marginBottom = '30%'
-          individualDefectPareto.style.cssFloat = 'left'
-
-          // populating points into array for datapoints
-          let individualParetoChartDataset = []
-          Object.keys(sortedIndividualCountProvider[i]).map( (category) => {
-            individualParetoChartDataset.push( {label: category , y: sortedIndividualCountProvider[i][category]} )
-          })
-
-          console.log(`${defectList[i]}: `, individualParetoChartDataset)
-
-          // pareto chart for individual defect
-          individualParetoChartHolder.push( new CanvasJS.Chart(individualDefectPareto.id, {
-            animationEnabled: true,
-            backgroundColor: "rgba(0, 0, 0, 0)",
-            theme: "dark1",
-            title:{
-              text: `${defectList[i]} Pareto Visualization`,
-              fontFamily: 'tahoma',
-              fontSize: 18,
-            },
-            dataPointWidth: 30,
-            axisY: {
-              title: "No of Defects",
-              lineColor: "#4F81BC",
-              tickColor: "#4F81BC",
-              labelFontColor: "#4F81BC",
-              labelFontFamily: 'tahoma',
-              labelFontSize: 18,
-              gridThickness: 0,
-              stripLines: [
-                {
-                  value: 0,
-                  showOnTop: true,
-                  color: "gray",
-                  thickness: 2
-                }
-              ]
-            },
-            axisX: {
-              title: 'Category',
-              gridThickness: 0,
-              tickLength: 0,
-              lineThickness: 0,
-              labelFormatter: function(){
-                return " ";
+        // chart configuration
+        var mainParetoSubCategoryChart= new CanvasJS.Chart("mainParetoSubCategoryChartDivision", {
+          animationEnabled: true,
+          backgroundColor: "rgba(0, 0, 0, 0)",
+          theme: "dark1",
+          title:{
+            text: "Sub-Category Visualization",
+            fontFamily: 'tahoma',
+            fontSize: 18,
+          },
+          dataPointWidth: 30,
+          axisY: {
+            title: "No of Defects",
+            lineColor: "#4F81BC",
+            tickColor: "#4F81BC",
+            labelFontColor: "#4F81BC",
+            labelFontFamily: 'tahoma',
+            labelFontSize: 20,
+            gridThickness: 0,
+            stripLines: [
+              {
+                value: 0,
+                showOnTop: true,
+                color: "gray",
+                thickness: 2
               }
-            },
-            data: [{
-              type: "column",
-              dataPoints: individualParetoChartDataset
-            }]
-          }))
-          individualParetoChartHolder[i].render();
-        }
+            ]
+          },
+          axisX:{
+            title: 'Sub-Category',
+            gridThickness: 0,
+            tickLength: 0,
+            lineThickness: 0,
+            labelFormatter: function(){
+              return " ";
+            }
+          },
+          // toolTip: {
+          //   shared: true,
+          //   content: 'toolTipContent'
+          // },
+          data: mainParetoSubCategoryChartDataset
+        });
+        mainParetoSubCategoryChart.render();
 
-        document.getElementById('Water LeakParetoDivision').style.clear = 'left'
-        document.getElementById('Water LeakParetoDivision').style.marginLeft = '30%'
+
+
+        const mainParetoZoneChartDivision = document.createElement('div')
+        mainParetoZoneChartDivision.id = 'mainParetoZoneChartDivision'
+        document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoZoneChartDivision)
+        mainParetoZoneChartDivision.style.width = '80%'
+        mainParetoZoneChartDivision.style.height = '100%'
+        mainParetoZoneChartDivision.style.marginLeft = '10%'
+
+        let mainParetoZoneChartDataset = []
+
+        /*
+          {
+          type: "stackedColumn",
+          showInLegend: true,
+          color: "#696661",
+          name: "Q1",
+          dataPoints: [
+              { y: 6.75, x: new Date(2010,0) },
+              { y: 8.57, x: new Date(2011,0) },           
+              { y: 10.64, x: new Date(2012,0) },
+              { y: 13.97, x: new Date(2013,0) },
+              { y: 15.42, x: new Date(2014,0) },
+              { y: 17.26, x: new Date(2015,0) },
+              { y: 20.26, x: new Date(2016,0) }
+            ]
+          }
+        */
+
+      // populating data attribute for main Pareto Visualization
+        defectList.map( (defectName) => {
+          let dataPoints = []
+          Object.keys(sortedCategoryDefectCountProvider).map( (categoryName) => {
+            let yValue = 0
+            if(sortedCategoryDefectCountProvider[categoryName][defectName]){
+              yValue = sortedCategoryDefectCountProvider[categoryName][defectName]
+            }
+            dataPoints.push({label: categoryName, y: yValue})
+          })
+          mainParetoZoneChartDataset.push({
+            type:'stackedColumn',
+            showInLegend: true,
+            name: defectName,
+            dataPoints: dataPoints
+          })
+        })
+
+        // console.log('mainParetoZoneChartDataset: ',mainParetoZoneChartDataset)
+
+        // chart configuration
+        var mainParetoZoneChart= new CanvasJS.Chart("mainParetoZoneChartDivision", {
+          animationEnabled: true,
+          backgroundColor: "rgba(0, 0, 0, 0)",
+          theme: "dark1",
+          title:{
+            text: "Zone Pareto Visualization",
+            fontFamily: 'tahoma',
+            fontSize: 18,
+          },
+          dataPointWidth: 30,
+          axisY: {
+            title: "No of Defects",
+            lineColor: "#4F81BC",
+            tickColor: "#4F81BC",
+            labelFontColor: "#4F81BC",
+            labelFontFamily: 'tahoma',
+            labelFontSize: 20,
+            gridThickness: 0,
+            stripLines: [
+              {
+                value: 0,
+                showOnTop: true,
+                color: "gray",
+                thickness: 2
+              }
+            ]
+          },
+          axisX:{
+            title: 'Zones',
+            gridThickness: 0,
+            tickLength: 0,
+            lineThickness: 0,
+            labelFormatter: function(){
+              return " ";
+            }
+          },
+          // toolTip: {
+          //   shared: true,
+          //   content: 'toolTipContent'
+          // },
+          data: mainParetoZoneChartDataset
+        });
+        mainParetoZoneChart.render();
+
+
+
+
+
+        // // division for all individual defect Pareto Visualization
+        // const individualDefectParetoDivision = document.createElement('div')
+        // individualDefectParetoDivision.id = 'individualDefectParetoDivision'
+        // individualDefectParetoDivision.style.width='100%'
+        // individualDefectParetoDivision.style.marginTop = '3%'
+        // document.getElementsByClassName('report-content-data')[0].appendChild(individualDefectParetoDivision)
+        
+        // // category template for sortedIndividualCountProvider populating
+        // let categoryTemplate = JSON.parse(JSON.stringify(defectCountProvider))
+        // Object.keys(categoryTemplate).map( (category) => {
+        //   categoryTemplate[category] = ''
+        // })
+
+        // // storing surface-correspondingCategory value in 0th index and so on
+        // let sortedIndividualCountProvider = [JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate)),JSON.parse(JSON.stringify(categoryTemplate))]
+
+        // // copying corresponding values into sortedIndividualCountProvider from defectCountProvider 
+        // Object.keys(defectCountProvider).map( (category) => {
+        //   Object.keys(defectCountProvider[category]).map( (defectName) => {
+        //     switch(defectName){
+        //       case 'Surface':
+        //         sortedIndividualCountProvider[0][category] = defectCountProvider[category][defectName]
+        //         break;
+        //       case 'Body Fitting':
+        //         // if(category == 'LH SHELL BODY SUB-LINE_FRONT DOOR INNER - LH'){
+        //         //   console.log('category: ',category)
+        //         //   console.log('sortedIndividualCountProvider[1][category]: Before' ,sortedIndividualCountProvider[1][category])
+        //         // }
+        //         sortedIndividualCountProvider[1][category] = defectCountProvider[category][defectName]
+        //         // if(category == 'LH SHELL BODY SUB-LINE_FRONT DOOR INNER - LH'){
+        //         //   console.log('sortedIndividualCountProvider[1][category]: After' ,sortedIndividualCountProvider[1][category])  
+        //         // }
+        //         break;  
+        //       case 'Missing & Wrong Part':
+        //         sortedIndividualCountProvider[2][category] = defectCountProvider[category][defectName]
+        //         break;
+        //       case 'Welding':
+        //         sortedIndividualCountProvider[3][category] = defectCountProvider[category][defectName]
+        //         break;
+        //       case 'Water Leak':
+        //         sortedIndividualCountProvider[4][category] = defectCountProvider[category][defectName]
+        //         break;
+        //       default: break;
+        //     }
+        //   })
+        // } )
+
+        // // deleting empty valued categories of Each DefectName
+        // sortedIndividualCountProvider.map( (individualDefect) => {
+        //   Object.keys(individualDefect).map( (category) => {
+        //     if(!individualDefect[category]){
+        //       delete individualDefect[category];
+        //     }
+        //   })
+        // })
+
+        // // sorting (descending) each sortedIndividualCountProvider elements property based on the defect Count 
+        // for(let i=0; i<sortedIndividualCountProvider.length; i++){
+        //   sortedIndividualCountProvider[i] = Object.entries(sortedIndividualCountProvider[i])
+        //     .sort(([, a], [, b]) => b - a)
+        //     .reduce(
+        //       (r, [k, v]) => ({
+        //         ...r,
+        //         [k]: v
+        //       }),
+        //       {}
+        //     )
+        // }
+
+        // console.log('sortedIndividualCountProvider:' ,sortedIndividualCountProvider)
+
+        
+        // var individualParetoChartHolder = []
+        // for(let i = 0; i < defectList.length; i++){
+        //   // creating division for individual defect pareto chart
+        //   let individualDefectPareto = document.createElement('div')
+        //   individualDefectPareto.id = defectList[i]+'ParetoDivision'
+        //   individualDefectParetoDivision.appendChild(individualDefectPareto)
+        //   individualDefectPareto.style.width = '40%'
+        //   individualDefectPareto.style.height = '60%'
+        //   individualDefectPareto.style.marginLeft = '7%'
+        //   individualDefectPareto.style.marginBottom = '30%'
+        //   individualDefectPareto.style.cssFloat = 'left'
+
+        //   // populating points into array for datapoints
+        //   let individualParetoChartDataset = []
+        //   Object.keys(sortedIndividualCountProvider[i]).map( (category) => {
+        //     individualParetoChartDataset.push( {label: category , y: sortedIndividualCountProvider[i][category]} )
+        //   })
+
+        //   console.log(`${defectList[i]}: `, individualParetoChartDataset)
+
+        //   // pareto chart for individual defect
+        //   individualParetoChartHolder.push( new CanvasJS.Chart(individualDefectPareto.id, {
+        //     animationEnabled: true,
+        //     backgroundColor: "rgba(0, 0, 0, 0)",
+        //     theme: "dark1",
+        //     title:{
+        //       text: `${defectList[i]} Pareto Visualization`,
+        //       fontFamily: 'tahoma',
+        //       fontSize: 18,
+        //     },
+        //     dataPointWidth: 30,
+        //     axisY: {
+        //       title: "No of Defects",
+        //       lineColor: "#4F81BC",
+        //       tickColor: "#4F81BC",
+        //       labelFontColor: "#4F81BC",
+        //       labelFontFamily: 'tahoma',
+        //       labelFontSize: 18,
+        //       gridThickness: 0,
+        //       stripLines: [
+        //         {
+        //           value: 0,
+        //           showOnTop: true,
+        //           color: "gray",
+        //           thickness: 2
+        //         }
+        //       ]
+        //     },
+        //     axisX: {
+        //       title: 'Category',
+        //       gridThickness: 0,
+        //       tickLength: 0,
+        //       lineThickness: 0,
+        //       labelFormatter: function(){
+        //         return " ";
+        //       }
+        //     },
+        //     data: [{
+        //       type: "column",
+        //       dataPoints: individualParetoChartDataset
+        //     }]
+        //   }))
+        //   individualParetoChartHolder[i].render();
+        // }
+
+        // document.getElementById('Water LeakParetoDivision').style.clear = 'left'
+        // document.getElementById('Water LeakParetoDivision').style.marginLeft = '30%'
       }
 
       function individualSummary(majorDefectName, minorDefectsList){

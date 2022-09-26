@@ -1054,7 +1054,6 @@ app.post('/majorSubDefectDetail', async (req, res) => {
 
 app.post('/pareto', async (req, res) => {
   try {
-    console.log('Pareto chart');
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
 
