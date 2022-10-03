@@ -1,5 +1,7 @@
 const express = require('express');
+var mod = require('nested-property');
 const path = require('path');
+const { stringify } = require('querystring');
 const Pool = require('pg').Pool;
 const app = express();
 app.use(express.json());
@@ -67,106 +69,106 @@ pool.query(
 
 const Options = {
   'UNDER BODY': {
-    'RH APRON': ['A2A', 'A2B', 'A2C', 'A2D'],
-    'LH APRON': ['A3A', 'A3B', 'A3C', 'A3D'],
-    'FRONT FLOOR TOP SIDE': ['A4A', 'A4B', 'A4C', 'A4D'],
-    'FRONT FLOOR BOTTOM SIDE': ['A4A', 'A4B', 'A4C', 'A4D'],
-    'CENTER FLOOR TOP SIDE': ['A4A', 'A4B', 'A4C', 'A4D'],
-    'CENTER FLOOR BOTTOM SIDE': ['A4A', 'A4B', 'A4C', 'A4D'],
-    'REAR FLOOR TOP SIDE': ['A4A', 'A4B', 'A4C', 'A4D'],
-    'REAR FLOOR BOTTOM SIDE': ['A4A', 'A4B', 'A4C', 'A4D'],
-    'DASH OUTER': ['A4A', 'A4B', 'A4C', 'A4D'],
-    'DASH INNER': ['A4A', 'A4B', 'A4C', 'A4D'],
-    'RADIATOR SUPPORT': ['A1A', 'A1B', 'A1C', 'A1D'],
-    'LOWER BACK': ['A4A', 'A4B', 'A4C', 'A4D'],
+    'RH APRON': ['1', '2', '3', '4'],
+    'LH APRON': ['5', '6', '7', '8'],
+    'FRONT FLOOR TOP SIDE': ['9', '10', '11', '12'],
+    'FRONT FLOOR BOTTOM SIDE': ['13', '14', '15', '16'],
+    'CENTER FLOOR TOP SIDE': ['17', '18', '19', '20'],
+    'CENTER FLOOR BOTTOM SIDE': ['21', '22', '23', '24'],
+    'REAR FLOOR TOP SIDE': ['25', '26', '27', '28'],
+    'REAR FLOOR BOTTOM SIDE': ['29', '30', '31', '32'],
+    'DASH OUTER': ['33', '34', '35', '36'],
+    'DASH INNER': ['37', '38', '39', '40'],
+    'RADIATOR SUPPORT': ['41', '42', '43', '44'],
+    'LOWER BACK': ['45', '46', '47', '48'],
   },
 
   'RH MAIN BODY': {
-    'B-PILLAR - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'A-PILLAR - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'COWL-RH MB': ['C1A', 'C1B', 'C1C', 'C1D'],
-    'C-PILLAR - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'BACK DOOR OPENING - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'FRONT DOOR OPENING - RH MB': ['C2A', 'C2B', 'C2C', 'C2D'],
-    'QUARTER - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'REAR DOOR OPENING - RH MB': ['C3A', 'C3B', 'C3C', 'C3D'],
-    'ROCKER PANEL SIDE - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'ROOF SIDE - RH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'B-PILLAR - RH MB': ['49', '50', '51', '52'],
+    'A-PILLAR - RH MB': ['53', '54', '55', '56'],
+    'COWL-RH MB': ['57', '58', '59', '60'],
+    'C-PILLAR - RH MB': ['61', '62', '63', '64'],
+    'BACK DOOR OPENING - RH MB': ['65', '66', '67', '68'],
+    'FRONT DOOR OPENING - RH MB': ['69', '70', '71', '72'],
+    'QUARTER - RH MB': ['73', '74', '75', '76'],
+    'REAR DOOR OPENING - RH MB': ['77', '78', '79', '80'],
+    'ROCKER PANEL SIDE - RH MB': ['81', '82', '83', '84'],
+    'ROOF SIDE - RH MB': ['85', '86', '87', '88'],
   },
 
   'LH MAIN BODY': {
-    'B-PILLAR - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'A-PILLAR - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'COWL-LH MB': ['C1A', 'C1B', 'C1C', 'C1D'],
-    'C-PILLAR - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'BACK DOOR OPENING - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'FRONT DOOR OPENING - LH MB': ['C2A', 'C2B', 'C2C', 'C2D'],
-    'QUARTER - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'REAR DOOR OPENING - LH MB': ['C3A', 'C3B', 'C3C', 'C3D'],
-    'ROCKER PANEL SIDE - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
-    'ROOF SIDE - LH MB': ['C4A', 'C4B', 'C4C', 'C4D'],
+    'B-PILLAR - LH MB': ['89', '90', '91', '92'],
+    'A-PILLAR - LH MB': ['93', '94', '95', '96'],
+    'COWL-LH MB': ['97', '98', '99', '100'],
+    'C-PILLAR - LH MB': ['101', '102', '103', '104'],
+    'BACK DOOR OPENING - LH MB': ['105', '106', '107', '108'],
+    'FRONT DOOR OPENING - LH MB': ['109', '110', '111', '112'],
+    'QUARTER - LH MB': ['113', '114', '115', '116'],
+    'REAR DOOR OPENING - LH MB': ['117', '118', '119', '120'],
+    'ROCKER PANEL SIDE - LH MB': ['121', '122', '123', '124'],
+    'ROOF SIDE - LH MB': ['125', '126', '127', '128'],
   },
 
   'RH SHELL BODY SUB-LINE': {
-    'HOOD S/A OUTER - RH SBSA': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'HOOD S/A INNER - RH SBSA': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'FRONT DOOR OUTER - RH SBSA': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'FRONT DOOR INNER - RH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OUTER - RH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR INNER - RH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'HOOD S/A OUTER - RH SBSA': ['129', '130', '133', '134'],
+    'HOOD S/A INNER - RH SBSA': ['135', '136', '137', '138'],
+    'FRONT DOOR OUTER - RH SBSA': ['139', '140', '141', '142'],
+    'FRONT DOOR INNER - RH SBSA': ['143', '144', '145', '146'],
+    'REAR DOOR OUTER - RH SBSA': ['147', '148', '149', '150'],
+    'REAR DOOR INNER - RH SBSA': ['151', '152', '153', '154'],
   },
 
   'LH SHELL BODY SUB-LINE': {
-    'FRONT DOOR OUTER - LH SBSA': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'FRONT DOOR INNER - LH SBSA': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'BACK DOOR OUTER - LH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'BACK DOOR INNER - LH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OUTER - LH SBSA': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'REAR DOOR INNER - LH SBSA': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'FRONT DOOR OUTER - LH SBSA': ['155', '156', '157', '158'],
+    'FRONT DOOR INNER - LH SBSA': ['159', '160', '161', '162'],
+    'BACK DOOR OUTER - LH SBSA': ['163', '164', '165', '166'],
+    'BACK DOOR INNER - LH SBSA': ['167', '168', '169', '170'],
+    'REAR DOOR OUTER - LH SBSA': ['171', '172', '173', '174'],
+    'REAR DOOR INNER - LH SBSA': ['175', '176', '177', '178'],
   },
 
   'RH SHELL BODY MAIN-LINE': {
-    'FENDER - RH SBML': [1, 2, 3, 4, 5, 6, 7],
-    'HOOD S/A OUTER SBML': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'HOOD S/A INNER SBML': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'FRONT DOOR OUTER - RH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'FRONT DOOR INNER - RH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OUTER - RH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR INNER - RH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'FENDER - RH SBML': ['179', '180', '181', '182', '183', '184', '185'],
+    'HOOD S/A OUTER SBML': ['186', '187', '188', '189'],
+    'HOOD S/A INNER SBML': ['190', '191', '192', '193'],
+    'FRONT DOOR OUTER - RH SBML': ['194', '195', '196', '197'],
+    'FRONT DOOR INNER - RH SBML': ['198', '199', '200', '201'],
+    'REAR DOOR OUTER - RH SBML': ['202', '203', '204', '205'],
+    'REAR DOOR INNER - RH SBML': ['206', '207', '208', '209'],
   },
 
   'LH SHELL BODY MAIN-LINE': {
-    'FENDER - LH SBML': [1, 2, 3, 4, 5, 6, 7],
-    'FRONT DOOR OUTER - LH SBML': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'FRONT DOOR INNER - LH SBML': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'REAR DOOR OUTER - LH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR INNER - LH SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'BACK DOOR OUTER SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'BACK DOOR INNER SBML': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'FENDER - LH SBML': ['210', '211', '212', '213', '214', '215', '216'],
+    'FRONT DOOR OUTER - LH SBML': ['217', '218', '219', '220'],
+    'FRONT DOOR INNER - LH SBML': ['221', '222', '223', '224'],
+    'REAR DOOR OUTER - LH SBML': ['225', '226', '227', '228'],
+    'REAR DOOR INNER - LH SBML': ['229', '230', '231', '232'],
+    'BACK DOOR OUTER SBML': ['233', '234', '235', '236'],
+    'BACK DOOR INNER SBML': ['237', '238', '239', '240'],
   },
 
   'RH SIDE MEMBER': {
-    'A-PILLAR - RH SM': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'C-PILLAR - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'B-PILLAR - RH SM': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'BACK DOOR OPENING - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'FRONT DOOR OPENING - RH SM': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'QUARTER - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OPENING - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'ROCKER PANEL SIDE - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'ROOF SIDE - RH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+    'A-PILLAR - RH SM': ['241', '242', '243', '244'],
+    'C-PILLAR - RH SM': ['245', '246', '247', '248'],
+    'B-PILLAR - RH SM': ['249', '250', '251', '252'],
+    'BACK DOOR OPENING - RH SM': ['253', '254', '255', '256'],
+    'FRONT DOOR OPENING - RH SM': ['257', '258', '259', '260'],
+    'QUARTER - RH SM': ['261', '262', '263', '264'],
+    'REAR DOOR OPENING - RH SM': ['265', '266', '267', '268'],
+    'ROCKER PANEL SIDE - RH SM': ['269', '270', '271', '272'],
+    'ROOF SIDE - RH SM': ['273', '274', '275', '276'],
   },
 
-  'LEFT SIDE MEMBER': {
-    'A-PILLAR - LH SM': ['D1A', 'D1B', 'D1C', 'D1D'],
-    'C-PILLAR - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'B-PILLAR - LH SM': ['D2A', 'D2B', 'D2C', 'D2D'],
-    'BACK DOOR OPENING - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'FRONT DOOR OPENING - LH SM': ['D3A', 'D3B', 'D3C', 'D3D'],
-    'QUARTER - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'REAR DOOR OPENING - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'ROCKER PANEL SIDE - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
-    'ROOF SIDE - LH SM': ['D4A', 'D4B', 'D4C', 'D4D'],
+  'LH SIDE MEMBER': {
+    'A-PILLAR - LH SM': ['277', '278', '279', '280'],
+    'C-PILLAR - LH SM': ['281', '282', '283', '284'],
+    'B-PILLAR - LH SM': ['285', '286', '287', '288'],
+    'BACK DOOR OPENING - LH SM': ['289', '290', '291', '292'],
+    'FRONT DOOR OPENING - LH SM': ['293', '294', '295', '296'],
+    'QUARTER - LH SM': ['297', '298', '299', '300'],
+    'REAR DOOR OPENING - LH SM': ['301', '302', '303', '304'],
+    'ROCKER PANEL SIDE - LH SM': ['305', '306', '307', '308'],
+    'ROOF SIDE - LH SM': ['309', '310', '311', '312'],
   },
 };
 
@@ -804,6 +806,24 @@ app.post('/reportDataProvider', async (req, res) => {
 
     let bodyNumberData = [];
 
+    // Object.keys(queryReceiver).map((group) => {
+    //   queryReceiver[group].map(async (singleQuery) => {
+    //     result = await dbConnectedPool.query(singleQuery);
+    //     let defectsCount = 0;
+    //     result.rows.map((record) => {
+    //       if (
+    //         Date.parse(record.date) <= Date.parse(toDate) &&
+    //         Date.parse(record.date) >= Date.parse(fromDate)
+    //       ) {
+    //         defectsCount += record.zones.length;
+    //         bodyNumberData.push(record.body_number);
+    //       }
+    //     });
+    //     queryResult[group].push(defectsCount);
+    //     console.log('inside second loop: ', queryResult[group]);
+    //   });
+    // });
+
     for (let [key, value] of Object.entries(queryReceiver)) {
       for (let j = 0; j < value.length; j++) {
         result = await dbConnectedPool.query(value[j]);
@@ -1065,302 +1085,158 @@ app.post('/pareto', async (req, res) => {
       port: 5432,
     });
 
-    const records = await dbConnectedPool.query(`SELECT * FROM defect_table`);
-
     let dataFetcher = {};
 
+    const records = await dbConnectedPool.query(`SELECT * FROM defect_table`);
     records.rows.map((record) => {
       if (
         Date.parse(record.date) <= Date.parse(toDate) &&
         Date.parse(record.date) >= Date.parse(fromDate)
       ) {
-        if (!dataFetcher[`${record.category}_${record.subcategory}`]) {
-          // block to create new carPart in object
-          dataFetcher[`${record.category}_${record.subcategory}`] = {};
+        switch (record.category) {
+          case 'UNDER BODY':
+            mod.set(
+              dataFetcher,
+              [
+                'UB',
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
 
-          if (
-            !dataFetcher[`${record.category}_${record.subcategory}`][
-              record.defect
-            ]
-          ) {
-            // block to create new defectName in carPart
-            dataFetcher[`${record.category}_${record.subcategory}`][
-              record.defect
-            ] = {};
+          case 'RH MAIN BODY':
+            mod.set(
+              dataFetcher,
+              [
+                'MB',
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
 
-            if (
-              !dataFetcher[`${record.category}_${record.subcategory}`][
-                record.defect
-              ][record.subdefect]
-            ) {
-              // block to create new subDefectName in defectName
-              dataFetcher[`${record.category}_${record.subcategory}`][
-                record.defect
-              ][record.subdefect] = {};
+          case 'LH MAIN BODY':
+            mod.set(
+              dataFetcher,
+              [
+                'MB',
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
 
-              if (
-                !dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number]
-              ) {
-                // block to create new bodyNumber in subDefectName
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = record.zones;
-              } else {
-                // block to modify values of existing bodyNumber in subDefectName
-                let tempArray = [
-                  ...dataFetcher[`${record.category}_${record.subcategory}`][
-                    record.defect
-                  ][record.subdefect][record.body_number],
-                  ...record.zones,
-                ];
+          case 'RH SHELL BODY SUB-LINE':
+            mod.set(
+              dataFetcher,
+              [
+                'SBSA',
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
 
-                let tempSet = new Set(tempArray);
+          case 'LH SHELL BODY SUB-LINE':
+            mod.set(
+              dataFetcher,
+              [
+                'SBSA',
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
 
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = Array.from(tempSet);
-              }
-            } else {
-              // block to modify values of existing subDefectName in defectName
+          case 'RH SHELL BODY MAIN-LINE':
+            mod.set(
+              dataFetcher,
+              [
+                'SBML',
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
 
-              if (
-                !dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number]
-              ) {
-                // block to create new bodyNumber in subDefectName
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = record.zones;
-              } else {
-                // block to modify values of existing bodyNumber in subDefectName
-                let tempArray = [
-                  ...dataFetcher[`${record.category}_${record.subcategory}`][
-                    record.defect
-                  ][record.subdefect][record.body_number],
-                  ...record.zones,
-                ];
+          case 'LH SHELL BODY MAIN-LINE':
+            mod.set(
+              dataFetcher,
+              [
+                'SBML',
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
 
-                let tempSet = new Set(tempArray);
+          case 'RH SIDE MEMBER':
+            mod.set(
+              dataFetcher,
+              [
+                'SM',
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
 
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = Array.from(tempSet);
-              }
-            }
-          } else {
-            // block to change values of existing defectName property inside car part
+          case 'LH SIDE MEMBER':
+            mod.set(
+              dataFetcher,
+              [
+                'SM',
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
 
-            if (
-              !dataFetcher[`${record.category}_${record.subcategory}`][
-                record.defect
-              ][record.subdefect]
-            ) {
-              // block to create new subDefectName in defectName
-              dataFetcher[`${record.category}_${record.subcategory}`][
-                record.defect
-              ][record.subdefect] = {};
-
-              if (
-                !dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number]
-              ) {
-                // block to create new bodyNumber in subDefectName
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = record.zones;
-              } else {
-                // block to modify values of existing bodyNumber in subDefectName
-                let tempArray = [
-                  ...dataFetcher[`${record.category}_${record.subcategory}`][
-                    record.defect
-                  ][record.subdefect][record.body_number],
-                  ...record.zones,
-                ];
-
-                let tempSet = new Set(tempArray);
-
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = Array.from(tempSet);
-              }
-            } else {
-              // block to modify values of existing subDefectName in defectName
-
-              if (
-                !dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number]
-              ) {
-                // block to create new bodyNumber in subDefectName
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = record.zones;
-              } else {
-                // block to modify values of existing bodyNumber in subDefectName
-                let tempArray = [
-                  ...dataFetcher[`${record.category}_${record.subcategory}`][
-                    record.defect
-                  ][record.subdefect][record.body_number],
-                  ...record.zones,
-                ];
-
-                let tempSet = new Set(tempArray);
-
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = Array.from(tempSet);
-              }
-            }
-          }
-        } else {
-          // block to modify values of existing carPart in Object
-
-          if (
-            !dataFetcher[`${record.category}_${record.subcategory}`][
-              record.defect
-            ]
-          ) {
-            // block to create new defectName in carPart
-            dataFetcher[`${record.category}_${record.subcategory}`][
-              record.defect
-            ] = {};
-
-            if (
-              !dataFetcher[`${record.category}_${record.subcategory}`][
-                record.defect
-              ][record.subdefect]
-            ) {
-              // block to create new subDefectName in defectName
-              dataFetcher[`${record.category}_${record.subcategory}`][
-                record.defect
-              ][record.subdefect] = {};
-
-              if (
-                !dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number]
-              ) {
-                // block to create new bodyNumber in subDefectName
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = record.zones;
-              } else {
-                // block to modify values of existing bodyNumber in subDefectName
-                let tempArray = [
-                  ...dataFetcher[`${record.category}_${record.subcategory}`][
-                    record.defect
-                  ][record.subdefect][record.body_number],
-                  ...record.zones,
-                ];
-
-                let tempSet = new Set(tempArray);
-
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = Array.from(tempSet);
-              }
-            } else {
-              // block to modify values of existing subDefectName in defectName
-
-              if (
-                !dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number]
-              ) {
-                // block to create new bodyNumber in subDefectName
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = record.zones;
-              } else {
-                // block to modify values of existing bodyNumber in subDefectName
-                let tempArray = [
-                  ...dataFetcher[`${record.category}_${record.subcategory}`][
-                    record.defect
-                  ][record.subdefect][record.body_number],
-                  ...record.zones,
-                ];
-
-                let tempSet = new Set(tempArray);
-
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = Array.from(tempSet);
-              }
-            }
-          } else {
-            // block to change values of existing defectName property inside car part
-
-            if (
-              !dataFetcher[`${record.category}_${record.subcategory}`][
-                record.defect
-              ][record.subdefect]
-            ) {
-              // block to create new subDefectName in defectName
-              dataFetcher[`${record.category}_${record.subcategory}`][
-                record.defect
-              ][record.subdefect] = {};
-
-              if (
-                !dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number]
-              ) {
-                // block to create new bodyNumber in subDefectName
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = record.zones;
-              } else {
-                // block to modify values of existing bodyNumber in subDefectName
-                let tempArray = [
-                  ...dataFetcher[`${record.category}_${record.subcategory}`][
-                    record.defect
-                  ][record.subdefect][record.body_number],
-                  ...record.zones,
-                ];
-
-                let tempSet = new Set(tempArray);
-
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = Array.from(tempSet);
-              }
-            } else {
-              // block to modify values of existing subDefectName in defectName
-
-              if (
-                !dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number]
-              ) {
-                // block to create new bodyNumber in subDefectName
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = record.zones;
-              } else {
-                // block to modify values of existing bodyNumber in subDefectName
-                let tempArray = [
-                  ...dataFetcher[`${record.category}_${record.subcategory}`][
-                    record.defect
-                  ][record.subdefect][record.body_number],
-                  ...record.zones,
-                ];
-
-                let tempSet = new Set(tempArray);
-
-                dataFetcher[`${record.category}_${record.subcategory}`][
-                  record.defect
-                ][record.subdefect][record.body_number] = Array.from(tempSet);
-              }
-            }
-          }
+          default:
+            mod.set(
+              dataFetcher,
+              [
+                record.category,
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + String(record.body_number),
+              ].join('.'),
+              record.zones
+            );
+            break;
         }
       }
     });
-    // console.log('dataFetcher', dataFetcher);
+    console.log('dataFetcher', dataFetcher);
 
     let response = {
       message: 'success',
