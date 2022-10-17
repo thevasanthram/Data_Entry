@@ -1,7 +1,6 @@
 const express = require('express');
 var mod = require('nested-property');
 const path = require('path');
-const { stringify } = require('querystring');
 const Pool = require('pg').Pool;
 const app = express();
 app.use(express.json());
@@ -38,7 +37,7 @@ pool.query(
             });
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS defect_table(body_number int , mode varchar (8) , category varchar(30), subcategory varchar(30), defect varchar(20), subdefect varchar(20), zones text[], date varchar(10), time varchar(8), username varchar(30));`,
+              `CREATE TABLE IF NOT EXISTS defect_table(body_number int , mode varchar (8) , category varchar(30), subcategory varchar(30), defect varchar(20), subdefect varchar(20), zone int, defectCount int, date varchar(10), time varchar(8), username varchar(30));`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -148,27 +147,194 @@ const Options = {
   },
 
   'RH SIDE MEMBER': {
-    'A-PILLAR - RH SM': ['241', '242', '243', '244'],
-    'C-PILLAR - RH SM': ['245', '246', '247', '248'],
-    'B-PILLAR - RH SM': ['249', '250', '251', '252'],
-    'BACK DOOR OPENING - RH SM': ['253', '254', '255', '256'],
-    'FRONT DOOR OPENING - RH SM': ['257', '258', '259', '260'],
-    'QUARTER - RH SM': ['261', '262', '263', '264'],
-    'REAR DOOR OPENING - RH SM': ['265', '266', '267', '268'],
-    'ROCKER PANEL SIDE - RH SM': ['269', '270', '271', '272'],
-    'ROOF SIDE - RH SM': ['273', '274', '275', '276'],
+    'A-PILLAR - RH SM': [
+      '800',
+      '801',
+      '802',
+      '803',
+      '804',
+      '805',
+      '806',
+      '807',
+      '808',
+      '809',
+      '810',
+      '811',
+    ],
+    'C-PILLAR - RH SM': ['822', '823', '824', '825', '826'],
+    'B-PILLAR - RH SM': [
+      '812',
+      '813',
+      '814',
+      '815',
+      '816',
+      '817',
+      '818',
+      '819',
+      '820',
+      '821',
+    ],
+    'BACK DOOR OPENING - RH SM': [
+      '851',
+      '852',
+      '853',
+      '854',
+      '855',
+      '856',
+      '857',
+      '858',
+      '859',
+      '860',
+      '861',
+      '862',
+      '863',
+      '864',
+      '865',
+    ],
+    'FRONT DOOR OPENING - RH SM': [
+      '827',
+      '828',
+      '829',
+      '830',
+      '831',
+      '832',
+      '833',
+      '834',
+      '835',
+      '836',
+      '837',
+      '838',
+    ],
+    'QUARTER - RH SM': [
+      '866',
+      '867',
+      '868',
+      '869',
+      '870',
+      '871',
+      '872',
+      '873',
+      '874',
+      '875',
+      '876',
+      '877',
+      '878',
+      '879',
+      '880',
+      '881',
+      '882',
+    ],
+    'REAR DOOR OPENING - RH SM': [
+      '839',
+      '840',
+      '841',
+      '842',
+      '843',
+      '844',
+      '845',
+      '846',
+      '847',
+      '848',
+      '849',
+      '850',
+    ],
+    'ROCKER PANEL SIDE - RH SM': ['888', '889', '890', '891', '892', '893'],
+    'ROOF SIDE - RH SM': ['883', '884', '885', '886', '887'],
   },
 
   'LH SIDE MEMBER': {
-    'A-PILLAR - LH SM': ['277', '278', '279', '280'],
-    'C-PILLAR - LH SM': ['281', '282', '283', '284'],
-    'B-PILLAR - LH SM': ['285', '286', '287', '288'],
-    'BACK DOOR OPENING - LH SM': ['289', '290', '291', '292'],
-    'FRONT DOOR OPENING - LH SM': ['293', '294', '295', '296'],
-    'QUARTER - LH SM': ['297', '298', '299', '300'],
-    'REAR DOOR OPENING - LH SM': ['301', '302', '303', '304'],
-    'ROCKER PANEL SIDE - LH SM': ['305', '306', '307', '308'],
-    'ROOF SIDE - LH SM': ['309', '310', '311', '312'],
+    'A-PILLAR - LH SM': [
+      '700',
+      '701',
+      '702',
+      '703',
+      '704',
+      '705',
+      '706',
+      '707',
+      '708',
+      '709',
+      '710',
+    ],
+    'C-PILLAR - LH SM': ['722', '723', '724', '725', '726'],
+    'B-PILLAR - LH SM': [
+      '712',
+      '713',
+      '714',
+      '715',
+      '716',
+      '717',
+      '718',
+      '719',
+      '720',
+      '721',
+    ],
+    'BACK DOOR OPENING - LH SM': [
+      '751',
+      '752',
+      '753',
+      '754',
+      '755',
+      '756',
+      '757',
+      '758',
+      '759',
+      '760',
+      '761',
+      '762',
+      '763',
+      '764',
+      '765',
+    ],
+    'FRONT DOOR OPENING - LH SM': [
+      '727',
+      '728',
+      '729',
+      '730',
+      '731',
+      '732',
+      '733',
+      '734',
+      '735',
+      '736',
+      '737',
+      '738',
+    ],
+    'QUARTER - LH SM': [
+      '766',
+      '767',
+      '768',
+      '769',
+      '770',
+      '771',
+      '772',
+      '773',
+      '774',
+      '775',
+      '776',
+      '777',
+      '778',
+      '779',
+      '780',
+      '781',
+      '782',
+    ],
+    'REAR DOOR OPENING - LH SM': [
+      '739',
+      '740',
+      '741',
+      '742',
+      '743',
+      '744',
+      '745',
+      '746',
+      '747',
+      '748',
+      '749',
+      '750',
+    ],
+    'ROCKER PANEL SIDE - LH SM': ['788', '789', '790', '791', '792', '793'],
+    'ROOF SIDE - LH SM': ['783', '784', '785', '786', '787'],
   },
 };
 
@@ -205,6 +371,7 @@ app.post('/login', (req, res) => {
 
 app.get('/follower', (req, res) => {
   try {
+    console.log('follower');
     res.render(path.join(__dirname, '/views/follower.ejs'), { username });
   } catch (err) {
     console.log(err);
@@ -222,7 +389,7 @@ app.post('/bodyNumber', (req, res) => {
       password: 'admin',
       port: 5432,
     });
-
+    console.log('entering bodyNumber');
     // console.log(
     //   `SELECT * FROM body_number_table WHERE body_number=${enteredBodyNumberValue};`
     // );
@@ -246,6 +413,7 @@ app.post('/bodyNumber', (req, res) => {
         if (error) {
           console.log(error);
         } else {
+          console.log('query executed successfully for the first layer');
           if (result.rows.length == 0) {
             let response = {
               status: 'success',
@@ -284,7 +452,7 @@ app.post('/passcar', (req, res) => {
     });
 
     let currentDate = new Date();
-
+    console.log('pass car button function');
     const date =
       String(currentDate.getFullYear()) +
       '-' +
@@ -341,6 +509,7 @@ app.post('/firstlayer', (req, res) => {
       defectBodyNumberStatus = req.body.bodyNumberStatus;
     }
 
+    console.log('first layer');
     bodyNumberOptions = Object.keys(Options);
     res.render(path.join(__dirname, '/views/firstLayer.ejs'), {
       username,
@@ -360,7 +529,7 @@ app.post('/secondlayer', (req, res) => {
     }
     const categoryOptions = Options[selectedCategory];
     let ShortlistedCategoryOptions = Object.keys(categoryOptions);
-
+    console.log('second layer');
     res.render(path.join(__dirname, '/views/secondLayer.ejs'), {
       username,
       enteredBodyNumber,
@@ -378,13 +547,11 @@ app.post('/thirdlayer', (req, res) => {
       selectedSubCategory = req.body.selectedSubCategory;
     }
 
-    console.log(selectedSubCategory);
-
     var SubCategoryOptions = Options[selectedCategory];
     SubCategoryOptions = SubCategoryOptions[selectedSubCategory];
 
     ShortlistedSubCategoryOptions = SubCategoryOptions;
-
+    console.log('third layer');
     const defectObject = {
       surface: {
         name: 'Surface',
@@ -433,7 +600,7 @@ app.post('/thirdlayer', (req, res) => {
     let categoryId = selectedCategory.replaceAll(' ', '_');
     let subcategoryId = selectedSubCategory.replaceAll(' ', '');
 
-    console.log(categoryId, subcategoryId);
+    console.log(`${categoryId}_${subcategoryId}`);
 
     res.render(path.join(__dirname, '/views/thirdLayer.ejs'), {
       username,
@@ -453,11 +620,10 @@ app.post('/thirdlayer', (req, res) => {
 app.post('/receive-thirdLayer-temp', async (req, res) => {
   try {
     const defectObj = req.body.defectObj;
+    console.log('req.body.defectObj: ', req.body.defectObj);
     let filledDefects = {};
-    let tempSubDefectCategory = {};
-    let defectCategory, subDefectCategory;
     let currentDate = new Date();
-
+    console.log('once after clicking save');
     const date =
       String(currentDate.getFullYear()) +
       '-' +
@@ -476,19 +642,10 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
       ':' +
       String(currentDate.getSeconds());
 
-    Object.keys(defectObj).map((i) => {
-      defectCategory = i.split('_')[0];
-      subDefectCategory = i.split('_')[1];
-      tempSubDefectCategory[subDefectCategory] = defectObj[i];
-      if (filledDefects.hasOwnProperty(defectCategory)) {
-        temp = filledDefects[defectCategory];
-        temp[subDefectCategory] = defectObj[i];
-        filledDefects[defectCategory] = temp;
-        temp = {};
-      } else {
-        filledDefects[defectCategory] = tempSubDefectCategory;
-      }
-      tempSubDefectCategory = {};
+    Object.keys(defectObj).map((defect) => {
+      let defectArray = defect.split('_');
+      defectArray[2] = `_${defectArray[2]}`;
+      mod.set(filledDefects, defectArray.join('.'), defectObj[defect]);
     });
 
     console.log('filledDefects:', filledDefects);
@@ -503,243 +660,122 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
 
     let messageObject = {};
 
-    async function messageObjectCreator(
-      propertyName,
-      correspondingZone,
-      defectNameSubDefectName
-    ) {
-      messageObject[propertyName][correspondingZone] = [
-        defectNameSubDefectName,
-      ];
-    }
+    async function storeManager() {
+      // storing the defects or modifying
+      await Promise.all(
+        Object.keys(filledDefects).map(async (defectName) => {
+          await Promise.all(
+            Object.keys(filledDefects[defectName]).map(
+              async (subDefectName) => {
+                await Promise.all(
+                  Object.keys(filledDefects[defectName][subDefectName]).map(
+                    async (zone) => {
+                      const result = await dbConnectedPool.query(
+                        `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone = ${zone.replace(
+                          '_',
+                          ''
+                        )}`
+                      );
+                      if (result.rows.length == 0) {
+                        mod.set(
+                          messageObject,
+                          `Newly Saved Zone.${zone}.${defectName}.${subDefectName}`,
+                          filledDefects[defectName][subDefectName][zone]
+                        );
+                        // block to save defects record for the first time
+                        console.log(
+                          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
+                            '_',
+                            ''
+                          )},${
+                            filledDefects[defectName][subDefectName][zone]
+                          },'${date}','${time}','${username}');`
+                        );
+                        await dbConnectedPool.query(
+                          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
+                            '_',
+                            ''
+                          )},${
+                            filledDefects[defectName][subDefectName][zone]
+                          },'${date}','${time}','${username}');`
+                        );
+                      } else {
+                        // block to modify existing defect records
+                        mod.set(
+                          messageObject,
+                          `Overwritten Zone.${zone}.${defectName}.${subDefectName}`,
+                          filledDefects[defectName][subDefectName][zone]
+                        );
 
-    async function messageObjectModifier(
-      propertyName,
-      correspondingZone,
-      defectNameSubDefectName
-    ) {
-      messageObject[propertyName][correspondingZone].push(
-        defectNameSubDefectName
+                        console.log(
+                          `UPDATE defect_table SET defectCount=${
+                            filledDefects[defectName][subDefectName][zone]
+                          },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
+                            '_',
+                            ''
+                          )}`
+                        );
+
+                        await dbConnectedPool.query(
+                          `UPDATE defect_table SET defectCount=${
+                            filledDefects[defectName][subDefectName][zone]
+                          },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
+                            '_',
+                            ''
+                          )}`
+                        );
+                      }
+                    }
+                  )
+                );
+              }
+            )
+          );
+        })
       );
-    }
 
-    // storing the defects or modifying
-    Object.keys(filledDefects).map((defectName) => {
-      Object.keys(filledDefects[defectName]).map(async (subDefectName) => {
-        // checking whether already record exists with same aspects
-        let result = await dbConnectedPool.query(
-          `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
+      console.log(defectBodyNumberStatus);
+
+      if (defectBodyNumberStatus == 'newBodyNumber') {
+        console.log(
+          `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`
         );
-        if (result.rows.length == 0) {
-          // block to save defects record for the first time
-          console.log(
-            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',ARRAY['${filledDefects[
-              defectName
-            ][subDefectName].join(`','`)}'],'${date}','${time}','${username}');`
-          );
-          const newRecord = await dbConnectedPool.query(
-            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zones,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',ARRAY['${filledDefects[
-              defectName
-            ][subDefectName].join(`','`)}'],'${date}','${time}','${username}');`
-          );
-          if (!messageObject['Newly Saved Zones']) {
-            messageObject['Newly Saved Zones'] = {};
-            filledDefects[defectName][subDefectName].map(async (singleZone) => {
-              if (!messageObject['Newly Saved Zones'][singleZone]) {
-                // creating the zone for the first time
-                // messageObject['Newly Saved Zones'][singleZone] = [
-                //   `${defectName} -> ${subDefectName}`,
-                // ];
-                await messageObjectCreator(
-                  'Newly Saved Zones',
-                  singleZone,
-                  `${defectName} -> ${subDefectName}`
-                );
-              } else {
-                // adding the defect & subdefect in the same existing zone in the newly created zone property
-                // messageObject['Newly Saved Zones'][singleZone].push(
-                //   `${defectName} -> ${subDefectName}`
-                // );
-                await messageObjectModifier(
-                  'Newly Saved Zones',
-                  singleZone,
-                  `${defectName} -> ${subDefectName}`
-                );
-              }
-            });
-          }
-        } else {
-          // block to modify existing defect records
-          // console.log('result:', result.rows);
-          let temp = result.rows[0].zones;
-          // console.log('Existing ZONES: ', temp);
-          temp.push(...filledDefects[defectName][subDefectName]);
-          // console.log(
-          //   'New ZONES: ',
-          //   filledDefects[defectName][subDefectName]
-          // );
-          let tempSet = new Set(temp);
-          let updatedZones = Array.from(tempSet);
-          // console.log('Updated ZONES: ', updatedZones);
-
-          console.log(
-            `UPDATE defect_table SET zones=ARRAY['${filledDefects[defectName][
-              subDefectName
-            ].join(
-              `','`
-            )}'],date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
-          );
-
-          const updateRecord = await dbConnectedPool.query(
-            `UPDATE defect_table SET zones=ARRAY['${filledDefects[defectName][
-              subDefectName
-            ].join(
-              `','`
-            )}'],date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}'`
-          );
-
-          // getting the modified zones
-          filledDefects[defectName][subDefectName].map(
-            async (singleFilledDefectZone) => {
-              if (result.rows[0].zones.includes(singleFilledDefectZone)) {
-                // code for Existing Zones in messageObject
-                if (!messageObject['Already Saved Zones']) {
-                  messageObject['Already Saved Zones'] = {};
-                  if (
-                    !messageObject['Already Saved Zones'][
-                      singleFilledDefectZone
-                    ]
-                  ) {
-                    // messageObject['Already Saved Zones'][singleFilledDefectZone] = [
-                    //   `${defectName} -> ${subDefectName}`,
-                    // ];
-
-                    await messageObjectCreator(
-                      'Already Saved Zones',
-                      singleFilledDefectZone,
-                      `${defectName} -> ${subDefectName}`
-                    );
-                  }
-                } else {
-                  if (
-                    !messageObject['Already Saved Zones'][
-                      singleFilledDefectZone
-                    ]
-                  ) {
-                    // messageObject['Already Saved Zones'][singleFilledDefectZone] = [
-                    //   `${defectName} -> ${subDefectName}`,
-                    // ];
-
-                    await messageObjectCreator(
-                      'Already Saved Zones',
-                      singleFilledDefectZone,
-                      `${defectName} -> ${subDefectName}`
-                    );
-                  } else {
-                    // messageObject['Already Saved Zones'][
-                    //   singleFilledDefectZone
-                    // ].push(`${defectName} -> ${subDefectName}`);
-
-                    await messageObjectModifier(
-                      'Already Saved Zones',
-                      singleFilledDefectZone,
-                      `${defectName} -> ${subDefectName}`
-                    );
-                  }
-                }
-              } else {
-                // code for Creating zones in messageObject
-                if (!messageObject['Newly Saved Zones']) {
-                  messageObject['Newly Saved Zones'] = {};
-                  if (
-                    !messageObject['Newly Saved Zones'][singleFilledDefectZone]
-                  ) {
-                    // messageObject['Newly Saved Zones'][
-                    //   singleFilledDefectZone
-                    // ] = [`${defectName} -> ${subDefectName}`];
-
-                    await messageObjectCreator(
-                      'Newly Saved Zones',
-                      singleFilledDefectZone,
-                      `${defectName} -> ${subDefectName}`
-                    );
-                  }
-                } else {
-                  if (
-                    !messageObject['Newly Saved Zones'][singleFilledDefectZone]
-                  ) {
-                    // messageObject['Newly Saved Zones'][
-                    //   singleFilledDefectZone
-                    // ] = [`${defectName} -> ${subDefectName}`];
-
-                    await messageObjectCreator(
-                      'Newly Saved Zones',
-                      singleFilledDefectZone,
-                      `${defectName} -> ${subDefectName}`
-                    );
-                  } else {
-                    messageObject['Newly Saved Zones'][
-                      singleFilledDefectZone
-                    ].push(`${defectName} -> ${subDefectName}`);
-
-                    await messageObjectModifier(
-                      'Newly Saved Zones',
-                      singleFilledDefectZone,
-                      `${defectName} -> ${subDefectName}`
-                    );
-                  }
-                }
-              }
+        dbConnectedPool.query(
+          `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`,
+          (error, result) => {
+            if (error) {
+              throw error;
+            } else {
+              // console.log('New Body Number', result);
             }
-          );
-        }
-      });
-    });
-
-    console.log(defectBodyNumberStatus);
-
-    if (defectBodyNumberStatus == 'newBodyNumber') {
-      console.log(
-        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`
-      );
-      dbConnectedPool.query(
-        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`,
-        (error, result) => {
-          if (error) {
-            throw error;
-          } else {
-            // console.log('New Body Number', result);
           }
-        }
-      );
-      defectBodyNumberStatus = 'existingBodyNumber';
-    } else if (defectBodyNumberStatus == 'existingBodyNumber') {
-      console.log(
-        `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`
-      );
-      dbConnectedPool.query(
-        `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`,
-        (error, result) => {
-          if (error) {
-            throw error;
-          } else {
-            // console.log('Body Number Modified', result);
+        );
+        defectBodyNumberStatus = 'existingBodyNumber';
+      } else if (defectBodyNumberStatus == 'existingBodyNumber') {
+        console.log(
+          `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`
+        );
+        dbConnectedPool.query(
+          `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`,
+          (error, result) => {
+            if (error) {
+              throw error;
+            } else {
+              // console.log('Body Number Modified', result);
+            }
           }
-        }
-      );
+        );
+      }
     }
 
-    setTimeout(() => {
+    storeManager().then(() => {
       res.send(
         JSON.stringify({
           status: 'success',
           data: messageObject,
         })
       );
-    }, 3000);
-    // console.log('messageObject -> without timeOUT', messageObject);
-
-    // res.redirect('/redirectedfirstlayer');
+    });
   } catch (err) {
     console.log(err);
   }
@@ -806,24 +842,6 @@ app.post('/reportDataProvider', async (req, res) => {
 
     let bodyNumberData = [];
 
-    // Object.keys(queryReceiver).map((group) => {
-    //   queryReceiver[group].map(async (singleQuery) => {
-    //     result = await dbConnectedPool.query(singleQuery);
-    //     let defectsCount = 0;
-    //     result.rows.map((record) => {
-    //       if (
-    //         Date.parse(record.date) <= Date.parse(toDate) &&
-    //         Date.parse(record.date) >= Date.parse(fromDate)
-    //       ) {
-    //         defectsCount += record.zones.length;
-    //         bodyNumberData.push(record.body_number);
-    //       }
-    //     });
-    //     queryResult[group].push(defectsCount);
-    //     console.log('inside second loop: ', queryResult[group]);
-    //   });
-    // });
-
     for (let [key, value] of Object.entries(queryReceiver)) {
       for (let j = 0; j < value.length; j++) {
         result = await dbConnectedPool.query(value[j]);
@@ -834,7 +852,7 @@ app.post('/reportDataProvider', async (req, res) => {
             Date.parse(fetchedRows[k].date) <= Date.parse(toDate) &&
             Date.parse(fetchedRows[k].date) >= Date.parse(fromDate)
           ) {
-            defectsCount += fetchedRows[k].zones.length;
+            defectsCount += fetchedRows[k].defectcount;
             bodyNumberData.push(fetchedRows[k].body_number);
           }
         }
@@ -899,7 +917,7 @@ app.post('/majorDefectDetail', async (req, res) => {
           Date.parse(record.date) <= Date.parse(toDate) &&
           Date.parse(record.date) >= Date.parse(fromDate)
         ) {
-          tempDataStoringObj[record.subdefect] += record.zones.length;
+          tempDataStoringObj[record.subdefect] += record.defectcount;
         }
       });
 
@@ -1046,16 +1064,25 @@ app.post('/majorSubDefectDetail', async (req, res) => {
             groupCode,
             Object.keys(majorSubDefectsInAllGroup[groupCode])[0]
           );
-          responseObject[groupCode] = {};
-          result.map((singleRecord) => {
-            if (
-              Date.parse(singleRecord.date) <= Date.parse(toDate) &&
-              Date.parse(singleRecord.date) >= Date.parse(fromDate)
-            ) {
-              responseObject[groupCode][singleRecord.subcategory] =
-                singleRecord.zones;
-            }
-          });
+          if (result.length != 0) {
+            result.map((singleRecord, index) => {
+              if (
+                Date.parse(singleRecord.date) <= Date.parse(toDate) &&
+                Date.parse(singleRecord.date) >= Date.parse(fromDate)
+              ) {
+                let path =
+                  groupCode +
+                  '.' +
+                  singleRecord.subcategory +
+                  '.' +
+                  '_' +
+                  singleRecord.zone;
+                mod.set(responseObject, path, singleRecord.defectcount);
+              }
+            });
+          } else {
+            responseObject[groupCode] = {};
+          }
         })
       );
     }
@@ -1103,8 +1130,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
 
@@ -1117,8 +1145,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
 
@@ -1131,8 +1160,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
 
@@ -1145,8 +1175,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
 
@@ -1159,8 +1190,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
 
@@ -1173,8 +1205,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
 
@@ -1187,8 +1220,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
 
@@ -1201,8 +1235,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
 
@@ -1215,8 +1250,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
 
@@ -1229,8 +1265,9 @@ app.post('/pareto', async (req, res) => {
                 record.defect,
                 record.subdefect,
                 '_' + String(record.body_number),
+                '_' + record.zone,
               ].join('.'),
-              record.zones
+              record.defectcount
             );
             break;
         }

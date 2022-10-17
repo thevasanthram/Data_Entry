@@ -1,0 +1,293 @@
+*{
+  margin: 0px;
+  padding: 0%;
+}
+body{
+  font-family: var(--font-family-base);
+  background-color: #222831;
+  color: #EEEEEE;
+}
+.header{
+  display: flex;
+  height: 12vh;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color:#393E46 ;
+  color: #F0E3E3;
+  position: relative;
+}
+#filter{
+  background-color: #393E46;
+}
+#btn{
+  display: flex;
+  align-items: center;
+}
+.admin{
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+.heading{
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+#filterForm {
+  width: 100%;
+  display: flex;
+  position: relative;
+  height: 12vh;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2F576E;
+  color: #F0E3E3;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  background: linear-gradient(to left, #2c3e50, #4ca1af);
+}
+#chart-condition-input{
+  background-color: #EEEEEE;
+  border-radius: 5px;
+  color: gray; 
+  margin-top: -5px; 
+  padding-left: .5rem;
+}
+#chart-Condition-topic{
+  margin-top: -5px;
+}
+#chart-condition-select-content{
+  flex-direction: row;
+}
+#from-date-condition-input ,#to-date-condition-input{
+  background-color:#EEEEEE;
+  color: gray;
+  border-radius: 5px;
+  padding-left: .8rem;
+  margin-top: -2px;
+}
+.from-date-condition-content, .to-date-condition-content,
+#title-name-content , #chart-Condition-topic ,.button_container{
+  position: relative;
+  color: black;
+  margin: 3px;
+  padding: 2px;
+}
+
+#title-name-content{
+  font-weight: 400;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*body {
+  background-color: #282c34;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+.nav-bar {
+  width: 100%;
+  height: 30%;
+  background-color: rgb(29, 23, 23);
+}
+
+.app-name-div {
+  padding: 10px;
+}
+
+#app-name {
+  font-size: 250%;
+  color: white;
+}
+
+.user-mode {
+  float: right;
+  padding: 10px;
+}
+
+#user-mode-name {
+  float: left;
+  font-size: 200%;
+  color: #61dafb;
+}
+
+.button-logout-content {
+  float: right;
+}
+
+.button-logout {
+  color: white;
+  background-color: black;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  margin-top: 25%;
+}
+
+#title-name-content {
+  margin-left: 8%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+#title-name {
+  font-size: 200%;
+  color: white;
+}
+
+.filtering-condition-content {
+  color: white;
+  position: absolute;
+  width: 70%;
+  margin-left: 28.5%;
+  margin-top: -3.25%;
+}
+
+.from-date-condition-content {
+  float: left;
+}
+
+#from-date-condition-topic {
+  font-size: 150%;
+  margin-right: 20px;
+  float: left;
+}
+
+#from-date-condition-input {
+  margin-top: 8px;
+}
+
+.to-date-condition-content {
+  margin-left: 4%;
+  margin-top: 0.1%;
+  float: left;
+}
+
+#to-date-condition-topic {
+  font-size: 150%;
+  margin-right: 20px;
+  float: left;
+}
+
+#to-date-condition-input {
+  margin-top: 8px;
+}
+
+.chart-condition-content {
+  margin-top: -0.4%;
+  margin-left: 4%;
+  float: left;
+}
+
+#chart-Condition-topic {
+  font-size: 150%;
+  margin-top: 5%;
+  margin-right: 20px;
+  float: left;
+}
+
+#chart-condition-select-content {
+  position: absolute;
+  margin-left: 9%;
+  margin-top: 0.8%;
+  width: 45%;
+}
+
+#chart-condition-input {
+  appearance: auto;
+  margin-top: 3%;
+  background-color: rgb(36, 36, 36);
+  border: 1px solid black;
+  border-radius: 4px;
+  margin: 0;
+  padding: 0.5%;
+  width: 50%;
+  font-family: inherit;
+  font-size: 100%;
+  color: white;
+  cursor: pointer;
+}
+
+#filtering-condition-submit-button {
+  position: absolute;
+  font-size: 130%;
+  padding: 0.5% 1.5% 0.5% 1.5%;
+  margin-left: 25%;
+  margin-top: -0.1%;
+  cursor: pointer;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+}
+
+#filtering-condition-submit-button:active {
+  transform: scale(0.98);
+}
+
+#htmlToPdf {
+  position: relative;
+  font-size: 130%;
+  padding: 0.5% 1.5% 0.5% 1.5%;
+  margin-left: 37%;
+  margin-top: -0.1%;
+  cursor: pointer;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+}
+
+#htmlToPdf:hover {
+  transform: scale(1.05);
+  color: black;
+  background-color: white;
+}
+
+.report-content {
+  background-color: rgba(0, 0, 0, 0.386);
+  position: absolute;
+  height: 79%;
+  width: 100%;
+}
+
+#report-topic {
+  margin-left: 2%;
+  margin-top: 0.5%;
+  font-size: 140%;
+  width: 98%;
+  position: absolute;
+}
+
+.report-content-data {
+  position: absolute;
+  overflow-y: auto;
+  margin-top: 3.5%;
+  width: 100%;
+  height: 85%;
+} */
