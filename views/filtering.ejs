@@ -1920,7 +1920,7 @@
         var fromDate = document.getElementById('from-date-condition-input').value
         var toDate = document.getElementById('to-date-condition-input').value
 
-        const response = await fetch('http://localhost:8000/pareto',{
+        const response = await fetch('http://localhost:8000/colorMap',{
           method:'POST',
           headers:{
             'Content-type': 'application/json',
@@ -1980,7 +1980,7 @@
               const defectDivision = document.createElement('div')
               defectDivision.id = `${defect}ColorMap`
               defectDivision.style.clear = 'left'
-              defectDivision.style.marginBottom = '1%'
+              // defectDivision.style.marginBottom = '1%'
               subCategoryDivision.appendChild(defectDivision)
 
               // defect name
@@ -2018,12 +2018,16 @@
                 // division for defect visual presentation
                 const visualPresentation = document.createElement('div')
                 visualPresentation.id = `${subDefect}_${subCategory.replace(`${category}`,'')}_Visual_Presentation`
-                visualPresentation.style.display = 'inline-block'
+                // visualPresentation.style.display = 'inline-block'
                 visualPresentation.style.width = '350%'
                 visualPresentation.style.height = '100%'
                 visualPresentation.style.backgroundImage = `url(${subCategory}${category.toUpperCase().replaceAll(' ', '_')}_${subCategory.replace('/','') }.jpg)`
-                visualPresentation.style.backgroundColor = '#000000'
                 subDefectDivision.appendChild(visualPresentation)
+
+                //displaying zones with defect count
+                Object.keys(data.data[category][subCategory][defect][subDefect]).map( () => {
+
+                })
               })
             })
           })

@@ -109,8 +109,8 @@ const Options = {
   },
 
   'RH SHELL BODY SUB-LINE': {
-    'HOOD S/A OUTER - RH SBSA': ['129', '130', '133', '134'],
-    'HOOD S/A INNER - RH SBSA': ['135', '136', '137', '138'],
+    'HOOD SA OUTER - RH SBSA': ['129', '130', '133', '134'],
+    'HOOD SA INNER - RH SBSA': ['135', '136', '137', '138'],
     'FRONT DOOR OUTER - RH SBSA': ['139', '140', '141', '142'],
     'FRONT DOOR INNER - RH SBSA': ['143', '144', '145', '146'],
     'REAR DOOR OUTER - RH SBSA': ['147', '148', '149', '150'],
@@ -128,8 +128,8 @@ const Options = {
 
   'RH SHELL BODY MAIN-LINE': {
     'FENDER - RH SBML': ['179', '180', '181', '182', '183', '184', '185'],
-    'HOOD S/A OUTER SBML': ['186', '187', '188', '189'],
-    'HOOD S/A INNER SBML': ['190', '191', '192', '193'],
+    'HOOD SA OUTER SBML': ['186', '187', '188', '189'],
+    'HOOD SA INNER SBML': ['190', '191', '192', '193'],
     'FRONT DOOR OUTER - RH SBML': ['194', '195', '196', '197'],
     'FRONT DOOR INNER - RH SBML': ['198', '199', '200', '201'],
     'REAR DOOR OUTER - RH SBML': ['202', '203', '204', '205'],
@@ -371,7 +371,6 @@ app.post('/login', (req, res) => {
 
 app.get('/follower', (req, res) => {
   try {
-    console.log('follower');
     res.render(path.join(__dirname, '/views/follower.ejs'), { username });
   } catch (err) {
     console.log(err);
@@ -524,6 +523,7 @@ app.post('/secondlayer', (req, res) => {
     }
     const categoryOptions = Options[selectedCategory];
     let ShortlistedCategoryOptions = Object.keys(categoryOptions);
+    console.log('shortlisted: ', ShortlistedCategoryOptions);
     res.render(path.join(__dirname, '/views/secondLayer.ejs'), {
       username,
       enteredBodyNumber,
@@ -1264,7 +1264,97 @@ app.post('/pareto', async (req, res) => {
         }
       }
     });
-    console.log('dataFetcher', dataFetcher);
+    // console.log('dataFetcher', dataFetcher);
+
+    let response = {
+      message: 'success',
+      data: dataFetcher,
+    };
+
+    res.send(JSON.stringify(response));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/colorMap', async (req, res) => {
+  try {
+    const fromDate = req.body.fromDate;
+    const toDate = req.body.toDate;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const groupCode = {
+      'UNDER BODY': 'UB',
+      'RH MAIN BODY': 'MB',
+      'LH MAIN BODY': 'MB',
+      'LH SHELL BODY SUB-LINE': 'SBSA',
+      'RH SHELL BODY SUB-LINE': 'SBSA',
+      'LH SHELL BODY MAIN-LINE': 'SBML',
+      'RH SHELL BODY MAIN-LINE': 'SBML',
+      'LH SIDE MEMBER': 'SM',
+      'RH SIDE MEMBER': 'SM',
+    };
+
+    let dataFetcher = {};
+
+    const records = await dbConnectedPool.query(`SELECT * FROM defect_table`);
+    records.rows.map((record, index) => {
+      console.log('record: ', index + 1);
+      if (
+        Date.parse(record.date) <= Date.parse(toDate) &&
+        Date.parse(record.date) >= Date.parse(fromDate)
+      ) {
+        try {
+          console.log('try triggering');
+          if (
+            dataFetcher[groupCode[record.category]][record.subcategory][
+              record.defect
+            ][record.subdefect]['_' + String(record.zone)]
+          ) {
+            console.log('try if triggering');
+            dataFetcher[groupCode[record.category]][record.subcategory][
+              record.defect
+            ][record.subdefect]['_' + String(record.zone)] +=
+              record.defectcount;
+          } else {
+            console.log('try else triggering');
+            mod.set(
+              dataFetcher,
+              [
+                groupCode[record.category],
+                record.subcategory,
+                record.defect,
+                record.subdefect,
+                '_' + record.zone,
+              ].join('.'),
+              record.defectcount
+            );
+          }
+        } catch {
+          console.log('catch triggering');
+          mod.set(
+            dataFetcher,
+            [
+              groupCode[record.category],
+              record.subcategory,
+              record.defect,
+              record.subdefect,
+              '_' + record.zone,
+            ].join('.'),
+            record.defectcount
+          );
+        }
+      }
+      console.log('------------');
+    });
+    console.log('color Map dataFetcher', dataFetcher);
 
     let response = {
       message: 'success',
