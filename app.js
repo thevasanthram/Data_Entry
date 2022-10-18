@@ -389,7 +389,7 @@ app.post('/bodyNumber', (req, res) => {
       password: 'admin',
       port: 5432,
     });
-    console.log('entering bodyNumber');
+
     // console.log(
     //   `SELECT * FROM body_number_table WHERE body_number=${enteredBodyNumberValue};`
     // );
@@ -413,7 +413,6 @@ app.post('/bodyNumber', (req, res) => {
         if (error) {
           console.log(error);
         } else {
-          console.log('query executed successfully for the first layer');
           if (result.rows.length == 0) {
             let response = {
               status: 'success',
@@ -452,7 +451,6 @@ app.post('/passcar', (req, res) => {
     });
 
     let currentDate = new Date();
-    console.log('pass car button function');
     const date =
       String(currentDate.getFullYear()) +
       '-' +
@@ -473,8 +471,6 @@ app.post('/passcar', (req, res) => {
 
     bodyNumber = req.body.bodyNumber;
     bodyNumberStatus = req.body.bodyNumberStatus;
-
-    console.log(bodyNumber, bodyNumberStatus);
 
     if (bodyNumberStatus == 'newBodyNumber') {
       console.log(
@@ -509,7 +505,6 @@ app.post('/firstlayer', (req, res) => {
       defectBodyNumberStatus = req.body.bodyNumberStatus;
     }
 
-    console.log('first layer');
     bodyNumberOptions = Object.keys(Options);
     res.render(path.join(__dirname, '/views/firstLayer.ejs'), {
       username,
@@ -529,7 +524,6 @@ app.post('/secondlayer', (req, res) => {
     }
     const categoryOptions = Options[selectedCategory];
     let ShortlistedCategoryOptions = Object.keys(categoryOptions);
-    console.log('second layer');
     res.render(path.join(__dirname, '/views/secondLayer.ejs'), {
       username,
       enteredBodyNumber,
@@ -551,7 +545,6 @@ app.post('/thirdlayer', (req, res) => {
     SubCategoryOptions = SubCategoryOptions[selectedSubCategory];
 
     ShortlistedSubCategoryOptions = SubCategoryOptions;
-    console.log('third layer');
     const defectObject = {
       surface: {
         name: 'Surface',
@@ -620,10 +613,8 @@ app.post('/thirdlayer', (req, res) => {
 app.post('/receive-thirdLayer-temp', async (req, res) => {
   try {
     const defectObj = req.body.defectObj;
-    console.log('req.body.defectObj: ', req.body.defectObj);
     let filledDefects = {};
     let currentDate = new Date();
-    console.log('once after clicking save');
     const date =
       String(currentDate.getFullYear()) +
       '-' +
