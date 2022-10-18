@@ -2021,12 +2021,35 @@
                 // visualPresentation.style.display = 'inline-block'
                 visualPresentation.style.width = '350%'
                 visualPresentation.style.height = '100%'
-                visualPresentation.style.backgroundImage = `url(${subCategory}${category.toUpperCase().replaceAll(' ', '_')}_${subCategory.replace('/','') }.jpg)`
                 subDefectDivision.appendChild(visualPresentation)
 
-                //displaying zones with defect count
-                Object.keys(data.data[category][subCategory][defect][subDefect]).map( () => {
+                let subCategoryArray = subCategory.split(' ').reverse()
+                let categoryCodeSplit = subCategoryArray[0]
+                let categoryCode = ''
+                let sideCodeSplit = subCategoryArray[1]
+                let sideCode = ''
+                if(Object.keys(categoryAbbreviation).includes(categoryCodeSplit)){
+                  categoryCode = categoryAbbreviation[categoryCodeSplit].toUpperCase().replaceAll(' ','_')+'_'
+                }else{
+                  categoryCode = 'UNDER_BODY_'
+                }
+                if((sideCodeSplit == 'LH' || sideCodeSplit == 'RH') && (subCategoryArray.indexOf(sideCodeSplit) != subCategoryArray.length-1)){
+                  sideCode = sideCodeSplit+'_'
+                }
 
+                visualPresentation.style.backgroundImage = `url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`
+
+                // console.log('category: ',category)
+                // console.log('sub category: ',subCategoryArray)
+                // console.log('categoryCodeSplit: ', categoryCodeSplit)
+                // console.log('sideCodeSplit: ', sideCodeSplit)
+                // console.log('Image name: ',`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
+
+                //displaying zones with defect count
+                Object.keys(data.data[category][subCategory][defect][subDefect]).map( (singleZone) => {
+                  let zoneDefectCountData = document.createElement('p')
+                  zoneDefectCountData.innerHTML = `Z ${singleZone.replace('_','')}: ${data.data[category][subCategory][defect][subDefect][singleZone]}`
+                  visualPresentation.appendChild(zoneDefectCountData)
                 })
               })
             })

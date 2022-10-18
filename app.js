@@ -333,8 +333,17 @@ const Options = {
       '749',
       '750',
     ],
-    'ROCKER PANEL SIDE - LH SM': ['788', '789', '790', '791', '792', '793'],
-    'ROOF SIDE - LH SM': ['783', '784', '785', '786', '787'],
+    'ROCKER PANEL SIDE - LH SM': ['791', '792', '793', '794', '795', '796'],
+    'ROOF SIDE - LH SM': [
+      '783',
+      '784',
+      '785',
+      '786',
+      '787',
+      '788',
+      '789',
+      '790',
+    ],
   },
 };
 
@@ -1306,25 +1315,21 @@ app.post('/colorMap', async (req, res) => {
 
     const records = await dbConnectedPool.query(`SELECT * FROM defect_table`);
     records.rows.map((record, index) => {
-      console.log('record: ', index + 1);
       if (
         Date.parse(record.date) <= Date.parse(toDate) &&
         Date.parse(record.date) >= Date.parse(fromDate)
       ) {
         try {
-          console.log('try triggering');
           if (
             dataFetcher[groupCode[record.category]][record.subcategory][
               record.defect
             ][record.subdefect]['_' + String(record.zone)]
           ) {
-            console.log('try if triggering');
             dataFetcher[groupCode[record.category]][record.subcategory][
               record.defect
             ][record.subdefect]['_' + String(record.zone)] +=
               record.defectcount;
           } else {
-            console.log('try else triggering');
             mod.set(
               dataFetcher,
               [
@@ -1338,7 +1343,6 @@ app.post('/colorMap', async (req, res) => {
             );
           }
         } catch {
-          console.log('catch triggering');
           mod.set(
             dataFetcher,
             [
@@ -1352,9 +1356,8 @@ app.post('/colorMap', async (req, res) => {
           );
         }
       }
-      console.log('------------');
     });
-    console.log('color Map dataFetcher', dataFetcher);
+    // console.log('color Map dataFetcher', dataFetcher);
 
     let response = {
       message: 'success',
