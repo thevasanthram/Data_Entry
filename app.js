@@ -109,8 +109,8 @@ const Options = {
   },
 
   'RH SHELL BODY SUB-LINE': {
-    'HOOD SA OUTER - RH SBSA': ['129', '130', '133', '134'],
-    'HOOD SA INNER - RH SBSA': ['135', '136', '137', '138'],
+    'HOOD S/A OUTER - RH SBSA': ['129', '130', '133', '134'],
+    'HOOD S/A INNER - RH SBSA': ['135', '136', '137', '138'],
     'FRONT DOOR OUTER - RH SBSA': ['139', '140', '141', '142'],
     'FRONT DOOR INNER - RH SBSA': ['143', '144', '145', '146'],
     'REAR DOOR OUTER - RH SBSA': ['147', '148', '149', '150'],
@@ -127,23 +127,24 @@ const Options = {
   },
 
   'RH SHELL BODY MAIN-LINE': {
-    'FENDER - RH SBML': ['179', '180', '181', '182', '183', '184', '185'],
-    'HOOD SA OUTER SBML': ['186', '187', '188', '189'],
-    'HOOD SA INNER SBML': ['190', '191', '192', '193'],
-    'FRONT DOOR OUTER - RH SBML': ['194', '195', '196', '197'],
-    'FRONT DOOR INNER - RH SBML': ['198', '199', '200', '201'],
-    'REAR DOOR OUTER - RH SBML': ['202', '203', '204', '205'],
-    'REAR DOOR INNER - RH SBML': ['206', '207', '208', '209'],
+    'FENDER - RH SBML': ['600', '601', '602', '603', '604', '605', '606'],
+    'HOOD S/A OUTER SBML': ['671', '672', '673', '674', '675', '676', '677', '678', '679', '680', '681', '682', '683', '684', '685'],
+    'HOOD S/A INNER SBML': [ '686', '687', '688', '689', '690', '691', '692', '693', '694', '695', '696', '697'],
+    'FRONT DOOR OUTER - RH SBML': ['607', '608', '609', '610', '611', '612', '613', '614', '615', '616', '617', '618', '619', '620', '621', '622', '623'],
+    'FRONT DOOR INNER - RH SBML': ['624', '625', '626', '627', '628', '629', '630', '631', '632', '634', '635', '636', '637', '638', '639'],
+    'REAR DOOR OUTER - RH SBML': ['640', '641', '642', '643', '644', '645', '647', '648', '649', '650', '651', '652', '653', '654', '655', '656'],
+    'REAR DOOR INNER - RH SBML': ['657', '658', '659', '660', '661', '662', '663', '664', '665', '666', '667', '668', '669', '670'],
   },
 
-   'LH SHELL BODY MAIN-LINE': {
-    'FENDER - LH SBML': ['500', '501', '502', '503', '504', '505', '506'], 
-    'FRONT DOOR OUTER - LH SBML': ['507', '508', '509', '510','511', '512', '513', '514','515', '516', '517', '518','519', '520', '521', '522','523'],
-    'FRONT DOOR INNER - LH SBML': ['524', '525','526', '527', '528', '529','530', '531', '532', '533','534', '535', '536', '537','538'],
-    'REAR DOOR OUTER - LH SBML': ['539', '540','541', '542', '543', '544','545', '546', '547', '548','549', '550', '551', '552','553','554'],
-    'REAR DOOR INNER - LH SBML': ['555', '556','557', '558', '559', '560','561', '562', '563', '564','565', '566', '567', '568'],
-    'BACK DOOR OUTER SBML': ['569', '570','571', '572', '573', '574','575', '576', '577', '578','579', '580', '581', '582','583','584'],
-    'BACK DOOR INNER SBML':  ['585', '586', '587', '588','589', '590', '591', '592','593', '594', '595', '596','597', '598', '599', '600','601'],
+
+  'LH SHELL BODY MAIN-LINE': {
+    'FENDER - LH SBML': ['210', '211', '212', '213', '214', '215', '216'],
+    'FRONT DOOR OUTER - LH SBML': ['217', '218', '219', '220'],
+    'FRONT DOOR INNER - LH SBML': ['221', '222', '223', '224'],
+    'REAR DOOR OUTER - LH SBML': ['225', '226', '227', '228'],
+    'REAR DOOR INNER - LH SBML': ['229', '230', '231', '232'],
+    'BACK DOOR OUTER SBML': ['233', '234', '235', '236'],
+    'BACK DOOR INNER SBML': ['237', '238', '239', '240'],
   },
 
   'RH SIDE MEMBER': {
@@ -333,17 +334,8 @@ const Options = {
       '749',
       '750',
     ],
-    'ROCKER PANEL SIDE - LH SM': ['791', '792', '793', '794', '795', '796'],
-    'ROOF SIDE - LH SM': [
-      '783',
-      '784',
-      '785',
-      '786',
-      '787',
-      '788',
-      '789',
-      '790',
-    ],
+    'ROCKER PANEL SIDE - LH SM': ['788', '789', '790', '791', '792', '793'],
+    'ROOF SIDE - LH SM': ['783', '784', '785', '786', '787'],
   },
 };
 
@@ -459,6 +451,7 @@ app.post('/passcar', (req, res) => {
     });
 
     let currentDate = new Date();
+
     const date =
       String(currentDate.getFullYear()) +
       '-' +
@@ -479,6 +472,8 @@ app.post('/passcar', (req, res) => {
 
     bodyNumber = req.body.bodyNumber;
     bodyNumberStatus = req.body.bodyNumberStatus;
+
+    console.log(bodyNumber, bodyNumberStatus);
 
     if (bodyNumberStatus == 'newBodyNumber') {
       console.log(
@@ -532,6 +527,7 @@ app.post('/secondlayer', (req, res) => {
     }
     const categoryOptions = Options[selectedCategory];
     let ShortlistedCategoryOptions = Object.keys(categoryOptions);
+
     res.render(path.join(__dirname, '/views/secondLayer.ejs'), {
       username,
       enteredBodyNumber,
@@ -553,6 +549,7 @@ app.post('/thirdlayer', (req, res) => {
     SubCategoryOptions = SubCategoryOptions[selectedSubCategory];
 
     ShortlistedSubCategoryOptions = SubCategoryOptions;
+
     const defectObject = {
       surface: {
         name: 'Surface',
@@ -621,8 +618,10 @@ app.post('/thirdlayer', (req, res) => {
 app.post('/receive-thirdLayer-temp', async (req, res) => {
   try {
     const defectObj = req.body.defectObj;
+    console.log('req.body.defectObj: ', req.body.defectObj);
     let filledDefects = {};
     let currentDate = new Date();
+
     const date =
       String(currentDate.getFullYear()) +
       '-' +
@@ -808,9 +807,7 @@ app.get('/administrator', async (req, res) => {
 app.get('/filter', async (req, res) => {
   try {
     if (username == 'Administrator') {
-      res.render(path.join(__dirname, '/views/adminLaundingPage.ejs'), {
-        username,
-      });
+      res.render(path.join(__dirname, '/views/filtering2.ejs'), { username });
     } else {
       res.send('Enter as Administrator mode');
     }
@@ -1287,90 +1284,6 @@ app.post('/pareto', async (req, res) => {
   }
 });
 
-app.post('/colorMap', async (req, res) => {
-  try {
-    const fromDate = req.body.fromDate;
-    const toDate = req.body.toDate;
-
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
-
-    const groupCode = {
-      'UNDER BODY': 'UB',
-      'RH MAIN BODY': 'MB',
-      'LH MAIN BODY': 'MB',
-      'LH SHELL BODY SUB-LINE': 'SBSA',
-      'RH SHELL BODY SUB-LINE': 'SBSA',
-      'LH SHELL BODY MAIN-LINE': 'SBML',
-      'RH SHELL BODY MAIN-LINE': 'SBML',
-      'LH SIDE MEMBER': 'SM',
-      'RH SIDE MEMBER': 'SM',
-    };
-
-    let dataFetcher = {};
-
-    const records = await dbConnectedPool.query(`SELECT * FROM defect_table`);
-    records.rows.map((record, index) => {
-      if (
-        Date.parse(record.date) <= Date.parse(toDate) &&
-        Date.parse(record.date) >= Date.parse(fromDate)
-      ) {
-        try {
-          if (
-            dataFetcher[groupCode[record.category]][record.subcategory][
-              record.defect
-            ][record.subdefect]['_' + String(record.zone)]
-          ) {
-            dataFetcher[groupCode[record.category]][record.subcategory][
-              record.defect
-            ][record.subdefect]['_' + String(record.zone)] +=
-              record.defectcount;
-          } else {
-            mod.set(
-              dataFetcher,
-              [
-                groupCode[record.category],
-                record.subcategory,
-                record.defect,
-                record.subdefect,
-                '_' + record.zone,
-              ].join('.'),
-              record.defectcount
-            );
-          }
-        } catch {
-          mod.set(
-            dataFetcher,
-            [
-              groupCode[record.category],
-              record.subcategory,
-              record.defect,
-              record.subdefect,
-              '_' + record.zone,
-            ].join('.'),
-            record.defectcount
-          );
-        }
-      }
-    });
-    // console.log('color Map dataFetcher', dataFetcher);
-
-    let response = {
-      message: 'success',
-      data: dataFetcher,
-    };
-
-    res.send(JSON.stringify(response));
-  } catch (err) {
-    console.log(err);
-  }
-});
-
 app.post('/individualSummaryReport', async (req, res) => {
   const fromDate = req.body.fromDate;
   const toDate = req.body.toDate;
@@ -1384,17 +1297,6 @@ app.post('/individualSummaryReport', async (req, res) => {
     password: 'admin',
     port: 5432,
   });
-
-  // queryList = {
-  //   'SIDE MEMBER':{
-  //     'RIGHT': ,
-  //     'LEFT': ,
-  //   }
-  // }
-
-  // let queryResult = {
-  //   ''
-  // }
 });
 
 app.get('/logout', (req, res) => {
