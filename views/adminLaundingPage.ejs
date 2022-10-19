@@ -1635,25 +1635,29 @@
         mainParetoDefectChart.render();
       }
 
-      function individualSummary(majorDefectName, minorDefectsList){
+      async function individualSummary(defectName, subDefectList){
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
-        console.log(SummaryName);
+        console.log(defectName,'Summary');
 
         var fromDate = document.getElementById('from-date-condition-input').value
         var toDate = document.getElementById('to-date-condition-input').value
 
-        fetch('http://localhost:8000/individualSummaryReport',{
+        const response = await fetch('http://localhost:8000/individualSummaryReport',{
           method: 'POST',
           headers:{
             'Content-type': 'application/json'
           },
           body: JSON.stringify({
-            majorDefectName,
-            minorDefectsList,
+            defectName,
+            subDefectList,
             fromDate,
             toDate
           })
         })
+
+        const data = await response.json()
+
+        console.log('data: ',data.data)
       }
 
       async function colorMap(){

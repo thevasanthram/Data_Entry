@@ -85,7 +85,7 @@ const Options = {
   'RH MAIN BODY': {
     'B-PILLAR - RH MB': ['49', '50', '51', '52'],
     'A-PILLAR - RH MB': ['53', '54', '55', '56'],
-    'COWL-RH MB': ['57', '58', '59', '60'],
+    'COWL - RH MB': ['57', '58', '59', '60'],
     'C-PILLAR - RH MB': ['61', '62', '63', '64'],
     'BACK DOOR OPENING - RH MB': ['65', '66', '67', '68'],
     'FRONT DOOR OPENING - RH MB': ['69', '70', '71', '72'],
@@ -98,7 +98,7 @@ const Options = {
   'LH MAIN BODY': {
     'B-PILLAR - LH MB': ['89', '90', '91', '92'],
     'A-PILLAR - LH MB': ['93', '94', '95', '96'],
-    'COWL-LH MB': ['97', '98', '99', '100'],
+    'COWL - LH MB': ['97', '98', '99', '100'],
     'C-PILLAR - LH MB': ['101', '102', '103', '104'],
     'BACK DOOR OPENING - LH MB': ['105', '106', '107', '108'],
     'FRONT DOOR OPENING - LH MB': ['109', '110', '111', '112'],
@@ -128,22 +128,123 @@ const Options = {
 
   'RH SHELL BODY MAIN-LINE': {
     'FENDER - RH SBML': ['179', '180', '181', '182', '183', '184', '185'],
-    'HOOD SA OUTER SBML': ['186', '187', '188', '189'],
-    'HOOD SA INNER SBML': ['190', '191', '192', '193'],
+    'HOOD SA OUTER - RH SBML': ['186', '187', '188', '189'],
+    'HOOD SA INNER - RH SBML': ['190', '191', '192', '193'],
     'FRONT DOOR OUTER - RH SBML': ['194', '195', '196', '197'],
     'FRONT DOOR INNER - RH SBML': ['198', '199', '200', '201'],
     'REAR DOOR OUTER - RH SBML': ['202', '203', '204', '205'],
     'REAR DOOR INNER - RH SBML': ['206', '207', '208', '209'],
   },
 
-   'LH SHELL BODY MAIN-LINE': {
-    'FENDER - LH SBML': ['500', '501', '502', '503', '504', '505', '506'], 
-    'FRONT DOOR OUTER - LH SBML': ['507', '508', '509', '510','511', '512', '513', '514','515', '516', '517', '518','519', '520', '521', '522','523'],
-    'FRONT DOOR INNER - LH SBML': ['524', '525','526', '527', '528', '529','530', '531', '532', '533','534', '535', '536', '537','538'],
-    'REAR DOOR OUTER - LH SBML': ['539', '540','541', '542', '543', '544','545', '546', '547', '548','549', '550', '551', '552','553','554'],
-    'REAR DOOR INNER - LH SBML': ['555', '556','557', '558', '559', '560','561', '562', '563', '564','565', '566', '567', '568'],
-    'BACK DOOR OUTER SBML': ['569', '570','571', '572', '573', '574','575', '576', '577', '578','579', '580', '581', '582','583','584'],
-    'BACK DOOR INNER SBML':  ['585', '586', '587', '588','589', '590', '591', '592','593', '594', '595', '596','597', '598', '599', '600','601'],
+  'LH SHELL BODY MAIN-LINE': {
+    'FENDER - LH SBML': ['500', '501', '502', '503', '504', '505', '506'],
+    'FRONT DOOR OUTER - LH SBML': [
+      '507',
+      '508',
+      '509',
+      '510',
+      '511',
+      '512',
+      '513',
+      '514',
+      '515',
+      '516',
+      '517',
+      '518',
+      '519',
+      '520',
+      '521',
+      '522',
+      '523',
+    ],
+    'FRONT DOOR INNER - LH SBML': [
+      '524',
+      '525',
+      '526',
+      '527',
+      '528',
+      '529',
+      '530',
+      '531',
+      '532',
+      '533',
+      '534',
+      '535',
+      '536',
+      '537',
+      '538',
+    ],
+    'REAR DOOR OUTER - LH SBML': [
+      '539',
+      '540',
+      '541',
+      '542',
+      '543',
+      '544',
+      '545',
+      '546',
+      '547',
+      '548',
+      '549',
+      '550',
+      '551',
+      '552',
+      '553',
+      '554',
+    ],
+    'REAR DOOR INNER - LH SBML': [
+      '555',
+      '556',
+      '557',
+      '558',
+      '559',
+      '560',
+      '561',
+      '562',
+      '563',
+      '564',
+      '565',
+      '566',
+      '567',
+      '568',
+    ],
+    'BACK DOOR OUTER - LH SBML': [
+      '569',
+      '570',
+      '571',
+      '572',
+      '573',
+      '574',
+      '575',
+      '576',
+      '577',
+      '578',
+      '579',
+      '580',
+      '581',
+      '582',
+      '583',
+      '584',
+    ],
+    'BACK DOOR INNER - LH SBML': [
+      '585',
+      '586',
+      '587',
+      '588',
+      '589',
+      '590',
+      '591',
+      '592',
+      '593',
+      '594',
+      '595',
+      '596',
+      '597',
+      '598',
+      '599',
+      '600',
+      '601',
+    ],
   },
 
   'RH SIDE MEMBER': {
@@ -1372,29 +1473,117 @@ app.post('/colorMap', async (req, res) => {
 });
 
 app.post('/individualSummaryReport', async (req, res) => {
-  const fromDate = req.body.fromDate;
-  const toDate = req.body.toDate;
-  const majorDefectName = req.body.majorDefectName;
-  const minorDefectsList = req.body.minorDefectsList;
+  try {
+    const fromDate = req.body.fromDate;
+    const toDate = req.body.toDate;
+    const defectName = req.body.defectName;
+    const subDefectList = req.body.subDefectList;
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
 
-  let dbConnectedPool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'data_entry_systems',
-    password: 'admin',
-    port: 5432,
-  });
+    const groupCode = {
+      'RH MAIN BODY': 'MB',
+      'LH MAIN BODY': 'MB',
+      'LH SHELL BODY SUB-LINE': 'SBSA',
+      'RH SHELL BODY SUB-LINE': 'SBSA',
+      'LH SHELL BODY MAIN-LINE': 'SBML',
+      'RH SHELL BODY MAIN-LINE': 'SBML',
+      'LH SIDE MEMBER': 'SM',
+      'RH SIDE MEMBER': 'SM',
+    };
 
-  // queryList = {
-  //   'SIDE MEMBER':{
-  //     'RIGHT': ,
-  //     'LEFT': ,
-  //   }
-  // }
+    let dataFetcher = {};
 
-  // let queryResult = {
-  //   ''
-  // }
+    Object.keys(Options).map((category) => {
+      ['LH', 'RH'].map((side) => {
+        Object.keys(Options[category]).map((subCategory) => {
+          subDefectList.map((subDefect) => {
+            let categoryName = category.replace('LH ', '').replace('RH ', '');
+            let subCategoryCleaner = subCategory
+              .replace(groupCode[category], '')
+              .replace('LH', '')
+              .replace('RH', '');
+            let subCategoryName = subCategoryCleaner.slice(
+              0,
+              subCategoryCleaner.length - 4
+            );
+            mod.set(
+              dataFetcher,
+              [categoryName, side, subCategoryName, subDefect].join('.'),
+              0
+            );
+          });
+        });
+      });
+    });
+    // deleting Under Body
+    delete dataFetcher['UNDER BODY'];
+
+    const records = await dbConnectedPool.query(
+      `SELECT * FROM defect_table WHERE (NOT category='UNDER BODY') AND defect='${defectName}'`
+    );
+
+    records.rows.map((record) => {
+      if (
+        Date.parse(record.date) <= Date.parse(toDate) &&
+        Date.parse(record.date) >= Date.parse(fromDate)
+      ) {
+        let side = record.category.split(' ')[0];
+        let categoryNameParts = record.category.split(' ');
+        categoryNameParts.shift();
+        let categoryName = categoryNameParts.join(' ');
+        let subCategoryCleaner = record.subcategory
+          .replace(groupCode[record.category], '')
+          .replace(side, '');
+        let subCategoryName = subCategoryCleaner.slice(
+          0,
+          subCategoryCleaner.length - 4
+        );
+
+        // console.log('side: ', side);
+        // console.log('categoryName: ', categoryName);
+        // console.log('subCategoryName: ', subCategoryName);
+
+        try {
+          if (
+            dataFetcher[categoryName][side][subCategoryName][record.subdefect]
+          ) {
+            dataFetcher[categoryName][side][subCategoryName][
+              record.subdefect
+            ] += record.defectcount;
+          } else {
+            mod.set(
+              dataFetcher,
+              [categoryName, side, subCategoryName, record.subdefect].join('.'),
+              record.defectcount
+            );
+          }
+        } catch {
+          mod.set(
+            dataFetcher,
+            [categoryName, side, subCategoryName, record.subdefect].join('.'),
+            record.defectcount
+          );
+        }
+      }
+    });
+
+    // console.log('data Fetcher: ', dataFetcher);
+
+    res.send(
+      JSON.stringify({
+        status: 'success',
+        data: dataFetcher,
+      })
+    );
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.get('/logout', (req, res) => {

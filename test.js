@@ -1,9 +1,4 @@
-let dataFetcher = {
-  _1234: 'yes',
-};
-
-if (!dataFetcher['_' + '1234']) {
-  console.log('not present');
-} else {
-  console.log('present');
-}
+let str = 'FENDER -';
+console.log(str);
+console.log(str.slice(0, -2));
+console.log(str);
