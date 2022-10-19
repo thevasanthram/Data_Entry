@@ -3,24 +3,36 @@
 }
 
 body {
+  width: 100%;
   background-color: #282c34;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-.nav-bar {
+.header {
   width: 100%;
-  background-color: rgb(29, 23, 23);
+  display: flex;
+  height: 5rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #393e46;
+  color: #f0e3e3;
+  position: relative;
 }
-
-.app-name-div {
-  padding: 10px;
+#btn {
+  display: flex;
+  align-items: center;
+  text-align: center;
 }
-
-#app-name {
-  font-size: 250%;
-  float: left;
-  color: white;
+.admin {
+  color: #00adb5;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+.heading {
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
 .selected-message {
@@ -28,29 +40,6 @@ body {
   padding: 14px;
   font-size: 120%;
   color: white;
-}
-
-.user-mode {
-  float: right;
-  padding: 10px;
-}
-
-#user-mode-name {
-  float: left;
-  font-size: 200%;
-  color: #61dafb;
-}
-
-.button-logout-content {
-  float: right;
-}
-
-.button-logout {
-  color: white;
-  background-color: black;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  margin-top: 25%;
 }
 
 #title-name-content {

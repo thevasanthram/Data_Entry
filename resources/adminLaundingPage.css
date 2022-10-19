@@ -1,0 +1,95 @@
+* {
+  margin: 0px;
+  padding: 0%;
+}
+body {
+  width: 100%;
+  font-family: var(--font-family-base);
+  background-color: #222831;
+  color: #eeeeee;
+}
+.header {
+  width: 100%;
+  display: flex;
+  height: 15vh;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #393e46;
+  color: #f0e3e3;
+}
+#filter {
+  background-color: #393e46;
+}
+#btn {
+  display: flex;
+  align-items: center;
+}
+.footer {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: 500;
+}
+#date {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  gap: 2rem;
+}
+#chart-condition-select-content {
+  margin: 1.5rem;
+}
+.admin {
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+.heading {
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+.filter {
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+#from-date-condition-input,
+#to-date-condition-input {
+  background-color: #eeeeee;
+  color: gray;
+  border-radius: 5px;
+  padding-left: 0.8rem;
+}
+#filter-text {
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
+}
+#chart-condition-input {
+  background-color: #eeeeee;
+  border-radius: 5px;
+  color: gray;
+}
+#container {
+  width: 100%;
+}
+.form {
+  width: 100%;
+  display: flex;
+
+  height: 15vh;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #2f576e;
+  color: #f0e3e3;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  background: linear-gradient(to left, #2c3e50, #4ca1af);
+}
+.chart-condition {
+  flex-direction: row;
+}
+input,
+select {
+  background-color: #566f7d;
+}

@@ -6,27 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./thirdLayer.css" />
     <title>Data Entry System</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div>
-      <div class="nav-bar">
-        <div class="user-mode">
-          <div class="button-logout-content">
-            <form action="/logout" method="get">
-              <button type="submit" class="button-logout">Log-out</button>
-            </form>
-          </div>
-          <div id="user-mode-name">
-            <p><%= username %></p>
-          </div>
-        </div>
-        <div class="app-name-div">
-          <h2 id="app-name">Data Entry System</h2>
-          <p class="selected-message">
-            Body Number : <%= enteredBodyNumber %> | Category : <%=
-            selectedCategory %> | Sub-Category : <%= selectedSubCategory %>
-          </p>
-        </div>
+      <div class="header">
+        <div class="heading">Data Entry System</div>
+        <p class="selected-message">
+          Body Number : <%= enteredBodyNumber %> | Category : <%=
+          selectedCategory %> | Sub-Category : <%= selectedSubCategory %>
+        </p>
+        <div class="admin" id="user-mode-name"><%= username %></div>
+        <form id="btn" action="/logout" method="get">
+          <button
+            type="submit"
+            style="
+              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            "
+            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          >
+            LOGOUT
+          </button>
+        </form>
       </div>
       <div id="title-name-content">
         <img

@@ -6,24 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./follower.css" />
     <title>Data Entry System</title>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div>
-      <div class="nav-bar">
-        <div class="user-mode">
-          <div class="button-logout-content">
-            <form action="/logout" method="get">
-              <button type="submit" class="button-logout">Log-out</button>
-            </form>
-          </div>
-          <div id="user-mode-name">
-            <p><%= username %></p>
-          </div>
-        </div>
-        <div class="app-name-div">
-          <h2 id="app-name">Data Entry System</h2>
-        </div>
+      <!-- Header part  which contain user_name,  App_Name and LOGOUT btn  -->
+      <div class="header">
+        <div class="admin" id="user-mode-name"><%= username %></div>
+        <div class="heading">Data Entry System</div>
+        <form id="btn" action="/logout" method="get">
+          <button
+            type="submit"
+            style="
+              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            "
+            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          >
+            LOGOUT
+          </button>
+        </form>
       </div>
+      <!--  -->
+
       <div class="form-content">
         <form action="/firstlayer" method="post" id="bodyNumberForm">
           <label for="bodyNumber" id="bodyNumber">Enter Body Number :</label>
@@ -43,18 +50,24 @@
             id="bodyNumberStatus"
           />
           <button
-            id="body-number-submit-button"
             type="button"
             onclick="submitBodyNumber()"
+            style="
+              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            "
+            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
           >
-            Enter
+            ENTER
           </button>
           <button
-            id="body-number-submit-button"
             type="button"
             onclick="passCar()"
+            style="
+              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            "
+            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
           >
-            Pass
+            PASS
           </button>
         </form>
       </div>
@@ -69,7 +82,7 @@
       function submitBodyNumber() {
         var BodyNumberform = document.getElementById('bodyNumberForm');
 
-        fetch('/bodyNumber', {
+        fetch('http://localhost:8000/bodyNumber', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',

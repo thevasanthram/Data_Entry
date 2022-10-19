@@ -532,7 +532,6 @@ app.post('/secondlayer', (req, res) => {
     }
     const categoryOptions = Options[selectedCategory];
     let ShortlistedCategoryOptions = Object.keys(categoryOptions);
-    console.log('shortlisted: ', ShortlistedCategoryOptions);
     res.render(path.join(__dirname, '/views/secondLayer.ejs'), {
       username,
       enteredBodyNumber,
@@ -809,7 +808,9 @@ app.get('/administrator', async (req, res) => {
 app.get('/filter', async (req, res) => {
   try {
     if (username == 'Administrator') {
-      res.render(path.join(__dirname, '/views/filtering.ejs'), { username });
+      res.render(path.join(__dirname, '/views/adminLaundingPage.ejs'), {
+        username,
+      });
     } else {
       res.send('Enter as Administrator mode');
     }
