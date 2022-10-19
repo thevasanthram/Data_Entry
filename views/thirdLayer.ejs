@@ -14,19 +14,22 @@
   <body>
     <div>
       <div class="header">
-        <img
-          src="./home.png"
-          id="home-icon"
-          alt="Home"
-          onclick="document.getElementById('followerForm').submit();"
-        />
-        <div class="heading">Data Entry System</div>
+        <div style="display: flex; align-items: center">
+          <img
+            src="./home.png"
+            style="margin-left: 2%; width: 5%; margin-right: 1%"
+            id="home-icon"
+            alt="Home"
+            onclick="document.getElementById('followerForm').submit();"
+          />
+          <div class="heading">Data Entry System</div>
+        </div>
         <p class="selected-message">
           Body Number : <%= enteredBodyNumber %> | Category : <%=
           selectedCategory %> | Sub-Category : <%= selectedSubCategory %>
         </p>
-        <div class="admin" id="user-mode-name"><%= username %></div>
         <form id="btn" action="/logout" method="get">
+          <div class="admin" id="user-mode-name"><%= username %></div>
           <button
             type="submit"
             style="
@@ -37,8 +40,8 @@
             LOGOUT
           </button>
         </form>
-        <form action="/follower" method="get" id="followerForm"></form>
       </div>
+
       <div id="title-name-content">
         <img
           src="./arrow.png"
@@ -147,6 +150,7 @@
         <form action="/follower" method="get" id="followerForm"></form>
         <form action="/firstlayer" method="post" id="firstLayerform"></form>
       </div>
+      <form action="/follower" method="get" id="followerForm"></form>
     </div>
 
     <script>

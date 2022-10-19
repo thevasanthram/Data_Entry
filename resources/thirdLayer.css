@@ -12,39 +12,41 @@ body {
 .header {
   width: 100%;
   display: flex;
-  height: 5rem;
+  height: 4.5rem;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: #393e46;
   color: #f0e3e3;
   position: relative;
 }
 #btn {
   display: flex;
-  align-items: center;
-  text-align: center;
+  justify-content: end;
 }
 .admin {
   color: #00adb5;
-  font-weight: 700;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  margin-right: 10%;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
 }
 .heading {
+  padding-left: 1%;
   font-weight: 700;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
 }
-
-#home-icon {
-  width: 3%;
-  cursor: pointer;
+.button-logout {
+  display: flex;
+  align-items: center;
+  padding-right: 2%;
+  margin-right: 5%;
 }
 
 .selected-message {
   text-align: center;
-  padding: 14px;
-  font-size: 120%;
-  color: white;
+  padding-right: 4px;
+  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+  color: #eeeeee;
 }
 
 #title-name-content {

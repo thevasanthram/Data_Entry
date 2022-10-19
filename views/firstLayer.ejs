@@ -14,16 +14,19 @@
   <body>
     <div>
       <div class="header">
-        <img
-          src="./home.png"
-          id="home-icon"
-          alt="Home"
-          onclick="document.getElementById('followerForm').submit();"
-        />
-        <div class="heading">Data Entry System</div>
+        <div style="display: flex; align-items: center">
+          <img
+            src="./home.png"
+            style="margin-left: 2%; width: 5%; margin-right: 1%"
+            id="home-icon"
+            alt="Home"
+            onclick="document.getElementById('followerForm').submit();"
+          />
+          <div class="heading">Data Entry System</div>
+        </div>
         <p class="selected-message">Body Number : <%= enteredBodyNumber %></p>
-        <div class="admin" id="user-mode-name"><%= username %></div>
         <form id="btn" action="/logout" method="get">
+          <div class="admin" id="user-mode-name"><%= username %></div>
           <button
             type="submit"
             style="

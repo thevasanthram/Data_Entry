@@ -1,4 +1,3 @@
-let str = 'FENDER -';
-console.log(str);
-console.log(str.slice(0, -2));
-console.log(str);
+[1, 2].map((single) => {
+  console.log(single);
+});

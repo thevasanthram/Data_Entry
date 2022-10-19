@@ -11,7 +11,7 @@ body {
 .header {
   width: 100%;
   display: flex;
-  height: 15vh;
+  height: 5rem;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -23,7 +23,22 @@ body {
 }
 #btn {
   display: flex;
+  justify-content: end;
+}
+.button-logout {
+  display: flex;
   align-items: center;
+  padding-right: 2%;
+  margin-right: 5%;
+}
+/* TOOGLE SWITCH */
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
 }
 .footer {
   padding: 2rem;
@@ -43,18 +58,27 @@ body {
   margin: 1.5rem;
 }
 .admin {
-  font-weight: 700;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  color: #00adb5;
+  margin-right: 10%;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
 }
 .heading {
   font-weight: 700;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
   padding-left: 1%;
 }
 .filter {
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   margin-bottom: 1rem;
   font-weight: 500;
+}
+#from-date-condition-input-card,
+#to-date-condition-input-card {
+  background-color: #eeeeee;
+  color: gray;
+  border-radius: 5px;
+  padding-left: 0.8rem;
 }
 #from-date-condition-input,
 #to-date-condition-input {
@@ -66,7 +90,8 @@ body {
 #filter-text {
   font-size: clamp(1.25rem, 2vw, 1.8rem);
 }
-#chart-condition-input {
+#chart-condition-input,
+#chart-condition-input-card {
   background-color: #eeeeee;
   border-radius: 5px;
   color: gray;
@@ -76,12 +101,12 @@ body {
 }
 .form {
   width: 100%;
+  padding-left: 2px;
   display: flex;
-
-  height: 15vh;
+  height: 3.8rem;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   background-color: #2f576e;
   color: #f0e3e3;
   font-size: clamp(1rem, 1.5vw, 1.25rem);
@@ -90,7 +115,8 @@ body {
 .chart-condition {
   flex-direction: row;
 }
-input,
-select {
-  background-color: #566f7d;
+
+.button_container {
+  margin: 2px;
+  padding: 2px;
 }
