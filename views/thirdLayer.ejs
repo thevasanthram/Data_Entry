@@ -14,6 +14,12 @@
   <body>
     <div>
       <div class="header">
+        <img
+          src="./home.png"
+          id="home-icon"
+          alt="Home"
+          onclick="document.getElementById('followerForm').submit();"
+        />
         <div class="heading">Data Entry System</div>
         <p class="selected-message">
           Body Number : <%= enteredBodyNumber %> | Category : <%=
@@ -31,6 +37,7 @@
             LOGOUT
           </button>
         </form>
+        <form action="/follower" method="get" id="followerForm"></form>
       </div>
       <div id="title-name-content">
         <img

@@ -35,6 +35,11 @@ body {
   font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
+#home-icon {
+  width: 3%;
+  cursor: pointer;
+}
+
 .selected-message {
   text-align: center;
   padding: 14px;
@@ -2365,10 +2370,9 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 /* ! REAR DOOR INNER */
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML555{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML555 {
   margin-top: 8%;
   width: 5%;
   margin-left: 61%;
@@ -2381,7 +2385,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML556{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML556 {
   margin-top: -2%;
   width: 5%;
   margin-left: 56%;
@@ -2394,7 +2398,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML557{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML557 {
   margin-top: -2%;
   width: 5%;
   margin-left: 41%;
@@ -2407,7 +2411,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML558{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML558 {
   margin-top: -2%;
   width: 5%;
   margin-left: 26%;
@@ -2420,7 +2424,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML559{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML559 {
   margin-top: 8%;
   width: 5%;
   margin-left: 19%;
@@ -2433,7 +2437,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML560{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML560 {
   margin-top: 22.1%;
   width: 5%;
   margin-left: 14%;
@@ -2446,7 +2450,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML561{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML561 {
   margin-top: 22.1%;
   width: 5%;
   margin-left: 29%;
@@ -2459,8 +2463,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML562{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML562 {
   margin-top: 22.1%;
   width: 5%;
   margin-left: 44%;
@@ -2473,7 +2476,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML563{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML563 {
   margin-top: 22.1%;
   width: 5%;
   margin-left: 59%;
@@ -2486,7 +2489,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML564{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML564 {
   margin-top: 36.2%;
   width: 5%;
   margin-left: 61%;
@@ -2499,7 +2502,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML565{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML565 {
   margin-top: 50.3%;
   width: 5%;
   margin-left: 61%;
@@ -2511,7 +2514,7 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML565:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML566{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML566 {
   margin-top: 50.3%;
   width: 5%;
   margin-left: 46%;
@@ -2524,7 +2527,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML567{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML567 {
   margin-top: 50.3%;
   width: 5%;
   margin-left: 29%;
@@ -2537,7 +2540,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML568{
+.LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML568 {
   margin-top: 36.2%;
   width: 5%;
   margin-left: 14%;
@@ -2549,5 +2552,3 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_MAIN-LINE_REARDOORINNER-LHSBML568:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
-

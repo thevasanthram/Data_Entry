@@ -34,7 +34,10 @@ body {
   font-weight: 700;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
-
+#home-icon {
+  width: 3%;
+  cursor: pointer;
+}
 .selected-message {
   text-align: center;
   padding: 14px;
