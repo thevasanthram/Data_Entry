@@ -1521,7 +1521,7 @@ app.post('/individualSummaryReport', async (req, res) => {
         });
       });
     });
-    
+
     // deleting Under Body
     delete dataFetcher['UNDER BODY'];
 
