@@ -1760,7 +1760,71 @@
           } 
         })
         const emptyCellSecondSubRow = document.createElement('th')
-        secondRowSubHeading.appendChild(emptyCellSecondSubRow)  
+        secondRowSubHeading.appendChild(emptyCellSecondSubRow)
+        
+        // calculating no of rows needed for data filling
+        let rowCount = 0
+        Object.keys(data.data).map( (category) => {
+          rowCount += Object.keys(data.data[category]['LH']).length-1
+          rowCount += 1
+        })
+
+        console.log('rowCount: ',rowCount)
+
+        for(let category = 0; category < Object.keys(data.data).length; category++){
+
+          let categoryName = Object.keys(data.data)[category]
+
+          // row for each category
+          let categoryRow = document.createElement('tr')
+          categoryRow.id = `${categoryName}Row`
+          summaryTable.appendChild(categoryRow)
+
+          // categoryName cell
+          let categoryNameCell = document.createElement('td')
+          categoryNameCell.id = `${categoryName}Cell`
+          categoryNameCell.rowSpan = `${Object.keys(data.data[categoryName]['LH']).length + 1}`
+          categoryRow.appendChild(categoryNameCell)
+
+          let correspondingLHRowDOM = [categoryRow]
+          for(let side = 0; side < Object.keys(data.data[categoryName]).length; side++){
+            let sideName = Object.keys(data.data[categoryName])[side]
+            for(let subCategory = 0; subCategory < Object.keys(data.data[categoryName][sideName]).length; subCategory++){
+              let subCategoryName = Object.keys(data.data[categoryName][sideName])[subCategory]
+
+              if(sideName == 'LH'){
+                 if(category == 0){
+
+                 }else{
+                  
+                 }
+                // create new rows and append into table
+                // while creating new rows append those into LH Row DOM array
+                
+              }else{
+                // if side Name is LH && subCategory number is 0.. then into categoryRow
+                // else, into corresponding categoryNumber on LH Row DOM 
+              }
+            }
+          }
+        }
+
+        // filling main data into table
+        Object.keys(data.data).map( (categoryName) => {
+          
+
+          
+          
+          //splitting lh and rh, running in loop
+          Object.keys(data.data[categoryName]).map( (side) => {
+            Object.keys(data.data[categoryName][side]).map( (subCategoryName) => {
+              // subCategory Cell
+              let subCategoryCell = document.createElement('td')
+              subCategoryCell.id = `${side}${subCategoryName}Cell`
+
+            })
+          })
+        })
       }
 
       async function colorMap(){
