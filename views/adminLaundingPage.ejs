@@ -726,7 +726,7 @@
 
         // function for navigating to the corresponding group function
         function masterNavigate(event){
-          document.getElementById(`${event.dataPoint.label.replace(' ','')}_GroupTotalDPV`).scrollIntoView({ behavior: "smooth" })
+          document.getElementById(`${event.dataPoint.label.replace(' ','')}_titleName`).scrollIntoView({ behavior: "smooth" })
           // console.log('id: ',event.dataPoint.label.replace(' ',''))
         }
 
@@ -769,7 +769,7 @@
         var groupWiseMajorDefectChart = [];
         var groupWiseMajorSubDefectChart = [];
         var divElementHolder = document.createElement('div')
-        divElementHolder.style.marginTop='33%'
+        // divElementHolder.style.marginTop='33%'
         divElementHolder.id = 'AllGroupChartDivision'
         reportContent.appendChild(divElementHolder)
 
@@ -905,7 +905,7 @@
             // storing all the zones in list for chartStacked configuration
           let TotalZones = []
           Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
-            TotalZones.push(...majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName])
+            TotalZones.push(...Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName]))
           })
           let TotalZonesSet = new Set(TotalZones)
           TotalZones = Array.from(TotalZonesSet)
@@ -914,7 +914,7 @@
           TotalZones.map( (singleZone) => {
             let dataPoints = []
             Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
-              if(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName].includes(singleZone)){
+              if(Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName]).includes(singleZone)){
                 dataPoints.push({y:1, label: subCategoryName})
               }else{
                 dataPoints.push({y:0, label: subCategoryName})
