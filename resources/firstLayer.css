@@ -61,7 +61,10 @@ input:checked ~ .dot {
 #title-name-content {
   margin-top: 2%;
 }
-
+.sub_container{
+  display: flex;
+  justify-content: space-around;
+}
 #title-name-content {
   margin-top: 2%;
   display: flex;
