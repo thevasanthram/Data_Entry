@@ -16,8 +16,8 @@
       <!-- Header part  which contain user_name,  App_Name and LOGOUT btn  -->
       <div class="header">
         <div class="heading">Data Entry System</div>
-        <div class="admin" id="user-mode-name"><%= username %></div>
         <form id="btn" action="/logout" method="get">
+          <div class="admin" id="user-mode-name"><%= username %></div>
           <button
             type="submit"
             style="
@@ -52,20 +52,14 @@
           <button
             type="button"
             onclick="submitBodyNumber()"
-            style="
-              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-            "
-            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            class="enter bg-black text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-700 rounded"
           >
             ENTER
           </button>
           <button
             type="button"
             onclick="passCar()"
-            style="
-              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-            "
-            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            class="pass bg-black text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-700 rounded"
           >
             PASS
           </button>

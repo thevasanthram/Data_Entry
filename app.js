@@ -925,6 +925,7 @@ app.post('/reportDataProvider', async (req, res) => {
     const queryReceiver = req.body.querySender;
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
+    const defectMode = req.body.mode;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -952,7 +953,8 @@ app.post('/reportDataProvider', async (req, res) => {
         for (let k = 0; k < fetchedRows.length; k++) {
           if (
             Date.parse(fetchedRows[k].date) <= Date.parse(toDate) &&
-            Date.parse(fetchedRows[k].date) >= Date.parse(fromDate)
+            Date.parse(fetchedRows[k].date) >= Date.parse(fromDate) &&
+            defectMode == fetchedRows[k].mode
           ) {
             defectsCount += fetchedRows[k].defectcount;
             bodyNumberData.push(fetchedRows[k].body_number);
@@ -979,6 +981,7 @@ app.post('/majorDefectDetail', async (req, res) => {
     const majorDefectsInAllGroup = req.body.majorDefectsInAllGroup;
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
+    const defectMode = req.body.mode;
     // console.log(majorDefectsInAllGroup);
 
     function filter(fetchedRows, defectName) {
@@ -1017,7 +1020,8 @@ app.post('/majorDefectDetail', async (req, res) => {
       fetchedRows.map((record) => {
         if (
           Date.parse(record.date) <= Date.parse(toDate) &&
-          Date.parse(record.date) >= Date.parse(fromDate)
+          Date.parse(record.date) >= Date.parse(fromDate) &&
+          defectMode == record.mode
         ) {
           tempDataStoringObj[record.subdefect] += record.defectcount;
         }
@@ -1117,6 +1121,7 @@ app.post('/majorSubDefectDetail', async (req, res) => {
     const majorSubDefectsInAllGroup = req.body.majorSubDefectsInAllGroup;
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
+    const defectMode = req.body.mode;
 
     async function dataFetcher(groupCode, subDefectName) {
       let dbConnectedPool = new Pool({
@@ -1170,7 +1175,8 @@ app.post('/majorSubDefectDetail', async (req, res) => {
             result.map((singleRecord, index) => {
               if (
                 Date.parse(singleRecord.date) <= Date.parse(toDate) &&
-                Date.parse(singleRecord.date) >= Date.parse(fromDate)
+                Date.parse(singleRecord.date) >= Date.parse(fromDate) &&
+                defectMode == singleRecord.mode
               ) {
                 let path =
                   groupCode +
@@ -1205,6 +1211,7 @@ app.post('/pareto', async (req, res) => {
   try {
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
+    const defectMode = req.body.mode;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -1220,7 +1227,8 @@ app.post('/pareto', async (req, res) => {
     records.rows.map((record) => {
       if (
         Date.parse(record.date) <= Date.parse(toDate) &&
-        Date.parse(record.date) >= Date.parse(fromDate)
+        Date.parse(record.date) >= Date.parse(fromDate) &&
+        defectMode == record.mode
       ) {
         switch (record.category) {
           case 'UNDER BODY':
@@ -1392,6 +1400,7 @@ app.post('/colorMap', async (req, res) => {
   try {
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
+    const defectMode = req.body.mode;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -1419,7 +1428,8 @@ app.post('/colorMap', async (req, res) => {
     records.rows.map((record, index) => {
       if (
         Date.parse(record.date) <= Date.parse(toDate) &&
-        Date.parse(record.date) >= Date.parse(fromDate)
+        Date.parse(record.date) >= Date.parse(fromDate) &&
+        defectMode == record.mode
       ) {
         try {
           if (
@@ -1476,6 +1486,7 @@ app.post('/individualSummaryReport', async (req, res) => {
   try {
     const fromDate = req.body.fromDate;
     const toDate = req.body.toDate;
+    const defectMode = req.body.mode;
     const defectName = req.body.defectName;
     const subDefectList = req.body.subDefectList;
     let dbConnectedPool = new Pool({
@@ -1532,7 +1543,8 @@ app.post('/individualSummaryReport', async (req, res) => {
     records.rows.map((record) => {
       if (
         Date.parse(record.date) <= Date.parse(toDate) &&
-        Date.parse(record.date) >= Date.parse(fromDate)
+        Date.parse(record.date) >= Date.parse(fromDate) &&
+        defectMode == record.mode
       ) {
         let side = record.category.split(' ')[0];
         let categoryNameParts = record.category.split(' ');

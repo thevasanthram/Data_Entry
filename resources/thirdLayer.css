@@ -23,29 +23,44 @@ body {
 #btn {
   display: flex;
   justify-content: end;
+  align-items: center;
+  padding: 5px;
 }
 .admin {
   color: #00adb5;
-  margin-right: 10%;
+  margin-right: 5%;
   font-weight: 500;
-  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  padding: 2px;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
 }
 .heading {
   padding-left: 1%;
   font-weight: 700;
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
 }
 .button-logout {
   display: flex;
   align-items: center;
-  padding-right: 2%;
-  margin-right: 5%;
+  justify-content: center;
+  padding: 2%;
+  margin: 5%;
+  width: 8rem;
+  font-weight: 600;
+  font-size: medium;
+  height: 2.5rem;
+  border-radius: 5px;
+  color: #eeeeee;
+  border-color: rgb(91, 97, 166);
+}
+.button-logout:hover {
+  border-right-color: rgb(45, 56, 184);
 }
 
 .selected-message {
   text-align: center;
-  padding-right: 4px;
-  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+  margin-left: 12%;
+  padding: 14px;
+  font-size: clamp(0.8rem, 1vw, 0.9rem);
   color: #eeeeee;
 }
 

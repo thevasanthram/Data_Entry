@@ -29,11 +29,12 @@ body {
 }
 #btn {
   display: flex;
-  align-items: center;
+  justify-content: end;
 }
 .admin {
   color: #00adb5;
-  font-weight: 700;
+  margin-right: 10%;
+  font-weight: 500;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 .heading {
@@ -41,12 +42,21 @@ body {
   font-weight: 700;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
-
+.button-logout {
+  display: flex;
+  align-items: center;
+  padding-right: 2%;
+  margin-right: 5%;
+}
 .form-content {
   margin-top: 2%;
-  margin-left: 8rem;
 }
-
+#bodyNumberForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 #bodyNumber {
   padding: 2px;
   margin: 2px;
@@ -55,7 +65,13 @@ body {
   color: #eeeeee;
   padding-right: 1%;
 }
-
+.enter,
+.pass {
+  color: #eeeeee;
+  margin-left: 2%;
+  width: 6rem;
+  padding: 2%;
+}
 input[type='number'],
 select {
   width: 20%;
@@ -115,92 +131,3 @@ select {
 #body-number-submit-button:hover {
   cursor: pointer;
 }
-
-/* 
-* {
-  margin: 0px;
-}
-
-body {
-  background-color: #282c34;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-image: url('hyrider.jpg');
-  background-repeat: no-repeat;
-  margin-bottom: 2%;
-  background-size: 100%;
-  background-position-y: -55%;
-}
-
-.nav-bar {
-  width: 100%;
-  height: 30%;
-  background-color: rgb(29, 23, 23);
-}
-
-.app-name-div {
-  padding: 10px;
-}
-
-#app-name {
-  font-size: 250%;
-  color: white;
-}
-
-.user-mode {
-  float: right;
-  padding: 10px;
-}
-
-#user-mode-name {
-  float: left;
-  font-size: 200%;
-  color: #61dafb;
-}
-
-.button-logout-content {
-  float: right;
-}
-
-.button-logout {
-  color: white;
-  background-color: black;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  margin-top: 25%;
-}
-
-.form-content {
-  margin-top: 2%;
-  margin-left: 20%;
-}
-
-#bodyNumber {
-  font-size: 200%;
-  color: white;
-  padding-right: 1%;
-}
-
-input[type='number'],
-select {
-  width: 20%;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  font-size: 110%;
-  padding: 10px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-  box-sizing: border-box;
-}
-
-
-#message-content {
-  position: absolute;
-  color: rgb(249, 28, 28);
-  margin-left: 40.5%;
-  font-style: italic;
-} */

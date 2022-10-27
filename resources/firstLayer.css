@@ -1,7 +1,6 @@
 * {
   margin: 0px;
 }
-
 body {
   width: 100%;
   background-color: #282c34;
@@ -23,17 +22,19 @@ body {
 #btn {
   display: flex;
   justify-content: end;
+  align-items: center;
+  padding: 5px;
 }
 .admin {
   color: #00adb5;
   margin-right: 10%;
   font-weight: 500;
-  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
 }
 .heading {
   padding-left: 1%;
   font-weight: 700;
-  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
 }
 .button-logout {
   display: flex;
@@ -43,9 +44,10 @@ body {
 }
 .selected-message {
   text-align: center;
+  margin-left: 20%;
   padding: 14px;
-  font-size: 120%;
-  color: white;
+  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+  color: #eeeeee;
 }
 
 #title-name-content {

@@ -115,7 +115,7 @@
                   <div class="flex w-full mb-12"> 
                     <label for="toggle_switch" class="flex items-center cursor-pointer">
                       <div class="relative">
-                        <input type="checkbox" id="toggle_switch" class="sr-only">
+                        <input type="checkbox" id="toggle_switch" class="sr-only mode">
                         <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
                         <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                       </div>
@@ -185,77 +185,13 @@
             </div>
           </div>
         </div>
-
-    <!-- <div>
-      <div  class="nav-bar">
-          <div id="user-mode-name">
-            <%= username %>
-          </div>
-          <div class="app-name-div">
-            <h2 id="app-name">Data Entry System</h2>
-          </div>
-          <div class="button-logout-content">
-            <form action="/logout" method="get">
-              <button type="submit"
-              class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-              >Log-out</button>
-            </form>
-          </div>     
-      </div>
-      <div class="filtering-condition-content">
-        <div class="filtering-condition-form">
-          <form  action="/filtered-result" method="post" id="filterForm">
-            <div id="title-name-content"> 
-              Filtering Condition :
-            </div>
-            <div class="from-date-condition-content">
-              From :
-              <input type="date" name="fromDateCondition" id="from-date-condition-input" required/>
-            </div>
-            <div class="to-date-condition-content">
-              To:
-              <input type="date" name="toDateCondition" id="to-date-condition-input" required />
-            </div>
-            <div class="chart-condition-content">
-              <div id="chart-condition-select-content">
-                <p id="chart-Condition-topic" style="display:inline-block"> Report :</p>
-                <select name="chartCondition" id="chart-condition-input" required>
-                  <option value="DPV (Defects Per Vehicle) Report">DPV (Defects Per Vehicle) Report</option>
-                  <option value="Master Report">Master Report</option>
-                  <option value="Main Pareto Report">Main Pareto Report</option>
-                  <option value="Pareto Report">Pareto Report</option>
-                  <option value="Surface Summary">Surface Summary</option>
-                  <option value="Body Fitting Summary">Body Fitting Summary</option>
-                  <option value="Missing & Wrong Part Summary">Missing & Wrong Part Summary</option>
-                  <option value="Welding Summary">Welding Summary</option>
-                  <option value="Water Leak Summary">Water Leak Summary</option>
-                </select>
-              </div>
-              </div>
-              <button type="button" id="filtering-condition-submit-button"
-              class=" bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-              onclick="validate()">Generate</button>
-               <button type="button" id="htmlToPdf" 
-              class="download_btn  bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"         
-              onclick="UniPDf()">Export</button> 
-          </div>
-        </form>
-      </div>
-      <div  id="reportParent" class="report-content">
-        <div id="report-topic">
-          <p id="report-topic-data"></p>
-        </div>
-        <div id="reportChild" class="report-content-data">
-        </div>
-      </div>
-    </div> -->
-    
   </body>
 
     <script>
 
-       var tbl;
+      var tbl;
       var firstSection;
+      var mode = 'offline'
 
       document.getElementById('from-date-condition-input-card').valueAsDate = new Date();
       document.getElementById('to-date-condition-input-card').valueAsDate = new Date();
@@ -292,6 +228,11 @@
       }
 
       function generateReport(){
+        // checking mode
+        var modeDOM = document.getElementsByClassName('mode')[0]
+        if(modeDOM.checked){
+          mode = 'online'
+        }
         var report = document.getElementById('chart-condition-input').value;
         document.getElementById('report-topic').style.color = '#ffffff'
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
@@ -313,7 +254,6 @@
       function dpv(){
         var fromDate = document.getElementById('from-date-condition-input').value
         var toDate = document.getElementById('to-date-condition-input').value
-
         var querySender = {
           'UB': [`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Surface';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Body Fitting';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Missing & Wrong Part';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Welding';`,`SELECT * FROM defect_table WHERE category='UNDER BODY' and defect='Water Leak';`],
           'MB': [`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LH MAIN BODY' or category='RH MAIN BODY') and defect='Water Leak'`],
@@ -331,6 +271,7 @@
             querySender,
             fromDate,
             toDate,
+            mode,
           })
         }).then((response) => response.json()).then((data) => {
           console.log(data.data)
@@ -490,6 +431,7 @@
             querySender,
             fromDate,
             toDate,
+            mode,
           })
         })
         const data = await response.json();
@@ -576,6 +518,7 @@
             majorDefectsInAllGroup,
             fromDate,
             toDate,
+            mode,
           })
         })
 
@@ -619,7 +562,8 @@
           body: JSON.stringify({
             majorSubDefectsInAllGroup,
             fromDate,
-            toDate
+            toDate,
+            mode,
           })
         })
 
@@ -685,11 +629,13 @@
         var firstSection = document.createElement('div')
         firstSection.id = 'firstSection'
         firstSection.style.marginTop = '3%'
+        firstSection.style.display = 'flex'
+        firstSection.style.height = '27.625rem'
         reportContent.appendChild(firstSection)
 
         var totalDPV = document.createElement('div')
         totalDPV.id = 'totalDPV'
-        totalDPV.style.width = '30%'
+        totalDPV.style.height = '100%'
         totalDPV.style.marginLeft = '2%'
         firstSection.appendChild(totalDPV)
 
@@ -729,8 +675,7 @@
 
         var categoryWise = document.createElement('div')
         categoryWise.id = 'categoryWise'
-        categoryWise.style.width = '30%'
-        categoryWise.style.marginLeft = '35%'
+        categoryWise.style.marginLeft = '32%'
         firstSection.appendChild(categoryWise)
 
         var categoryWiseChart = new CanvasJS.Chart("categoryWise", {
@@ -767,8 +712,7 @@
 
         var groupWise = document.createElement('div')
         groupWise.id = 'groupWise'
-        groupWise.style.width = '30%'
-        groupWise.style.marginLeft = '68%'
+        groupWise.style.marginLeft = '32%'
         firstSection.appendChild(groupWise)
 
         // function for navigating to the corresponding group function
@@ -1025,6 +969,7 @@
           body: JSON.stringify({
             fromDate,
             toDate,
+            mode,
           })
         })
         const data = await response.json()
@@ -1114,6 +1059,7 @@
           body: JSON.stringify({
             fromDate,
             toDate,
+            mode,
           })
         })
         const data = await response.json()
@@ -1675,7 +1621,8 @@
             defectName,
             subDefectList,
             fromDate,
-            toDate
+            toDate,
+            mode,
           })
         })
 
@@ -1689,6 +1636,8 @@
 
         const summaryTable = document.createElement('table')
         summaryTable.id = `${defectName}SummaryTable`
+        summaryTable.style.border = '1px solid #ffffff'
+        summaryTable.style.borderCollapse = 'collapse'
         reportContentData.appendChild(summaryTable)
 
         // side heading row
@@ -1744,12 +1693,12 @@
             })
 
             //second rows sub heading row
-            let emptyCell = ['','']
-            emptyCell.map((element) => {
-              let secondRowEmptyCell = document.createElement('th')
-              secondRowEmptyCell.innerHTML = ''
-              secondRowSubHeading.appendChild(secondRowEmptyCell)
-            })
+            // let emptyCell = ['','']
+            // emptyCell.map((element) => {
+            //   let secondRowEmptyCell = document.createElement('th')
+            //   secondRowEmptyCell.innerHTML = ''
+            //   secondRowSubHeading.appendChild(secondRowEmptyCell)
+            // })
 
             subDefectList.map( (singleSubHeading) => {
               let singleSubHeadingCell = document.createElement('th')
@@ -1759,8 +1708,8 @@
             })
           } 
         })
-        const emptyCellSecondSubRow = document.createElement('th')
-        secondRowSubHeading.appendChild(emptyCellSecondSubRow)
+        // const emptyCellSecondSubRow = document.createElement('th')
+        // secondRowSubHeading.appendChild(emptyCellSecondSubRow)
         
         // calculating no of rows needed for data filling
         let rowCount = 0
@@ -1772,7 +1721,7 @@
         console.log('rowCount: ',rowCount)
 
         for(let category = 0; category < Object.keys(data.data).length; category++){
-
+          // category loop
           let categoryName = Object.keys(data.data)[category]
 
           // row for each category
@@ -1783,47 +1732,125 @@
           // categoryName cell
           let categoryNameCell = document.createElement('td')
           categoryNameCell.id = `${categoryName}Cell`
+          categoryNameCell.innerHTML = categoryName
           categoryNameCell.rowSpan = `${Object.keys(data.data[categoryName]['LH']).length + 1}`
           categoryRow.appendChild(categoryNameCell)
 
           let correspondingLHRowDOM = [categoryRow]
           for(let side = 0; side < Object.keys(data.data[categoryName]).length; side++){
+            //side name loop
             let sideName = Object.keys(data.data[categoryName])[side]
+
             for(let subCategory = 0; subCategory < Object.keys(data.data[categoryName][sideName]).length; subCategory++){
+              // subCategory loop
               let subCategoryName = Object.keys(data.data[categoryName][sideName])[subCategory]
 
-              if(sideName == 'LH'){
-                 if(category == 0){
+              let subCategoryCell = document.createElement('td')
+              subCategoryCell.id = `${subCategoryName}Cell`
+              subCategoryCell.innerHTML = subCategoryName
 
-                 }else{
+              let newRowForDataFilling = document.createElement('tr')
+              newRowForDataFilling.id = `${subCategoryName}NewRow`
+              if(sideName == 'LH'){
+                if(subCategory == 0){
+                  // only for the first subCategory in LH                
+                  categoryRow.appendChild(subCategoryCell)
+                }else{
+                  // appending in new row in table, inside new row appending emptycell,then subcategoryName
+                  // rest of the subCategory in LH
                   
-                 }
-                // create new rows and append into table
-                // while creating new rows append those into LH Row DOM array
-                
+                  summaryTable.appendChild(newRowForDataFilling)  
+                  // empty cell for category
+                  let emptyCellforSameCategory = document.createElement('td')
+                  newRowForDataFilling.appendChild(emptyCellforSameCategory)
+                  newRowForDataFilling.appendChild(subCategoryCell)
+
+                  // saving for RH
+                  correspondingLHRowDOM.push(newRowForDataFilling)
+                }
               }else{
-                // if side Name is LH && subCategory number is 0.. then into categoryRow
-                // else, into corresponding categoryNumber on LH Row DOM 
+                // appending into corresponding row saved in Row DOM Array
+                correspondingLHRowDOM[subCategory].appendChild(subCategoryCell)
+              }
+
+              let subCategoryDefectTotal = 0
+              for(let subDefect = 0; subDefect < Object.keys(data.data[categoryName][sideName][subCategoryName]).length; subDefect++){
+                // subDefect loop
+                let subDefectName = Object.keys(data.data[categoryName][sideName][subCategoryName])[subDefect]
+
+                // subDefectDataCell
+                let subDefectDataCell = document.createElement('td')
+                subDefectDataCell.id = `${sideName}${categoryName}_${subCategoryName}-${subDefectName}`
+                subDefectDataCell.innerHTML = data.data[categoryName][sideName][subCategoryName][subDefectName]
+
+                // counting no of defects in subCategory's Total Defect
+                subCategoryDefectTotal += data.data[categoryName][sideName][subCategoryName][subDefectName]
+                // append corresponding row..
+                if(side == 'LH'){
+                  if(subCategory == 0){
+                    categoryRow.appendChild(subDefectDataCell)
+                  }else{
+                    newRowForDataFilling.appendChild(subDefectDataCell)
+                  }
+                }else{
+                  correspondingLHRowDOM[subCategory].appendChild(subDefectDataCell)
+                }
+                // put those immediate upper if else else block in this loop, it will work
+              }
+
+              // Total cell
+              let subCategoryTotalCell = document.createElement('td')
+              subCategoryTotalCell.id = `${subCategoryName}TotalCell`
+              subCategoryTotalCell.innerHTML = subCategoryDefectTotal
+
+              if(side == 'LH'){
+                if(subCategory == 0){
+                  categoryRow.appendChild(subCategoryTotalCell)
+                }else{
+                  newRowForDataFilling.appendChild(subCategoryTotalCell)
+                }
+              }else{
+                correspondingLHRowDOM[subCategory].appendChild(subCategoryTotalCell)
               }
             }
           }
         }
 
-        // filling main data into table
-        Object.keys(data.data).map( (categoryName) => {
+        // // filling main data into table
+        // Object.keys(data.data).map( (categoryName) => {
           
 
           
           
-          //splitting lh and rh, running in loop
-          Object.keys(data.data[categoryName]).map( (side) => {
-            Object.keys(data.data[categoryName][side]).map( (subCategoryName) => {
-              // subCategory Cell
-              let subCategoryCell = document.createElement('td')
-              subCategoryCell.id = `${side}${subCategoryName}Cell`
+        //   //splitting lh and rh, running in loop
+        //   Object.keys(data.data[categoryName]).map( (side) => {
+        //     Object.keys(data.data[categoryName][side]).map( (subCategoryName) => {
+        //       // subCategory Cell
+        //       let subCategoryCell = document.createElement('td')
+        //       subCategoryCell.id = `${side}${subCategoryName}Cell`
 
-            })
-          })
+        //     })
+        //   })
+        // })
+
+
+        // styling table rule
+        const tdTags = document.getElementsByTagName('td')
+        Object.keys(tdTags).map( (td) => {
+          tdTags[td].style.border = '1px solid #ffffff'
+          tdTags[td].style.borderCollapse = 'collapse'
+        })
+
+        const thTags = document.getElementsByTagName('th')
+        Object.keys(thTags).map( (th) => {
+          thTags[th].style.border = '1px solid #ffffff'
+          thTags[th].style.borderCollapse = 'collapse'
+        })
+
+        const trTags = document.getElementsByTagName('tr')
+        Object.keys(trTags).map( (tr) => {
+          trTags[tr].style.border = '1px solid #ffffff'
+          trTags[tr].style.borderCollapse = 'collapse'
         })
       }
 
@@ -1842,7 +1869,8 @@
           },
           body: JSON.stringify({
             fromDate,
-            toDate
+            toDate,
+            mode,
           })
         })
 
