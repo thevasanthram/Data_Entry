@@ -82,20 +82,13 @@
 
       <div class="main-content">
         <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
-        <form action="/secondlayer" id="firstLayerForm" method="post">
-          <input
-            type="hidden"
-            name="selectedCategory"
-            value="<%= bodyNumberOptions[i] %>"
-          />
-          <button
-            type="submit"
-            class="form-content"
-            id="first-layer-button<%= i+1 %>"
-          >
-            <%= bodyNumberOptions[i]%>
-          </button>
-        </form>
+        <button
+          onclick="transmit('<%= bodyNumberOptions[i]%>')"
+          class="form-content"
+          id="first-layer-button<%= i+1 %>"
+        >
+          <%= bodyNumberOptions[i]%>
+        </button>
         <%}%>
       </div>
       <form action="/follower" method="get" id="followerForm"></form>
@@ -112,6 +105,24 @@
         hiddenConnectionRadio.value = radioElement.value;
 
         console.log(hiddenConnectionRadio.value);
+      }
+
+      async function transmit(selectedGroup) {
+        var mode = 'offline';
+        var modeDOM = document.getElementsByClassName('mode')[0];
+        if (modeDOM.checked) {
+          mode = 'online';
+        }
+        await fetch('http://localhost:8000/secondlayer', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            selectedCategory: selectedGroup,
+            mode: mode,
+          }),
+        });
       }
     </script>
   </body>
