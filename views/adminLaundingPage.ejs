@@ -81,7 +81,17 @@
                         <option value="Color Map">Color Map</option>
                       </select>
                     </div>
+                  </div>
+                    <label for="toggle_switch" class="flex items-center cursor-pointer">
+                    <div class="relative">
+                      <input type="checkbox" id="toggle_switch" class="sr-only mode">
+                      <div class="block bg-gray-900 w-14 h-8 rounded-full"></div>
+                      <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                     </div>
+                    <div id="mode_status" class="ml-2 text-gray-900 font-medium text-2xl">
+                      Online
+                    </div>
+                  </label>
                     <div class="button_container">
                       <button type="button" id="filtering-condition-submit-button" onclick="validate('bar')"
                       style="background: linear-gradient(
