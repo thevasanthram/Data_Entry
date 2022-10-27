@@ -47,26 +47,29 @@
         </form>
       </div>
       <div class="connectionMode">
-        <div class="connectionModeOnline">
-          <input
-            type="radio"
-            form="firstLayerForm"
-            name="connectionMode"
-            value="online"
-            id="onlineModeRadioButton"
-            checked="true"
-          />
-          <p id="connectionModeOnlineText">Online</p>
-        </div>
-        <div class="connectionModeOffline">
-          <input
-            type="radio"
-            form="firstLayerForm"
-            name="connectionMode"
-            value="offline"
-            id="offlineModeRadioButton"
-          />
-          <p>Offline</p>
+        <div id="toggle" class="mt-6 ml-24">
+          <div class="flex w-full mb-12">
+            <label
+              for="toggle_switch_outside"
+              class="flex items-center cursor-pointer"
+            >
+              <div class="relative">
+                <input
+                  type="checkbox"
+                  id="toggle_switch"
+                  class="sr-only modeTailwind"
+                  onclick="dynamicText()"
+                />
+                <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+                <div
+                  class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"
+                ></div>
+              </div>
+              <div class="ml-2 text-gray-800 font-medium text-2xl modeName">
+                Online
+              </div>
+            </label>
+          </div>
         </div>
       </div>
       <div id="title-name-content">
@@ -95,16 +98,16 @@
     </div>
 
     <script>
-      function setConnectionMode(event) {
-        var radioElement = event.target;
-
-        var hiddenConnectionRadio = document.getElementById(
-          'hiddenConnectionMode'
-        );
-
-        hiddenConnectionRadio.value = radioElement.value;
-
-        console.log(hiddenConnectionRadio.value);
+      document.getElementById('toggle_switch').checked = true;
+      function dynamicText() {
+        modeDOM = document.getElementById('toggle_switch');
+        if (modeDOM.checked == true) {
+          modeDOM.checked = false;
+          document.getElementsByClassName('modeName')[0].innerHTML = 'Offline';
+        } else {
+          modeDOM.checked = true;
+          document.getElementsByClassName('modeName')[0].innerHTML = 'Online';
+        }
       }
 
       async function transmit(selectedGroup) {
