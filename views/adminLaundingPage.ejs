@@ -1878,8 +1878,7 @@
           },
           body: JSON.stringify({
             fromDate,
-            toDate,
-            mode,
+            toDate
           })
         })
 
@@ -1895,11 +1894,15 @@
           'SM': 'Side Member'
         }
 
+        // tabDivision
+
         Object.keys(data.data).map( (category) => {
-          // division for main Category
+          //  division for main Category
           const categoryDivision = document.createElement('div')
           categoryDivision.id = `${category}ColorMap`
           categoryDivision.style.clear = 'left'
+          categoryDivision.style.position = 'relative'
+          categoryDivision.style.margin = '2rem 0'
           reportContentData.appendChild(categoryDivision)
 
           // category name
@@ -1907,15 +1910,22 @@
           categoryName.id =  `${category}TopicElemet`
           categoryName.innerHTML = categoryAbbreviation[category]
           categoryName.style.color = '#ffffff'
-          categoryName.style.fontSize = '110%'
+          categoryName.style.fontSize = '3rem'
           categoryName.style.marginLeft = '4%'
+          categoryName.style.textDecoration = 'underline'
+          // categoryName.style.height = '44rem'
           categoryDivision.appendChild(categoryName)
 
           Object.keys(data.data[category]).map( (subCategory) => {
             // division for sub Category
+
             const subCategoryDivision = document.createElement('div')
             subCategoryDivision.id = `${subCategory}ColorMap`
             subCategoryDivision.style.clear = 'left'
+            subCategoryDivision.style.margin = '2rem'
+            subCategoryDivision.style.backgroundColor = '#2b323c'
+            // subCategoryDivision.style.height = '44rem'
+            subCategoryDivision.style
             categoryDivision.appendChild(subCategoryDivision)
 
             // subCategory name
@@ -1923,8 +1933,10 @@
             subCategoryName.id = `${subCategory}TopicElement`
             subCategoryName.innerHTML = subCategory.replace(`${category}`,'')
             subCategoryName.style.color = '#ffffff'
-            subCategoryName.style.fontSize = '100%'
-            subCategoryName.style.textAlign = 'center'
+            subCategoryName.style.fontSize = '145%'
+            subCategoryName.style.marginLeft = '4%'
+            subCategoryName.style.marginTop = '3%'
+            // subCategoryName.style.textAlign = 'center'
             subCategoryDivision.appendChild(subCategoryName)
 
             Object.keys(data.data[category][subCategory]).map( (defect) => {
@@ -1932,7 +1944,9 @@
               const defectDivision = document.createElement('div')
               defectDivision.id = `${defect}ColorMap`
               defectDivision.style.clear = 'left'
+              // defectDivision.style.marginTop = '9rem'
               // defectDivision.style.marginBottom = '1%'
+              //! Added extra styles 
               subCategoryDivision.appendChild(defectDivision)
 
               // defect name
@@ -1940,16 +1954,20 @@
               defectName.id = `${defect}_${subCategory.replace(`${category}`,'')}`
               defectName.innerHTML = defect
               defectName.style.color = '#ffffff'
-              defectName.style.fontSize = '90%'
+              defectName.style.fontSize = '160%'
               defectName.style.marginLeft = '6%'
+              defectName.style.marginTop = '2%'
+              // defectName.className = 'mt-7'
               defectDivision.appendChild(defectName)
 
               // subDefect Container
               const subDefectContainer = document.createElement('div')
               subDefectContainer.id = `${subCategory.replace(`${category}`,'')}_${defect}_Container`
               subDefectContainer.style.clear = 'left'
-              subDefectContainer.style.marginLeft = '8%'
-              subDefectContainer.style.display = 'flex'
+              subDefectContainer.style.margin = '0 8%'
+              // subDefectContainer.style.display = 'flex'
+              defectDivision.style.height = 'auto'
+              // defectDivision.style.margin = '12rem 0'
               defectDivision.appendChild(subDefectContainer)
 
               Object.keys(data.data[category][subCategory][defect]).map( (subDefect) => {
@@ -1964,15 +1982,18 @@
                 subDefectName.id = `${subDefect}_${subCategory.replace(`${category}`,'')}`
                 subDefectName.innerHTML = subDefect
                 subDefectName.style.color = '#ffffff'
-                subDefectName.style.fontSize = '80%'
+                subDefectName.style.fontSize = '160%'
+                subDefectName.style.marginTop = '2%'
                 subDefectDivision.appendChild(subDefectName)
 
                 // division for defect visual presentation
                 const visualPresentation = document.createElement('div')
                 visualPresentation.id = `${subDefect}_${subCategory.replace(`${category}`,'')}_Visual_Presentation`
                 // visualPresentation.style.display = 'inline-block'
-                visualPresentation.style.width = '350%'
-                visualPresentation.style.height = '100%'
+                visualPresentation.style.width = '90rem'
+                visualPresentation.style.height = '53rem'
+                visualPresentation.style.margin = '3rem'
+                visualPresentation.style.color = 'black'
                 subDefectDivision.appendChild(visualPresentation)
 
                 let subCategoryArray = subCategory.split(' ').reverse()
@@ -1990,6 +2011,9 @@
                 }
 
                 visualPresentation.style.backgroundImage = `url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`
+                visualPresentation.style.backgroundRepeat = 'no-repeat'
+                visualPresentation.style.objectFit = 'fill'
+                visualPresentation.style.position = 'relative'
 
                 // console.log('category: ',category)
                 // console.log('sub category: ',subCategoryArray)
