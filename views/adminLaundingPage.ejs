@@ -2330,7 +2330,8 @@
           categoryName.id =  `${category}TopicElemet`
           categoryName.innerHTML = categoryAbbreviation[category]
           categoryName.style.color = '#ffffff'
-          categoryName.style.fontSize = '3rem'
+          // Changed this fontSize
+          categoryName.style.fontSize = '200%'
           categoryName.style.marginLeft = '4%'
           categoryName.style.textDecoration = 'underline'
           // categoryName.style.height = '44rem'
@@ -2366,7 +2367,7 @@
               defectDivision.style.clear = 'left'
               // defectDivision.style.marginTop = '9rem'
               // defectDivision.style.marginBottom = '1%'
-              //! Added extra styles 
+              //! Added extra styles
               subCategoryDivision.appendChild(defectDivision)
 
               // defect name
@@ -2410,8 +2411,8 @@
                 const visualPresentation = document.createElement('div')
                 visualPresentation.id = `${subDefect}_${subCategory.replace(`${category}`,'')}_Visual_Presentation`
                 // visualPresentation.style.display = 'inline-block'
-                visualPresentation.style.width = '90rem'
-                visualPresentation.style.height = '53rem'
+                visualPresentation.style.width = '90%'
+                visualPresentation.style.height = '43rem'
                 visualPresentation.style.margin = '3rem'
                 visualPresentation.style.color = 'black'
                 subDefectDivision.appendChild(visualPresentation)
@@ -2452,6 +2453,7 @@
           })
         })
       }
+
       // PDF Section
 
       // Exporting  Table DPV to PDF
