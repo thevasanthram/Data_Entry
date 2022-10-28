@@ -1667,8 +1667,6 @@
 
         console.log('data: ',data.data)
 
-
-        /// new code
         const reportContentData = document.getElementsByClassName('report-content-data')[0]
 
         const summaryTable = document.createElement('table')
@@ -1706,7 +1704,7 @@
         secondRowSubHeading.id = `${defectName}secondRowSubHeading`
         summaryTable.appendChild(secondRowSubHeading)
 
-            // printing category alone
+          // printing category alone
         const categoryCell = document.createElement('th')
         categoryCell.id = 'CategoryCell'
         categoryCell.innerHTML = 'Category'
@@ -1729,14 +1727,7 @@
               secondRowMainHeading.appendChild(singleHeadingCell)
             })
 
-            //second rows sub heading row
-            // let emptyCell = ['','']
-            // emptyCell.map((element) => {
-            //   let secondRowEmptyCell = document.createElement('th')
-            //   secondRowEmptyCell.innerHTML = ''
-            //   secondRowSubHeading.appendChild(secondRowEmptyCell)
-            // })
-
+            // cells for the corresponding subDefectList
             subDefectList.map( (singleSubHeading) => {
               let singleSubHeadingCell = document.createElement('th')
               singleSubHeadingCell.id = `${singleSubHeading}`
@@ -1745,18 +1736,8 @@
             })
           } 
         })
-        // const emptyCellSecondSubRow = document.createElement('th')
-        // secondRowSubHeading.appendChild(emptyCellSecondSubRow)
-        
-        // calculating no of rows needed for data filling
-        let rowCount = 0
-        Object.keys(data.data).map( (category) => {
-          rowCount += Object.keys(data.data[category]['LH']).length-1
-          rowCount += 1
-        })
 
-        console.log('rowCount: ',rowCount)
-
+        // loop to create row for entire defect list... all rest things from title row
         for(let category = 0; category < Object.keys(data.data).length; category++){
           // category loop
           let categoryName = Object.keys(data.data)[category]
@@ -1770,7 +1751,7 @@
           let categoryNameCell = document.createElement('td')
           categoryNameCell.id = `${categoryName}Cell`
           categoryNameCell.innerHTML = categoryName
-          categoryNameCell.rowSpan = `${Object.keys(data.data[categoryName]['LH']).length + 1}`
+          categoryNameCell.rowSpan = `${Object.keys(data.data[categoryName]['LH']).length}`
           categoryRow.appendChild(categoryNameCell)
 
           let correspondingLHRowDOM = [categoryRow]
@@ -1795,13 +1776,8 @@
                 }else{
                   // appending in new row in table, inside new row appending emptycell,then subcategoryName
                   // rest of the subCategory in LH
-                  
                   summaryTable.appendChild(newRowForDataFilling)  
-                  // empty cell for category
-                  let emptyCellforSameCategory = document.createElement('td')
-                  newRowForDataFilling.appendChild(emptyCellforSameCategory)
                   newRowForDataFilling.appendChild(subCategoryCell)
-
                   // saving for RH
                   correspondingLHRowDOM.push(newRowForDataFilling)
                 }
@@ -1822,7 +1798,7 @@
 
                 // counting no of defects in subCategory's Total Defect
                 subCategoryDefectTotal += data.data[categoryName][sideName][subCategoryName][subDefectName]
-                // append corresponding row..
+                // append this one into corresponding row..
                 if(side == 'LH'){
                   if(subCategory == 0){
                     categoryRow.appendChild(subDefectDataCell)
@@ -1832,7 +1808,6 @@
                 }else{
                   correspondingLHRowDOM[subCategory].appendChild(subDefectDataCell)
                 }
-                // put those immediate upper if else else block in this loop, it will work
               }
 
               // Total cell
@@ -1852,24 +1827,6 @@
             }
           }
         }
-
-        // // filling main data into table
-        // Object.keys(data.data).map( (categoryName) => {
-          
-
-          
-          
-        //   //splitting lh and rh, running in loop
-        //   Object.keys(data.data[categoryName]).map( (side) => {
-        //     Object.keys(data.data[categoryName][side]).map( (subCategoryName) => {
-        //       // subCategory Cell
-        //       let subCategoryCell = document.createElement('td')
-        //       subCategoryCell.id = `${side}${subCategoryName}Cell`
-
-        //     })
-        //   })
-        // })
-
 
         // styling table rule
         const tdTags = document.getElementsByTagName('td')
