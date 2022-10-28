@@ -27,9 +27,13 @@
     "path": "^0.12.7",
     "pg": "^8.8.0",
     "pgtools": "^0.1.1",
+<<<<<<< HEAD
     "pkg": "^5.8.0"
   },
   "devDependencies": {
+=======
+    "pkg": "^5.8.0",
+>>>>>>> 1e35eff8072bac9dacafd073676337ace366a5ff
     "tailwindcss": "^3.2.1"
   }
 }
