@@ -46,53 +46,44 @@
           </button>
         </form>
       </div>
-          <!-- <div class="connectionMode">
-        <div class="connectionModeOnline">
-          <input
-            type="radio"
-            form="firstLayerForm"
-            name="connectionMode"
-            value="online"
-            id="onlineModeRadioButton"
-            checked="true"
-          />
-          <p id="connectionModeOnlineText">Online</p>
-        </div>
-        <div class="connectionModeOffline">
-          <input
-            type="radio"
-            form="firstLayerForm"
-            name="connectionMode"
-            value="offline"
-            id="offlineModeRadioButton"
-          />
-          <p>Offline</p>
-        </div>
-      </div> -->
       <div id="title-name-content">
-        <div class="sub_container">
-          <img
-          src="./arrow.png"
-          title="Back"
-          id="go-back-icon"
-          alt="Go Back"
-          onclick="document.getElementById('followerForm').submit();"
-        />
-        <p id="title-name">Select Category :</p>
-        </div>       
-        <!-- Toggle Switch for online / offline -->       
-          <label for="toggle_switch" class="flex items-center cursor-pointer"
-          style="flex-direction:column ; "
+        <div>
+          <div class="sub_container">
+            <img
+              src="./arrow.png"
+              title="Back"
+              id="go-back-icon"
+              alt="Go Back"
+              onclick="document.getElementById('followerForm').submit();"
+            />
+            <p id="title-name">Select Category :</p>
+          </div>
+        </div>
+        <!-- Toggle Switch for online / offline -->
+        <label
+          for="toggle_switch"
+          class="flex items-center cursor-pointer"
+          style="flex-direction: column"
+        >
+          <div class="relative">
+            <input
+              type="checkbox"
+              id="toggle_switch"
+              class="sr-only mode"
+              onclick="dynamicText()"
+            />
+            <div class="block bg-gray-300 w-14 h-8 rounded-full"></div>
+            <div
+              class="dot absolute left-1 top-1 mr-4 bg-white w-6 h-6 rounded-full transition"
+            ></div>
+          </div>
+          <div
+            id="mode_status"
+            class="ml-32 -mt-2 text-gray-300 font-medium text-2xl"
           >
-              <div class="relative">
-                <input type="checkbox" id="toggle_switch" class="sr-only mode">
-                <div class="block bg-gray-300 w-14 h-8 rounded-full"></div>
-                <div class="dot absolute left-1 top-1 mr-4 bg-white w-6 h-6 rounded-full transition"></div>
-              </div>
-              <div id="mode_status" class="ml-32 -mt-2 text-gray-300 font-medium text-2xl">
-                Online
-              </div>
-          </label>
+            Online
+          </div>
+        </label>
       </div>
 
       <div class="main-content">
@@ -107,37 +98,39 @@
         <%}%>
       </div>
       <form action="/follower" method="get" id="followerForm"></form>
+      <form action="/secondlayer" method="post" id="firstLayerForm">
+        <input
+          type="hidden"
+          name="selectedCategory"
+          id="selectedCategory"
+          value=""
+        />
+        <input type="hidden" name="mode" id="mode" value="" />
+      </form>
     </div>
 
     <script>
-      document.getElementById('toggle_switch').checked = true;
+      modeDOM = document.getElementsByClassName('mode')[0];
+      modeDOM.checked = true;
       function dynamicText() {
-        modeDOM = document.getElementById('toggle_switch');
-        if (modeDOM.checked == true) {
+        if (!modeDOM.checked) {
           modeDOM.checked = false;
-          document.getElementsByClassName('modeName')[0].innerHTML = 'Offline';
+          document.getElementById('mode_status').innerHTML = 'Offline';
         } else {
           modeDOM.checked = true;
-          document.getElementsByClassName('modeName')[0].innerHTML = 'Online';
+          document.getElementById('mode_status').innerHTML = 'Online';
         }
       }
 
       async function transmit(selectedGroup) {
-        var mode = 'offline';
-        var modeDOM = document.getElementsByClassName('mode')[0];
-        if (modeDOM.checked) {
-          mode = 'online';
+        var mode = 'online';
+        if (!modeDOM.checked) {
+          mode = 'offline';
         }
-        await fetch('http://localhost:8000/secondlayer', {
-          method: 'POST',
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify({
-            selectedCategory: selectedGroup,
-            mode: mode,
-          }),
-        });
+        const firstLayerForm = document.getElementById('firstLayerForm');
+        document.getElementById('selectedCategory').value = selectedGroup;
+        document.getElementById('mode').value = mode;
+        firstLayerForm.submit();
       }
     </script>
   </body>

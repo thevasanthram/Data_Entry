@@ -820,7 +820,7 @@ app.post('/secondlayer', (req, res) => {
   try {
     if (Object.keys(req.body).length > 0) {
       selectedCategory = req.body.selectedCategory;
-      // mode = req.body.connectionMode;
+      mode = req.body.mode;
     }
     const categoryOptions = Options[selectedCategory];
     let ShortlistedCategoryOptions = Object.keys(categoryOptions);
@@ -829,6 +829,7 @@ app.post('/secondlayer', (req, res) => {
       enteredBodyNumber,
       selectedCategory,
       ShortlistedCategoryOptions,
+      mode,
     });
   } catch (err) {
     console.log(err);
@@ -839,6 +840,7 @@ app.post('/thirdlayer', (req, res) => {
   try {
     if (Object.keys(req.body).length > 0) {
       selectedSubCategory = req.body.selectedSubCategory;
+      mode = req.body.mode;
     }
 
     var SubCategoryOptions = Options[selectedCategory];
@@ -904,6 +906,7 @@ app.post('/thirdlayer', (req, res) => {
       ShortlistedSubCategoryOptions,
       categoryId,
       subcategoryId,
+      mode,
     });
   } catch (err) {
     console.log(err);
@@ -913,6 +916,7 @@ app.post('/thirdlayer', (req, res) => {
 app.post('/receive-thirdLayer-temp', async (req, res) => {
   try {
     const defectObj = req.body.defectObj;
+    mode = req.body.mode;
     let filledDefects = {};
     let currentDate = new Date();
     const date =
@@ -962,7 +966,7 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
                   Object.keys(filledDefects[defectName][subDefectName]).map(
                     async (zone) => {
                       const result = await dbConnectedPool.query(
-                        `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone = ${zone.replace(
+                        `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone = ${zone.replace(
                           '_',
                           ''
                         )}`
@@ -1001,7 +1005,7 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
                         console.log(
                           `UPDATE defect_table SET defectCount=${
                             filledDefects[defectName][subDefectName][zone]
-                          },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
+                          },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
                             '_',
                             ''
                           )}`
@@ -1010,7 +1014,7 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
                         await dbConnectedPool.query(
                           `UPDATE defect_table SET defectCount=${
                             filledDefects[defectName][subDefectName][zone]
-                          },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
+                          },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
                             '_',
                             ''
                           )}`

@@ -44,7 +44,7 @@ body {
 }
 .selected-message {
   text-align: center;
-  margin-left: 20%;
+  margin-left: 25%;
   padding: 14px;
   font-size: clamp(0.9rem, 1.2vw, 1.3rem);
   color: #eeeeee;
@@ -61,7 +61,7 @@ input:checked ~ .dot {
 #title-name-content {
   margin-top: 2%;
 }
-.sub_container{
+.sub_container {
   display: flex;
   justify-content: space-around;
 }
@@ -74,9 +74,9 @@ input:checked ~ .dot {
 }
 
 #go-back-icon {
-  float: left;
-  margin-left: 4%;
-  margin-right: 3%;
+  /* float: left; */
+  /* margin-left: 4%; */
+  /* margin-right: 3%; */
   width: 3%;
 }
 

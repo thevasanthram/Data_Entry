@@ -51,8 +51,25 @@ body {
   color: #eeeeee;
 }
 
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}
+
+.sub_container {
+  display: flex;
+  justify-content: space-around;
+}
 #title-name-content {
   margin-top: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 #go-back-icon {
