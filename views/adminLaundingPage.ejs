@@ -190,7 +190,7 @@
             <div id="report-topic">
               <p id="report-topic-data"></p>
             </div>
-            <div id="reportChild" style="height: 100vh;" class="report-content-data">
+            <div id="reportChild" class="report-content-data">
             </div>
           </div>
         </div>
@@ -1850,9 +1850,7 @@
         document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoSubCategoryChartDivision)
         mainParetoSubCategoryChartDivision.style.width = '80%'
         mainParetoSubCategoryChartDivision.style.height = '100%'
-        mainParetoSubCategoryChartDivision.style.marginTop = '2%'
         mainParetoSubCategoryChartDivision.style.marginLeft = '10%'
-        mainParetoSubCategoryChartDivision.style.position = 'relative'
 
         let mainParetoSubCategoryChartDataset = []
 
@@ -1934,9 +1932,7 @@
         document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoZoneChartDivision)
         mainParetoZoneChartDivision.style.width = '80%'
         mainParetoZoneChartDivision.style.height = '100%'
-        mainParetoZoneChartDivision.style.marginTop = '2%'
         mainParetoZoneChartDivision.style.marginLeft = '10%'
-        mainParetoZoneChartDivision.style.position = 'relative'
 
         let mainParetoZoneChartDataset = []
 
@@ -2015,9 +2011,7 @@
         document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoDefectChartDivision)
         mainParetoDefectChartDivision.style.width = '80%'
         mainParetoDefectChartDivision.style.height = '100%'
-        mainParetoDefectChartDivision.style.marginTop = '2%'
         mainParetoDefectChartDivision.style.marginLeft = '10%'
-        mainParetoDefectChartDivision.style.position = 'relative'
 
         let mainParetoDefectChartDataset = []
 
@@ -2304,8 +2298,7 @@
           },
           body: JSON.stringify({
             fromDate,
-            toDate,
-            mode,
+            toDate
           })
         })
 
