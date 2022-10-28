@@ -11,7 +11,7 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   password: 'admin',
-  port: 5432,
+  port: 5432,                   
 });
 console.log(
   'Please, wait for Database confirmation message. Start, once you receive'

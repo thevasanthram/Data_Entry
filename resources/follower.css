@@ -42,11 +42,28 @@ body {
   font-weight: 700;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
-.button-logout {
+/* .button-logout {
   display: flex;
   align-items: center;
   padding-right: 2%;
   margin-right: 5%;
+} */
+.button-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2%;
+  margin: 5%;
+  width: 8rem;
+  font-weight: 600;
+  font-size: medium;
+  height: 2.5rem;
+  border-radius: 5px;
+  color: #eeeeee;
+  border-color: rgb(91, 97, 166);
+}
+.button-logout:hover {
+  border-right-color: rgb(45, 56, 184);
 }
 .form-content {
   margin-top: 2%;
