@@ -991,7 +991,6 @@
         })
       }
 
-
       async function mainPareto(){
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
         var fromDate = document.getElementById('from-date-condition-input').value
@@ -1012,6 +1011,68 @@
         const data = await response.json()
         console.log('data: ', data.data)
 
+        let zoneDefectCountProvider = {}
+        let zoneSubDefectCountProvider = {}
+        let zoneDetailProvider = {}
+
+        // counting no of defects in each bodyNumber, category, defect, subDefect, bodyNumber
+        // storing count in 
+        Object.keys(data.data).map( (group)=> {
+          Object.keys(data.data[group]).map( (category) => {
+            Object.keys(data.data[group][category]).map( (defect) => {
+              Object.keys(data.data[group][category][defect]).map( (subDefect) => {
+                Object.keys(data.data[group][category][defect][subDefect]).map( (bodyNumber) => {
+                  Object.keys(data.data[group][category][defect][subDefect][bodyNumber]).map( (singleZone) => {
+                    let defectCount = data.data[group][category][defect][subDefect][bodyNumber][singleZone]
+                      // for Zone & Defect Count
+                    if(!zoneDefectCountProvider[`${singleZone}`]){
+                      zoneDefectCountProvider[`${singleZone}`] = {}
+                      if(!zoneDefectCountProvider[`${singleZone}`][defect]){
+                        zoneDefectCountProvider[`${singleZone}`][defect] = defectCount
+                      }
+                    }else{
+                      if(!zoneDefectCountProvider[`${singleZone}`][defect]){
+                        zoneDefectCountProvider[`${singleZone}`][defect] = defectCount
+                      }else{
+                        zoneDefectCountProvider[`${singleZone}`][defect] += defectCount
+                      }
+                    }
+
+                    // for Zone Detail
+                    zoneDetailProvider[`${singleZone}`] = {}
+                    zoneDetailProvider[`${singleZone}`]['Group'] = group
+                    zoneDetailProvider[`${singleZone}`]['Category'] = category
+                    
+                    // for Zones Sub-defect Count
+                    if(!zoneSubDefectCountProvider[`${singleZone}`]){
+                      zoneSubDefectCountProvider[`${singleZone}`] = {}
+                      zoneSubDefectCountProvider[`${singleZone}`][defect] = {}
+                      zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`] = defectCount
+                    }else{
+                      if(!zoneSubDefectCountProvider[`${singleZone}`][defect]){
+                        zoneSubDefectCountProvider[`${singleZone}`][defect] = {}
+                        zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`] = defectCount
+                      }else{
+                        if(!zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`]){
+                          zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`] = defectCount
+                        }
+                        else{
+                          zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`] += defectCount
+                        }
+                      }
+                    }
+                  })  
+                })
+              })
+            })
+          })
+        })
+
+        console.log('Zone Defect Count Provider: ',zoneDefectCountProvider)
+        console.log('Zone Sub-Defect Count Provider: ',zoneSubDefectCountProvider)
+        console.log('Zone Detail Provider: ',zoneDetailProvider)
+
+
         // creating 5 divisions
         // displaying only the selected one
         let defectList = ['Surface','Body Fitting','Missing & Wrong Part', 'Welding', 'Water Leak']
@@ -1019,7 +1080,7 @@
         const tabDivision = document.createElement('div')
         tabDivision.id = 'tabDivision'
         tabDivision.style.marginLeft = '20%'
-        document.getElementById('report-topic').appendChild(tabDivision)
+        document.getElementById('reportChild').appendChild(tabDivision)
         document.getElementById('report-topic-data').style.cssFloat = 'left'
         
 
@@ -1039,7 +1100,14 @@
           document.getElementById(`${clickedDefect}ParetoButton`).style.backgroundColor = '#ffffff'
         }
         
- 
+        let subDefects = {
+          'Surface': ['Dent','Bump','Burrs','Spatters','Others'],
+          'Body Fitting': ['Body Fitting 1','Body Fitting 2','Body Fitting Others'],
+          'Missing & Wrong Part': ['Missing Part','Wrong Part'],
+          'Welding': ['Welding Part 1','Welding Part 2','Welding Part 3','Welding Part Others'],
+          'Water Leak': ['Water Leak 1','Water Leak 2','Water Leak Others']
+        }
+
         // element creation for main Pareto
         defectList.map( (defect) => {
           // creating buttons for defect inside tabDivision
@@ -1050,6 +1118,7 @@
           defectParetoButton.innerHTML = `${defect}`
           defectParetoButton.style.backgroundColor = '#000000'
           defectParetoButton.style.color = '#ffffff'
+          defectParetoButton.style.cursor = 'pointer'
           defectParetoButton.style.cssFloat = 'left'
           defectParetoButton.style.fontSize = '80%'
           defectParetoButton.style.padding = '0.6% 4%'
@@ -1060,16 +1129,374 @@
           let correspondingTabDivision = document.createElement('div')
           correspondingTabDivision.id = `${defect.replace(' ','')}ParetoDivision`
           correspondingTabDivision.style.color = '#ffffff'
-          correspondingTabDivision.style.clear = 'left'
           correspondingTabDivision.className = 'defectParetoDivision'
           document.getElementsByClassName('report-content-data')[0].appendChild(correspondingTabDivision)
 
-          //
-          let contentInsideTabDivision = document.createElement('p')
-          contentInsideTabDivision.innerHTML = `${defect} Pareto Visualization`
-          correspondingTabDivision.appendChild(contentInsideTabDivision)
+          // division for main Pareto chart and its table
+          let mainDefectParetoDivision = document.createElement('div')
+          mainDefectParetoDivision.id = `main${defect}ParetoDivision`
+          correspondingTabDivision.appendChild(mainDefectParetoDivision)
 
-          // showing only Surface Division
+          // fetching the values for chart
+          let individualDefectCountProvider = {}
+          Object.keys(zoneDefectCountProvider).map( (zone) => {
+            if(zoneDefectCountProvider[zone][defect]){
+              individualDefectCountProvider[zone] = zoneDefectCountProvider[zone][defect]
+            }
+          })
+            // sorting in descending based on defect zone count
+          individualDefectCountProvider = Object.entries(individualDefectCountProvider)
+            .sort(([, a], [, b]) => b - a)
+            .reduce(
+              (r, [k, v]) => ({
+                ...r,
+                [k]: v
+              }),
+              {}
+            )
+
+          
+          let nTop = 20;
+
+            // having only top zone, deleting others
+          let exceptnTopZones = Object.keys(individualDefectCountProvider).filter(x => !Object.keys(individualDefectCountProvider).slice(0,nTop).includes(x))
+          exceptnTopZones.map( (zone) => {
+            delete individualDefectCountProvider[zone]
+          })
+
+          let individualSubDefectCountProvider = {}
+          let subDefectList = []
+            //populating the corresponding Defect's subdefect object inside a zone property
+          Object.keys(individualDefectCountProvider).map( (zone) => {
+            individualSubDefectCountProvider[zone] = zoneSubDefectCountProvider[zone][defect]
+            subDefectList.push(...Object.keys(zoneSubDefectCountProvider[zone][defect]))
+          })
+
+          // console.log(`${defect} Zone Count:`,individualDefectCountProvider)
+          console.log(`${defect} Zone Sub-Defect Count:`,individualSubDefectCountProvider)
+
+          let mainDefectParetoDataset = []
+          // preparing the dataset for the mainDefect Pareto Chart
+          subDefectList.map( (subDefect) => {
+            let dataPoints = []
+            Object.keys(individualDefectCountProvider).map( (zone) => {
+              let yValue = 0
+              if(individualSubDefectCountProvider[zone][subDefect]){
+                yValue = individualSubDefectCountProvider[zone][subDefect]
+              }
+              dataPoints.push({label: zone.replace('_',''), y:yValue})
+            })
+            mainDefectParetoDataset.push({
+              type:'stackedColumn',
+              // showInLegend: true,
+              name: subDefect.split('_')[0],
+              dataPoints: dataPoints
+            })  
+          })
+
+          // division for chart & table for main Defect Pareto
+          let mainDefectParetoChartDivision = document.createElement('div')
+          mainDefectParetoChartDivision.id = `main${defect}ParetoChartDivision`
+          mainDefectParetoChartDivision.style.position = 'absolute'
+          mainDefectParetoChartDivision.style.width = '70%'
+          mainDefectParetoChartDivision.style.height = '100%'
+          mainDefectParetoDivision.appendChild(mainDefectParetoChartDivision)
+
+          // chart configuration
+          var mainDefectParetoChart =  new CanvasJS.Chart(`main${defect}ParetoChartDivision`, {
+            animationEnabled: true,
+            backgroundColor: "rgba(0, 0, 0, 0)",
+            theme: "dark1",
+            title:{
+              text: `${defect} Pareto Visualization`,
+              fontFamily: 'tahoma',
+              fontSize: 18,
+            },
+            dataPointWidth: 20,
+            axisY: {
+              title: "No of Defects",
+              lineColor: "#4F81BC",
+              tickColor: "#4F81BC",
+              labelFontColor: "#4F81BC",
+              labelFontFamily: 'tahoma',
+              labelFontSize: 18,
+              gridThickness: 0,
+              stripLines: [
+                {
+                  value: 0,
+                  showOnTop: true,
+                  color: "gray",
+                  thickness: 2
+                }
+              ]
+            },
+            axisX:{
+              title: 'Zones',
+              labelFontColor: "#4F81BC",
+              labelFontFamily: 'tahoma',
+              labelFontSize: 15,
+              gridThickness: 0,
+              tickLength: 0,
+              lineThickness: 0,
+            },
+            toolTip: {
+              content: '{name} : {y}'
+            },
+            data: mainDefectParetoDataset
+          });
+          mainDefectParetoChart.render();
+
+          let mainDefectParetoTableDivision = document.createElement('div')
+          mainDefectParetoTableDivision.id = `main${defect}ParetoTableDivision`
+          mainDefectParetoTableDivision.style.position = 'absolute'
+          mainDefectParetoTableDivision.style.width = '30%'
+          mainDefectParetoTableDivision.style.height = '100%'
+          mainDefectParetoTableDivision.style.marginLeft = '70%'
+          mainDefectParetoDivision.appendChild(mainDefectParetoTableDivision)
+
+          let mainDefectParetoTableHeading = document.createElement('p')
+          mainDefectParetoTableHeading.id = `main${defect}ParetoTableHeading`
+          mainDefectParetoTableHeading.innerHTML = `${defect}`
+          mainDefectParetoTableHeading.style.textAlign = 'center'
+          mainDefectParetoTableDivision.appendChild(mainDefectParetoTableHeading)
+
+          let mainDefectParetoTableHeadingRule = document.createElement('hr')
+          mainDefectParetoTableDivision.appendChild(mainDefectParetoTableHeadingRule)
+
+          let mainDefectParetoTableContainer = document.createElement('div')
+          mainDefectParetoTableContainer.id = `main${defect}ParetoTableContainer`
+          mainDefectParetoTableContainer.style.position = 'absolute'
+          mainDefectParetoTableContainer.style.width = '100%'
+          mainDefectParetoTableContainer.style.height = '95%'
+          mainDefectParetoTableContainer.style.overflow = 'auto'
+          mainDefectParetoTableDivision.appendChild(mainDefectParetoTableContainer)
+
+          let mainDefectParetoTable = document.createElement('table')
+          mainDefectParetoTable.id = `main${defect}ParetoTable`
+          mainDefectParetoTableContainer.appendChild(mainDefectParetoTable)
+
+          let mainDefectParetoTableHeadingList = ['S.No','Zone','Category','Sub-Category',...subDefects[defect],'Total']
+          let mainDefectParetoTableHeadingRow = document.createElement('tr')
+          mainDefectParetoTable.appendChild(mainDefectParetoTableHeadingRow)
+          // printing headings of mainDefectParetoTable
+          mainDefectParetoTableHeadingList.map( (heading) => {
+            let mainDefectParetoTableHeadingContent = document.createElement('th')
+            mainDefectParetoTableHeadingContent.innerHTML = heading
+            mainDefectParetoTableHeadingContent.style.whiteSpace = 'nowrap'
+            mainDefectParetoTableHeadingContent.style.backgroundColor = '#000000'
+            mainDefectParetoTableHeadingContent.style.color = '#ffffff'
+            // mainDefectParetoTableHeadingContent.style.textAlign = 'center'
+            // mainDefectParetoTableHeadingContent.style.fontSize = '90%'
+            mainDefectParetoTableHeadingRow.appendChild(mainDefectParetoTableHeadingContent)
+          })
+          
+          // inserting zone rows into table
+          let rowCount = 0
+          Object.keys(individualSubDefectCountProvider).map( (zone, index) => {
+            let singleZoneRow = document.createElement('tr')
+            singleZoneRow.style.backgroundColor = '#282c34'
+            rowCount++
+            let totalDefectCount = 0
+            singleZoneRow.addEventListener('mouseover', function () {
+              singleZoneRow.style.backgroundColor = '#000000';
+              singleZoneRow.style.color = '#ffffff';
+            });
+            singleZoneRow.addEventListener('mouseleave', function () {
+              singleZoneRow.style.backgroundColor = '#282c34';
+              singleZoneRow.style.color = '#ffffff';
+            });
+            mainDefectParetoTable.appendChild(singleZoneRow)
+            mainDefectParetoTableHeadingList.map( (heading) => {
+              let singleCellData = document.createElement('td')
+              singleCellData.style.textAlign = 'center'
+              singleCellData.style.border = '1px solid black'
+              singleCellData.style.whiteSpace = 'nowrap'
+              singleZoneRow.appendChild(singleCellData)
+              if(heading == 'S.No'){
+                singleCellData.innerHTML = rowCount
+              }else if(heading == 'Zone'){
+                singleCellData.innerHTML = zone.replace('_','')
+              }else if(heading == 'Category'){
+                singleCellData.innerHTML = zoneDetailProvider[zone]['Group']
+              }else if(heading == 'Sub-Category'){
+                singleCellData.innerHTML = zoneDetailProvider[zone]['Category'].replace(` ${zoneDetailProvider[zone]['Group']}`,'')
+                singleCellData.style.textAlign = 'left'
+              }else if(heading == 'Total'){
+                singleCellData.innerHTML = totalDefectCount
+              }else{
+                // for subDefects
+                if(!individualSubDefectCountProvider[zone][`${heading}${zone}`]){
+                  singleCellData.innerHTML = 0
+                }else{
+                  singleCellData.innerHTML = individualSubDefectCountProvider[zone][`${heading}${zone}`]
+                  totalDefectCount += individualSubDefectCountProvider[zone][`${heading}${zone}`]
+                }
+              }
+            })
+          })
+
+          // division for subDefect Pareto visualization
+
+
+          subDefects[defect].map( (subdefect, index) => {
+            // single subDefect Content Container
+            let SubDefectsParetoChartHolder = document.createElement('div')
+            SubDefectsParetoChartHolder.id = `${subdefect}ParetoChartHolder`
+            SubDefectsParetoChartHolder.style.position = 'absolute'
+            SubDefectsParetoChartHolder.style.marginTop = `${(index+1)*32}%`
+            SubDefectsParetoChartHolder.style.width = '100%'
+            SubDefectsParetoChartHolder.style.height = '100%'
+            correspondingTabDivision.appendChild(SubDefectsParetoChartHolder)
+
+            //subDefect Chart Container
+            let subDefectParetoChartDivision = document.createElement('div')
+            subDefectParetoChartDivision.id = `${subdefect}ParetoChartDivision`
+            subDefectParetoChartDivision.style.position = 'absolute'
+            subDefectParetoChartDivision.style.width = '70%'
+            subDefectParetoChartDivision.style.height = '100%'
+            SubDefectsParetoChartHolder.appendChild(subDefectParetoChartDivision)
+
+            // subDefectParetoChart Dataset
+            let subDefectParetoChartDataset = []
+            let subDefectZoneCount = {}
+            Object.keys(zoneSubDefectCountProvider).map( (singleZone) => {
+              if(zoneSubDefectCountProvider[singleZone][defect]){
+                if(zoneSubDefectCountProvider[singleZone][defect][`${subdefect}${singleZone}`]){
+                  subDefectZoneCount[singleZone] = zoneSubDefectCountProvider[singleZone][defect][`${subdefect}${singleZone}`]
+                }
+              }
+            })
+            // sorting subDefectZoneCount
+            subDefectZoneCount = Object.entries(subDefectZoneCount)
+              .sort(([, a], [, b]) => b - a)
+              .reduce(
+                (r, [k, v]) => ({
+                  ...r,
+                  [k]: v
+                }),
+                {}
+              )
+            
+            Object.keys(subDefectZoneCount).map( (singleZone) => {
+              subDefectParetoChartDataset.push({y: subDefectZoneCount[singleZone], label: singleZone.replace('_','')})
+            })
+
+            console.log('subDefectParetoChartDataset: ',subDefectParetoChartDataset)
+
+            // chart configuration
+            var subDefectParetoChart =  new CanvasJS.Chart(`${subdefect}ParetoChartDivision`, {
+              animationEnabled: true,
+              backgroundColor: "rgba(0, 0, 0, 0)",
+              theme: "dark1",
+              title:{
+                text: `${subdefect} Pareto Visualization`,
+                fontFamily: 'tahoma',
+                fontSize: 18,
+              },
+              dataPointWidth: 20,
+              axisY: {
+                title: "No of Defects",
+                lineColor: "#4F81BC",
+                tickColor: "#4F81BC",
+                labelFontColor: "#4F81BC",
+                labelFontFamily: 'tahoma',
+                labelFontSize: 18,
+                gridThickness: 0,
+                stripLines: [
+                  {
+                    value: 0,
+                    showOnTop: true,
+                    color: "gray",
+                    thickness: 2
+                  }
+                ]
+              },
+              axisX:{
+                title: 'Zones',
+                labelFontColor: "#4F81BC",
+                labelFontFamily: 'tahoma',
+                labelFontSize: 15,
+                gridThickness: 0,
+                tickLength: 0,
+                lineThickness: 0,
+              },
+              toolTip: {
+                content: 'Z {label} : {y}'
+              },
+              data: [{        
+              type: "column",  
+              dataPoints: subDefectParetoChartDataset
+            }]
+            });
+            subDefectParetoChart.render();
+
+            //subDefect Table Container
+            let subDefectParetoTableDivison = document.createElement('div')
+            subDefectParetoTableDivison.id = `${subdefect}ParetoTableDivision`
+            subDefectParetoTableDivison.style.position = 'absolute'
+            subDefectParetoTableDivison.style.width = '30%'
+            subDefectParetoTableDivison.style.height = '100%'
+            subDefectParetoTableDivison.style.marginLeft = '70%'
+            SubDefectsParetoChartHolder.appendChild(subDefectParetoTableDivison)
+
+            let subDefectParetoTable = document.createElement('table')
+            subDefectParetoTable.id = `main${defect}ParetoTable`
+            subDefectParetoTableDivison.appendChild(subDefectParetoTable)
+
+            let subDefectParetoTableHeadingList = ['S.No','Zone','Category','Sub-Category',`${subdefect} Count`]
+            let subDefectParetoTableHeadingRow = document.createElement('tr')
+            subDefectParetoTable.appendChild(subDefectParetoTableHeadingRow)
+            // printing headings of subDefectParetoTable
+            subDefectParetoTableHeadingList.map( (heading) => {
+              let subDefectParetoTableHeadingContent = document.createElement('th')
+              subDefectParetoTableHeadingContent.innerHTML = heading
+              subDefectParetoTableHeadingContent.style.whiteSpace = 'nowrap'
+              subDefectParetoTableHeadingContent.style.backgroundColor = '#000000'
+              subDefectParetoTableHeadingContent.style.color = '#ffffff'
+              // subDefectParetoTableHeadingContent.style.textAlign = 'center'
+              // subDefectParetoTableHeadingContent.style.fontSize = '90%'
+              subDefectParetoTableHeadingRow.appendChild(subDefectParetoTableHeadingContent)
+            })
+
+            // inserting zone rows into table
+            let rowCountNew = 0
+            Object.keys(subDefectZoneCount).map( (zone, index) => {
+              let singleZoneRowNew = document.createElement('tr')
+              singleZoneRowNew.style.backgroundColor = '#282c34'
+              rowCountNew++
+              singleZoneRowNew.addEventListener('mouseover', function () {
+                singleZoneRowNew.style.backgroundColor = '#000000';
+                singleZoneRowNew.style.color = '#ffffff';
+              });
+              singleZoneRowNew.addEventListener('mouseleave', function () {
+                singleZoneRowNew.style.backgroundColor = '#282c34';
+                singleZoneRowNew.style.color = '#ffffff';
+              });
+              subDefectParetoTable.appendChild(singleZoneRowNew)
+              subDefectParetoTableHeadingList.map( (heading) => {
+                let singleCellDataNew = document.createElement('td')
+                singleCellDataNew.style.textAlign = 'center'
+                singleCellDataNew.style.border = '1px solid black'
+                singleCellDataNew.style.whiteSpace = 'nowrap'
+                singleZoneRowNew.appendChild(singleCellDataNew)
+                if(heading == 'S.No'){
+                  singleCellDataNew.innerHTML = rowCountNew
+                }else if(heading == 'Zone'){
+                  singleCellDataNew.innerHTML = zone.replace('_','')
+                }else if(heading == 'Category'){
+                  singleCellDataNew.innerHTML = zoneDetailProvider[zone]['Group']
+                }else if(heading == 'Sub-Category'){
+                  singleCellDataNew.innerHTML = zoneDetailProvider[zone]['Category'].replace(` ${zoneDetailProvider[zone]['Group']}`,'')
+                  singleCellDataNew.style.textAlign = 'left'
+                }else{
+                  // for subDefects
+                  singleCellDataNew.innerHTML = subDefectZoneCount[zone]
+                }
+              })
+            })
+          })
+          
+          // showing only Surface Division by default
           if(defect == 'Surface'){
             correspondingTabDivision.style.display = 'block'
             defectParetoButton.style.backgroundColor = '#ffffff'
@@ -1078,7 +1505,6 @@
             correspondingTabDivision.style.display = 'none'
           }
         })
-        
       }
 
       //! Pareto Report
@@ -1132,35 +1558,35 @@
               Object.keys(data.data[group][category][defect]).map( (subDefect) => {
                 let subDefectCount = 0
                 Object.keys(data.data[group][category][defect][subDefect]).map( (bodyNumber) => {
-                  let bodyNumberCount = data.data[group][category][defect][subDefect][bodyNumber].length
-                  
-                  let zones = data.data[group][category][defect][subDefect][bodyNumber]
-                  zones.map( (singleZone) => {
+                  let bodyNumberCount = 0
+                  Object.keys(data.data[group][category][defect][subDefect][bodyNumber]).map( (singleZone) => {
+                    // adding each zones defect value in bodyNumberCount
+                    bodyNumberCount += data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                     // adding zones into zones object
-                    if(!zoneCountProvider[`_${singleZone}`]){
-                      zoneCountProvider[`_${singleZone}`] = 1
+                    if(!zoneCountProvider[singleZone]){
+                      zoneCountProvider[singleZone] = data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                     }else{
-                      zoneCountProvider[`_${singleZone}`] += 1
+                      zoneCountProvider[singleZone] += data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                     }
                       // for Zone & Defect Count
-                    if(!zoneDefectCountProvider[`_${singleZone}`]){
-                      zoneDefectCountProvider[`_${singleZone}`] = {}
-                      if(!zoneDefectCountProvider[`_${singleZone}`][`${defect}_${singleZone}`]){
-                        zoneDefectCountProvider[`_${singleZone}`][`${defect}_${singleZone}`] = 1
+                    if(!zoneDefectCountProvider[singleZone]){
+                      zoneDefectCountProvider[singleZone] = {}
+                      if(!zoneDefectCountProvider[singleZone][`${defect}${singleZone}`]){
+                        zoneDefectCountProvider[singleZone][`${defect}${singleZone}`] = data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                       }
                     }else{
-                      if(!zoneDefectCountProvider[`_${singleZone}`][`${defect}_${singleZone}`]){
-                        zoneDefectCountProvider[`_${singleZone}`][`${defect}_${singleZone}`] = 1
+                      if(!zoneDefectCountProvider[singleZone][`${defect}${singleZone}`]){
+                        zoneDefectCountProvider[singleZone][`${defect}${singleZone}`] = data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                       }else{
-                        zoneDefectCountProvider[`_${singleZone}`][`${defect}_${singleZone}`] += 1
+                        zoneDefectCountProvider[singleZone][`${defect}${singleZone}`] += data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                       }
                     }
                     
                     // adding zones into category object and keep tracking count
-                    if(!categoryZoneCountProvider[category][`_${singleZone}`]){
-                      categoryZoneCountProvider[category][`_${singleZone}`] = 1
+                    if(!categoryZoneCountProvider[category][singleZone]){
+                      categoryZoneCountProvider[category][singleZone] = data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                     }else{
-                      categoryZoneCountProvider[category][`_${singleZone}`] += 1
+                      categoryZoneCountProvider[category][singleZone] += data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                     }
                   })  
                   subDefectCount += bodyNumberCount
@@ -1198,9 +1624,8 @@
           )
 
         let categoryList = []
-        Object.keys(groupCategoryCountProvider).map( (group) => {
-          // console.log('On each Category iteration: ',groupCategoryCountProvider[group])
-          // console.log('Before sort: ',Object.keys(groupCategoryCountProvider[group]))
+        let groupCategoryCountProviderTemp = {}
+        Object.keys(groupCountProvider).map( (group) => {
           groupCategoryCountProvider[group] = Object.entries(groupCategoryCountProvider[group])
           .sort(([, a], [, b]) => b - a)
           .reduce(
@@ -1210,9 +1635,11 @@
             }),
             {}
           )
+          groupCategoryCountProviderTemp[group] = groupCategoryCountProvider[group]
           // console.log('Before sort: ',Object.keys(groupCategoryCountProvider[group]))
           categoryList.push(...Object.keys(groupCategoryCountProvider[group]))
         })
+        groupCategoryCountProvider = JSON.parse(JSON.stringify(groupCategoryCountProviderTemp))
 
 
         // second Pareto chart
@@ -1236,8 +1663,8 @@
         })
 
         let zoneList = []
-
-        Object.keys(categoryZoneCountProvider).map( (category) => {
+        let categoryZoneCountProviderTemp = {}
+        Object.keys(categoryCountProvider).map( (category) => {
           categoryZoneCountProvider[category] = Object.entries(categoryZoneCountProvider[category])
           .sort(([, a], [, b]) => b - a)
           .reduce(
@@ -1247,6 +1674,7 @@
             }),
             {}
           )
+          categoryZoneCountProviderTemp[category] = categoryZoneCountProvider[category]
 
           let nTopCategoryZone = 20
           let exceptnTopCategoryZone = Object.keys(categoryZoneCountProvider[category]).filter(x => !Object.keys(categoryZoneCountProvider[category]).slice(0,nTopCategoryZone).includes(x))
@@ -1257,6 +1685,7 @@
 
           zoneList.push(...Object.keys(categoryZoneCountProvider[category]))
         })
+        categoryZoneCountProvider = JSON.parse(JSON.stringify(categoryZoneCountProviderTemp))
 
         // third Pareto chart
         zoneCountProvider = Object.entries(zoneCountProvider)
@@ -1278,18 +1707,21 @@
         })
         
         let defectList = []
-        Object.keys(zoneDefectCountProvider).map( (zone) => {
+        let zoneDefectCountProviderTemp = {}
+        Object.keys(zoneCountProvider).map( (zone) => {
           zoneDefectCountProvider[zone] = Object.entries(zoneDefectCountProvider[zone])
-          .sort(([, a], [, b]) => b - a)
-          .reduce(
-            (r, [k, v]) => ({
-              ...r,
-              [k]: v
-            }),
-            {}
-          )
+            .sort(([, a], [, b]) => b - a)
+            .reduce(
+              (r, [k, v]) => ({
+                ...r,
+                [k]: v
+              }),
+              {}
+            )
+          zoneDefectCountProviderTemp[zone] = zoneDefectCountProvider[zone]
           defectList.push(...Object.keys(zoneDefectCountProvider[zone]))
         })
+        zoneDefectCountProvider = JSON.parse(JSON.stringify(zoneDefectCountProviderTemp))
 
         // fourth Pareto Chart
         defectCountProvider = Object.entries(defectCountProvider)
@@ -1303,18 +1735,21 @@
           )
 
         let subDefectList = []
-        Object.keys(defectSubDefectCountProvider).map( (defect) => {
+        let defectSubDefectCountProviderTemp = {}
+        Object.keys(defectCountProvider).map( (defect) => {
           defectSubDefectCountProvider[defect] = Object.entries(defectSubDefectCountProvider[defect])
-          .sort(([, a], [, b]) => b - a)
-          .reduce(
-            (r, [k, v]) => ({
-              ...r,
-              [k]: v
-            }),
-            {}
-          )
+            .sort(([, a], [, b]) => b - a)
+            .reduce(
+              (r, [k, v]) => ({
+                ...r,
+                [k]: v
+              }),
+              {}
+            )
+          defectSubDefectCountProviderTemp[defect] = defectSubDefectCountProvider[defect]
           subDefectList.push(...Object.keys(defectSubDefectCountProvider[defect]))
         })
+        defectSubDefectCountProvider = JSON.parse(JSON.stringify(defectSubDefectCountProviderTemp))
 
 
         console.log('Group Count Provider: ',groupCountProvider)
@@ -1863,7 +2298,8 @@
           },
           body: JSON.stringify({
             fromDate,
-            toDate
+            toDate,
+            mode,
           })
         })
 
