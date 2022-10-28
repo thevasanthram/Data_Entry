@@ -38,24 +38,48 @@
       </div>
 
       <div id="title-name-content">
-        <img
-          src="./arrow.png"
-          id="go-back-icon"
-          alt="Go Back"
-          onclick="history.back()"
-        />
-        <p id="title-name">Select Sub-Category :</p>
+        <div>
+          <div class="sub_container">
+            <img
+              src="./arrow.png"
+              title="Back"
+              id="go-back-icon"
+              alt="Go Back"
+              onclick="document.getElementById('firstLayerForm').submit();"
+            />
+            <p id="title-name">Select Sub-Category :</p>
+          </div>
+        </div>
+        <!-- Toggle Switch for online / offline -->
+        <label
+          for="toggle_switch"
+          class="flex items-center cursor-pointer"
+          style="flex-direction: column"
+        >
+          <div class="relative">
+            <input
+              type="checkbox"
+              id="toggle_switch"
+              class="sr-only mode"
+              onclick="dynamicText()"
+            />
+            <div class="block bg-gray-300 w-14 h-8 rounded-full"></div>
+            <div
+              class="dot absolute left-1 top-1 mr-4 bg-white w-6 h-6 rounded-full transition"
+            ></div>
+          </div>
+          <div
+            id="mode_status"
+            class="ml-32 -mt-2 text-gray-300 font-medium text-2xl modeName"
+          >
+            Online
+          </div>
+        </label>
       </div>
       <div class="main-content">
         <% for(let i = 0 ; i < ShortlistedCategoryOptions.length ; i++){ %>
-        <form action="/thirdlayer" method="post">
-          <input
-            type="hidden"
-            name="selectedSubCategory"
-            value="<%= ShortlistedCategoryOptions[i] %>"
-          />
           <button
-            type="submit"
+            onclick="transmit('<%= ShortlistedCategoryOptions[i]%>')"
             class="form-content"
             <% if((ShortlistedCategoryOptions.length % 2) == 0){ %>
               id="second-layer-button-first-set<%= i+1 %>"  
@@ -69,9 +93,46 @@
         <%}%>
       </div>
       <form action="/follower" method="get" id="followerForm"></form>
+      <form action="/firstlayer" method="post" id="firstLayerForm"></form>
+      <form action="/thirdlayer" method="post" id="secondLayerForm">
+        <input
+          type="hidden"
+          name="selectedSubCategory"
+          id="selectedSubCategory"
+          value=""
+        />
+        <input type="hidden" name="mode" id="mode" value="" />
+      </form>
     </div>
-    <!-- <form action="/firstlayer" method="get">
-      <button type="submit">Go Back</button>
-    </form> -->
+    <script>
+      modeDOM = document.getElementsByClassName('mode')[0];
+      if('<%= mode %>' == 'online'){
+        modeDOM.checked = true;
+        document.getElementById('mode_status').innerHTML = 'Online'
+      }else{
+        modeDOM.checked = false;
+        document.getElementById('mode_status').innerHTML = 'Offline'
+      }
+      function dynamicText() {
+        if (!modeDOM.checked) {
+          modeDOM.checked = false;
+          document.getElementById('mode_status').innerHTML = 'Offline';
+        } else {
+          modeDOM.checked = true;
+          document.getElementById('mode_status').innerHTML = 'Online';
+        }
+      }
+
+      async function transmit(selectedSubCategory) {  
+        var mode = 'online';
+        if (!modeDOM.checked) {
+          mode = 'offline';
+        }
+        const secondLayerForm = document.getElementById('secondLayerForm');
+        document.getElementById('selectedSubCategory').value = selectedSubCategory;
+        document.getElementById('mode').value = mode;
+        secondLayerForm.submit();
+      }
+    </script>
   </body>
 </html>

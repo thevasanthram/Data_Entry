@@ -44,23 +44,43 @@
       </div>
 
       <div id="title-name-content">
-        <img
-          src="./arrow.png"
-          id="go-back-icon"
-          alt="Go Back"
-          onclick="history.back()"
-        />
         <div>
-          <div class="save-reset-content">
-            <button type="button" class="save-button" onclick="validate()">
-              Save
-            </button>
-            <button type="button" class="reset-button" onclick="handleReset()">
-              Reset
-            </button>
+          <div class="sub_container">
+            <img
+              src="./arrow.png"
+              title="Back"
+              id="go-back-icon"
+              alt="Go Back"
+              onclick="document.getElementById('secondLayerForm').submit();"
+            />
+            <p id="title-name">Select Defect :</p>
           </div>
-          <p id="title-name">Select Defect Area :</p>
         </div>
+        <!-- Toggle Switch for online / offline -->
+        <label
+          for="toggle_switch"
+          class="flex items-center cursor-pointer"
+          style="flex-direction: column"
+        >
+          <div class="relative">
+            <input
+              type="checkbox"
+              id="toggle_switch"
+              class="sr-only mode"
+              onclick="dynamicText()"
+            />
+            <div class="block bg-gray-300 w-14 h-8 rounded-full"></div>
+            <div
+              class="dot absolute left-1 top-1 mr-4 bg-white w-6 h-6 rounded-full transition"
+            ></div>
+          </div>
+          <div
+            id="mode_status"
+            class="ml-32 -mt-2 text-gray-300 font-medium text-2xl modeName"
+          >
+            Online
+          </div>
+        </label>
       </div>
       <div class="main-content">
         <form
@@ -147,14 +167,55 @@
           </div>
         </form>
       </div>
+      <div class="save-reset-content">
+        <button type="button" class="save-button" onclick="validate()">
+          Save
+        </button>
+        <button type="button" class="reset-button" onclick="handleReset()">
+          Reset
+        </button>
+      </div>
       <div>
         <form action="/follower" method="get" id="followerForm"></form>
         <form action="/firstlayer" method="post" id="firstLayerform"></form>
+        <form action="/secondlayer" method="post" id="secondLayerForm"></form>
       </div>
-      <form action="/follower" method="get" id="followerForm"></form>
     </div>
 
     <script>
+      modeDOM = document.getElementsByClassName('mode')[0];
+      var mode = '<%= mode %>';
+      if (mode == 'online') {
+        modeDOM.checked = true;
+        document.getElementById('mode_status').innerHTML = 'Online';
+      } else {
+        modeDOM.checked = false;
+        document.getElementById('mode_status').innerHTML = 'Offline';
+      }
+      function dynamicText() {
+        if (!modeDOM.checked) {
+          modeDOM.checked = false;
+          document.getElementById('mode_status').innerHTML = 'Offline';
+          mode = 'offline';
+        } else {
+          modeDOM.checked = true;
+          document.getElementById('mode_status').innerHTML = 'Online';
+          mode = 'online';
+        }
+      }
+
+      async function transmit(selectedSubCategory) {
+        var mode = 'online';
+        if (!modeDOM.checked) {
+          mode = 'offline';
+        }
+        const secondLayerForm = document.getElementById('secondLayerForm');
+        document.getElementById('selectedSubCategory').value =
+          selectedSubCategory;
+        document.getElementById('mode').value = mode;
+        secondLayerForm.submit();
+      }
+
       // first defect button format (autoselect and auto display)
       document
         .getElementById('<%= defectListId[0] %>')
@@ -260,11 +321,15 @@
           var defectLayerFormInputElements =
             document.getElementsByTagName('input');
 
-          Object.values(defectLayerFormInputElements).map((singleInput) => {
-            if (singleInput.value) {
-              defectLayerFormData[singleInput.name] = singleInput.value;
+          Object.values(defectLayerFormInputElements).map(
+            (singleInput, index) => {
+              if (index != 0) {
+                if (singleInput.value) {
+                  defectLayerFormData[singleInput.name] = singleInput.value;
+                }
+              }
             }
-          });
+          );
 
           console.log('defectLayerFormData: ', defectLayerFormData);
 
@@ -281,6 +346,7 @@
               },
               body: JSON.stringify({
                 defectObj: defectLayerFormData,
+                mode,
               }),
             }
           );
@@ -328,10 +394,6 @@
 
       function handleReset() {
         document.getElementById('defectLayerForm').reset();
-      }
-
-      function makeChecked(event) {
-        // console.log(document.getElementById(event.target.id));
       }
     </script>
   </body>

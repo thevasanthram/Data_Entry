@@ -2,7 +2,7 @@
   margin: 0px;
 }
 body {
-  width: 100%;
+  max-width: auto;
   background-color: #282c34;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -11,7 +11,7 @@ body {
 .header {
   width: 100%;
   display: flex;
-  height: 5rem;
+  height: 4.5rem;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -44,24 +44,39 @@ body {
 }
 .selected-message {
   text-align: center;
-  margin-left: 20%;
+  margin-left: 25%;
   padding: 14px;
   font-size: clamp(0.9rem, 1.2vw, 1.3rem);
   color: #eeeeee;
 }
-
-#title-name-content {
-  margin-top: 2%;
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
 }
 
 #title-name-content {
   margin-top: 2%;
+}
+.sub_container {
+  display: flex;
+  justify-content: space-around;
+}
+#title-name-content {
+  margin-top: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 #go-back-icon {
-  float: left;
-  margin-left: 4%;
-  margin-right: 3%;
+  /* float: left; */
+  /* margin-left: 4%; */
+  /* margin-right: 3%; */
   width: 3%;
 }
 

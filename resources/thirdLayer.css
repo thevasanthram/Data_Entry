@@ -64,8 +64,25 @@ body {
   color: #eeeeee;
 }
 
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}
+input:checked ~ .dot {
+  transform: translateX(100%);
+  background-color: #48bb78;
+}
+
+.sub_container {
+  display: flex;
+  justify-content: space-around;
+}
 #title-name-content {
   margin-top: 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 #go-back-icon {
@@ -89,9 +106,6 @@ body {
   width: 70%;
   margin-left: 22%;
   margin-top: 0.5%;
-}
-
-.defect-category-content {
 }
 
 .defect-title-name {
@@ -188,7 +202,7 @@ input[type='checkbox']:hover {
 }
 
 .save-reset-content {
-  margin-top: 36%;
+  margin-top: 28.5%;
   margin-left: 73%;
   font-size: 100%;
   position: absolute;
@@ -398,7 +412,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 /*! LH SIDE MEMBER A-PILLAR  */
 
 .LH_SIDE_MEMBER_A-PILLAR-LHSM700 {
@@ -518,8 +531,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
 .LH_SIDE_MEMBER_A-PILLAR-LHSM709 {
   margin-top: 1.7%;
   width: 5%;
@@ -545,7 +556,6 @@ input[type='checkbox']:hover {
 .LH_SIDE_MEMBER_A-PILLAR-LHSM710:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 /*! LH SIDE MEMBER C-PILLAR LHSM */
 
@@ -614,8 +624,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
 /*! LH SIDE MEMBER B-PILLAR  */
 
 .LH_SIDE_MEMBER_B-PILLAR-LHSM712 {
@@ -674,7 +682,7 @@ input[type='checkbox']:hover {
   margin-top: 44.2%;
   width: 5%;
   margin-left: 25%;
-  padding: 2% 5% .8% 3%;
+  padding: 2% 5% 0.8% 3%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -747,7 +755,6 @@ input[type='checkbox']:hover {
 .LH_SIDE_MEMBER_B-PILLAR-LHSM721:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 /*! LH SIDE MEMBER BACKDOOR OPENING LHSM */
 
@@ -946,7 +953,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 /*! LH SIDE MEMBER FRONT DOOR OPENING */
 
 .LH_SIDE_MEMBER_FRONTDOOROPENING-LHSM727 {
@@ -1005,7 +1011,7 @@ input[type='checkbox']:hover {
   margin-top: 7%;
   width: 5%;
   margin-left: 10.8%;
-  padding: 1.8% 5.5% .1% 2%;
+  padding: 1.8% 5.5% 0.1% 2%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1105,14 +1111,13 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 /*! LH SIDE MEMBER QUARTER LHSM */
 
 .LH_SIDE_MEMBER_QUARTER-LHSM766 {
   margin-top: 11%;
   width: 5%;
   margin-left: 61%;
-  padding: 1.1% 5% .7% 1.4%;
+  padding: 1.1% 5% 0.7% 1.4%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1127,7 +1132,7 @@ input[type='checkbox']:hover {
   margin-left: 64%;
   padding: 2% 5% 1% 0.9%;
   position: absolute;
-  /* background-color: rgba(135, 207, 235, 0.563); */ 
+  /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
 .LH_SIDE_MEMBER_QUARTER-LHSM767:hover {
@@ -1387,7 +1392,7 @@ input[type='checkbox']:hover {
   margin-top: 29.7%;
   width: 5%;
   margin-left: 65%;
-  padding: 3% 8% .67% 2%;
+  padding: 3% 8% 0.67% 2%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1400,7 +1405,7 @@ input[type='checkbox']:hover {
   margin-top: 39.5%;
   width: 5%;
   margin-left: 60%;
-  padding: 2.9% 8% .67% 3%;
+  padding: 2.9% 8% 0.67% 3%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1492,7 +1497,7 @@ input[type='checkbox']:hover {
 .LH_SIDE_MEMBER_ROCKERPANELSIDE-LHSM791 {
   margin-top: 51.1%;
   width: 5%;
-  margin-left: -.2%;
+  margin-left: -0.2%;
   padding: 1.3% 5% 0% 1.2%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
@@ -1531,7 +1536,7 @@ input[type='checkbox']:hover {
 .LH_SIDE_MEMBER_ROCKERPANELSIDE-LHSM794 {
   margin-top: 51.1%;
   width: 5%;
-  margin-left:33.3%;
+  margin-left: 33.3%;
   padding: 1.3% 5% 0% 1.2%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
@@ -1567,14 +1572,13 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 /*! LH SIDE MEMBER ROOF SIDE LHSM */
 
 .LH_SIDE_MEMBER_ROOFSIDE-LHSM783 {
   margin-top: 9.4%;
   width: 5%;
   margin-left: 9.9%;
-  padding: 2.8% 5% .7% 1.7%;
+  padding: 2.8% 5% 0.7% 1.7%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1587,7 +1591,7 @@ input[type='checkbox']:hover {
   margin-top: 9.4%;
   width: 5%;
   margin-left: 21.6%;
-  padding: 2.8% 5% .7% 1.7%;
+  padding: 2.8% 5% 0.7% 1.7%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1600,7 +1604,7 @@ input[type='checkbox']:hover {
   margin-top: 9.4%;
   width: 5%;
   margin-left: 33.4%;
-  padding: 2.8% 5% .7% 1.7%;
+  padding: 2.8% 5% 0.7% 1.7%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1613,7 +1617,7 @@ input[type='checkbox']:hover {
   margin-top: 9.4%;
   width: 5%;
   margin-left: 45.1%;
-  padding: 2.8% 5% .7% 1.7%;
+  padding: 2.8% 5% 0.7% 1.7%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1626,7 +1630,7 @@ input[type='checkbox']:hover {
   margin-top: 9.4%;
   width: 5%;
   margin-left: 56.9%;
-  padding: 2.8% 5% .7% 1.7%;
+  padding: 2.8% 5% 0.7% 1.7%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1639,7 +1643,7 @@ input[type='checkbox']:hover {
   margin-top: 9.4%;
   width: 5%;
   margin-left: 68.6%;
-  padding: 2.8% 5% .7% 1.7%;
+  padding: 2.8% 5% 0.7% 1.7%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1652,7 +1656,7 @@ input[type='checkbox']:hover {
   margin-top: 9.4%;
   width: 5%;
   margin-left: 80.3%;
-  padding: 2.8% 5% .7% 1.7%;
+  padding: 2.8% 5% 0.7% 1.7%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1665,7 +1669,7 @@ input[type='checkbox']:hover {
   margin-top: 9.4%;
   width: 5%;
   margin-left: 91.9%;
-  padding: 2.8% 5% .7% 1.7%;
+  padding: 2.8% 5% 0.7% 1.7%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -1673,9 +1677,6 @@ input[type='checkbox']:hover {
 .LH_SIDE_MEMBER_ROOFSIDE-LHSM790:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
-
-
 
 /* ! LH SHELL BODY MAIN LINE FENDER LHSBML */
 .LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML500 {
@@ -2188,7 +2189,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 /*! LH REAR DOOR OUTER  LHSBML*/
 
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML539 {
@@ -2256,8 +2256,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML544 {
   margin-top: 22.1%;
   width: 5%;
@@ -2284,7 +2282,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML546 {
   margin-top: 23.1%;
   width: 5%;
@@ -2297,7 +2294,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML546:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML547 {
   margin-top: 23.1%;
@@ -2312,7 +2308,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML548 {
   margin-top: 37.2%;
   width: 5%;
@@ -2325,8 +2320,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML548:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
-
 
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML549 {
   margin-top: 37.2%;
@@ -2367,7 +2360,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML552 {
   margin-top: 51.2%;
   width: 5%;
@@ -2380,7 +2372,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML552:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML553 {
   margin-top: 51.2%;
@@ -2395,7 +2386,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML554 {
   margin-top: 51.2%;
   width: 5%;
@@ -2408,7 +2398,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_MAIN-LINE_REARDOOROUTER-LHSBML554:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 /* !LH  REAR DOOR INNER LHSBML */
 
@@ -2595,7 +2584,6 @@ input[type='checkbox']:hover {
 
 /*! LH BACK DOOR OUTER SBML */
 
-
 .LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML569 {
   margin-top: -1.8%;
   width: 5%;
@@ -2648,8 +2636,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
 .LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML573 {
   margin-top: 9.3%;
   width: 5%;
@@ -2662,7 +2648,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML573:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML574 {
   margin-top: 9.3%;
@@ -2729,7 +2714,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML579 {
   margin-top: 28.3%;
   width: 5%;
@@ -2742,7 +2726,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML579:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML580 {
   margin-top: 47.4%;
@@ -2783,7 +2766,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML583{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML583 {
   margin-top: 47.4%;
   width: 5%;
   margin-left: 19%;
@@ -2808,7 +2791,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_MAIN-LINE_BACKDOOROUTER-LHSBML584:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 /*! LH BACK DOOR INNER SBML  */
 
@@ -2838,8 +2820,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML587{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML587 {
   margin-top: -1.6%;
   width: 5%;
   margin-left: 40%;
@@ -2852,7 +2833,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML588{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML588 {
   margin-top: -1.6%;
   width: 5%;
   margin-left: 22%;
@@ -2865,7 +2846,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML589{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML589 {
   margin-top: -1.6%;
   width: 5%;
   margin-left: 3%;
@@ -2878,8 +2859,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML590{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML590 {
   margin-top: 17.5%;
   width: 5%;
   margin-left: -2%;
@@ -2892,7 +2872,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML591{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML591 {
   margin-top: 23.5%;
   width: 5%;
   margin-left: 18%;
@@ -2905,7 +2885,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML592{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML592 {
   margin-top: 23.5%;
   width: 5%;
   margin-left: 39%;
@@ -2918,7 +2898,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML593{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML593 {
   margin-top: 23.5%;
   width: 5%;
   margin-left: 60%;
@@ -2931,7 +2911,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML594{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML594 {
   margin-top: 17.5%;
   width: 5%;
   margin-left: 81%;
@@ -2944,8 +2924,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML595{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML595 {
   margin-top: 36.6%;
   width: 5%;
   margin-left: 77%;
@@ -2958,7 +2937,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML596{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML596 {
   margin-top: 55.7%;
   width: 5%;
   margin-left: 72%;
@@ -2971,7 +2950,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML597{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML597 {
   margin-top: 55.7%;
   width: 5%;
   margin-left: 57%;
@@ -2984,8 +2963,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML598{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML598 {
   margin-top: 55.7%;
   width: 5%;
   margin-left: 42%;
@@ -2998,8 +2976,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML599{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML599 {
   margin-top: 55.7%;
   width: 5%;
   margin-left: 27%;
@@ -3012,8 +2989,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML600{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML600 {
   margin-top: 55.6%;
   width: 5%;
   margin-left: 8%;
@@ -3026,7 +3002,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML601{
+.LH_SHELL_BODY_MAIN-LINE_BACKDOORINNER-LHSBML601 {
   margin-top: 36.6%;
   width: 5%;
   margin-left: 2%;
@@ -3041,7 +3017,6 @@ input[type='checkbox']:hover {
 
 /* !LH SHELL BODY SUB LINE FRONTDOOR OUTER LHSBML */
 
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA300 {
   margin-top: 8%;
   width: 5%;
@@ -3054,7 +3029,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA300:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA301 {
   margin-top: 2%;
@@ -3069,7 +3043,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA302 {
   margin-top: -1%;
   width: 5%;
@@ -3082,7 +3055,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA302:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA303 {
   margin-top: -1%;
@@ -3097,7 +3069,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA304 {
   margin-top: 10.1%;
   width: 5%;
@@ -3110,7 +3081,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA304:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA305 {
   margin-top: 20.2%;
@@ -3125,8 +3095,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA306{
+.LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA306 {
   margin-top: 20%;
   width: 5%;
   margin-left: 52.3%;
@@ -3152,8 +3121,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA308{
+.LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA308 {
   margin-top: 22.1%;
   width: 5%;
   margin-left: 20.5%;
@@ -3165,7 +3133,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA308:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA309 {
   margin-top: 34.35%;
@@ -3180,8 +3147,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA310 {
   margin-top: 34.35%;
   width: 5%;
@@ -3194,7 +3159,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA310:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA311 {
   margin-top: 34.35%;
@@ -3209,7 +3173,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA312 {
   margin-top: 34.35%;
   width: 5%;
@@ -3223,7 +3186,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA313 {
   margin-top: 51.4%;
   width: 5%;
@@ -3236,7 +3198,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA313:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA314 {
   margin-top: 51.4%;
@@ -3263,7 +3224,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA315:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOOROUTER-LHSBSA316 {
   margin-top: 51.4%;
@@ -3293,7 +3253,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA318 {
   margin-top: 1%;
   width: 5%;
@@ -3320,7 +3279,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA320 {
   margin-top: -2%;
   width: 5%;
@@ -3333,7 +3291,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA320:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA321 {
   margin-top: 14.1%;
@@ -3360,7 +3317,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA322:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA323 {
   margin-top: 26.3%;
@@ -3440,7 +3396,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA329 {
   margin-top: 51.6%;
   width: 5%;
@@ -3453,7 +3408,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA329:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA330 {
   margin-top: 51.6%;
@@ -3468,7 +3422,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_FRONTDOORINNER-LHSBSA331 {
   margin-top: 42.4%;
   width: 5%;
@@ -3482,10 +3435,9 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 /*! SUB LINE REAR DOOR OUTER */
 
-.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA365{
+.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA365 {
   margin-top: 8.1%;
   width: 5%;
   margin-left: 21%;
@@ -3498,7 +3450,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA366{
+.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA366 {
   margin-top: -2%;
   width: 5%;
   margin-left: 26%;
@@ -3524,7 +3476,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA368{
+.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA368 {
   margin-top: -2%;
   width: 5%;
   margin-left: 56%;
@@ -3550,9 +3502,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
-.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA370{
+.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA370 {
   margin-top: 22.1%;
   width: 5%;
   margin-left: 63%;
@@ -3578,7 +3528,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA372 {
   margin-top: 23.1%;
   width: 5%;
@@ -3591,7 +3540,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA372:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA373 {
   margin-top: 23.1%;
@@ -3606,7 +3554,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA374 {
   margin-top: 37.2%;
   width: 5%;
@@ -3620,9 +3567,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
-.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA375{
+.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA375 {
   margin-top: 37.2%;
   width: 5%;
   margin-left: 33%;
@@ -3635,7 +3580,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA376{
+.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA376 {
   margin-top: 37.2%;
   width: 5%;
   margin-left: 48%;
@@ -3648,7 +3593,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA377{
+.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA377 {
   margin-top: 37.2%;
   width: 5%;
   margin-left: 63%;
@@ -3660,7 +3605,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA377:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA378 {
   margin-top: 51.2%;
@@ -3675,8 +3619,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA379{
+.LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA379 {
   margin-top: 51.2%;
   width: 5%;
   margin-left: 35%;
@@ -3688,7 +3631,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA379:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_REARDOOROUTER-LHSBSA380 {
   margin-top: 51.2%;
@@ -3757,7 +3699,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_REARDOORINNER-LHSBSA385{
+.LH_SHELL_BODY_SUB-LINE_REARDOORINNER-LHSBSA385 {
   margin-top: 8%;
   width: 5%;
   margin-left: 19%;
@@ -3795,7 +3737,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_REARDOORINNER-LHSBSA387:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_REARDOORINNER-LHSBSA388 {
   margin-top: 22.1%;
@@ -3862,7 +3803,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_REARDOORINNER-LHSBSA393{
+.LH_SHELL_BODY_SUB-LINE_REARDOORINNER-LHSBSA393 {
   margin-top: 50.3%;
   width: 5%;
   margin-left: 29%;
@@ -3888,12 +3829,9 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
 /*! LH SUB BACK DOOR OUTER SBSA */
 
-
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA332{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA332 {
   margin-top: -1.8%;
   width: 5%;
   margin-left: 11%;
@@ -3932,7 +3870,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA335{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA335 {
   margin-top: -1.8%;
   width: 5%;
   margin-left: 68%;
@@ -3945,9 +3883,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA336{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA336 {
   margin-top: 9.3%;
   width: 5%;
   margin-left: 77%;
@@ -3960,8 +3896,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA337{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA337 {
   margin-top: 9.3%;
   width: 5%;
   margin-left: -2%;
@@ -3974,7 +3909,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA338{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA338 {
   margin-top: 28.3%;
   width: 5%;
   margin-left: 1%;
@@ -3987,7 +3922,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA339{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA339 {
   margin-top: 28.3%;
   width: 5%;
   margin-left: 19%;
@@ -4000,7 +3935,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA340{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA340 {
   margin-top: 28.3%;
   width: 5%;
   margin-left: 37%;
@@ -4026,7 +3961,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 .LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA342 {
   margin-top: 28.3%;
   width: 5%;
@@ -4039,7 +3973,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA342:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 .LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA343 {
   margin-top: 47.4%;
@@ -4054,7 +3987,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA344{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA344 {
   margin-top: 47.4%;
   width: 5%;
   margin-left: 55%;
@@ -4067,7 +4000,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA345{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA345 {
   margin-top: 47.4%;
   width: 5%;
   margin-left: 37%;
@@ -4080,7 +4013,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA346{
+.LH_SHELL_BODY_SUB-LINE_BACKDOOROUTER-LHSBSA346 {
   margin-top: 47.4%;
   width: 5%;
   margin-left: 19%;
@@ -4134,8 +4067,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA350{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA350 {
   margin-top: -1.6%;
   width: 5%;
   margin-left: 40%;
@@ -4148,7 +4080,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA351{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA351 {
   margin-top: -1.6%;
   width: 5%;
   margin-left: 22%;
@@ -4161,7 +4093,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA352{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA352 {
   margin-top: -1.6%;
   width: 5%;
   margin-left: 3%;
@@ -4174,8 +4106,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA353{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA353 {
   margin-top: 17.5%;
   width: 5%;
   margin-left: -2%;
@@ -4188,7 +4119,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA354{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA354 {
   margin-top: 23.5%;
   width: 5%;
   margin-left: 18%;
@@ -4201,7 +4132,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA355{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA355 {
   margin-top: 23.5%;
   width: 5%;
   margin-left: 39%;
@@ -4214,7 +4145,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA356{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA356 {
   margin-top: 23.5%;
   width: 5%;
   margin-left: 60%;
@@ -4227,7 +4158,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA357{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA357 {
   margin-top: 17.5%;
   width: 5%;
   margin-left: 81%;
@@ -4240,8 +4171,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA358{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA358 {
   margin-top: 36.6%;
   width: 5%;
   margin-left: 77%;
@@ -4254,7 +4184,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA359{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA359 {
   margin-top: 55.7%;
   width: 5%;
   margin-left: 72%;
@@ -4267,7 +4197,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA360{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA360 {
   margin-top: 55.7%;
   width: 5%;
   margin-left: 57%;
@@ -4280,8 +4210,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA361{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA361 {
   margin-top: 55.7%;
   width: 5%;
   margin-left: 42%;
@@ -4294,8 +4223,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA362{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA362 {
   margin-top: 55.7%;
   width: 5%;
   margin-left: 27%;
@@ -4308,8 +4236,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA363{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA363 {
   margin-top: 55.6%;
   width: 5%;
   margin-left: 8%;
@@ -4322,7 +4249,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA364{
+.LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA364 {
   margin-top: 36.6%;
   width: 5%;
   margin-left: 2%;
@@ -4334,8 +4261,6 @@ input[type='checkbox']:hover {
 .LH_SHELL_BODY_SUB-LINE_BACKDOORINNER-LHSBSA364:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
-
 
 /*! LH SIDE MEMBER B-PILLAR  LHMB*/
 
@@ -4352,7 +4277,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_B-PILLAR-LHMB1101{
+.LH_MAIN_BODY_B-PILLAR-LHMB1101 {
   margin-top: 18%;
   width: 5%;
   margin-left: 29%;
@@ -4395,7 +4320,7 @@ input[type='checkbox']:hover {
   margin-top: 44.2%;
   width: 5%;
   margin-left: 25%;
-  padding: 2% 5% .8% 3%;
+  padding: 2% 5% 0.8% 3%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -4417,7 +4342,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_B-PILLAR-LHMB1106{
+.LH_MAIN_BODY_B-PILLAR-LHMB1106 {
   margin-top: 45%;
   width: 5%;
   margin-left: 38%;
@@ -4430,7 +4355,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_B-PILLAR-LHMB1107{
+.LH_MAIN_BODY_B-PILLAR-LHMB1107 {
   margin-top: 34.9%;
   width: 5%;
   margin-left: 38%;
@@ -4443,7 +4368,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_B-PILLAR-LHMB1108{
+.LH_MAIN_BODY_B-PILLAR-LHMB1108 {
   margin-top: 26%;
   width: 5%;
   margin-left: 38%;
@@ -4456,7 +4381,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_B-PILLAR-LHMB1109{
+.LH_MAIN_BODY_B-PILLAR-LHMB1109 {
   margin-top: 18%;
   width: 5%;
   margin-left: 40%;
@@ -4469,11 +4394,9 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
 /*! LH MAIN BODY A-PILLAR  */
 
-.LH_MAIN_BODY_A-PILLAR-LHMB1110{
+.LH_MAIN_BODY_A-PILLAR-LHMB1110 {
   margin-top: 48%;
   width: 5%;
   margin-left: -7%;
@@ -4512,7 +4435,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_A-PILLAR-LHMB1113{
+.LH_MAIN_BODY_A-PILLAR-LHMB1113 {
   margin-top: 23.8%;
   width: 5%;
   margin-left: -7%;
@@ -4525,7 +4448,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_A-PILLAR-LHMB1114{
+.LH_MAIN_BODY_A-PILLAR-LHMB1114 {
   margin-top: 15.6%;
   width: 5%;
   margin-left: -7%;
@@ -4564,7 +4487,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_A-PILLAR-LHMB1117{
+.LH_MAIN_BODY_A-PILLAR-LHMB1117 {
   margin-top: 18.9%;
   width: 5%;
   margin-left: 4%;
@@ -4590,8 +4513,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
 .LH_MAIN_BODY_A-PILLAR-LHMB1119 {
   margin-top: 1.7%;
   width: 5%;
@@ -4605,7 +4526,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_A-PILLAR-LHMB1120{
+.LH_MAIN_BODY_A-PILLAR-LHMB1120 {
   margin-top: 2%;
   width: 5%;
   margin-left: 29%;
@@ -4633,7 +4554,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_C-PILLAR-LHMB1122{
+.LH_MAIN_BODY_C-PILLAR-LHMB1122 {
   margin-top: 19.7%;
   width: 5%;
   margin-left: 65%;
@@ -4646,7 +4567,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_C-PILLAR-LHMB1123{
+.LH_MAIN_BODY_C-PILLAR-LHMB1123 {
   margin-top: 28.3%;
   width: 5%;
   margin-left: 65%;
@@ -4685,8 +4606,6 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
-
 /*! LH MAIN BODY BACKDOOR OPENING LHMB */
 
 .LH_MAIN_BODY_BACKDOOROPENING-LHMB1126 {
@@ -4715,7 +4634,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_BACKDOOROPENING-LHMB1128{
+.LH_MAIN_BODY_BACKDOOROPENING-LHMB1128 {
   margin-top: 6%;
   width: 5%;
   margin-left: 8.9%;
@@ -4728,7 +4647,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_BACKDOOROPENING-LHMB1129{
+.LH_MAIN_BODY_BACKDOOROPENING-LHMB1129 {
   margin-top: 6%;
   width: 5%;
   margin-left: -2.1%;
@@ -4754,7 +4673,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_BACKDOOROPENING-LHMB1131{
+.LH_MAIN_BODY_BACKDOOROPENING-LHMB1131 {
   margin-top: 15%;
   width: 5%;
   margin-left: 8.9%;
@@ -4806,7 +4725,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_BACKDOOROPENING-LHMB1135{
+.LH_MAIN_BODY_BACKDOOROPENING-LHMB1135 {
   margin-top: 36%;
   width: 5%;
   margin-left: 8.9%;
@@ -4871,7 +4790,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_BACKDOOROPENING-LHMB1140{
+.LH_MAIN_BODY_BACKDOOROPENING-LHMB1140 {
   margin-top: 47%;
   width: 5%;
   margin-left: 41.9%;
@@ -4883,8 +4802,6 @@ input[type='checkbox']:hover {
 .LH_MAIN_BODY_BACKDOOROPENING-LHMB1140:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
-
 
 /*! LH MAIN BODY FRONT DOOR OPENING LHMB */
 
@@ -4914,7 +4831,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1143{
+.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1143 {
   margin-top: 26.2%;
   width: 5%;
   margin-left: 0.16%;
@@ -4927,7 +4844,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1144{
+.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1144 {
   margin-top: 15%;
   width: 5%;
   margin-left: 1%;
@@ -4944,7 +4861,7 @@ input[type='checkbox']:hover {
   margin-top: 7%;
   width: 5%;
   margin-left: 10.8%;
-  padding: 1.8% 5.5% .1% 2%;
+  padding: 1.8% 5.5% 0.1% 2%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -4953,7 +4870,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1146{
+.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1146 {
   margin-top: 7%;
   width: 5%;
   margin-left: 23.2%;
@@ -4966,7 +4883,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1147{
+.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1147 {
   margin-top: 7%;
   width: 5%;
   margin-left: 33.9%;
@@ -5005,7 +4922,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1150{
+.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1150 {
   margin-top: 34.8%;
   width: 5%;
   margin-left: 28%;
@@ -5031,7 +4948,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1152{
+.LH_MAIN_BODY_FRONTDOOROPENING-LHMB1152 {
   margin-top: 45.6%;
   width: 5%;
   margin-left: 11.3%;
@@ -5044,14 +4961,13 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-
 /*! LH MAIN BODY QUARTER LHSM */
 
 .LH_MAIN_BODY_QUARTER-LHMB1153 {
   margin-top: 11%;
   width: 5%;
   margin-left: 61%;
-  padding: 1.1% 5% .7% 1.4%;
+  padding: 1.1% 5% 0.7% 1.4%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -5066,7 +4982,7 @@ input[type='checkbox']:hover {
   margin-left: 64%;
   padding: 2% 5% 1% 0.9%;
   position: absolute;
-  /* background-color: rgba(135, 207, 235, 0.563); */ 
+  /* background-color: rgba(135, 207, 235, 0.563); */
 }
 
 .LH_MAIN_BODY_QUARTER-LHMB1154:hover {
@@ -5125,7 +5041,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_QUARTER-LHMB1159{
+.LH_MAIN_BODY_QUARTER-LHMB1159 {
   margin-top: 11%;
   width: 5%;
   margin-left: 83.4%;
@@ -5203,7 +5119,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_QUARTER-LHMB1165{
+.LH_MAIN_BODY_QUARTER-LHMB1165 {
   margin-top: 27.6%;
   width: 5%;
   margin-left: 85.9%;
@@ -5216,7 +5132,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_QUARTER-LHMB1166{
+.LH_MAIN_BODY_QUARTER-LHMB1166 {
   margin-top: 27.6%;
   width: 5%;
   margin-left: 96.7%;
@@ -5267,7 +5183,6 @@ input[type='checkbox']:hover {
 .LH_MAIN_BODY_QUARTER-LHMB1169:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-
 
 /*! LH MAIN BODY REARDOOROPENING LHMB */
 
@@ -5327,7 +5242,7 @@ input[type='checkbox']:hover {
   margin-top: 29.7%;
   width: 5%;
   margin-left: 65%;
-  padding: 3% 8% .67% 2%;
+  padding: 3% 8% 0.67% 2%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -5340,7 +5255,7 @@ input[type='checkbox']:hover {
   margin-top: 39.5%;
   width: 5%;
   margin-left: 60%;
-  padding: 2.9% 8% .67% 3%;
+  padding: 2.9% 8% 0.67% 3%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
 }
@@ -5429,11 +5344,10 @@ input[type='checkbox']:hover {
 
 /* ! LH SIDE MEMBER ROCKER PANEL DIDE LHSM */
 
-
 .LH_MAIN_BODY_ROCKERPANELSIDE-LHMB1182 {
   margin-top: 51.1%;
   width: 5%;
-  margin-left: -.2%;
+  margin-left: -0.2%;
   padding: 1.3% 5% 0% 1.2%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
@@ -5443,7 +5357,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_ROCKERPANELSIDE-LHMB1183{
+.LH_MAIN_BODY_ROCKERPANELSIDE-LHMB1183 {
   margin-top: 51.1%;
   width: 5%;
   margin-left: 11%;
@@ -5469,10 +5383,10 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_ROCKERPANELSIDE-LHMB1185{
+.LH_MAIN_BODY_ROCKERPANELSIDE-LHMB1185 {
   margin-top: 51.1%;
   width: 5%;
-  margin-left:33.3%;
+  margin-left: 33.3%;
   padding: 1.3% 5% 0% 1.2%;
   position: absolute;
   /* background-color: rgba(135, 207, 235, 0.563); */
@@ -5495,7 +5409,7 @@ input[type='checkbox']:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
 
-.LH_MAIN_BODY_ROCKERPANELSIDE-LHMB1187{
+.LH_MAIN_BODY_ROCKERPANELSIDE-LHMB1187 {
   margin-top: 51.1%;
   width: 5%;
   margin-left: 55.6%;
@@ -5507,4 +5421,3 @@ input[type='checkbox']:hover {
 .LH_MAIN_BODY_ROCKERPANELSIDE-LHMB1187:hover {
   background-color: rgba(135, 207, 235, 0.563);
 }
-

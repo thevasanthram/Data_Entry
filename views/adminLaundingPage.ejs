@@ -81,22 +81,31 @@
                         <option value="Color Map">Color Map</option>
                       </select>
                     </div>
+                  </div>
+                  <label for="toggle_switch" class="flex items-center cursor-pointer">
+                    <div class="relative">
+                      <input type="checkbox" id="toggle_switch" class="sr-only modeNavBar" onclick="navBarToggleSwitch()">
+                      <div class="block bg-gray-900 w-14 h-8 rounded-full"></div>
+                      <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                     </div>
-                    <div class="button_container">
-                      <button type="button" id="filtering-condition-submit-button" onclick="validate('bar')"
-                      style="background: linear-gradient(
-                      to right, #0f0c29, #302b63, #24243e 
-                      );"
-                      class=" bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                      >Generate</button>
-                     <button type="button" id="htmlToPdf" onclick="UniPDf()"
-                     style="background: linear-gradient(
-                      to right, #0f0c29, #302b63, #24243e 
-                      );"
-                      class="download_btn bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"         
-                      >Export</button>
+                    <div id="modeNameNavBar" class="ml-2 text-gray-900 font-medium text-2xl">
+                      Offline
                     </div>
-                     
+                  </label>
+                  <div class="button_container">
+                    <button type="button" id="filtering-condition-submit-button" onclick="validate('bar')"
+                    style="background: linear-gradient(
+                    to right, #0f0c29, #302b63, #24243e 
+                    );"
+                    class=" bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                    >Generate</button>
+                    <button type="button" id="htmlToPdf" onclick="UniPDf()"
+                    style="background: linear-gradient(
+                    to right, #0f0c29, #302b63, #24243e 
+                    );"
+                    class="download_btn bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"         
+                    >Export</button>
+                  </div>    
                 </div>
               </form>
             </div> 
@@ -113,13 +122,13 @@
                 <!-- Toggle Switch for online / offline -->
                 <div id="toggle" class="mt-6 ml-24" >
                   <div class="flex w-full mb-12"> 
-                    <label for="toggle_switch" class="flex items-center cursor-pointer">
+                    <label for="toggle_switch_outside" class="flex items-center cursor-pointer">
                       <div class="relative">
-                        <input type="checkbox" id="toggle_switch" class="sr-only mode" onclick="dynamicText()">
+                        <input type="checkbox" id="toggle_switch_outside" class="sr-only modeTailwind" onclick="tailwindToggleSwitch()">
                         <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
                         <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                       </div>
-                      <div class="ml-2 text-gray-800 font-medium text-2xl mode-name">
+                      <div class="ml-2 text-gray-800 font-medium text-2xl modeNameTailwind">
                         Offline
                       </div>
                     </label>
@@ -193,12 +202,31 @@
       var firstSection;
       var mode = 'offline'
 
-      function dynamicText(){
-        var modeDOM = document.getElementsByClassName('mode')[0]
+      function tailwindToggleSwitch(){
+        var modeDOM = document.getElementsByClassName('modeTailwind')[0]
+
         if(modeDOM.checked){
-          document.getElementsByClassName('mode-name')[0].innerHTML = 'Online'
+          document.getElementsByClassName('modeNameTailwind')[0].innerHTML = 'Online'
+          document.getElementsByClassName('modeNavBar')[0].checked = true
+          document.getElementById('modeNameNavBar').innerHTML = 'Online'
         }else{
-          document.getElementsByClassName('mode-name')[0].innerHTML = 'Offline'
+          document.getElementsByClassName('modeNameTailwind')[0].innerHTML = 'Offline'
+          document.getElementsByClassName('modeNavBar')[0].checked = false
+          document.getElementById('modeNameNavBar').innerHTML = 'Offline'
+        }
+      }
+
+      function navBarToggleSwitch(){
+        var modeDOM = document.getElementsByClassName('modeNavBar')[0]
+
+        if(modeDOM.checked){
+          document.getElementById('modeNameNavBar').innerHTML = 'Online'
+          document.getElementsByClassName('modeTailwind')[0].checked = true
+          document.getElementsByClassName('modeNameTailwind')[0].innerHTML = 'Online'
+        }else{
+          document.getElementById('modeNameNavBar').innerHTML = 'Offline'
+          document.getElementsByClassName('modeTailwind')[0].checked = false
+          document.getElementsByClassName('modeNameTailwind')[0].innerHTML = 'Offline'
         }
       }
 
@@ -238,10 +266,13 @@
 
       function generateReport(){
         // checking mode
-        var modeDOM = document.getElementsByClassName('mode')[0]
+        var modeDOM = document.getElementsByClassName('modeTailwind')[0]
         if(modeDOM.checked){
           mode = 'online'
+        }else{
+          mode = 'offline'
         }
+        console.log('mode: ',mode)
         var report = document.getElementById('chart-condition-input').value;
         document.getElementById('report-topic').style.color = '#ffffff'
         document.getElementById('report-topic-data').innerHTML = document.getElementById('chart-condition-input').value
@@ -409,9 +440,6 @@
           tblDataforBodyNumbers.style.padding = '0.5%'
           tblDataforBodyNumbers.style.textAlign = 'center'
           tblRowforProduction.appendChild(tblDataforBodyNumbers)
-          console.log("tblDataforProduction", tblDataforProduction)
-
-          
         }).catch((error) => {
           console.log(error)
         })
@@ -726,7 +754,7 @@
 
         // function for navigating to the corresponding group function
         function masterNavigate(event){
-          document.getElementById(`${event.dataPoint.label.replace(' ','')}_GroupTotalDPV`).scrollIntoView({ behavior: "smooth" })
+          document.getElementById(`${event.dataPoint.label.replace(' ','')}_titleName`).scrollIntoView({ behavior: "smooth" })
           // console.log('id: ',event.dataPoint.label.replace(' ',''))
         }
 
@@ -769,7 +797,7 @@
         var groupWiseMajorDefectChart = [];
         var groupWiseMajorSubDefectChart = [];
         var divElementHolder = document.createElement('div')
-        divElementHolder.style.marginTop='33%'
+        // divElementHolder.style.marginTop='33%'
         divElementHolder.id = 'AllGroupChartDivision'
         reportContent.appendChild(divElementHolder)
 
@@ -905,7 +933,7 @@
             // storing all the zones in list for chartStacked configuration
           let TotalZones = []
           Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
-            TotalZones.push(...majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName])
+            TotalZones.push(...Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName]))
           })
           let TotalZonesSet = new Set(TotalZones)
           TotalZones = Array.from(TotalZonesSet)
@@ -914,7 +942,7 @@
           TotalZones.map( (singleZone) => {
             let dataPoints = []
             Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
-              if(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName].includes(singleZone)){
+              if(Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName]).includes(singleZone)){
                 dataPoints.push({y:1, label: subCategoryName})
               }else{
                 dataPoints.push({y:0, label: subCategoryName})
