@@ -1080,9 +1080,8 @@
         const tabDivision = document.createElement('div')
         tabDivision.id = 'tabDivision'
         tabDivision.style.marginLeft = '20%'
-        document.getElementById('reportChild').appendChild(tabDivision)
-        document.getElementById('report-topic-data').style.cssFloat = 'left'
-        
+        tabDivision.style.display = 'block'
+        document.getElementById('reportChild').appendChild(tabDivision)        
 
         // function for only showing corresponding defect division
         function showDefectPareto(clickedDefect){
