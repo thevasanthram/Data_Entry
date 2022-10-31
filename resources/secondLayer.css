@@ -64,6 +64,7 @@ body {
 }
 .selected-message {
   text-align: center;
+  line-height: 0.9;
   margin-left: 12%;
   margin-right: 5%;
   padding: 14px;
@@ -88,12 +89,14 @@ input:checked ~ .dot {
 }
 .sub_container {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
+  margin: 2%;
+  gap: 2rem;
   align-items: center;
 }
 
 #go-back-icon {
-  max-width: 7%;
+  max-width: 6%;
 }
 
 #go-back-icon:hover {
@@ -110,17 +113,25 @@ input:checked ~ .dot {
   padding: 5px;
 }
 .main-content {
-  width: 70%;
-  margin-left: 15%;
-  margin-top: 1%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 10px;
+  margin:0 15%  0 15%; 
 }
 
 .form-content {
   cursor: pointer;
-  width: 35%;
+  font-size: 120%;
+  padding: 2%;
+  margin: 5%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: #f0e3e3;
+  text-align: center;
 }
 
-#second-layer-button-first-set1 {
+/* #second-layer-button-first-set1 {
   font-size: 130%;
   padding: 2%;
   margin: 1%;
@@ -244,8 +255,8 @@ input:checked ~ .dot {
   border-radius: 4px;
   background-color: black;
   color: white;
-}
-
+} */
+/* 
 #second-layer-button-second-set1 {
   font-size: 130%;
   padding: 2%;
@@ -363,4 +374,4 @@ input:checked ~ .dot {
   border-radius: 4px;
   background-color: black;
   color: white;
-}
+} */

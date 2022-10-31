@@ -64,6 +64,7 @@ body {
 }
 .selected-message {
   text-align: center;
+  line-height: 0.9;
   margin-left: 25%;
   padding: 14px;
   font-size: clamp(0.9rem, 1.2vw, 1.3rem);
@@ -87,12 +88,13 @@ input:checked ~ .dot {
 }
 .sub_container {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
+  margin: 2%;
+  gap: 2rem;
   align-items: center;
 }
 
-#go-back-icon {
-  
+#go-back-icon { 
   max-width: 7%;
 }
 
@@ -109,15 +111,15 @@ input:checked ~ .dot {
   margin-right: 2rem;
   padding: 5px;
 }
-.connectionMode {
+/* .connectionMode {
   position: absolute;
   margin-top: 3%;
   margin-left: 75%;
   font-size: 130%;
   width: 20%;
   color: white;
-}
-
+} */
+/* 
 .connectionModeOnline {
   float: left;
 }
@@ -132,15 +134,27 @@ input:checked ~ .dot {
 #offlineModeRadioButton {
   margin-top: 5%;
   float: left;
-}
+} */
 
 .main-content {
-  width: 60%;
-  margin-left: 20%;
-  /* margin-top: 1%; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 10px;
+  margin:2% 15%  0 15%; 
+}
+.form-content {
+  cursor: pointer;
+  font-size: 120%;
+  padding: 2%;
+  margin: 5%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: #f0e3e3;
+  text-align: center;
 }
 
-#first-layer-button1 {
+/* #first-layer-button1 {
   font-size: 130%;
   padding: 2%;
   margin: 2%;
@@ -226,9 +240,5 @@ input:checked ~ .dot {
   border-radius: 4px;
   background-color: black;
   color: white;
-}
+} */
 
-.form-content {
-  cursor: pointer;
-  width: 35%;
-}
