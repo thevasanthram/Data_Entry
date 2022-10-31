@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./thirdLayer.css" />
     <title>Data Entry System</title>
-    <!-- <link
+    <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
     /> -->
-    <!-- <script  src="https://cdn.tailwindcss.com"></script> -->
-    <!-- <script src="../resources/tailwind.config.js"></script> -->
+    <script  src="https://cdn.tailwindcss.com"></script>
+    <script src="../resources/tailwind.config.js"></script>
   </head>
   <body>
     <div>
@@ -44,8 +44,36 @@
           </button>
         </form>
       </div>
-
       <div id="title-name-content">
+        <div class="sub_container">
+          <img
+            src="./arrow.png"
+            title="Back"
+            id="go-back-icon"
+            alt="Go Back"
+            onclick="document.getElementById('secondLayerForm').submit();"
+          />
+          <p id="title-name">Select Defect :</p>
+        </div>
+      <!-- Toggle Switch for online / offline -->
+      <div id="toggle" class="mt-8 ml-24" >
+        <div class="flex w-full mb-12"> 
+          <label for="toggle_switch" class="flex items-center cursor-pointer"
+          style="justify-content:center ;">
+            <div class="relative">
+              <input type="checkbox" id="toggle_switch" class="sr-only mode" onclick="dynamicText()">
+              <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+              <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+            </div>
+            <div class="ml-2 text-gray-300 font-medium text-2xl "
+            id="mode_status">
+              Online
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+      <!-- <div id="title-name-content">
         <div>
           <div class="sub_container">
             <img
@@ -58,8 +86,8 @@
             <p id="title-name">Select Defect :</p>
           </div>
         </div>
-        <!-- Toggle Switch for online / offline -->
-        <label
+         <!-- Toggle Switch for online / offline  -->
+        <!-- <label 
           for="toggle_switch"
           class="flex items-center cursor-pointer"
           style="flex-direction: column"
@@ -83,7 +111,7 @@
             Online
           </div>
         </label>
-      </div>
+      </div> -->
       <div class="main-content">
         <form
           id="defectLayerForm"
