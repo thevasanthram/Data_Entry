@@ -39,12 +39,7 @@ body {
   font-weight: 700;
   font-size: clamp(1.2rem, 2.2vw, 1.8rem);
 }
-/* .button-logout {
-  display: flex;
-  align-items: center;
-  padding-right: 2%;
-  margin-right: 5%;
-} */
+
 .button-logout {
   display: flex;
   align-items: center;
@@ -111,30 +106,6 @@ input:checked ~ .dot {
   margin-right: 2rem;
   padding: 5px;
 }
-/* .connectionMode {
-  position: absolute;
-  margin-top: 3%;
-  margin-left: 75%;
-  font-size: 130%;
-  width: 20%;
-  color: white;
-} */
-/* 
-.connectionModeOnline {
-  float: left;
-}
-
-#connectionModeOnlineText {
-  float: right;
-}
-
-.connectionModeOffline {
-  margin-left: 35%;
-}
-#offlineModeRadioButton {
-  margin-top: 5%;
-  float: left;
-} */
 
 .main-content {
   display: grid;
@@ -153,92 +124,3 @@ input:checked ~ .dot {
   color: #f0e3e3;
   text-align: center;
 }
-
-/* #first-layer-button1 {
-  font-size: 130%;
-  padding: 2%;
-  margin: 2%;
-  margin-left: 33%;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-}
-#first-layer-button2 {
-  font-size: 130%;
-  padding: 2%;
-  margin: 2%;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-  float: right;
-}
-#first-layer-button3 {
-  font-size: 130%;
-  padding: 2%;
-  margin: 2%;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-}
-#first-layer-button4 {
-  font-size: 130%;
-  padding: 2%;
-  margin: 2%;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-  float: right;
-}
-#first-layer-button5 {
-  font-size: 130%;
-  padding: 2%;
-  margin: 2%;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-}
-#first-layer-button6 {
-  font-size: 130%;
-  padding: 2%;
-  margin: 2%;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-  float: right;
-}
-#first-layer-button7 {
-  font-size: 130%;
-  padding: 2%;
-  margin: 2%;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-}
-#first-layer-button8 {
-  font-size: 130%;
-  padding: 2%;
-  margin: 2%;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-  float: right;
-}
-
-#first-layer-button9 {
-  font-size: 130%;
-  padding: 2%;
-  margin: 2%;
-  border: 1px solid #64666a;
-  border-radius: 4px;
-  background-color: black;
-  color: white;
-} */
-
