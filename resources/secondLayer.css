@@ -39,7 +39,12 @@ body {
   font-weight: 700;
   font-size: clamp(1.2rem, 2.2vw, 1.8rem);
 }
-
+/* .button-logout {
+  display: flex;
+  align-items: center;
+  padding-right: 2%;
+  margin-right: 5%;
+} */
 .button-logout {
   display: flex;
   align-items: center;
@@ -125,3 +130,248 @@ input:checked ~ .dot {
   color: #f0e3e3;
   text-align: center;
 }
+
+/* #second-layer-button-first-set1 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-first-set2 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-first-set3 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-first-set4 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-first-set5 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-first-set6 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-first-set7 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-first-set8 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-first-set9 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-first-set10 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-first-set11 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-first-set12 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+} */
+/* 
+#second-layer-button-second-set1 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  margin-left: 32%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+#second-layer-button-second-set2 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+#second-layer-button-second-set3 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+#second-layer-button-second-set4 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+#second-layer-button-second-set5 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+#second-layer-button-second-set6 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-second-set7 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+#second-layer-button-second-set8 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+
+#second-layer-button-second-set9 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-second-set10 {
+  font-size: 120%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+  float: right;
+}
+#second-layer-button-second-set11 {
+  font-size: 130%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+}
+
+#second-layer-button-second-set12 {
+  font-size: 10%;
+  padding: 2%;
+  margin: 1%;
+  border: 1px solid #64666a;
+  border-radius: 4px;
+  background-color: black;
+  color: white;
+} */

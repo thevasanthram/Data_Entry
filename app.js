@@ -11,7 +11,7 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   password: 'admin',
-  port: 5432,                   
+  port: 5432,
 });
 console.log(
   'Please, wait for Database confirmation message. Start, once you receive'
@@ -67,21 +67,6 @@ pool.query(
 );
 
 const Options = {
-  'UNDER BODY': {
-    'RH APRON': ['1', '2', '3', '4'],
-    'LH APRON': ['5', '6', '7', '8'],
-    'FRONT FLOOR TOP SIDE': ['9', '10', '11', '12'],
-    'FRONT FLOOR BOTTOM SIDE': ['13', '14', '15', '16'],
-    'CENTER FLOOR TOP SIDE': ['17', '18', '19', '20'],
-    'CENTER FLOOR BOTTOM SIDE': ['21', '22', '23', '24'],
-    'REAR FLOOR TOP SIDE': ['25', '26', '27', '28'],
-    'REAR FLOOR BOTTOM SIDE': ['29', '30', '31', '32'],
-    'DASH OUTER': ['33', '34', '35', '36'],
-    'DASH INNER': ['37', '38', '39', '40'],
-    'RADIATOR SUPPORT': ['41', '42', '43', '44'],
-    'LOWER BACK': ['45', '46', '47', '48'],
-  },
-
   'RH MAIN BODY': {
     'B-PILLAR - RH MB': ['49', '50', '51', '52'],
     'A-PILLAR - RH MB': ['53', '54', '55', '56'],
@@ -826,6 +811,20 @@ const Options = {
       '790',
     ],
   },
+  'UNDER BODY': {
+    'RH APRON': ['1', '2', '3', '4'],
+    'LH APRON': ['5', '6', '7', '8'],
+    'FRONT FLOOR TOP SIDE': ['9', '10', '11', '12'],
+    'FRONT FLOOR BOTTOM SIDE': ['13', '14', '15', '16'],
+    'CENTER FLOOR TOP SIDE': ['17', '18', '19', '20'],
+    'CENTER FLOOR BOTTOM SIDE': ['21', '22', '23', '24'],
+    'REAR FLOOR TOP SIDE': ['25', '26', '27', '28'],
+    'REAR FLOOR BOTTOM SIDE': ['29', '30', '31', '32'],
+    'DASH OUTER': ['33', '34', '35', '36'],
+    'DASH INNER': ['37', '38', '39', '40'],
+    'RADIATOR SUPPORT': ['41', '42', '43', '44'],
+    'LOWER BACK': ['45', '46', '47', '48'],
+  },
 };
 
 let username = ' ';
@@ -1096,6 +1095,101 @@ app.post('/thirdlayer', (req, res) => {
       categoryId,
       subcategoryId,
       mode,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/zonechecker', async (req, res) => {
+  try {
+    const defectObj = req.body.defectObj;
+    mode = req.body.mode;
+    let filledDefects = {};
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
+    Object.keys(defectObj).map((defect) => {
+      let defectArray = defect.split('_');
+      defectArray[2] = `_${defectArray[2]}`;
+      mod.set(filledDefects, defectArray.join('.'), defectObj[defect]);
+    });
+
+    console.log('filledDefects:', filledDefects);
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let messageObject = {};
+
+    async function storeManager() {
+      // storing the defects or modifying
+      await Promise.all(
+        Object.keys(filledDefects).map(async (defectName) => {
+          await Promise.all(
+            Object.keys(filledDefects[defectName]).map(
+              async (subDefectName) => {
+                await Promise.all(
+                  Object.keys(filledDefects[defectName][subDefectName]).map(
+                    async (zone) => {
+                      const result = await dbConnectedPool.query(
+                        `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone = ${zone.replace(
+                          '_',
+                          ''
+                        )}`
+                      );
+                      if (result.rows.length == 0) {
+                        mod.set(
+                          messageObject,
+                          `New Zone.${zone}.${defectName}.${subDefectName}`,
+                          filledDefects[defectName][subDefectName][zone]
+                        );
+                      } else {
+                        // block to modify existing defect records
+                        mod.set(
+                          messageObject,
+                          `Existing Zone.${zone}.${defectName}.${subDefectName}`,
+                          filledDefects[defectName][subDefectName][zone]
+                        );
+                      }
+                    }
+                  )
+                );
+              }
+            )
+          );
+        })
+      );
+    }
+
+    storeManager().then(() => {
+      res.send(
+        JSON.stringify({
+          status: 'success',
+          data: messageObject,
+        })
+      );
     });
   } catch (err) {
     console.log(err);
