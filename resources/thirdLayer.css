@@ -61,6 +61,7 @@ body {
 
 .selected-message {
   text-align: center;
+  line-height: 0.9;
   margin-left: 12%;
   padding: 14px;
   font-size: clamp(0.8rem, 1vw, 0.9rem);
@@ -84,7 +85,9 @@ input:checked ~ .dot {
 }
 .sub_container {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
+  margin: 2%;
+  gap: 2rem;
   align-items: center;
 }
 
