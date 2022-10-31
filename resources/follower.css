@@ -19,11 +19,12 @@ body {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+    --webkit-appearance: none;
     margin: 0;
 }
+
 input[type=number]{
-  -moz-appearance: textfield;
+  --moz-appearance: textfield;
 }
 
 /* Styling for header part which contain user_name App_Name and LOGOUT btn  */
