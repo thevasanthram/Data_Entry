@@ -4,6 +4,7 @@
 
 body {
   width: 100%;
+  height: 100vh;
   background-color: #222831;
   color: #eeeeee;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -13,7 +14,7 @@ body {
   margin-bottom: 2%;
   background-size: 100%;
   background-position: center;
-  background-position-y: -55%;
+  /* background-position-y: -55%; */
 }
 /* Styling for header part which contain user_name App_Name and LOGOUT btn  */
 .header {
@@ -147,4 +148,22 @@ select {
 
 #body-number-submit-button:hover {
   cursor: pointer;
+}
+
+/*! CSS for Responsive Design  */
+
+@media screen and (max-width: 480px) {
+  
+}
+
+@media screen and (max-width: 768px) {
+  
+}
+
+@media screen and (max-width: 1024px) {
+  
+}
+
+@media screen and (max-width: 1280px) {
+  
 }
