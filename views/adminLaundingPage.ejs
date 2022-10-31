@@ -2447,7 +2447,7 @@
                 visualPresentation.style.backgroundSize = 'contain'
                 visualPresentation.style.position = 'relative'
                 visualPresentation.style.display = 'flex'
-                visualPresentation.style.alignContent = 'center'
+                visualPresentation.style.alignItems = 'center'
                 visualPresentation.style.justifyContent = 'center'
                 visualPresentation.style.flexDirection = 'column'
 
@@ -2461,6 +2461,8 @@
                 Object.keys(data.data[category][subCategory][defect][subDefect]).map( (singleZone) => {
                   let zoneDefectCountData = document.createElement('p')
                   zoneDefectCountData.innerHTML = `Z ${singleZone.replace('_','')}: ${data.data[category][subCategory][defect][subDefect][singleZone]}`
+                  zoneDefectCountData.style.display = 'flex'
+
                   visualPresentation.appendChild(zoneDefectCountData)
                 })
               })
