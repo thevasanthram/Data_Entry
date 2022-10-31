@@ -2463,13 +2463,13 @@
                 // console.log('sub category: ',subCategoryArray)
                 // console.log('categoryCodeSplit: ', categoryCodeSplit)
                 // console.log('sideCodeSplit: ', sideCodeSplit)
-                // console.log('Image name: ',`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
+                console.log('Image name: ',`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
 
                 //displaying zones with defect count
                 Object.keys(data.data[category][subCategory][defect][subDefect]).map( (singleZone) => {
                   let zoneDefectCountData = document.createElement('p')
-                  zoneDefectCountData.className = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
-                  // console.log('id: ',zoneDefectCountData.id)
+                  zoneDefectCountData.id = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
+                  console.log('id: ',zoneDefectCountData.id)
                   zoneDefectCountData.innerHTML = `Z ${singleZone.replace('_','')}: ${data.data[category][subCategory][defect][subDefect][singleZone]}`
                   zoneDefectCountData.style.display = 'flex'
                   
