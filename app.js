@@ -67,21 +67,6 @@ pool.query(
 );
 
 const Options = {
-  'UNDER BODY': {
-    'RH APRON': ['1', '2', '3', '4'],
-    'LH APRON': ['5', '6', '7', '8'],
-    'FRONT FLOOR TOP SIDE': ['9', '10', '11', '12'],
-    'FRONT FLOOR BOTTOM SIDE': ['13', '14', '15', '16'],
-    'CENTER FLOOR TOP SIDE': ['17', '18', '19', '20'],
-    'CENTER FLOOR BOTTOM SIDE': ['21', '22', '23', '24'],
-    'REAR FLOOR TOP SIDE': ['25', '26', '27', '28'],
-    'REAR FLOOR BOTTOM SIDE': ['29', '30', '31', '32'],
-    'DASH OUTER': ['33', '34', '35', '36'],
-    'DASH INNER': ['37', '38', '39', '40'],
-    'RADIATOR SUPPORT': ['41', '42', '43', '44'],
-    'LOWER BACK': ['45', '46', '47', '48'],
-  },
-
   'RH MAIN BODY': {
     'B-PILLAR - RH MB': ['49', '50', '51', '52'],
     'A-PILLAR - RH MB': ['53', '54', '55', '56'],
@@ -825,6 +810,20 @@ const Options = {
       '789',
       '790',
     ],
+  },
+  'UNDER BODY': {
+    'RH APRON': ['1', '2', '3', '4'],
+    'LH APRON': ['5', '6', '7', '8'],
+    'FRONT FLOOR TOP SIDE': ['9', '10', '11', '12'],
+    'FRONT FLOOR BOTTOM SIDE': ['13', '14', '15', '16'],
+    'CENTER FLOOR TOP SIDE': ['17', '18', '19', '20'],
+    'CENTER FLOOR BOTTOM SIDE': ['21', '22', '23', '24'],
+    'REAR FLOOR TOP SIDE': ['25', '26', '27', '28'],
+    'REAR FLOOR BOTTOM SIDE': ['29', '30', '31', '32'],
+    'DASH OUTER': ['33', '34', '35', '36'],
+    'DASH INNER': ['37', '38', '39', '40'],
+    'RADIATOR SUPPORT': ['41', '42', '43', '44'],
+    'LOWER BACK': ['45', '46', '47', '48'],
   },
 };
 
