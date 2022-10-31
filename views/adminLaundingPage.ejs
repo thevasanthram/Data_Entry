@@ -2337,7 +2337,7 @@
           categoryName.innerHTML = categoryAbbreviation[category]
           categoryName.style.color = '#ffffff'
           // Changed this fontSize
-          categoryName.style.fontSize = '200%'
+          categoryName.style.fontSize = '3rem'
           categoryName.style.marginLeft = '4%'
           categoryName.style.textDecoration = 'underline'
           // categoryName.style.height = '44rem'
@@ -2352,7 +2352,6 @@
             subCategoryDivision.style.margin = '2rem'
             subCategoryDivision.style.backgroundColor = '#2b323c'
             // subCategoryDivision.style.height = '44rem'
-            subCategoryDivision.style
             categoryDivision.appendChild(subCategoryDivision)
 
             // subCategory name
@@ -2391,7 +2390,7 @@
               const subDefectContainer = document.createElement('div')
               subDefectContainer.id = `${subCategory.replace(`${category}`,'')}_${defect}_Container`
               subDefectContainer.style.clear = 'left'
-              subDefectContainer.style.margin = '0 8%'
+              // subDefectContainer.style.margin = '0 8%'
               // subDefectContainer.style.display = 'flex'
               defectDivision.style.height = 'auto'
               // defectDivision.style.margin = '12rem 0'
@@ -2402,6 +2401,10 @@
                 const subDefectDivision = document.createElement('div')
                 subDefectDivision.id = `${subDefect}ColorMap`
                 subDefectDivision.style.marginLeft = '1%'
+                subDefectDivision.style.display = 'flex'
+                subDefectDivision.style.justifyContent = 'center'
+                subDefectDivision.style.alignItems = 'center'
+                subDefectDivision.style.flexDirection = 'column'
                 subDefectContainer.appendChild(subDefectDivision)
 
                 //subDefect name
@@ -2439,8 +2442,14 @@
 
                 visualPresentation.style.backgroundImage = `url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`
                 visualPresentation.style.backgroundRepeat = 'no-repeat'
-                visualPresentation.style.objectFit = 'fill'
+                visualPresentation.style.backgroundImage = 'contain'
+                visualPresentation.style.backgroundPosition = 'center'
+                visualPresentation.style.backgroundSize = 'contain'
                 visualPresentation.style.position = 'relative'
+                visualPresentation.style.display = 'flex'
+                visualPresentation.style.alignContent = 'center'
+                visualPresentation.style.justifyContent = 'center'
+                visualPresentation.style.flexDirection = 'column'
 
                 // console.log('category: ',category)
                 // console.log('sub category: ',subCategoryArray)
