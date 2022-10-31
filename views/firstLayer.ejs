@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
     <script  src="https://cdn.tailwindcss.com"></script>
-    <script src="../resources/tailwind.config.js"></script>
+    <!-- <script src="../resources/tailwind.config.js"></script> -->
   </head>
   <body>
     <div>
@@ -27,7 +27,7 @@
               min-height: 3%;
               position: relative;
               z-index: 0;
-            "
+            " 
             id="home-icon"
             alt="Home"
             onclick="document.getElementById('followerForm').submit();"
@@ -49,7 +49,6 @@
         </form>
       </div>
       <div id="title-name-content">
-        <div>
           <div class="sub_container">
             <img
               src="./arrow.png"
@@ -60,30 +59,23 @@
             />
             <p id="title-name">Select Category :</p>
           </div>
-        </div>
         <!-- Toggle Switch for online / offline -->
-        <label
-          for="toggle_switch"
-          class="flex items-center cursor-pointer"
-          style="flex-direction: column"
-        >
-          <div class="relative">
-            <input
-              type="checkbox" id="toggle_switch"
-              class="sr-only mode" onclick="dynamicText()"
-            />
-            <div class="block bg-gray-300 w-14 h-8 rounded-full"></div>
-            <div
-              class="dot absolute left-1 top-1 mr-4 bg-white w-6 h-6 rounded-full transition"
-            ></div>
+        <div id="toggle" class="mt-8 ml-24" >
+          <div class="flex w-full mb-12"> 
+            <label for="toggle_switch" class="flex items-center cursor-pointer"
+            style="justify-content:center ;">
+              <div class="relative">
+                <input type="checkbox" id="toggle_switch" class="sr-only mode" onclick="dynamicText()">
+                <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+                <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+              </div>
+              <div class="ml-2 text-gray-300 font-medium text-2xl "
+              id="mode_status">
+                Online
+              </div>
+            </label>
           </div>
-          <div
-            id="mode_status"
-            class="ml-32 -mt-2 text-gray-300 font-medium text-2xl"
-          >
-            Online
-          </div>
-        </label>
+        </div>
       </div>
 
       <div class="main-content">

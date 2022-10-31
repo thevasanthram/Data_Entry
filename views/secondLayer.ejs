@@ -38,8 +38,36 @@
           </button>
         </form>
       </div>
-
       <div id="title-name-content">
+        <div class="sub_container">
+          <img
+            src="./arrow.png"
+            title="Back"
+            id="go-back-icon"
+            alt="Go Back"
+            onclick="document.getElementById('firstLayerForm').submit();"
+          />
+          <p id="title-name">Select Sub-Category :</p>
+        </div>
+      <!-- Toggle Switch for online / offline -->
+      <div id="toggle" class="mt-8 ml-24" >
+        <div class="flex w-full mb-12"> 
+          <label for="toggle_switch" class="flex items-center cursor-pointer"
+          style="justify-content:center ;">
+            <div class="relative">
+              <input type="checkbox" id="toggle_switch" class="sr-only mode" onclick="dynamicText()">
+              <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+              <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+            </div>
+            <div class="ml-2 text-gray-300 font-medium text-2xl "
+            id="mode_status">
+              Online
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+      <!-- <div id="title-name-content">
         <div>
           <div class="sub_container">
             <img
@@ -52,7 +80,7 @@
             <p id="title-name">Select Sub-Category :</p>
           </div>
         </div>
-        <!-- Toggle Switch for online / offline -->
+        
         <label
           for="toggle_switch"
           class="flex items-center cursor-pointer"
@@ -77,7 +105,7 @@
             Online
           </div>
         </label>
-      </div>
+      </div> -->
       <div class="main-content">
         <% for(let i = 0 ; i < ShortlistedCategoryOptions.length ; i++){ %>
           <button
