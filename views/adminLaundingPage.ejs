@@ -2467,11 +2467,11 @@
                 //displaying zones with defect count
                 Object.keys(data.data[category][subCategory][defect][subDefect]).map( (singleZone) => {
                   let zoneDefectCountData = document.createElement('p')
-                  zoneDefectCountData.id = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
+                  zoneDefectCountData.className = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
                   // console.log('id: ',zoneDefectCountData.id)
                   zoneDefectCountData.innerHTML = `Z ${singleZone.replace('_','')}: ${data.data[category][subCategory][defect][subDefect][singleZone]}`
                   zoneDefectCountData.style.display = 'flex'
-
+                  
                   visualPresentation.appendChild(zoneDefectCountData)
                 })
               })
