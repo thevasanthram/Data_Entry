@@ -121,3 +121,115 @@ input:checked ~ .dot {
   margin: 2px;
   padding: 2px;
 }
+
+/*! LH SIDE MEMBER B-PILLAR  */
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM712 {
+  margin-top: 9%;
+  width: 5%;
+  margin-left: 29%;
+  padding: 2% 5% 1% 1%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM713 {
+  margin-top: 18%;
+  width: 5%;
+  margin-left: 29%;
+  padding: 1% 5% 1% 1%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM714 {
+  margin-top: 26.1%;
+  width: 5%;
+  margin-left: 27%;
+  padding: 1% 5% 1% 1%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM715 {
+  margin-top: 34.1%;
+  width: 5%;
+  margin-left: 27%;
+  padding: 3% 5% 1% 1%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM716 {
+  margin-top: 44.2%;
+  width: 5%;
+  margin-left: 25%;
+  padding: 2% 5% 0.8% 3%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM717 {
+  margin-top: 9%;
+  width: 5%;
+  margin-left: 40%;
+  padding: 2% 5% 1% 1%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM718 {
+  margin-top: 45%;
+  width: 5%;
+  margin-left: 38%;
+  padding: 1% 5% 1% 2%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM719 {
+  margin-top: 34.9%;
+  width: 5%;
+  margin-left: 38%;
+  padding: 2% 5% 2% 2%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM720 {
+  margin-top: 26%;
+  width: 5%;
+  margin-left: 38%;
+  padding: 1.8% 5% 1% 2%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+.LH_SIDE_MEMBER_B-PILLAR-LHSM721 {
+  margin-top: 18%;
+  width: 5%;
+  margin-left: 40%;
+  padding: 0.8% 5% 1% 2%;
+  position: absolute;
+  background-color: rgba(135, 207, 235, 0.563);
+}
+
+
+
+/*! CSS for Responsive Design  */
+
+@media screen and (max-width: 480px) {
+  
+}
+
+@media screen and (max-width: 768px) {
+  
+}
+
+@media screen and (max-width: 1024px) {
+  
+}
+
+@media screen and (max-width: 1280px) {
+  
+}
