@@ -11,7 +11,7 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   password: 'admin',
-  port: 5432,                   
+  port: 5432,
 });
 console.log(
   'Please, wait for Database confirmation message. Start, once you receive'
@@ -1096,6 +1096,101 @@ app.post('/thirdlayer', (req, res) => {
       categoryId,
       subcategoryId,
       mode,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/zonechecker', async (req, res) => {
+  try {
+    const defectObj = req.body.defectObj;
+    mode = req.body.mode;
+    let filledDefects = {};
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
+    Object.keys(defectObj).map((defect) => {
+      let defectArray = defect.split('_');
+      defectArray[2] = `_${defectArray[2]}`;
+      mod.set(filledDefects, defectArray.join('.'), defectObj[defect]);
+    });
+
+    console.log('filledDefects:', filledDefects);
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let messageObject = {};
+
+    async function storeManager() {
+      // storing the defects or modifying
+      await Promise.all(
+        Object.keys(filledDefects).map(async (defectName) => {
+          await Promise.all(
+            Object.keys(filledDefects[defectName]).map(
+              async (subDefectName) => {
+                await Promise.all(
+                  Object.keys(filledDefects[defectName][subDefectName]).map(
+                    async (zone) => {
+                      const result = await dbConnectedPool.query(
+                        `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone = ${zone.replace(
+                          '_',
+                          ''
+                        )}`
+                      );
+                      if (result.rows.length == 0) {
+                        mod.set(
+                          messageObject,
+                          `New Zone.${zone}.${defectName}.${subDefectName}`,
+                          filledDefects[defectName][subDefectName][zone]
+                        );
+                      } else {
+                        // block to modify existing defect records
+                        mod.set(
+                          messageObject,
+                          `Existing Zone.${zone}.${defectName}.${subDefectName}`,
+                          filledDefects[defectName][subDefectName][zone]
+                        );
+                      }
+                    }
+                  )
+                );
+              }
+            )
+          );
+        })
+      );
+    }
+
+    storeManager().then(() => {
+      res.send(
+        JSON.stringify({
+          status: 'success',
+          data: messageObject,
+        })
+      );
     });
   } catch (err) {
     console.log(err);
