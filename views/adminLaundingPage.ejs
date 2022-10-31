@@ -1126,7 +1126,7 @@
 
           // creating division for each Defect Pareto
           let correspondingTabDivision = document.createElement('div')
-          correspondingTabDivision.id = `${defect.replace(' ','')}ParetoDivision`
+          correspondingTabDivision.id = `${defect.replace(' ','')}ParetoDivision` 
           correspondingTabDivision.style.color = '#ffffff'
           correspondingTabDivision.className = 'defectParetoDivision'
           document.getElementsByClassName('report-content-data')[0].appendChild(correspondingTabDivision)
@@ -1197,8 +1197,9 @@
           let mainDefectParetoChartDivision = document.createElement('div')
           mainDefectParetoChartDivision.id = `main${defect}ParetoChartDivision`
           mainDefectParetoChartDivision.style.position = 'absolute'
+          mainDefectParetoChartDivision.style.marginTop = '5%'
           mainDefectParetoChartDivision.style.width = '70%'
-          mainDefectParetoChartDivision.style.height = '100%'
+          mainDefectParetoChartDivision.style.height = '65%'
           mainDefectParetoDivision.appendChild(mainDefectParetoChartDivision)
 
           // chart configuration
@@ -1248,6 +1249,7 @@
           let mainDefectParetoTableDivision = document.createElement('div')
           mainDefectParetoTableDivision.id = `main${defect}ParetoTableDivision`
           mainDefectParetoTableDivision.style.position = 'absolute'
+          mainDefectParetoTableDivision.style.marginTop = '5%'
           mainDefectParetoTableDivision.style.width = '30%'
           mainDefectParetoTableDivision.style.height = '100%'
           mainDefectParetoTableDivision.style.marginLeft = '70%'
@@ -1266,7 +1268,7 @@
           mainDefectParetoTableContainer.id = `main${defect}ParetoTableContainer`
           mainDefectParetoTableContainer.style.position = 'absolute'
           mainDefectParetoTableContainer.style.width = '100%'
-          mainDefectParetoTableContainer.style.height = '95%'
+          mainDefectParetoTableContainer.style.height = '65%'
           mainDefectParetoTableContainer.style.overflow = 'auto'
           mainDefectParetoTableDivision.appendChild(mainDefectParetoTableContainer)
 
@@ -1342,7 +1344,12 @@
             let SubDefectsParetoChartHolder = document.createElement('div')
             SubDefectsParetoChartHolder.id = `${subdefect}ParetoChartHolder`
             SubDefectsParetoChartHolder.style.position = 'absolute'
-            SubDefectsParetoChartHolder.style.marginTop = `${(index+1)*32}%`
+            if(index == 0){
+              SubDefectsParetoChartHolder.style.marginTop = '40%'
+            }else{
+              SubDefectsParetoChartHolder.style.marginTop = `${(index+1)*35.5}%`
+            }
+            
             SubDefectsParetoChartHolder.style.width = '100%'
             SubDefectsParetoChartHolder.style.height = '100%'
             correspondingTabDivision.appendChild(SubDefectsParetoChartHolder)
@@ -1352,7 +1359,7 @@
             subDefectParetoChartDivision.id = `${subdefect}ParetoChartDivision`
             subDefectParetoChartDivision.style.position = 'absolute'
             subDefectParetoChartDivision.style.width = '70%'
-            subDefectParetoChartDivision.style.height = '100%'
+            subDefectParetoChartDivision.style.height = '65%'
             SubDefectsParetoChartHolder.appendChild(subDefectParetoChartDivision)
 
             // subDefectParetoChart Dataset
@@ -1434,7 +1441,7 @@
             subDefectParetoTableDivison.id = `${subdefect}ParetoTableDivision`
             subDefectParetoTableDivison.style.position = 'absolute'
             subDefectParetoTableDivison.style.width = '30%'
-            subDefectParetoTableDivison.style.height = '100%'
+            subDefectParetoTableDivison.style.height = '65%'
             subDefectParetoTableDivison.style.marginLeft = '70%'
             SubDefectsParetoChartHolder.appendChild(subDefectParetoTableDivison)
 
