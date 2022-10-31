@@ -2425,7 +2425,8 @@
 
                 // division for defect visual presentation
                 const visualPresentation = document.createElement('div')
-                visualPresentation.id = `${subDefect}_${subCategory.replace(`${category}`,'')}_Visual_Presentation`
+                visualPresentation.id = `${subDefect}_${subCategory.trim().replaceAll(`${category}`,'').trim()}_Visual_Presentation`
+                console.log(subCategory);
                 // visualPresentation.style.display = 'inline-block'
                 visualPresentation.style.width = '90%'
                 visualPresentation.style.height = '43rem'

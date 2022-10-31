@@ -269,6 +269,12 @@ select {
     text-align: center;
     margin-left: 48px;
   }
+
+  #SMTopicElemet{
+    color: rgb(255, 255, 255);
+    margin-left: 4%;
+    text-decoration: underline;
+  }
 }
 
 @media screen and (max-width: 768px) {
