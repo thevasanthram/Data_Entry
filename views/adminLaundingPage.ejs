@@ -188,7 +188,7 @@
           </div>
           <div  id="reportParent" class="report-content">
             <div id="report-topic">
-              <p id="report-topic-data"></p>
+              <p id="report-topic-data" style="font-size: 150%; margin-left: 2%;"></p>
             </div>
             <div id="reportChild" style="height: 100vh;" class="report-content-data">
             </div>
@@ -440,6 +440,25 @@
           tblDataforBodyNumbers.style.padding = '0.5%'
           tblDataforBodyNumbers.style.textAlign = 'center'
           tblRowforProduction.appendChild(tblDataforBodyNumbers)
+
+          // styling table rule
+        const tdTags = document.getElementsByTagName('td')
+        Object.keys(tdTags).map( (td) => {
+          tdTags[td].style.border = '1px solid #64666a'
+          tdTags[td].style.borderCollapse = 'collapse'
+        })
+
+        const thTags = document.getElementsByTagName('th')
+        Object.keys(thTags).map( (th) => {
+          thTags[th].style.border = '1px solid #64666a'
+          thTags[th].style.borderCollapse = 'collapse'
+        })
+
+        const trTags = document.getElementsByTagName('tr')
+        Object.keys(trTags).map( (tr) => {
+          trTags[tr].style.border = '1px solid #64666a'
+          trTags[tr].style.borderCollapse = 'collapse'
+        })
         }).catch((error) => {
           console.log(error)
         })
@@ -665,7 +684,7 @@
 
         var firstSection = document.createElement('div')
         firstSection.id = 'firstSection'
-        firstSection.style.marginTop = '3%'
+        firstSection.style.marginTop = '1%'
         firstSection.style.display = 'flex'
         firstSection.style.height = '27.625rem'
         reportContent.appendChild(firstSection)

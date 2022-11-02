@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./thirdLayer.css" />
     <title>Data Entry System</title>
-    <!-- <link
+    <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
+<<<<<<< HEAD
     /> -->
     <!-- <script  src="https://cdn.tailwindcss.com"></script>
     <script src="../resources/tailwind.config.js"></script> -->
+=======
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../resources/tailwind.config.js"></script>
+>>>>>>> 406569fcf73cc13e4cf0e6ea763211a4b6ae6e0f
   </head>
   <body>
     <div>
@@ -360,7 +366,7 @@
           let message = 'Defect Report. Click OK to make changes\n\n';
 
           // making up zone report for prompt box
-          for (let i in zoneCheckerResponseObject.data) {
+          for (let i in zoneCheckerResponseObject.data) { 
             message = message + i + ': \n';
             for (let j in zoneCheckerResponseObject.data[i]) {
               message = message + ' ' + j.replace('_', '') + ': ';

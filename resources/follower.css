@@ -14,7 +14,7 @@ body {
   margin-bottom: 2%;
   background-size: 100%;
   background-position: center;
-  /* background-position-y: -55%; */
+  background-position-y: 165px;
 }
 
 input::-webkit-outer-spin-button,
@@ -132,9 +132,8 @@ select {
 }
 #body-number-pass-button:hover {
   transform: scale(0.97);
-}  */
-
-#message-content {
+}
+*/ #message-content {
   position: relative;
   color: rgb(249, 28, 28);
   margin-left: 40.5%;
@@ -210,10 +209,9 @@ select {
 
   #btn button {
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-    width: 50px;   
+    width: 50px;
     height: 25px;
     font-size: 9px;
-
   }
 
   #bodyNumberForm {
@@ -245,7 +243,7 @@ select {
     height: 30px;
   }
 
-  .enter{
+  .enter {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
     height: 30px;
@@ -261,7 +259,7 @@ select {
     font-size: 14px;
     text-align: center;
     margin-left: 48px;
-}
+  }
 
   #SMTopicElemet {
     color: rgb(255, 255, 255);
