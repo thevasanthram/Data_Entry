@@ -1,5 +1,5 @@
 * {
-  margin: 0px;
+  box-sizing: border-box;
 }
 
 body {
@@ -8,7 +8,6 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
 .header {
   width: 100%;
   display: flex;
@@ -58,7 +57,12 @@ body {
 .button-logout:hover {
   border-right-color: rgb(45, 56, 184);
 }
-
+#home-icon{
+  margin-left: 2%;
+  width: 4%;
+  margin-right: 1%;
+  min-height: 3%;
+}
 .selected-message {
   text-align: center;
   line-height: 0.9;
@@ -236,6 +240,117 @@ input[type='checkbox']:hover {
   padding: 8px 16px 8px 16px;
   cursor: pointer;
   margin-left: 20px;
+}
+/* !CSS for REsponsive Design */
+
+@media screen and (max-width: 480px) {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: #282c34;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  }
+  .header {
+    min-width: 100%;
+    display: flex;
+    min-height: 4.5rem;
+    flex-direction: row;
+    align-items: center;
+    padding: 1%;
+    justify-content: space-between;
+    background-color: #393e46;
+    color: #f0e3e3;
+  }
+
+  .heading {
+    padding-left: 1%;
+    font-weight: 700;
+    font-size: clamp(19px, 0.8vw, 1.5rem);
+    
+  }
+
+  #btn {
+    width: auto;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: column;
+    line-height: 28px;
+  }
+  .admin {
+    color: #00adb5;
+    margin-right: 10%;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+  }
+
+  #btn button {
+    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+    width: 50px;   
+    height: 25px;
+    font-size: 9px;
+
+  }
+  #home-icon{
+    margin-left: 2%;
+    min-width: 25px;
+    min-height: 25px;
+    margin-right: 1%;
+    min-height: 3%;
+  }
+  .selected-message {
+    text-align: center;
+    /* line-height: 1; */
+    margin: 2%;
+    padding: 5px;
+    font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+    color: #eeeeee;
+  }
+   #title-name-content {
+    position: relative;
+    margin: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+  #go-back-icon { 
+    min-width: 25px;
+    margin-left: 25%;
+  }
+  #title-name {
+    padding: 2px; 
+    line-height: 1;
+    font-size: clamp(16px, 1.2vw, 1.5rem);
+    color: #f0e3e3;
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  
+}
+
+@media screen and (max-width: 1025px) {
+  #home-icon{
+    margin-left: 1%;
+    min-width: 30px;
+    min-height: 30px;
+    margin-right: 2%;
+    min-height: 3%;
+  }
+  #go-back-icon { 
+    max-width: 5.5%;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  
 }
 
 .LH_SHELL_BODY_MAIN-LINE_FENDER-LHSBML210 {
