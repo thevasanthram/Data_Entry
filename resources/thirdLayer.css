@@ -10,6 +10,8 @@ body {
 }
 .header {
   width: 100%;
+  position: sticky;
+  top: 0%;
   display: flex;
   min-height: 4.5rem;
   flex-direction: row;
@@ -17,7 +19,6 @@ body {
   justify-content: space-between;
   background-color: #393e46;
   color: #f0e3e3;
-  position: relative;
 }
 #home-icon:hover {
   cursor: pointer;
