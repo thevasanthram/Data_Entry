@@ -47,12 +47,7 @@ body {
   font-weight: 700;
   font-size: clamp(1.2rem, 2.2vw, 1.8rem);
 }
-/* .button-logout {
-  display: flex;
-  align-items: center;
-  padding-right: 2%;
-  margin-right: 5%;
-} */
+
 .button-logout {
   display: flex;
   align-items: center;

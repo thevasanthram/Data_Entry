@@ -9,9 +9,15 @@
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
+<<<<<<< HEAD
+    /> -->
+    <!-- <script  src="https://cdn.tailwindcss.com"></script>
+    <script src="../resources/tailwind.config.js"></script> -->
+=======
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../resources/tailwind.config.js"></script>
+>>>>>>> 406569fcf73cc13e4cf0e6ea763211a4b6ae6e0f
   </head>
   <body>
     <div>
@@ -328,7 +334,7 @@
         }
       }
 
-      async function handleSave(event) {
+      async function handleSave() {
         if (confirm('Are you sure want to save?') == true) {
           const defectLayerForm = document.getElementById('defectLayerForm');
           var defectLayerFormData = {};
@@ -346,6 +352,10 @@
           );
 
           console.log('defectLayerFormData: ', defectLayerFormData);
+
+          //disabling onclick function of the save button, :- save button can be clicked only once.
+          const saveButton = document.getElementsByClassName('save-button')[0];
+          saveButton.removeAttribute('onclick');
 
           const zoneCheckerResponse = await fetch(
             'http://localhost:8000/zonechecker',
@@ -368,7 +378,7 @@
           let message = 'Defect Report. Click OK to make changes\n\n';
 
           // making up zone report for prompt box
-          for (let i in zoneCheckerResponseObject.data) {
+          for (let i in zoneCheckerResponseObject.data) { 
             message = message + i + ': \n';
             for (let j in zoneCheckerResponseObject.data[i]) {
               message = message + ' ' + j.replace('_', '') + ': ';
@@ -458,6 +468,7 @@
             } else {
               document.getElementById('firstLayerform').submit();
             }
+          } else {
           }
         }
       }
