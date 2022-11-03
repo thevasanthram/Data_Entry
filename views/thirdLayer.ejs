@@ -139,7 +139,25 @@
               </div>
               <div>
                 <div class="zones-title-name">
-                  <p>Zones</p>
+                  Zones :
+                </div>
+                <div class="save-reset-content">
+                  <button
+                    type="button"
+                    class="save-button"
+                    onclick="validate()"
+                    style="background-color: black; color: white"
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    class="reset-button"
+                    onclick="handleReset()"
+                    style="background-color: black; color: white"
+                  >
+                    Reset
+                  </button>
                 </div>
                 <div id="zone-division<%= i+1 %>">
                   <%for(let k = 0; k < subDefectListId.length; k++){%>
@@ -154,13 +172,21 @@
                       class="<%= categoryId %>_<%= subcategoryId %><%= ShortlistedSubCategoryOptions[l] %>"
                       id="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
                     >
+                    <!-- zone-defects-input style
+                        style="
+                        width: 100%;
+                        height: 100%;
+                        padding: 2px;
+                        border: 1px solid black;
+                        border-radius: 4px;
+                        resize: vertical;"
+                        min="1" -->
                       <input
                         type="number"
                         inputmode="numeric"
-                        class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
+                        class="zone-defects-input <%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
                         name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"
-                        style="width: 150%"
-                        min="1"
+                      
                       />
                       <p><%= ShortlistedSubCategoryOptions[l] %></p>
                     </div>
@@ -175,7 +201,7 @@
 
         </form>
       </div>
-      <div class="save-reset-content">
+      <!-- <div class="save-reset-content">
         <button
           type="button"
           class="save-button"
@@ -192,7 +218,7 @@
         >
           Reset
         </button>
-      </div>
+      </div> -->
       <div>
         <form action="/follower" method="get" id="followerForm"></form>
         <form action="/firstlayer" method="post" id="firstLayerform"></form>
