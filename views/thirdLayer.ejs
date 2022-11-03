@@ -101,6 +101,7 @@
             <button
               type="button"
               class="defect-category"
+              style="background-color: black; color: white"
               id="<%= defectListId[i] %>-main-defect-button"
               onclick="defectCategorySwitch('<%= defectListId[i] %>')"
             >
@@ -129,6 +130,7 @@
                 <button
                   type="button"
                   class="sub-defect-category <%= defectListId[i] %>-buttons"
+                  style="background-color: black; color: white"
                   onclick="subdefectCategorySwitch(event , '<%= defectListId[i] %>-<%= subDefectListId[j] %>')"
                 >
                   <%= subDefectListName[j] %>
@@ -174,10 +176,20 @@
         </form>
       </div>
       <div class="save-reset-content">
-        <button type="button" class="save-button" onclick="validate()">
+        <button
+          type="button"
+          class="save-button"
+          onclick="validate()"
+          style="background-color: black; color: white"
+        >
           Save
         </button>
-        <button type="button" class="reset-button" onclick="handleReset()">
+        <button
+          type="button"
+          class="reset-button"
+          onclick="handleReset()"
+          style="background-color: black; color: white"
+        >
           Reset
         </button>
       </div>
