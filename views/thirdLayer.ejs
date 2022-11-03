@@ -10,11 +10,11 @@
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <script  src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="../resources/tailwind.config.js"></script>
   </head>
   <body>
-    <div >
+    <div>
       <div class="header">
         <div style="display: flex; align-items: center">
           <img
@@ -91,9 +91,9 @@
           action="/receive-thirdLayer-temp"
           method="post"
         >
-        <div class="defect-title-name">
-          <p>Defect :</p>
-        </div>
+          <div class="defect-title-name">
+            <p>Defect :</p>
+          </div>
           <div class="defect-category-content">
             <% const defectListId = Object.keys(defectObject); let
             subDefectListId = []; let subDefectListName = []; %> <% for (let
@@ -172,7 +172,6 @@
             </div>
             <%}%>
           </div>
-
         </form>
       </div>
       <div class="save-reset-content">
@@ -376,7 +375,7 @@
           let message = 'Defect Report. Click OK to make changes\n\n';
 
           // making up zone report for prompt box
-          for (let i in zoneCheckerResponseObject.data) { 
+          for (let i in zoneCheckerResponseObject.data) {
             message = message + i + ': \n';
             for (let j in zoneCheckerResponseObject.data[i]) {
               message = message + ' ' + j.replace('_', '') + ': ';
