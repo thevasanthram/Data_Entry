@@ -129,14 +129,17 @@ input:checked ~ .dot {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 10px;
+  max-width: 60%;
   margin: 0% 15%  0 15%;
 }
 .defect-category {
   align-items: center;
   justify-content: center;
-  font-size: 110%;
-  padding: 1% 2% 1% 2%;
-  float: left;
+  font-size: 100%;
+  padding: 2%;
+  margin: 3%;
+  margin-left: 10%;
+  border-radius: 5px;
 }
 
 .defect-category:hover {
@@ -145,10 +148,7 @@ input:checked ~ .dot {
   color: #000000 !important;
 }
 
-/* .sub-content {
-  display: flex;
-  flex-direction: column;
-} */
+
 
 .sub-defect-title-name {
   display: inline-block;
@@ -160,17 +160,20 @@ input:checked ~ .dot {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 10px;
+  max-width: 60%;
   margin: 0% 15%  0 15%;
 }
 
 .sub-defect-category {
   align-items: center;
   justify-content: center;
-  font-size: 110%;
+  font-size: 100%;
   background-color: black;
-  color: white;
-  padding: 1% 2% 1% 2%;
-  float: left;
+  color: #eeeeee;
+  padding: 3%;
+  margin: 3%;
+  margin-left: 10%;
+  border-radius: 5px;
 }
 
 
@@ -314,7 +317,7 @@ input[type='text'] {
   }
   .selected-message {
     text-align: center;
-    line-height: 1.1;
+    line-height: 1.2;
     margin: 2%;
     padding: 5px;
     font-size: clamp(0.9rem, 1.2vw, 1.3rem);
@@ -338,9 +341,52 @@ input[type='text'] {
     font-size: clamp(16px, 1.2vw, 1.5rem);
     color: #f0e3e3;
   }
+  .defect-category-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+    margin: 0% 15%  0 15%;
+  }
+  .defect-category {
+    align-items: center;
+    justify-content: center;
+    font-size: 100%;
+    padding: 2%;
+    margin: 3%;
+    margin-left: 10%;
+    border-radius: 5px;
+  }
+  .sub-defects-category-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 10px;
+    margin: 0% 15%  0 15%;
+  }
+  
+  .sub-defect-category {
+    align-items: center;
+    justify-content: center;
+    font-size: 100%;
+    background-color: black;
+    color: #eeeeee;
+    padding: 3%;
+    margin: 3%;
+    margin-left: 10%;
+    border-radius: 5px;
+  }
 }
 
 @media screen and (max-width: 768px) {
+  #home-icon {
+    margin-left: 1%;
+    min-width: 30px;
+    min-height: 30px;
+    margin-right: 2%;
+    min-height: 3%;
+  }
+  #go-back-icon {
+    max-width: 5.5%;
+  }
 }
 
 @media screen and (max-width: 1025px) {
