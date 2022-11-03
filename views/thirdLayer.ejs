@@ -9,18 +9,12 @@
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
-<<<<<<< HEAD
-    /> -->
-    <!-- <script  src="https://cdn.tailwindcss.com"></script>
-    <script src="../resources/tailwind.config.js"></script> -->
-=======
     />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script  src="https://cdn.tailwindcss.com"></script>
     <script src="../resources/tailwind.config.js"></script>
->>>>>>> 406569fcf73cc13e4cf0e6ea763211a4b6ae6e0f
   </head>
   <body>
-    <div>
+    <div >
       <div class="header">
         <div style="display: flex; align-items: center">
           <img
@@ -97,10 +91,10 @@
           action="/receive-thirdLayer-temp"
           method="post"
         >
+        <div class="defect-title-name">
+          <p>Defect :</p>
+        </div>
           <div class="defect-category-content">
-            <div class="defect-title-name">
-              <p>Defect :</p>
-            </div>
             <% const defectListId = Object.keys(defectObject); let
             subDefectListId = []; let subDefectListName = []; %> <% for (let
             i=0; i < defectListId.length; i++){%>
@@ -114,10 +108,13 @@
             </button>
             <%}%>
           </div>
+          <div class="sub-defect-title-name">
+            <p>Sub-Defect :</p>
+          </div>
           <div class="sub-content">
-            <div class="sub-defect-title-name">
+            <!-- <div class="sub-defect-title-name">
               <p>Sub-Defect :</p>
-            </div>
+            </div> -->
             <%for ( let i=0; i < defectListId.length; i++){ subDefectListId =
             Object.keys(defectObject[defectListId[i]]['subdefects']);
             subDefectListName =
@@ -127,7 +124,7 @@
               class="defectName"
               style="display: none"
             >
-              <div>
+              <div class="sub-defects-category-content">
                 <%for (let j = 0; j < subDefectListId.length; j++){%>
                 <button
                   type="button"
@@ -173,6 +170,7 @@
             </div>
             <%}%>
           </div>
+
         </form>
       </div>
       <div class="save-reset-content">

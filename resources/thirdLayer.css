@@ -10,8 +10,8 @@ body {
 }
 .header {
   width: 100%;
-  position: sticky;
-  top: 0%;
+  /* position: sticky;
+  top: 0%; */
   display: flex;
   min-height: 4.5rem;
   flex-direction: row;
@@ -107,31 +107,39 @@ input:checked ~ .dot {
 #title-name {
   padding: 5px; 
   font-size: clamp(1.3rem, 2.2vw, 2rem);
-  color: #f0e3e3;
+  color: #eeeeee;
 }
 #mode_status{
   margin-right: 2rem;
   padding: 5px;
 }
 .main-content {
-  width: 70%;
-  margin-left: 22%;
+  width: auto;
+  margin: 2px;
   margin-top: 0.5%;
 }
 
 .defect-title-name {
-  font-size: 170%;
-  color: white;
-  margin-right: 7%;
-  float: left;
+  display: inline-block;
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
+  color: #eeeeee;
+  margin-left: 7%;
 }
-
+.defect-category-content{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 10px;
+  margin: 0% 15%  0 15%;
+}
 .defect-category {
+  align-items: center;
+  justify-content: center;
   font-size: 110%;
-  background-color: black;
-  color: white;
-  padding: 1% 2% 1% 2%;
-  float: left;
+  background-color: black!important;
+  color: white!important;
+  border-radius: 5px;
+  padding: 2%;
+  margin: 2%;
 }
 
 .defect-category:hover {
@@ -140,26 +148,36 @@ input:checked ~ .dot {
   color: #000000 !important;
 }
 
-.sub-content {
-  clear: left;
-  /* margin-left: 2%; */
-  padding-top: 2%;
-}
+/* .sub-content {
+  display: flex;
+  flex-direction: column;
+} */
 
 .sub-defect-title-name {
-  font-size: 170%;
-  color: white;
-  margin-right: 2%;
-  float: left;
+  display: inline-block;
+  font-size: clamp(1.3rem, 2.2vw, 2rem);
+  color: #eeeeee;
+  margin-left: 7%;
+}
+.sub-defects-category-content{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 10px;
+  margin: 0% 15%  0 15%;
 }
 
 .sub-defect-category {
+  align-items: center;
+  justify-content: center;
   font-size: 110%;
-  background-color: black;
-  color: white;
-  padding: 1% 2% 1% 2%;
-  float: left;
+  background-color: black!important;
+  color: white!important;
+  border-radius: 5px;
+  padding: 2%;
+  margin: 2%;
 }
+
+
 
 .sub-defect-category:hover {
   cursor: pointer;
@@ -167,10 +185,8 @@ input:checked ~ .dot {
   color: #000000 !important;
 }
 
-.surface,
-.bodyFitting,
-.missingWrongPart,
-.welding,
+.surface, .bodyFitting,
+.missingWrongPart, .welding,
 .waterLeak {
   clear: left;
   margin-left: 2%;
@@ -187,10 +203,8 @@ input:checked ~ .dot {
   float: left;
 }
 
-#zone-division1,
-#zone-division2,
-#zone-division3,
-#zone-division4,
+#zone-division1,#zone-division2,
+#zone-division3,#zone-division4,
 #zone-division5 {
   background-repeat: no-repeat;
   background-position: center;
@@ -306,7 +320,7 @@ input[type='checkbox']:hover {
   }
   .selected-message {
     text-align: center;
-    /* line-height: 1; */
+    line-height: 1.1;
     margin: 2%;
     padding: 5px;
     font-size: clamp(0.9rem, 1.2vw, 1.3rem);
@@ -359,7 +373,6 @@ input[type='checkbox']:hover {
   width: 5%;
   margin-left: 5%;
   padding: 10% 10% 2% 10%;
-  /* background-color: rgba(135, 207, 235, 0.563); */
   position: absolute;
 }
 
