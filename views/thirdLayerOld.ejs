@@ -113,6 +113,9 @@
             <p>Sub-Defect :</p>
           </div>
           <div class="sub-content">
+            <!-- <div class="sub-defect-title-name">
+              <p>Sub-Defect :</p>
+            </div> -->
             <%for ( let i=0; i < defectListId.length; i++){ subDefectListId =
             Object.keys(defectObject[defectListId[i]]['subdefects']);
             subDefectListName =
@@ -135,57 +138,59 @@
                 <%}%>
               </div>
               <div>
-                <div class="zones-title-name">Zones :</div>
-              </div>
-              <div id="zone-division<%= i+1 %>">
-                <%for(let k = 0; k < subDefectListId.length; k++){%>
-                <div
-                  id="<%= defectListId[i] %>-<%= subDefectListId[k] %>"
-                  class="<%= defectListId[i] %>"
-                  style="display: none"
-                >
-                  <% for (let l = 0; l < ShortlistedSubCategoryOptions.length;
-                  l++){%>
+                <div class="zones-title-name">
+                  <p>Zones</p>
+                </div>
+                <div id="zone-division<%= i+1 %>">
+                  <%for(let k = 0; k < subDefectListId.length; k++){%>
                   <div
-                    class="<%= categoryId %>_<%= subcategoryId %><%= ShortlistedSubCategoryOptions[l] %>"
-                    id="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
+                    id="<%= defectListId[i] %>-<%= subDefectListId[k] %>"
+                    class="<%= defectListId[i] %>"
+                    style="display: none"
                   >
-                    <input
-                      type="number"
-                      inputmode="numeric"
-                      class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
-                      name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"
-                      style="width: 150%"
-                      min="1"
-                    />
-                    <p><%= ShortlistedSubCategoryOptions[l] %></p>
+                    <% for (let l = 0; l < ShortlistedSubCategoryOptions.length;
+                    l++){%>
+                    <div
+                      class="<%= categoryId %>_<%= subcategoryId %><%= ShortlistedSubCategoryOptions[l] %>"
+                      id="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
+                    >
+                      <input
+                        type="number"
+                        inputmode="numeric"
+                        class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
+                        name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"
+                        style="width: 150%"
+                        min="1"
+                      />
+                      <p><%= ShortlistedSubCategoryOptions[l] %></p>
+                    </div>
+                    <%}%>
                   </div>
                   <%}%>
                 </div>
-                <%}%>
               </div>
-            </div>
-            <div class="save-reset-content">
-              <button
-                type="button"
-                class="save-button"
-                onclick="validate()"
-                style="background-color: black; color: white"
-              >
-                Save
-              </button>
-              <button
-                type="button"
-                class="reset-button"
-                onclick="handleReset()"
-                style="background-color: black; color: white"
-              >
-                Reset
-              </button>
             </div>
             <%}%>
           </div>
         </form>
+      </div>
+      <div class="save-reset-content">
+        <button
+          type="button"
+          class="save-button"
+          onclick="validate()"
+          style="background-color: black; color: white"
+        >
+          Save
+        </button>
+        <button
+          type="button"
+          class="reset-button"
+          onclick="handleReset()"
+          style="background-color: black; color: white"
+        >
+          Reset
+        </button>
       </div>
       <div>
         <form action="/follower" method="get" id="followerForm"></form>
