@@ -325,8 +325,7 @@
           tbl = document.createElement('table');
           tbl.id="my-table"
           tbl.style.width = '80%';
-          tbl.style.marginLeft = '10%'
-          tbl.style.marginTop = '4%'
+          tbl.style.margin = '5% 10%'
           tbl.style.border = '1px solid #64666a'
           tbl.style.borderRadius = '4px'
           tbl.setAttribute('border', '1');
@@ -335,11 +334,12 @@
           var tblRowforHeading = document.createElement('tr')
           tbl.appendChild(tblRowforHeading)
 
-          var tableHeading = ['Section','Surface','Body Fitting','Missing & Wrong Part', 'Welding', 'Water Leak', 'Total', 'Total DPV']
+          var tableHeading = ['Category','Surface','Body Fitting','Missing & Wrong Part', 'Welding', 'Water Leak', 'Total', 'Total DPV', 'Surface DPV','Body Fitting DPV','Missing & Wrong Part DPV', 'Welding DPV', 'Water Leak DPV']
 
           tableHeading.map( (singleHeading) => {
             var tblHeading = document.createElement('th')
             tblHeading.style.backgroundColor = '#242323'
+            tblHeading.style.width = '5%'
             tblHeading.style.color = '#f5f0f0'
             tblHeading.style.padding = '1%'
             tblHeading.style.fontSize = '100%'
@@ -350,10 +350,10 @@
           var horizontalTotalArray = [0,0,0,0,0]
           var horizontalTotalDPVArray = [0,0,0,0,0]
           var individualDefectTotal = [0,0,0,0,0]
+          var individualDefectDPV = [0,0,0,0,0]
 
 
           var i=0;
-
           for(let [key,value] of Object.entries(data.data)){
             var tblRowforData = document.createElement('tr')
             tbl.appendChild(tblRowforData)
@@ -378,6 +378,8 @@
 
               individualDefectTotal[j] += value[j]
             }
+
+            // Total column
             var tblDataforTotal = document.createElement('td')
             tblDataforTotal.innerHTML = horizontalTotalArray[i]
             tblDataforTotal.style.backgroundColor = '#f5f0f0'
@@ -386,15 +388,40 @@
             tblDataforTotal.style.textAlign = 'center'
             tblRowforData.appendChild(tblDataforTotal)
 
+            // Total DPV column
             var tblDataforTotalDPV = document.createElement('td')
             horizontalTotalDPVArray[i] = (horizontalTotalArray[i]/data.uniqueBodyNumberData.length)
-            tblDataforTotalDPV.innerHTML = horizontalTotalDPVArray[i].toFixed(2)
+            if(isNaN(horizontalTotalDPVArray[i])){
+              tblDataforTotalDPV.innerHTML = 0
+            }else{
+              tblDataforTotalDPV.innerHTML = horizontalTotalDPVArray[i].toFixed(2)  
+            }
             tblDataforTotalDPV.style.backgroundColor = '#f5f0f0'
             tblDataforTotalDPV.style.color = '#242323'
             tblDataforTotalDPV.style.padding = '0.5%'
             tblDataforTotalDPV.style.textAlign = 'center'
             tblRowforData.appendChild(tblDataforTotalDPV)
 
+            // Individual defect DPV
+            for(let j=0; j< value.length; j++){
+              var tblDataforIndividualDefectDPV = document.createElement('td')
+              let individualDefectTotalDPV = value[j]/data.uniqueBodyNumberData.length
+              if(isNaN(individualDefectTotalDPV)){
+                tblDataforIndividualDefectDPV.innerHTML = 0  
+              }else{
+                tblDataforIndividualDefectDPV.innerHTML = individualDefectTotalDPV
+              }
+              tblDataforIndividualDefectDPV.style.backgroundColor = '#f5f0f0'
+              tblDataforIndividualDefectDPV.style.color = '#242323'
+              tblDataforIndividualDefectDPV.style.padding = '0.5%'
+              tblDataforIndividualDefectDPV.style.textAlign = 'center'
+              tblRowforData.appendChild(tblDataforIndividualDefectDPV)
+
+              individualDefectDPV[j] += individualDefectTotalDPV
+            }
+            console.log('individualDefectDPV: ', individualDefectDPV[i])
+            
+            // increamenting iterator
             i++;
           }
 
@@ -429,12 +456,31 @@
 
           var tblDataforHorizontalTotalDPV = document.createElement('td')
           const horizontalTotalDPV = horizontalTotalDPVArray.reduce((partialSum, a) => partialSum + a, 0);
-          tblDataforHorizontalTotalDPV.innerHTML = horizontalTotalDPV.toFixed(2)
+          if(isNaN(horizontalTotalDPV)){
+            tblDataforHorizontalTotalDPV.innerHTML = 0
+          }else{
+            tblDataforHorizontalTotalDPV.innerHTML = horizontalTotalDPV.toFixed(2)
+          }
           tblDataforHorizontalTotalDPV.style.backgroundColor = '#f5f0f0'
           tblDataforHorizontalTotalDPV.style.color = '#242323'
           tblDataforHorizontalTotalDPV.style.padding = '0.5%'
           tblDataforHorizontalTotalDPV.style.textAlign = 'center'
           tblRowforTotal.appendChild(tblDataforHorizontalTotalDPV)
+
+          // displaying added values of each defect's DPV in all category
+          for(let j=0; j< individualDefectDPV.length; j++){
+            var individualDefectDPVinAllCategory= document.createElement('td')
+            if(isNaN(individualDefectDPV[j])){
+              individualDefectDPVinAllCategory.innerHTML = 0
+            }else{
+              individualDefectDPVinAllCategory.innerHTML = individualDefectDPV[j]
+            }
+            individualDefectDPVinAllCategory.style.backgroundColor = '#f5f0f0'
+            individualDefectDPVinAllCategory.style.color = '#242323'
+            individualDefectDPVinAllCategory.style.padding = '0.5%'
+            individualDefectDPVinAllCategory.style.textAlign = 'center'
+            tblRowforTotal.appendChild(individualDefectDPVinAllCategory)
+          }
 
           var tblRowforProduction = document.createElement('tr')
           tbl.appendChild(tblRowforProduction)
@@ -443,7 +489,7 @@
           // tblDataforProduction.style.colSpan = '7'
           
           tblDataforProduction.innerHTML = 'Line off(Production)'
-          tblDataforProduction.colSpan = '7'
+          tblDataforProduction.colSpan = '12'
           tblDataforProduction.style.padding = '0.5%'
           tblDataforProduction.style.backgroundColor = '#f5f0f0'
           tblDataforProduction.style.color = '#242323'
@@ -738,7 +784,10 @@
               ]
           },
           data: [{        
-            type: "column",  
+            type: "column", 
+            indexLabel: "{y}",
+            indexLabelPlacement: "outside",  
+            indexLabelOrientation: "horizontal",
             dataPoints: [      
               { y: horizontalTotalDPV , label: 'Vehicle'},
             ]
@@ -910,7 +959,10 @@
               ]
             },
             data: [{        
-              type: "column",  
+              type: "column",
+              indexLabel: "{y}",
+              indexLabelPlacement: "outside",  
+              indexLabelOrientation: "horizontal",
               dataPoints: individualGroupWiseChartDataset[i]
             }]
           }));
@@ -950,7 +1002,10 @@
               ]
             },
             data: [{        
-              type: "column",  
+              type: "column",
+              indexLabel: "{y}",
+              indexLabelPlacement: "outside",  
+              indexLabelOrientation: "horizontal", 
               dataPoints: labelSetForMajorDefects[i]
             }]
           }))
@@ -981,14 +1036,14 @@
             let dataPoints = []
             Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
               if(Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName]).includes(singleZone)){
-                dataPoints.push({y:1, label: subCategoryName})
+                dataPoints.push({y: majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName][singleZone], label: subCategoryName})
               }else{
                 dataPoints.push({y:0, label: subCategoryName})
               }
             })
-            singleGroupChartMainData.push({
+            singleGroupChartMainData.push({ 
               type: 'stackedColumn',
-              name: singleZone,
+              name: `Z${singleZone.replace('_','')}`,
               // showInLegend: true,
               dataPoints: dataPoints
             })
@@ -2253,6 +2308,7 @@
           categoryNameCell.id = `${categoryName}Cell`
           categoryNameCell.innerHTML = categoryName
           categoryNameCell.style.backgroundColor = '#242323'
+          categoryNameCell.style.textAlign = 'center'
           categoryNameCell.rowSpan = `${Object.keys(data.data[categoryName]['LH']).length}`
           categoryRow.appendChild(categoryNameCell)
 
@@ -2526,13 +2582,13 @@
                 // console.log('sub category: ',subCategoryArray)
                 // console.log('categoryCodeSplit: ', categoryCodeSplit)
                 // console.log('sideCodeSplit: ', sideCodeSplit)
-                console.log('Image name: ',`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
+                // console.log('Image name: ',`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
 
                 //displaying zones with defect count
                 Object.keys(data.data[category][subCategory][defect][subDefect]).map( (singleZone) => {
                   let zoneDefectCountData = document.createElement('p')
                   zoneDefectCountData.id = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
-                  console.log('id: ',zoneDefectCountData.id)
+                  // console.log('id: ',zoneDefectCountData.id)
                   zoneDefectCountData.innerHTML = `Z ${singleZone.replace('_','')}: ${data.data[category][subCategory][defect][subDefect][singleZone]}`
                   zoneDefectCountData.style.display = 'flex'
                   

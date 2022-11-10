@@ -15,7 +15,7 @@
     <!-- <script src="../resources/tailwind.config.js"></script> -->
   </head>
   <body>
-    <div>
+        <div>
       <div class="header">
         <div style="display: flex; align-items: center">
           <img
@@ -57,7 +57,7 @@
         </div>
         <!-- Toggle Switch for online / offline -->
         <div id="toggle" class="mt-10 ml-24">
-          <div class="flex w-full " style="margin-top: -2rem;">
+          <div class="flex w-full mb-12">
             <label
               for="toggle_switch"
               class="flex items-center cursor-pointer"
@@ -156,6 +156,24 @@
                   </button>
                 </div>
               </div>
+              <div class="save-reset-content">
+                <button
+                  type="button"
+                  class="save-button"
+                  onclick="validate()"
+                  style="background-color: black; color: white"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  class="reset-button"
+                  onclick="handleReset()"
+                  style="background-color: black; color: white"
+                >
+                  Reset
+                </button>
+              </div>
               <div id="zone-division<%= i+1 %>">
                 <%for(let k = 0; k < subDefectListId.length; k++){%>
                 <div
@@ -173,15 +191,34 @@
                       type="number"
                       inputmode="numeric"
                       class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
-                      name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"                
+                      name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"
+                      style="width: 150%"
                       min="1"
                     />
-                    <div class="zone-number"><%= ShortlistedSubCategoryOptions[l] %></div>
+                    <p><%= ShortlistedSubCategoryOptions[l] %></p>
                   </div>
                   <%}%>
                 </div>
                 <%}%>
               </div>
+            </div>
+            <div class="save-reset-content">
+              <button
+                type="button"
+                class="save-button"
+                onclick="validate()"
+                style="background-color: black; color: white"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                class="reset-button"
+                onclick="handleReset()"
+                style="background-color: black; color: white"
+              >
+                Reset
+              </button>
             </div>
             <%}%>
           </div>
