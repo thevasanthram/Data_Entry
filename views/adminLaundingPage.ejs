@@ -190,7 +190,7 @@
             <div id="report-topic">
               <p id="report-topic-data" style="font-size: 150%; margin-left: 2%;"></p>
             </div>
-            <div id="reportChild" style="height: 100%;" class="report-content-data">
+            <div id="reportChild" style="height: 100vh;" class="report-content-data">
             </div>
           </div>
         </div>
@@ -325,8 +325,7 @@
           tbl = document.createElement('table');
           tbl.id="my-table"
           tbl.style.width = '80%';
-          tbl.style.marginLeft = '10%'
-          tbl.style.marginTop = '4%'
+          tbl.style.margin = '5% 10%'
           tbl.style.border = '1px solid #64666a'
           tbl.style.borderRadius = '4px'
           tbl.setAttribute('border', '1');
@@ -335,12 +334,11 @@
           var tblRowforHeading = document.createElement('tr')
           tbl.appendChild(tblRowforHeading)
 
-          var tableHeading = ['Section','Surface','Body Fitting','Missing & Wrong Part', 'Welding', 'Water Leak', 'Total', 'Total DPV']
+          var tableHeading = ['Category','Surface','Body Fitting','Missing & Wrong Part', 'Welding', 'Water Leak', 'Total', 'Total DPV', 'Surface DPV','Body Fitting DPV','Missing & Wrong Part DPV', 'Welding DPV', 'Water Leak DPV']
 
           tableHeading.map( (singleHeading) => {
             var tblHeading = document.createElement('th')
-            tblHeading.style.backgroundColor = '#242323'
-            tblHeading.style.color = '#f5f0f0'
+            tblHeading.style.backgroundColor = '#000000'
             tblHeading.style.padding = '1%'
             tblHeading.style.fontSize = '100%'
             tblHeading.innerHTML = singleHeading
@@ -350,26 +348,23 @@
           var horizontalTotalArray = [0,0,0,0,0]
           var horizontalTotalDPVArray = [0,0,0,0,0]
           var individualDefectTotal = [0,0,0,0,0]
+          var individualDefectDPV = [0,0,0,0,0]
 
 
           var i=0;
-
           for(let [key,value] of Object.entries(data.data)){
             var tblRowforData = document.createElement('tr')
             tbl.appendChild(tblRowforData)
 
             var tblDataforDefectName = document.createElement('td')
             tblDataforDefectName.innerHTML = key
-            tblDataforDefectName.style.backgroundColor = '#242323'
-            tblDataforDefectName.style.color = '#f5f0f0'
+            tblDataforDefectName.style.backgroundColor = '#000000'
             tblDataforDefectName.style.padding = '0.5%'
             tblRowforData.appendChild(tblDataforDefectName)
 
             for(let j=0; j< value.length; j++){
               var tblDataforDefectName = document.createElement('td')
               tblDataforDefectName.innerHTML = value[j]
-              tblDataforDefectName.style.backgroundColor = '#f5f0f0'
-              tblDataforDefectName.style.color = '#242323'
               tblDataforDefectName.style.padding = '0.5%'
               tblDataforDefectName.style.textAlign = 'center'
               tblRowforData.appendChild(tblDataforDefectName)
@@ -378,23 +373,42 @@
 
               individualDefectTotal[j] += value[j]
             }
+
+            // Total column
             var tblDataforTotal = document.createElement('td')
             tblDataforTotal.innerHTML = horizontalTotalArray[i]
-            tblDataforTotal.style.backgroundColor = '#f5f0f0'
-            tblDataforTotal.style.color = '#242323'
             tblDataforTotal.style.padding = '0.5%'
             tblDataforTotal.style.textAlign = 'center'
             tblRowforData.appendChild(tblDataforTotal)
 
+            // Total DPV column
             var tblDataforTotalDPV = document.createElement('td')
             horizontalTotalDPVArray[i] = (horizontalTotalArray[i]/data.uniqueBodyNumberData.length)
             tblDataforTotalDPV.innerHTML = horizontalTotalDPVArray[i].toFixed(2)
-            tblDataforTotalDPV.style.backgroundColor = '#f5f0f0'
-            tblDataforTotalDPV.style.color = '#242323'
             tblDataforTotalDPV.style.padding = '0.5%'
             tblDataforTotalDPV.style.textAlign = 'center'
             tblRowforData.appendChild(tblDataforTotalDPV)
 
+            // Individual defect DPV
+            for(let j=0; j< value.length; j++){
+              var tblDataforIndividualDefectDPV = document.createElement('td')
+              let individualDefectTotalDPV = value[j]/data.uniqueBodyNumberData.length
+              if(isNaN(individualDefectTotalDPV)){
+                tblDataforIndividualDefectDPV.innerHTML = 0  
+              }else{
+                tblDataforIndividualDefectDPV.innerHTML = individualDefectTotalDPV
+              }
+              tblDataforIndividualDefectDPV.style.backgroundColor = '#f5f0f0'
+              tblDataforIndividualDefectDPV.style.color = '#242323'
+              tblDataforIndividualDefectDPV.style.padding = '0.5%'
+              tblDataforIndividualDefectDPV.style.textAlign = 'center'
+              tblRowforData.appendChild(tblDataforIndividualDefectDPV)
+
+              individualDefectDPV[j] += individualDefectTotalDPV
+            }
+            console.log('individualDefectDPV: ', individualDefectDPV[i])
+            
+            // increamenting iterator
             i++;
           }
 
@@ -403,16 +417,13 @@
 
           var tblDataforTotal = document.createElement('td')
           tblDataforTotal.innerHTML = 'Total'
-          tblDataforTotal.style.backgroundColor = '#242323'
-          tblDataforTotal.style.color = '#f5f0f0'
+          tblDataforTotal.style.backgroundColor = '#000000'
           tblDataforTotal.style.padding = '0.5%'
           tblRowforTotal.appendChild(tblDataforTotal)
 
           for(let j = 0; j < individualDefectTotal.length; j++){
             var tblDataforIndividualDefect = document.createElement('td')
             tblDataforIndividualDefect.innerHTML = individualDefectTotal[j]
-            tblDataforIndividualDefect.style.backgroundColor = '#f5f0f0'
-            tblDataforIndividualDefect.style.color = '#242323'
             tblDataforIndividualDefect.style.padding = '0.5%'
             tblDataforIndividualDefect.style.textAlign = 'center'
             tblRowforTotal.appendChild(tblDataforIndividualDefect) 
@@ -420,8 +431,6 @@
 
           var tblDataforHorizontalTotal = document.createElement('td')
           const horizontalTotal = horizontalTotalArray.reduce((partialSum, a) => partialSum + a, 0);
-          tblDataforHorizontalTotal.style.backgroundColor = '#f5f0f0'
-          tblDataforHorizontalTotal.style.color = '#242323'
           tblDataforHorizontalTotal.innerHTML = horizontalTotal
           tblDataforHorizontalTotal.style.padding = '0.5%'
           tblDataforHorizontalTotal.style.textAlign = 'center'
@@ -430,11 +439,24 @@
           var tblDataforHorizontalTotalDPV = document.createElement('td')
           const horizontalTotalDPV = horizontalTotalDPVArray.reduce((partialSum, a) => partialSum + a, 0);
           tblDataforHorizontalTotalDPV.innerHTML = horizontalTotalDPV.toFixed(2)
-          tblDataforHorizontalTotalDPV.style.backgroundColor = '#f5f0f0'
-          tblDataforHorizontalTotalDPV.style.color = '#242323'
           tblDataforHorizontalTotalDPV.style.padding = '0.5%'
           tblDataforHorizontalTotalDPV.style.textAlign = 'center'
           tblRowforTotal.appendChild(tblDataforHorizontalTotalDPV)
+
+          // displaying added values of each defect's DPV in all category
+          for(let j=0; j< individualDefectDPV.length; j++){
+            var individualDefectDPVinAllCategory= document.createElement('td')
+            if(isNaN(individualDefectDPV[j])){
+              individualDefectDPVinAllCategory.innerHTML = 0
+            }else{
+              individualDefectDPVinAllCategory.innerHTML = individualDefectDPV[j]
+            }
+            individualDefectDPVinAllCategory.style.backgroundColor = '#f5f0f0'
+            individualDefectDPVinAllCategory.style.color = '#242323'
+            individualDefectDPVinAllCategory.style.padding = '0.5%'
+            individualDefectDPVinAllCategory.style.textAlign = 'center'
+            tblRowforTotal.appendChild(individualDefectDPVinAllCategory)
+          }
 
           var tblRowforProduction = document.createElement('tr')
           tbl.appendChild(tblRowforProduction)
@@ -443,10 +465,8 @@
           // tblDataforProduction.style.colSpan = '7'
           
           tblDataforProduction.innerHTML = 'Line off(Production)'
-          tblDataforProduction.colSpan = '7'
+          tblDataforProduction.colSpan = '12'
           tblDataforProduction.style.padding = '0.5%'
-          tblDataforProduction.style.backgroundColor = '#f5f0f0'
-          tblDataforProduction.style.color = '#242323'
           tblDataforProduction.style.textAlign = 'right'
           tblDataforProduction.style.paddingRight = '2%'
           tblDataforProduction.style.fontSize = '120%'
@@ -454,8 +474,6 @@
 
           var tblDataforBodyNumbers = document.createElement('td')
           tblDataforBodyNumbers.innerHTML = data.uniqueBodyNumberData.length
-          tblDataforBodyNumbers.style.backgroundColor = '#f5f0f0'
-          tblDataforBodyNumbers.style.color = '#242323'
           tblDataforBodyNumbers.style.padding = '0.5%'
           tblDataforBodyNumbers.style.textAlign = 'center'
           tblRowforProduction.appendChild(tblDataforBodyNumbers)
@@ -738,7 +756,10 @@
               ]
           },
           data: [{        
-            type: "column",  
+            type: "column", 
+            indexLabel: "{y}",
+            indexLabelPlacement: "outside",  
+            indexLabelOrientation: "horizontal",
             dataPoints: [      
               { y: horizontalTotalDPV , label: 'Vehicle'},
             ]
@@ -910,7 +931,10 @@
               ]
             },
             data: [{        
-              type: "column",  
+              type: "column",
+              indexLabel: "{y}",
+              indexLabelPlacement: "outside",  
+              indexLabelOrientation: "horizontal",
               dataPoints: individualGroupWiseChartDataset[i]
             }]
           }));
@@ -950,7 +974,10 @@
               ]
             },
             data: [{        
-              type: "column",  
+              type: "column",
+              indexLabel: "{y}",
+              indexLabelPlacement: "outside",  
+              indexLabelOrientation: "horizontal", 
               dataPoints: labelSetForMajorDefects[i]
             }]
           }))
@@ -981,14 +1008,14 @@
             let dataPoints = []
             Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
               if(Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName]).includes(singleZone)){
-                dataPoints.push({y:1, label: subCategoryName})
+                dataPoints.push({y: majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName][singleZone], label: subCategoryName})
               }else{
                 dataPoints.push({y:0, label: subCategoryName})
               }
             })
-            singleGroupChartMainData.push({
+            singleGroupChartMainData.push({ 
               type: 'stackedColumn',
-              name: singleZone,
+              name: `Z${singleZone.replace('_','')}`,
               // showInLegend: true,
               dataPoints: dataPoints
             })
@@ -1806,17 +1833,11 @@
         console.log('Zone Defect Count Provider: ',zoneDefectCountProvider)
         console.log('Defect Count Provider: ',defectCountProvider)
         console.log('Defect Sub-Defect Count Provider: ',defectSubDefectCountProvider)
-
-        const paretoDivision = document.createElement('div')
-        paretoDivision.id = 'paretoDivision'
-        paretoDivision.style.display = 'flex'
-        paretoDivision.style.flexDirection = 'column'
-        document.getElementsByClassName('report-content-data')[0].appendChild(paretoDivision)
-
+  
         // first Pareto chart
         const mainParetoCategoryChartDivision= document.createElement('div')
         mainParetoCategoryChartDivision.id = 'mainParetoCategoryChartDivision'
-        paretoDivision.appendChild(mainParetoCategoryChartDivision)
+        document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoCategoryChartDivision)
         mainParetoCategoryChartDivision.style.width = '80%'
         mainParetoCategoryChartDivision.style.height = '75%'
         mainParetoCategoryChartDivision.style.marginLeft = '10%'
@@ -1899,10 +1920,10 @@
         // second Pareto chart
         const mainParetoSubCategoryChartDivision = document.createElement('div')
         mainParetoSubCategoryChartDivision.id = 'mainParetoSubCategoryChartDivision'
-        paretoDivision.appendChild(mainParetoSubCategoryChartDivision)
+        document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoSubCategoryChartDivision)
         mainParetoSubCategoryChartDivision.style.width = '80%'
         mainParetoSubCategoryChartDivision.style.height = '75%'
-        mainParetoSubCategoryChartDivision.style.marginTop = '30%'
+        mainParetoSubCategoryChartDivision.style.marginTop = '5%'
         mainParetoSubCategoryChartDivision.style.marginLeft = '10%'
         mainParetoSubCategoryChartDivision.style.position = 'relative'
 
@@ -1983,10 +2004,10 @@
         // third Pareto chart
         const mainParetoZoneChartDivision = document.createElement('div')
         mainParetoZoneChartDivision.id = 'mainParetoZoneChartDivision'
-        paretoDivision.appendChild(mainParetoZoneChartDivision)
+        document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoZoneChartDivision)
         mainParetoZoneChartDivision.style.width = '80%'
         mainParetoZoneChartDivision.style.height = '75%'
-        mainParetoZoneChartDivision.style.marginTop = '30%'
+        mainParetoZoneChartDivision.style.marginTop = '5%'
         mainParetoZoneChartDivision.style.marginLeft = '10%'
         mainParetoZoneChartDivision.style.position = 'relative'
 
@@ -2064,10 +2085,10 @@
         // fourth Pareto chart
         const mainParetoDefectChartDivision = document.createElement('div')
         mainParetoDefectChartDivision.id = 'mainParetoDefectChartDivision'
-        paretoDivision.appendChild(mainParetoDefectChartDivision)
+        document.getElementsByClassName('report-content-data')[0].appendChild(mainParetoDefectChartDivision)
         mainParetoDefectChartDivision.style.width = '80%'
         mainParetoDefectChartDivision.style.height = '75%'
-        mainParetoDefectChartDivision.style.marginTop = '30%'
+        mainParetoDefectChartDivision.style.marginTop = '5%'
         mainParetoDefectChartDivision.style.marginLeft = '10%'
         mainParetoDefectChartDivision.style.position = 'relative'
 
@@ -2164,8 +2185,7 @@
 
         const summaryTable = document.createElement('table')
         summaryTable.id = `${defectName}SummaryTable`
-        summaryTable.style.margin = '2% 5%'
-        summaryTable.style.border = '1px solid #64666a'
+        summaryTable.style.border = '1px solid #ffffff'
         summaryTable.style.borderCollapse = 'collapse'
         reportContentData.appendChild(summaryTable)
 
@@ -2178,13 +2198,9 @@
         const sideHeadingList = ['','Right Side','Left Side']
         sideHeadingList.map( (side) => {
           let sideHeadingCell = document.createElement('th')
-          sideHeadingCell.style.backgroundColor = '#242323'
           sideHeadingCell.id = `${defectName}${side}HeadingCell`
           if(side != ''){
-            sideHeadingCell.style.width = '20%'
             sideHeadingCell.colSpan = `${2 + subDefectList.length}`
-          }else{
-            sideHeadingCell.style.width = '5%'
           }
           sideHeadingCell.innerHTML = side
           sideHeadingRow.appendChild(sideHeadingCell)
@@ -2204,7 +2220,6 @@
 
           // printing category alone
         const categoryCell = document.createElement('th')
-        categoryCell.style.backgroundColor = '#242323'
         categoryCell.id = 'CategoryCell'
         categoryCell.innerHTML = 'Category'
         categoryCell.rowSpan = 2
@@ -2216,7 +2231,6 @@
             // second rows main heading
             secondRowHeadingList.map( (singleHeading) => {
               const singleHeadingCell = document.createElement('th')
-              singleHeadingCell.style.backgroundColor = '#242323'
               singleHeadingCell.id = `${singleHeading}Cell`
               singleHeadingCell.innerHTML = singleHeading
               if(singleHeading == 'Nature of Defect'){
@@ -2230,7 +2244,6 @@
             // cells for the corresponding subDefectList
             subDefectList.map( (singleSubHeading) => {
               let singleSubHeadingCell = document.createElement('th')
-              singleSubHeadingCell.style.backgroundColor = '#242323'
               singleSubHeadingCell.id = `${singleSubHeading}`
               singleSubHeadingCell.innerHTML = singleSubHeading
               secondRowSubHeading.appendChild(singleSubHeadingCell)
@@ -2252,7 +2265,6 @@
           let categoryNameCell = document.createElement('td')
           categoryNameCell.id = `${categoryName}Cell`
           categoryNameCell.innerHTML = categoryName
-          categoryNameCell.style.backgroundColor = '#242323'
           categoryNameCell.rowSpan = `${Object.keys(data.data[categoryName]['LH']).length}`
           categoryRow.appendChild(categoryNameCell)
 
@@ -2266,8 +2278,6 @@
               let subCategoryName = Object.keys(data.data[categoryName][sideName])[subCategory]
 
               let subCategoryCell = document.createElement('td')
-              subCategoryCell.style.backgroundColor = '#f5f0f0'
-              subCategoryCell.style.color = '#242323'
               subCategoryCell.id = `${subCategoryName}Cell`
               subCategoryCell.innerHTML = subCategoryName
 
@@ -2298,9 +2308,6 @@
                 // subDefectDataCell
                 let subDefectDataCell = document.createElement('td')
                 subDefectDataCell.id = `${sideName}${categoryName}_${subCategoryName}-${subDefectName}`
-                subDefectDataCell.style.backgroundColor = '#f5f0f0'
-                subDefectDataCell.style.color = '#242323'
-                subDefectDataCell.style.textAlign = 'center'
                 subDefectDataCell.innerHTML = data.data[categoryName][sideName][subCategoryName][subDefectName]
 
                 // counting no of defects in subCategory's Total Defect
@@ -2320,9 +2327,6 @@
               // Total cell
               let subCategoryTotalCell = document.createElement('td')
               subCategoryTotalCell.id = `${subCategoryName}TotalCell`
-              subCategoryTotalCell.style.textAlign = 'center'
-              subCategoryTotalCell.style.backgroundColor = '#f5f0f0'
-              subCategoryTotalCell.style.color = '#242323'
               subCategoryTotalCell.innerHTML = subCategoryDefectTotal
 
               if(side == 'LH'){
@@ -2341,19 +2345,19 @@
         // styling table rule
         const tdTags = document.getElementsByTagName('td')
         Object.keys(tdTags).map( (td) => {
-          tdTags[td].style.border = '1px solid #64666a'
+          tdTags[td].style.border = '1px solid #ffffff'
           tdTags[td].style.borderCollapse = 'collapse'
         })
 
         const thTags = document.getElementsByTagName('th')
         Object.keys(thTags).map( (th) => {
-          thTags[th].style.border = '1px solid #64666a'
+          thTags[th].style.border = '1px solid #ffffff'
           thTags[th].style.borderCollapse = 'collapse'
         })
 
         const trTags = document.getElementsByTagName('tr')
         Object.keys(trTags).map( (tr) => {
-          trTags[tr].style.border = '1px solid #64666a'
+          trTags[tr].style.border = '1px solid #ffffff'
           trTags[tr].style.borderCollapse = 'collapse'
         })
       }
@@ -2526,13 +2530,13 @@
                 // console.log('sub category: ',subCategoryArray)
                 // console.log('categoryCodeSplit: ', categoryCodeSplit)
                 // console.log('sideCodeSplit: ', sideCodeSplit)
-                console.log('Image name: ',`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
+                // console.log('Image name: ',`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
 
                 //displaying zones with defect count
                 Object.keys(data.data[category][subCategory][defect][subDefect]).map( (singleZone) => {
                   let zoneDefectCountData = document.createElement('p')
                   zoneDefectCountData.id = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
-                  console.log('id: ',zoneDefectCountData.id)
+                  // console.log('id: ',zoneDefectCountData.id)
                   zoneDefectCountData.innerHTML = `Z ${singleZone.replace('_','')}: ${data.data[category][subCategory][defect][subDefect][singleZone]}`
                   zoneDefectCountData.style.display = 'flex'
                   
