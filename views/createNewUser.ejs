@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="createNewUser.css" />
+    <title>Data Entry System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../resources/tailwind.config.js"></script>
+  </head>
+  <body>
+    <div class="header" style="position: sticky; top: 0px">
+      <div class="heading">Data Entry System</div>
+      <form id="btn" action="/logout" method="get">
+        <div class="admin" id="user-mode-name"><%= username %></div>
+        <button
+          type="submit"
+          style="
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+          "
+          class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+        >
+          LOGOUT
+        </button>
+      </form>
+    </div>
+    <div style="display: flex">
+      <img
+        src="./arrow.png"
+        title="Back"
+        id="go-back-icon"
+        alt="Go Back"
+        onclick="document.getElementById('adminForm').submit();"
+      />
+      <h1
+        style="
+          text-align: center;
+          font-size: 35px;
+          text-decoration: underline;
+          font-weight: 600;
+        "
+      >
+        Create New User
+      </h1>
+    </div>
+    <div class="wrapper">
+      <main>
+        <form action="" method="GET" id="createNewUserForm">
+          <fieldset class="contact-info">
+            <div class="container">
+              <legend style="text-decoration: underline">
+                Enter Credentials Details
+              </legend>
+              <p>
+                <label for="name">User Name</label>
+                <input
+                  required
+                  type="text"
+                  name="employeeName"
+                  id="employeeName"
+                  placeholder="Required"
+                  title="Please fill out this field"
+                />
+              </p>
+              <p>
+                <label for="address">User Password</label>
+                <input
+                  required
+                  type="password"
+                  name="employeePassword"
+                  id="employeePassword"
+                  placeholder="Required"
+                />
+              </p>
+              <p>
+                <label for="address">Confirm Password</label>
+                <input
+                  required
+                  type="password"
+                  name="employeePassword1"
+                  id="employeePassword1"
+                  placeholder="Required"
+                />
+              </p>
+            </div>
+          </fieldset>
+
+          <fieldset class="newsletter">
+            <div class="container">
+              <legend style="text-decoration: underline">
+                Select the Access Control and Account type
+              </legend>
+              <h3>Accessible Charts</h3>
+              <div class="checkboxes">
+                <p>
+                  <input
+                    type="checkbox"
+                    id="dpv"
+                    value="DPV (Defects Per Vehicle) Report"
+                  />
+                  <label for="html_news"
+                    >DPV (Defects Per Vehicle) Report</label
+                  >
+                </p>
+                <p>
+                  <input type="checkbox" id="master" value="Master Report" />
+                  <label for="html_news">Master Report</label>
+                </p>
+                <p>
+                  <input
+                    type="checkbox"
+                    id="mainPareto"
+                    value="Main Pareto Report"
+                  />
+                  <label for="css_news">Main Pareto Report</label>
+                </p>
+                <p>
+                  <input type="checkbox" id="pareto" value="Pareto Report" />
+                  <label for="js_news">Pareto Report</label>
+                </p>
+                <p>
+                  <input type="checkbox" id="surface" value="Surface Summary" />
+                  <label for="js_news">Surface Summary</label>
+                </p>
+                <p>
+                  <input
+                    type="checkbox"
+                    id="bodyFitting"
+                    value="Body Fitting Summary"
+                  />
+                  <label for="js_news">Body Fitting Summary</label>
+                </p>
+                <p>
+                  <input
+                    type="checkbox"
+                    id="missingWrongPart"
+                    value="Missing & Wrong Part Summary"
+                  />
+                  <label for="js_news">Missing & Wrong Part Summary</label>
+                </p>
+                <p>
+                  <input type="checkbox" id="welding" value="Welding Summary" />
+                  <label for="js_news">Welding Summary</label>
+                </p>
+                <p>
+                  <input
+                    type="checkbox"
+                    id="waterLeak"
+                    value="Water Leak Summary"
+                  />
+                  <label for="js_news">Water Leak Summary</label>
+                </p>
+                <p>
+                  <input type="checkbox" id="colorMap" value="Color Map" />
+                  <label for="js_news">Color Map</label>
+                </p>
+              </div>
+
+              <h3>User Status</h3>
+              <p>
+                <select name="employeeStatus" id="employeeStatus" required>
+                  <option value="admin">Admin</option>
+                  <option value="employee">Employee</option>
+                </select>
+              </p>
+            </div>
+          </fieldset>
+        </form>
+        <form action="/" id="homeForm" method="get"></form>
+        <form action="/admin" id="adminForm" method="get"></form>
+        <div class="footer">
+          <span id="error" style="display: none">Error Message</span>
+          <button id="createUserButton" onclick="validate()" type="submit">
+            Create New User
+          </button>
+          <!-- <p>&copy; Deevia Software</p> -->
+          <p></p>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script>
+    const firstUserValue = '<%= firstUser %>';
+    const inputTags = document.getElementsByTagName('input');
+    let creator = '';
+
+    if (firstUserValue === 'true') {
+      Object.values(inputTags).map((inputTag) => {
+        if (inputTag.type == 'checkbox') {
+          inputTag.checked = true;
+        }
+      });
+
+      const statusSelectTag = document.getElementById('employeeStatus');
+      const employeeOptionTag = document.getElementById('employee');
+      statusSelectTag.remove(1);
+
+      creator = 'Root User';
+    } else {
+      creator = '<%= username %>';
+    }
+
+    function validate() {
+      const filterForm = document.getElementById('createNewUserForm');
+      if (!filterForm.checkValidity()) {
+        if (filterForm.reportValidity) {
+          filterForm.reportValidity();
+        } else {
+          alert(msg.ieErrorForm);
+        }
+      } else {
+        if (confirm('Are you sure want to create user') == true) {
+          const password = document.getElementById('employeePassword');
+          const confirmPassword = document.getElementById('employeePassword1');
+
+          if (password.value == confirmPassword.value) {
+            // deleting onclick attribute of button
+            document
+              .getElementById('createUserButton')
+              .removeAttribute('onclick');
+            createUser();
+          } else {
+            const errorSpanTag = document.getElementById('error');
+            errorSpanTag.innerHTML = 'Passwords do not match';
+            errorSpanTag.style.display = 'block';
+            setTimeout(() => {
+              errorSpanTag.style.display = 'none';
+            }, 2000);
+          }
+        }
+      }
+    }
+
+    async function createUser() {
+      const empName = document.getElementById('employeeName').value;
+      const empPassword = document.getElementById('employeePassword').value;
+      const empStatus = document.getElementById('employeeStatus').value;
+      const accessibleCharts = [];
+      Object.values(inputTags).map((singleInput) => {
+        if (singleInput.type == 'checkbox') {
+          if (singleInput.checked == true) {
+            accessibleCharts.push(singleInput.value);
+          }
+        }
+      });
+      const response = await fetch(`http://localhost:8000/newUser`, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          empName,
+          empPassword,
+          empStatus,
+          accessibleCharts,
+          creator,
+        }),
+      });
+
+      if (response.status == 200) {
+        if (firstUserValue == 'true') {
+          alert(
+            `${
+              empStatus.charAt(0).toUpperCase() + empStatus.slice(1)
+            } creation successfull. Proceed further by logging again`
+          );
+          document.getElementById('homeForm').submit();
+        } else {
+          alert(
+            `${
+              empStatus.charAt(0).toUpperCase() + empStatus.slice(1)
+            } creation successfull`
+          );
+          document.getElementById('adminForm').submit();
+        }
+      } else {
+        alert(`There's an issue while creating Admin. Please try again`);
+        if (firstUserValue == 'true') {
+          document.getElementById('homeForm').submit();
+        } else {
+          document.getElementById('adminForm').submit();
+        }
+      }
+    }
+  </script>
+</html>

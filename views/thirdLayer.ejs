@@ -57,11 +57,11 @@
         </div>
         <!-- Toggle Switch for online / offline -->
         <div id="toggle" class="mt-10 ml-24">
-          <div class="flex w-full " style="margin-top: -2rem;">
+          <div class="flex w-full " style="margin-top: -2rem; margin-left:-1rem">
             <label
               for="toggle_switch"
               class="flex items-center cursor-pointer"
-              style="justify-content: center"
+              style="justify-content: center; margin-left: -1rem;"
             >
               <div class="relative">
                 <input
@@ -114,9 +114,6 @@
             <p>Sub-Defect :</p>
           </div>
           <div class="sub-content">
-            <!-- <div class="sub-defect-title-name">
-              <p>Sub-Defect :</p>
-            </div> -->
             <%for ( let i=0; i < defectListId.length; i++){ subDefectListId =
             Object.keys(defectObject[defectListId[i]]['subdefects']);
             subDefectListName =
@@ -138,10 +135,28 @@
                 </button>
                 <%}%>
               </div>
-              <div>
-                <div class="zones-title-name">
-                  <p>Zones</p>
+              <div class="save_reset_container">
+                <div class="zones-title-name">Zones :</div>
+                <div class="save-reset-content">
+                  <button
+                    type="button"
+                    class="save-button"
+                    onclick="validate()"
+                    style="background-color: black; color: white"
+                  >
+                    Save
+                  </button>
+                  <button
+                    type="button"
+                    class="reset-button"
+                    onclick="handleReset()"
+                    style="background-color: black; color: white"
+                  >
+                    Reset
+                  </button>
                 </div>
+              </div>
+              <div class="Zone_Container">
                 <div id="zone-division<%= i+1 %>">
                   <%for(let k = 0; k < subDefectListId.length; k++){%>
                   <div
@@ -151,7 +166,7 @@
                   >
                     <% for (let l = 0; l < ShortlistedSubCategoryOptions.length;
                     l++){%>
-                    <div
+                    <div 
                       class="<%= categoryId %>_<%= subcategoryId %><%= ShortlistedSubCategoryOptions[l] %>"
                       id="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
                     >
@@ -159,11 +174,10 @@
                         type="number"
                         inputmode="numeric"
                         class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
-                        name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"
-                        style="width: 150%"
+                        name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"                
                         min="1"
                       />
-                      <p><%= ShortlistedSubCategoryOptions[l] %></p>
+                      <div class="zone-number"><%= ShortlistedSubCategoryOptions[l] %></div>
                     </div>
                     <%}%>
                   </div>
@@ -174,24 +188,6 @@
             <%}%>
           </div>
         </form>
-      </div>
-      <div class="save-reset-content">
-        <button
-          type="button"
-          class="save-button"
-          onclick="validate()"
-          style="background-color: black; color: white"
-        >
-          Save
-        </button>
-        <button
-          type="button"
-          class="reset-button"
-          onclick="handleReset()"
-          style="background-color: black; color: white"
-        >
-          Reset
-        </button>
       </div>
       <div>
         <form action="/follower" method="get" id="followerForm"></form>

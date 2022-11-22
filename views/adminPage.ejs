@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="adminPage.css">
+    <title>Data Entry System</title>
+  </head>
+  <body>
+
+    <div>
+      <!-- division for add and remove user icon -->
+
+    <div style="display: flex; justify-content: center">
+      <div
+        id="addUser"
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <img
+          src="addUserIcon.png"
+          class="addUser"
+          onclick="AddOrRemoveUser(event)"
+          alt="Add User"
+          style="cursor: pointer; width: 40%"
+        />
+        <p
+          class="addUser"
+          onclick="AddOrRemoveUser(event)"
+          style="cursor: pointer"
+        >
+          Add User
+        </p>
+      </div>
+      <div
+        id="removeUser"
+        class="removeUser"
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        "
+      >
+        <img
+          src="removeUserIcon.png"
+          alt="Remove User"
+          onclick="(() => document.getElementById('removeUserDivision').style.visibility = 'visible')()"
+          class="removeUser"
+          style="width: 40%; cursor: pointer"
+        />
+        <p
+          class="removeUser"
+          onclick="(() => document.getElementById('removeUserDivision').style.visibility = 'visible')()"
+          style="cursor: pointer"
+        >
+          Remove User
+        </p>
+      </div>
+      <form action="/addUser" id="addUserForm" method="post">
+        <input type="hidden" name="firstUser" value="false" />
+      </form>
+    </div>
+
+    <!-- employee Table Division -->
+    <div id="employeeTableDivision">
+      <table>
+        <tr>
+          <th>Emp ID</th>
+          <th>Emp Name</th>
+          <th>Emp Status</th>
+          <th>Accessible Charts</th>
+          <th>Created By</th>
+          <th>Change Status</th>
+          <th>Change Chart Access</th>
+        </tr>
+        <%for(let i=0; i<employeeRecords.length; i++){%>
+          <tr>
+            <%for(let j=0; j<Object.keys(employeeRecords[i]).length; j++){
+              if(j != 2){
+                if(j == 4){
+                  if(employeeRecords[i][Object.keys(employeeRecords[i])[j]].length > 0 && employeeRecords[i][Object.keys(employeeRecords[i])[j]][0] != ''){%>
+                    <td>
+                      <%= employeeRecords[i][Object.keys(employeeRecords[i])[j]] %>
+                    </td>
+                  <%}else{%>
+                    <td>
+                      null
+                    </td>
+                  <%}%>
+                <%}else{%>
+                <td>
+                  <%= employeeRecords[i][Object.keys(employeeRecords[i])[j]] %>
+                </td>
+                <%}%>
+              <%}%>
+            <%}
+            if(i != 0){%>
+              <td><button onclick="editEmployeeStatus(event)">Switch</button></td>
+              <td><button onclick="editEmployeeChartAccess(event)">Edit</button></td>
+            <%}%>
+          </tr>
+        <%}%>
+      </table>
+    </div>
+
+    <!-- remove User Division with hide & seek -->
+    <div id="removeUserDivision">
+      <div class="removeUserModalContent">
+        <span class="close" onclick="(() => {document.getElementById('removeUserDivision').style.visibility = 'hidden'})()">&times;</span>
+        <div id="removeUserDivisionHolder"  style="display: flex; flex-direction:column; align-items:center; justify-content: center; gap: 20px">
+          <p >Remove User</p>
+          <div id="removeUserInput"  style="display: flex; justify-content: center">
+            <p >Select User ID:</p>
+            <select  id="selectUserID" required>
+              <option value="dummy" selected hidden>Select User</option>
+              <%for(let i=0; i< employeeRecords.length; i++){
+              if(employeeRecords[i].created_by != 'Root User'){%>
+              <option value="<%= employeeRecords[i].id %>">
+               <%= employeeRecords[i].id +': ' + employeeRecords[i].name %>
+              </option>
+              <%}%>
+              <%}%>
+            </select>
+          </div>
+          <span  id="selectUserIDErrorMsg" style="display: none">Select an user ID</span>
+          <div id="removeUserButton"  style="display: flex; justify-content: space-evenly;gap: 30px">
+            <button  style="display: block;" onclick="removeUser()">Remove</button>
+            <button  style="display: block;" onclick="(() => {document.getElementById('removeUserDivision').style.visibility = 'hidden'})()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="removeUserDivisionEnsure" >
+      <div class="removeUserEnsureModalContent">
+        <span class="close" onclick="(() => {document.getElementById('removeUserDivisionEnsure').style.visibility = 'hidden'})()">&times;</span>
+        <div id="removeUserDivisionEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p>Are you sure want to remove user? </p>
+          <div id="removeUserEnsureButton"  style="display: flex; justify-content: space-evenly;gap: 30px">
+            <button  style="display: block;" onclick="removeUserFinal()">Remove</button>
+            <button  style="display: block;" onclick="(() => {document.getElementById('removeUserDivisionEnsure').style.visibility = 'hidden'})()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="removeUserDivisionSuccess">
+      <div class="removeUserDivisionSuccessModalContent">
+        <div id="removeUserDivisionSuccessHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p id="removeUserFinalUpdateMessage"></p>
+          <div id="removeUserDivisionSuccessButton"  style="display: flex; justify-content: space-evenly">
+            <button  style="display: block;" onclick="(document.getElementById('adminForm').submit())()">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- edit Employee Status -->
+    <div id="editEmployeeStatusEnsureDivision" >
+      <div class="editEmployeeStatusEnsureModalContent">
+        <span class="close" onclick="(() => {document.getElementById('editEmployeeStatusEnsureDivision').style.visibility = 'hidden'})()">&times;</span>
+        <div id="editEmployeeStatusEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p id="editEmployeeStatusEnsureMessage"></p>
+          <div id="editEmployeeStatusEnsureButton"  style="display: flex; justify-content: space-evenly;gap: 30px">
+            <button  style="display: block;" onclick="editEmployeeStatusFinal()">Switch</button>
+            <button  style="display: block;" onclick="(() => {document.getElementById('editEmployeeStatusEnsureDivision').style.visibility = 'hidden'})()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="editEmployeeStatusDivisionSuccess">
+      <div class="editEmployeeStatusDivisionSuccessModalContent">
+        <div id="editEmployeeStatusDivisionSuccessHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p id="editEmployeeStatusFinalUpdateMessage"></p>
+          <div id="editEmployeeStatusDivisionSuccessButton"  style="display: flex; justify-content: space-evenly">
+            <button  style="display: block;" onclick="(document.getElementById('adminForm').submit())()">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p id="currentEmpStatusCache" style="display: none;"></p>
+    <p id="currentEmpIDCache" style="display: none;"></p>
+    <p id="newChartAccessCache" style="display: none;"></p>
+
+    <!-- edit Employee Chart Access -->
+    <div id="editEmployeeChartAccessDivision">
+      <div class="editEmployeeChartAccessDivisionModalContent">
+        <span class="close" onclick="(() => {document.getElementById('editEmployeeChartAccessDivision').style.visibility = 'hidden'})()">&times;</span>
+        <div id="editEmployeeChartAccessDivisionHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p id="editEmployeeChartAccessTitle">Edit Chart Access: </p>
+          <div>
+            <div id="editEmployeeChartAccessCheckBoxHolder" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+            <div class="editEmployeeChartAccessCheckBox">
+            <input type="checkbox" value="DPV (Defects Per Vehicle) Report"/>
+            <p>DPV (Defects Per Vehicle) Report</p>
+          </div>
+          <div class="editEmployeeChartAccessCheckBox">
+            <input type="checkbox" value="Master Report"/>
+            <p>Master Report</p>
+          </div>
+          <div class="editEmployeeChartAccessCheckBox">
+            <input type="checkbox" value="Main Pareto Report"/>
+            <p>Main Pareto Report</p>
+          </div>
+          <div class="editEmployeeChartAccessCheckBox">
+            <input type="checkbox" value="Pareto Report"/>
+          <p>Pareto Report</p>
+          </div>
+          <div>
+            <input type="checkbox" value="Surface Summary"/>
+            <p>Surface Summary</p>
+          </div>
+          <div class="editEmployeeChartAccessCheckBox">
+            <input type="checkbox" value="Body Fitting Summary"/>
+            <p>Body Fitting Summary</p>
+          </div>
+          <div class="editEmployeeChartAccessCheckBox">
+            <input type="checkbox" value="Missing & Wrong Part Summary"/>
+            <p>Missing & Wrong Part Summary</p>
+          </div>
+          <div class="editEmployeeChartAccessCheckBox">
+            <input type="checkbox" value="Welding Summary"/>
+            <p>Welding Summary</p>
+          </div>
+          <div class="editEmployeeChartAccessCheckBox">
+            <input type="checkbox" value="Water Leak Summary"/>
+            <p>Water Leak Summary</p>
+          </div>
+          <div class="editEmployeeChartAccessCheckBox">
+            <input type="checkbox" value="Color Map"/>
+            <p>Color Map</p>
+          </div>
+          </div>
+          
+          </div>
+          <div id="editEmployeeChartAccessDivisionButton"  style="display: flex; justify-content: space-evenly">
+            <button  style="display: block;" onclick="(document.getElementById('editEmployeeChartAccessEnsureDivision').style.visibility = 'visible')()">Edit</button>
+            <button  style="display: block;" onclick="(document.getElementById('editEmployeeChartAccessDivision').style.visibility = 'hidden')()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="editEmployeeChartAccessEnsureDivision" >
+      <div class="editEmployeeChartAccessEnsureModalContent">
+        <span class="close" onclick="(() => {document.getElementById('editEmployeeStatusEnsureDivision').style.visibility = 'hidden'})()">&times;</span>
+        <div id="editEmployeeChartAccessEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p id="editEmployeeChartAccessEnsureMessage">Are you sure want to edit chart access ?</p>
+          <div id="editEmployeeChartAccessEnsureButton"  style="display: flex; justify-content: space-evenly;gap: 30px">
+            <button  style="display: block;" onclick="editEmployeeChartAccessFinal()">Edit</button>
+            <button  style="display: block;" onclick="(() => {document.getElementById('editEmployeeStatusEnsureDivision').style.visibility = 'hidden'})()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="editEmployeeChartAccessSuccess">
+      <div class="editEmployeeChartAccessSuccessModalContent">
+        <div id="editEmployeeChartAccessSuccessHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+          <p id="editEmployeeChartAccessFinalUpdateMessage"></p>
+          <div id="editEmployeeChartAccessDivisionSuccessButton"  style="display: flex; justify-content: space-evenly">
+            <button  style="display: block;" onclick="(document.getElementById('adminForm').submit())()">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form action="/admin" id="adminForm" method="get"></form>
+
+    <script>
+
+      var removeUserDivisionModal = document.getElementById("removeUserDivision");
+
+      function AddOrRemoveUser(event) {
+        const mode = event.target.className;
+        if (mode == 'addUser') {
+          document.getElementById('addUserForm').submit();
+        }
+      }
+
+      function removeUser() {
+        const selectedUserID = document.getElementById('selectUserID');
+
+        if (selectedUserID.value == 'dummy') {
+          document.getElementById('selectUserIDErrorMsg').style.display =
+            'block';
+          setTimeout(() => {
+            document.getElementById('selectUserIDErrorMsg').style.display =
+              'none';
+          }, 2000);
+        } else {
+           document.getElementById('removeUserDivisionEnsure').style.visibility = 'visible'
+        }
+      }
+
+      async function removeUserFinal(){
+        const selectedUserID = document.getElementById('selectUserID');
+        const response = await fetch('http://localhost:8000/removeUser', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            userID: selectedUserID.value,
+          }),
+        });
+
+        document.getElementById('removeUserDivisionSuccess').style.visibility = 'visible'
+
+        if (response.status == 200) {
+          document.getElementById('removeUserFinalUpdateMessage').innerHTML = 'User Removed successfully'
+        } else if (response.status == 400) {
+          document.getElementById('removeUserFinalUpdateMessage').innerHTML = 'User Removal Failed. Try Again!'
+        } else {
+          document.getElementById('removeUserFinalUpdateMessage').innerHTML = 'Unhandled Error, try again'
+        }
+      }
+
+      function editEmployeeStatus(event){
+        const currentEmpStatus = event.target.parentNode.parentNode.childNodes[5].innerText
+        const currentEmpID= event.target.parentNode.parentNode.childNodes[1].innerText
+        document.getElementById('currentEmpStatusCache').innerHTML = currentEmpStatus
+        document.getElementById('currentEmpIDCache').innerHTML = currentEmpID
+        document.getElementById('editEmployeeStatusEnsureMessage').innerHTML = `Are you sure want to switch user status to ${currentEmpStatus == 'employee' ? 'admin': 'employee'}`
+        document.getElementById('editEmployeeStatusEnsureDivision').style.visibility = 'visible'
+      }
+
+
+      async function editEmployeeStatusFinal(){
+        // editing employee status
+        const currentEmpStatus = document.getElementById('currentEmpStatusCache').innerText
+        const currentEmpID = document.getElementById('currentEmpIDCache').innerText 
+        
+        let changeEmpStatus = ''
+
+        if(currentEmpStatus == 'employee'){
+          changeEmpStatus = 'admin'
+        }else{
+          changeEmpStatus = 'employee'
+        }
+
+        const response = await fetch('http://localhost:8000/updateEmpStatus',{
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            changeEmpStatus,
+            currentEmpID
+          })
+        })
+
+        document.getElementById('editEmployeeStatusDivisionSuccess').style.visibility = 'visible'
+
+        if(response.status == 200){
+          document.getElementById('editEmployeeStatusFinalUpdateMessage').innerHTML = `Employee status updated to ${changeEmpStatus}`
+        }else if(response.status == 400){
+          document.getElementById('editEmployeeStatusFinalUpdateMessage').innerHTML = 'Status updation failed. Try Again!'
+        }else{
+          document.getElementById('editEmployeeStatusFinalUpdateMessage').innerHTML = 'Unhandled Exception'
+        }
+      }
+
+      function editEmployeeChartAccess(event){
+        const currentEmpStatus = event.target.parentNode.parentNode.childNodes[5].innerText
+        const currentEmpID= event.target.parentNode.parentNode.childNodes[1].innerText
+        const currentEmpChartAccess = event.target.parentNode.parentNode.childNodes[7].innerText
+        
+        document.getElementById('currentEmpIDCache').innerHTML = currentEmpID
+
+        const empChartAccessArray = currentEmpChartAccess.split(',')
+
+        const inputTags = document.getElementsByTagName('input')
+        Object.values(inputTags).map( (singleInput) => {
+          if(singleInput.type == 'checkbox'){
+            if(empChartAccessArray.includes(singleInput.value)){
+              singleInput.checked = true
+            }
+          }
+        })
+        
+        document.getElementById('editEmployeeChartAccessDivision').style.visibility = 'visible'
+      }
+
+      async function editEmployeeChartAccessFinal(){
+        let selectedChartAccess = []
+        const inputTags = document.getElementsByTagName('input')
+        Object.values(inputTags).map( (singleInput) => {
+          if(singleInput.checked == true){
+            selectedChartAccess.push(singleInput.value)
+          }
+        })
+
+        const currentEmpID = document.getElementById('currentEmpIDCache').innerText
+
+        const response = await fetch('/updateEmpChartAccess', {
+          method: 'POST',
+          headers:{
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            currentEmpID,
+            selectedChartAccess
+          })
+        })
+
+        if(response.status == 200){
+          document.getElementById('editEmployeeChartAccessFinalUpdateMessage').innerHTML = 'Chart access updated!'
+        }else if(response.status == 400){
+          document.getElementById('editEmployeeChartAccessFinalUpdateMessage').innerHTML = 'Error updating chart access. Try Again!'
+        }
+
+        document.getElementById('editEmployeeChartAccessSuccess').style.visibility = 'visible'
+      }
+    </script>
+  </body>
+</html>

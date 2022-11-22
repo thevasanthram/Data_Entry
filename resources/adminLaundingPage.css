@@ -1,5 +1,6 @@
 * {
   margin: 0px;
+  box-sizing: border-box;
   padding: 0%;
 }
 body {
@@ -11,19 +12,20 @@ body {
 .header {
   width: 100%;
   display: flex;
-  height: 4rem;
+  height: 4.5rem;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   background-color: #393e46;
   color: #f0e3e3;
 }
-#filter {
+/* #filter {
   background-color: #393e46;
-}
+} */
 #btn {
   display: flex;
   justify-content: end;
+  align-items: center;
 }
 .button-logout {
   display: flex;
@@ -40,20 +42,7 @@ input:checked ~ .dot {
   transform: translateX(100%);
   background-color: #48bb78;
 }
-.footer {
-  padding: 2rem;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  font-weight: 500;
-}
-#date {
-  display: flex;
-  align-items: center;
-  margin-top: 1rem;
-  gap: 2rem;
-}
+
 #chart-condition-select-content {
   margin: 1.5rem;
 }
@@ -63,22 +52,151 @@ input:checked ~ .dot {
   font-weight: 500;
   font-size: clamp(1.3rem, 2.2vw, 1.6rem);
 }
+
 .heading {
-  font-weight: 700;
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
   padding-left: 1%;
-}
-.filter {
+  font-weight: 700;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
-  margin-bottom: 1rem;
+}
+
+.filtering-condition-content {
+  max-width: 100%;
+}
+.filtering-condition-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.form {
+  width: 100%;
+  padding-left: 2px;
+  display: flex;
+  height: 4rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2f576e;
+  color: #f0e3e3;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  background: linear-gradient(to right, #2c3e50, #4ca1af);
+}
+.Date_Filter {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+  grid-template-columns: 1fr 1fr;
+}
+.from-date-condition-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+.to-date-condition-content {
+  display: flex;
+  margin-left: -20px;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+#from-date-condition-input,
+#to-date-condition-input {
+  background-color: #eeeeee;
+  color: gray;
+  width: 60%;
+  font-size: medium;
+  font-weight: 400;
+  height: 30px;
+  border-radius: 5px;
+  padding: 3px;
+}
+#filter-text {
+  font-size: clamp(1.25rem, 2vw, 1.8rem);
+}
+
+#chart-condition-select-content-1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: -5%;
+  gap: 5%;
+}
+.Empty_Tag {
+  display: none;
+}
+
+#chart-condition-input {
+  background-color: #eeeeee;
+  color: rgb(67, 67, 67);
+  max-width: 80%;
+  font-size: medium;
+  height: 30px;
+  border-radius: 5px;
+  padding: 1px;
+}
+
+#container {
+  width: 100%;
+}
+
+.button_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  margin: 2px;
+  padding: 2px;
+  gap: 5px;
+  margin-right: 5px;
+}
+
+/* ! Admin Card Portion Style */
+.footer {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   font-weight: 500;
+}
+
+#filter-container {
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625);
+  min-width: 50vw;
+  min-height: 50vh;
+  background: linear-gradient(to right, #2c3e50, #4ca1af);
+}
+.card-toggle_container {
+  /* display: flex; */
+  align-items: baseline;
+  justify-content: center;
+}
+.card-title-name {
+  font-size: clamp(1.6rem, 2vw, 2rem);
+  display: flex;
+  justify-content: center;
+}
+#card-date {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+.card-from-date-condition-content {
+  font-size: 1.25rem;
+  margin: 1rem;
+}
+.card-to-date-condition-content {
+  font-size: 1.25rem;
 }
 #from-date-condition-input-card,
 #to-date-condition-input-card {
   background-color: #eeeeee;
   color: gray;
   border-radius: 5px;
-  padding-left: 0.8rem;
+  padding: 4px;
 }
 #from-date-condition-input,
 #to-date-condition-input {
@@ -90,13 +208,24 @@ input:checked ~ .dot {
 #filter-text {
   font-size: clamp(1.25rem, 2vw, 1.8rem);
 }
-#chart-condition-input,
-#chart-condition-input-card,
-#colorMapCategorySelectTag,
-#selectSubCategory {
+.Card-Report-heading {
+  font-size: 1.25rem;
+  display: inline-block;
+  margin: 2px;
+  padding: 4px;
+}
+#chart-condition-select-content {
+  margin-left: -1rem;
+  margin-top: 2rem;
+}
+
+#chart-condition-input-card {
   background-color: #eeeeee;
   border-radius: 5px;
-  color: gray;
+  color: rgb(67, 67, 67);
+  display: inline-block;
+  font-size: 1.25rem;
+  padding: 4px;
 }
 #container {
   width: 100%;
@@ -112,7 +241,7 @@ input:checked ~ .dot {
   background-color: #2f576e;
   color: #f0e3e3;
   font-size: clamp(1rem, 1.5vw, 1.25rem);
-  background: linear-gradient(to left, #2c3e50, #4ca1af);
+  background: linear-gradient(to right, #2c3e50, #4ca1af);
 }
 .chart-condition {
   flex-direction: row;
@@ -123,101 +252,142 @@ input:checked ~ .dot {
   padding: 2px;
 }
 
-/*! LH SIDE MEMBER B-PILLAR  */
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM712 {
-  margin-top: 9%;
-  width: 5%;
-  margin-left: 29%;
-  padding: 2% 5% 1% 1%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM713 {
-  margin-top: 18%;
-  width: 5%;
-  margin-left: 29%;
-  padding: 1% 5% 1% 1%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM714 {
-  margin-top: 26.1%;
-  width: 5%;
-  margin-left: 27%;
-  padding: 1% 5% 1% 1%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM715 {
-  margin-top: 34.1%;
-  width: 5%;
-  margin-left: 27%;
-  padding: 3% 5% 1% 1%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM716 {
-  margin-top: 44.2%;
-  width: 5%;
-  margin-left: 25%;
-  padding: 2% 5% 0.8% 3%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM717 {
-  margin-top: 9%;
-  width: 5%;
-  margin-left: 40%;
-  padding: 2% 5% 1% 1%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM718 {
-  margin-top: 45%;
-  width: 5%;
-  margin-left: 38%;
-  padding: 1% 5% 1% 2%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM719 {
-  margin-top: 34.9%;
-  width: 5%;
-  margin-left: 38%;
-  padding: 2% 5% 2% 2%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM720 {
-  margin-top: 26%;
-  width: 5%;
-  margin-left: 38%;
-  padding: 1.8% 5% 1% 2%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
-.LH_SIDE_MEMBER_B-PILLAR-LHSM721 {
-  margin-top: 18%;
-  width: 5%;
-  margin-left: 40%;
-  padding: 0.8% 5% 1% 2%;
-  position: absolute;
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
 /*! CSS for Responsive Design  */
 
+@media screen and (max-width: 1024px) {
+  .form {
+    height: 5rem;
+  }
+  .Date_Filter {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 2px;
+    margin-left: -2%;
+  }
+  .from-date-condition-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    gap: 5px;
+  }
+  .to-date-condition-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    gap: 5px;
+  }
+  #from-date-condition-input {
+    width: 60%;
+    height: 30px;
+    border-radius: 5px;
+    padding: 3px;
+  }
+  #to-date-condition-input {
+    width: 55%;
+    height: 30px;
+    border-radius: 5px;
+    padding: 3px;
+  }
+  #chart-condition-select-content-1 {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+    margin: 3%;
+    /* gap: 5%; */
+  }
+
+  #chart-condition-input {
+    background-color: #eeeeee;
+    color: rgb(46, 42, 42);
+    max-width: 70%;
+    font-size: medium;
+    height: 30px;
+    border-radius: 5px;
+    padding: 3px;
+  }
+  .toggle_content {
+    margin-left: -8%;
+  }
+  .button_container {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    padding: 2px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+}
+@media screen and (max-width: 700px) {
+  .form {
+    min-height: 8rem;
+  }
+  .Date_Filter {
+    margin-top: -7%;
+  }
+  .toggle_content {
+    position: relative;
+    top: -2.5rem;
+    margin-left: -12rem;
+    flex-direction: row;
+  }
+  .Empty_Tag {
+    display: block;
+  }
+  #chart-condition-select-content-1 {
+    display: flex;
+    position: relative;
+    top: 2rem;
+    right: 15rem;
+  }
+  .button_container {
+    position: relative;
+    top: 5%;
+    left: -22%;
+  }
+}
+@media screen and (max-width: 530px) {
+  body {
+    width: 120%;
+  }
+  #title-name-content {
+    position: relative;
+    top: -5%;
+  }
+  .toggle_content {
+    top: -2.5rem;
+    margin-left: -16.5rem;
+    flex-direction: row;
+  }
+  .Empty_Tag {
+    display: block;
+  }
+  #chart-condition-select-content-1 {
+    top: 2.4rem;
+    right: 15rem;
+  }
+  .button_container {
+    top: 5%;
+    left: -20%;
+  }
+}
+
 @media screen and (max-width: 480px) {
+  body {
+    width: 120%;
+    height: 100vh;
+    background-color: #222831;
+    color: #eeeeee;
+    /* position: fixed; */
+  }
   .header {
     width: 100%;
     display: flex;
@@ -233,7 +403,7 @@ input:checked ~ .dot {
   .heading {
     padding-left: 1%;
     font-weight: 700;
-    font-size: clamp(20px, -0.5vw, 1rem);
+    font-size: clamp(20px, 0.8vw, 1.5rem);
     /* width: 26px; */
   }
 
@@ -244,97 +414,39 @@ input:checked ~ .dot {
     flex-direction: column;
     line-height: 28px;
   }
-
   .admin {
     color: #00adb5;
     margin-right: 10%;
     font-weight: 500;
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
   }
 
   #btn button {
-    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-    width: 40px;
-    height: 20px;
-    font-size: 7px;
-  }
-
-  #bodyNumberForm {
-    display: grid;
+    display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-  }
-
-  #bodyNumber {
-    /* padding: 2px; */
-    /* margin: 2px; */
-    font-size: clamp(1rem, 2.5vw, 2rem);
-    font-weight: 500;
-    color: #eeeeee;
-    /* padding-right: 1%; */
-  }
-
-  input[type='number'],
-  select {
-    width: 78%;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    font-size: 110%;
-    /* padding: 10px 20px; */
-    /* margin: 8px 0; */
-    /* display: inline-block; */
-    border: 1px solid #64666a;
-    border-radius: 4px;
-    background-color: black;
-    color: white;
-    box-sizing: border-box;
+    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+    width: 60px;
     height: 30px;
+    font-size: 11px;
   }
-
-  .enter {
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    height: 30px;
-    font-size: 14px;
-    text-align: center;
-    margin-left: 48px;
+  #from-date-condition-input-card,
+  #to-date-condition-input-card {
+    background-color: #eeeeee;
+    color: gray;
+    width: 80%;
+    border-radius: 5px;
+    padding: 4px;
+    gap: 0px;
   }
-
-  .pass {
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    height: 30px;
-    font-size: 14px;
-    text-align: center;
-    margin-left: 48px;
+  #chart-condition-select-content {
+    margin-left: -0.5rem;
+    margin-top: 1.2rem;
   }
-
-  #SMColorMap {
-    clear: left;
-    position: relative;
-    margin: 2rem 0px;
+  #card-submit {
+    display: flex;
+    align-items: center;
+    margin: 2%;
+    justify-content: center;
   }
-
-  #SMTopicElemet {
-    color: rgb(255, 255, 255);
-    margin-left: 4%;
-    text-decoration: underline;
-  }
-
-  .toggle_container {
-    width: 100%;
-    /* margin: ; */
-  }
-}
-
-@media screen and (max-width: 768px) {
-}
-
-@media screen and (max-width: 1024px) {
-}
-
-@media screen and (max-width: 1280px) {
 }

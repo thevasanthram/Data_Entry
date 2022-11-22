@@ -39,7 +39,16 @@
   <body >
       <div id="data_entry" >
         <div class="header" style="position: sticky;top: 0px;z-index: 2;">
+          <div style="display: flex">
+            <img
+              src="./navBarIcon.png"
+              title="Switch Mode"
+              id="navBarIcon"
+              alt="Switch Mode"
+              style="cursor: pointer; width: 8%; margin: 0.5% 3%"
+            />
             <div class="heading">Data Entry System</div>
+          </div>
             <form id="btn" action="/logout" method="get">
                 <div class="admin" id="user-mode-name"><%= username %></div>
                 <button type="submit"
@@ -51,77 +60,162 @@
                 </button>
             </form>
         </div>
-        <div id="container" style="display: none; position: sticky; z-index: 2; top: 8%;" >
-            <div class="filtering-condition-content" >
-              <div class="filtering-condition-form" style=" display: flex; flex-direction:row; justify-content:space-around">
-                <form  action="/filtered-result-bar" method="post" class="form" id="filterForm">
-                  <div id="title-name-content"> 
-                    Filtering Condition :
-                  </div>
+
+        <div
+        id="navBarDivision"
+        style="
+          position: fixed;
+          z-index: 3;
+          display: none;
+          width: 20%;
+          height: 90%;
+          background-color: #00adb5;
+        "
+      >
+        <div
+          id="DataEntryDiv"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 7.5%;
+            cursor: pointer;"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <p
+            id="dataEntry"
+            style="
+              font-size: 130%;
+              font-weight: 500;
+              height: 100%;
+              padding: 2px 10px;
+            "
+          >
+            Data Entry
+          </p>
+        </div>
+        <div
+          id="ReportGenerationDiv"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 7.5%;
+            cursor: pointer;
+            background-color: #075154 !important;
+          "
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+        >
+          <p
+            id="reportGeneration"
+            style="
+              font-size: 130%;
+              font-weight: 500;
+              height: 100%;
+              padding: 2px 10px;
+            "
+          >
+            Report Generation
+          </p>
+        </div>
+        <div
+          id="AdministrationDiv"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 7.5%;
+            cursor: pointer;
+          "
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <p
+            id="administration"
+            style="
+              font-size: 130%;
+              font-weight: 500;
+              height: 100%;
+              padding: 2px 10px;
+            "
+          >
+            Administration
+          </p>
+        </div>
+      </div>
+
+      <form action="/follower" id="followerForm" method="get"></form>
+      <form action="/admin" id="adminForm" method="get"></form>
+        <div id="container" style="display: none; position: sticky; top: 67px; z-index: 2;" >
+          <div class="filtering-condition-content" >
+            <div class="filtering-condition-form" >
+              <form  action="/filtered-result-bar" method="post" class="form" id="filterForm">
+                <div id="title-name-content"> 
+                  Filtering Condition<strong>:</strong>
+                </div>
+                <div class="Date_Filter">
                   <div class="from-date-condition-content">
-                    From :
-                    <input type="date" name="fromDateCondition" id="from-date-condition-input"  />
+                      <label class="label_From" >From<strong>:</strong></label> 
+                      <input type="date" name="fromDateCondition" id="from-date-condition-input"  />
                   </div>
                   <div class="to-date-condition-content">
-                    To:
-                    <input type="date" name="toDateCondition" id="to-date-condition-input"  />
+                      <label class="label_To" >To<strong>:</strong></label>
+                      <input type="date" name="toDateCondition" id="to-date-condition-input"  />
                   </div>
-                  <div class="chart-condition-content">
-                    <div class="chart-condition" id="chart-condition-select-content">
-                      <p id="chart-Condition-topic" style="display:inline-block"> Report :</p>
-                      <select name="chartCondition" id="chart-condition-input" required>
-                        <option value="DPV (Defects Per Vehicle) Report">DPV (Defects Per Vehicle) Report</option>
-                        <option value="Master Report">Master Report</option>
-                        <option value="Main Pareto Report">Main Pareto Report</option>
-                        <option value="Pareto Report">Pareto Report</option>
-                        <option value="Surface Summary">Surface Summary</option>
-                        <option value="Body Fitting Summary">Body Fitting Summary</option>
-                        <option value="Missing & Wrong Part Summary">Missing & Wrong Part Summary</option>
-                        <option value="Welding Summary">Welding Summary</option>
-                        <option value="Water Leak Summary">Water Leak Summary</option>
-                        <option value="Color Map">Color Map</option>
-                      </select>
-                    </div>
-                  </div>
-                  <label for="toggle_switch" class="flex items-center cursor-pointer">
-                    <div class="relative">
-                      <input type="checkbox" id="toggle_switch" class="sr-only modeNavBar" onclick="navBarToggleSwitch()">
-                      <div class="block bg-gray-900 w-14 h-8 rounded-full"></div>
-                      <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
-                    </div>
-                    <div id="modeNameNavBar" class="ml-2 text-gray-900 font-medium text-2xl">
-                      Offline
-                    </div>
-                  </label>
-                  <div class="button_container">
-                    <button type="button" id="filtering-condition-submit-button" onclick="validate('bar')"
-                    style="background: linear-gradient(
-                    to right, #0f0c29, #302b63, #24243e 
-                    );"
-                    class=" bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-                    >Generate</button>
-                    <button type="button" id="htmlToPdf" onclick="UniPDf()"
-                    style="background: linear-gradient(
-                    to right, #0f0c29, #302b63, #24243e 
-                    );"
-                    class="download_btn bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"         
-                    >Export</button>
-                  </div>    
                 </div>
-              </form>
-            </div> 
-          </div>
+                  <div class="chart-condition" id="chart-condition-select-content-1"><p class="Empty_Tag"><br/><br><br></p>
+                    <p id="chart-Condition-topic" style="display:inline-block"> Report<strong>:</strong></p>
+                    <select name="chartCondition" id="chart-condition-input" required>
+                      <option value="DPV (Defects Per Vehicle) Report">DPV (Defects Per Vehicle) Report</option>
+                      <option value="Master Report">Master Report</option>
+                      <option value="Main Pareto Report">Main Pareto Report</option>
+                      <option value="Pareto Report">Pareto Report</option>
+                      <option value="Surface Summary">Surface Summary</option>
+                      <option value="Body Fitting Summary">Body Fitting Summary</option>
+                      <option value="Missing & Wrong Part Summary">Missing & Wrong Part Summary</option>
+                      <option value="Welding Summary">Welding Summary</option>
+                      <option value="Water Leak Summary">Water Leak Summary</option>
+                      <option value="Color Map">Color Map</option>
+                    </select>
+                  </div>
+                <label for="toggle_switch" class="toggle_content flex items-center cursor-pointer">
+                  <div class="relative">
+                    <input type="checkbox" id="toggle_switch" class="sr-only modeNavBar w-4 " onclick="navBarToggleSwitch()">
+                    <div class="block bg-gray-900 w-14 h-8 rounded-full"></div>
+                    <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+                  </div>
+                  <div id="modeNameNavBar" class="ml-1 text-gray-900" style="font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 500;">
+                    Online 
+                  </div>
+                </label>
+                <div class="button_container"><p class="Empty_Tag"><br/></p>
+                  <button type="button" id="filtering-condition-submit-button" onclick="validate('bar')"
+                  style="background: linear-gradient(
+                  to right, #0f0c29, #302b63, #24243e 
+                  );"
+                  class="generate_btn bg-blue-500 hover:bg-blue-400 text-white font-bold py-1 px-1 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+                  >Generate</button>
+                  <button type="button" id="htmlToPdf" onclick="UniPDf()"
+                  style="background: linear-gradient(
+                  to right, #0f0c29, #302b63, #24243e 
+                  );"
+                  class="download_btn bg-blue-500 hover:bg-blue-400 text-white font-bold py-1 px-1 border-b-4 border-blue-700 hover:border-blue-500 rounded"         
+                  >Export</button>
+                </div>    
+              </div>
+            </form>
+          </div> 
+        </div>
        	<!-- Tailwind Card Sample Code -->
-          <div class="flex justify-center mt-24 l" id="filter-container"  >
-            <div style="box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625) ; min-width: 60vw; min-height: 55vh;background: linear-gradient(
-              to right, #2c3e50, #4ca1af
-            );" 
+          <div class="flex justify-center mt-20 l filter-container" >
+            <div id="filter-container" 
              class="block p-6 rounded-3xl shadow-lg   " >
              <form  action="/filtered-result-card" method="post" id="filterForm">
-              <div class="toggle_container flex justify-center " style="gap: 30px;">
-                <h5  class=" text-3xl pl-28 underline leading-tight font-medium flex  justify-center m-5 ml-24 -mr-10 -mb-10">Filtering Condition</h5>
+              <div class="card-toggle_container flex " >
+                <h5  class="card-title-name   underline leading-tight ">Filtering Condition</h5>
                 <!-- Toggle Switch for online / offline -->
-                <div id="toggle" class="mt-6 ml-24" >
+                <div id="toggle" class="mt-6 ml-24">
                   <div class="flex w-full mb-12"> 
                     <label for="toggle_switch_outside" class="flex items-center cursor-pointer">
                       <div class="relative">
@@ -130,48 +224,45 @@
                         <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                       </div>
                       <div class="ml-2 text-gray-800 font-medium text-2xl modeNameTailwind">
-                        Offline
+                        Online
                       </div>
                     </label>
                   </div>
                 </div>
-              </div> 
+              </div>
                 <div class="footer ml-5 -mt-12 " >
-                    <div id="date" >
-                        <div class="from-date-condition-content" 
-                        style="font-size: 1.25rem; margin: 1.25rem;">From :                
+                    <div id="card-date" >
+                        <div class="card-from-date-condition-content">From :                
                             <input type="date" name="fromDateCondition" 
                             id="from-date-condition-input-card">
                         </div>     
-                        <div class="to-date-condition-content -ml-5 " 
-                        style="font-size: 1.25rem;" >To :
+                        <div class="card-to-date-condition-content ">To :
                             <input type="date" name="toDateCondition" 
                             id="to-date-condition-input-card" placeholder="select date" >
                          </div>           
                     </div>
-                    <div id="chart-condition-select-content" style="margin-left: -1.5rem;margin-top:2.3rem ;" >
-                        <p style="display: inline-block;font-size: 1.25rem; " >Report :</p>
-                          <select style="color: black ; display: inline-block; font-size: 1.25rem;" 
-                          name="chartCondition" id="chart-condition-input-card" required >
-                            <option value="DPV (Defects Per Vehicle) Report">DPV (Defects Per Vehicle) Report</option>
-                            <option value="Master Report">Master Report</option>
-                            <option value="Main Pareto Report">Main Pareto Report</option>
-                            <option value="Pareto Report">Pareto Report</option>
-                            <option value="Surface Summary">Surface Summary</option>
-                            <option value="Body Fitting Summary">Body Fitting Summary</option>
-                            <option value="Missing & Wrong Part Summary">Missing & Wrong Part Summary</option>
-                            <option value="Welding Summary">Welding Summary</option>
-                            <option value="Water Leak Summary">Water Leak Summary</option>
-                            <option value="Color Map">Color Map</option>
-                          </select>
+                    <div id="chart-condition-select-content"  >
+                      <p class="Card-Report-heading" style="font-size: 1.25rem; " >Report :</p>
+                      <select name="chartCondition" id="chart-condition-input-card" required >
+                          <option value="DPV (Defects Per Vehicle) Report">DPV (Defects Per Vehicle) Report</option>
+                          <option value="Master Report">Master Report</option>
+                          <option value="Main Pareto Report">Main Pareto Report</option>
+                          <option value="Pareto Report">Pareto Report</option>
+                          <option value="Surface Summary">Surface Summary</option>
+                          <option value="Body Fitting Summary">Body Fitting Summary</option>
+                          <option value="Missing & Wrong Part Summary">Missing & Wrong Part Summary</option>
+                          <option value="Welding Summary">Welding Summary</option>
+                          <option value="Water Leak Summary">Water Leak Summary</option>
+                          <option value="Color Map">Color Map</option>
+                      </select>
                     </div>
-                    <div id="submit" class="mt-5 -mb-8">
+                    <div id="card-submit" >
                         <button onClick = "validate('card')" type="button" id="filtering-condition-submit-button"
                         style="background: linear-gradient(
                           to right, #0f0c29, #302b63, #24243e 
                         );"
                          class="m-5 bg-blue-500 hover:bg-blue-400 text-white font-bold
-                          py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                          py-2 px-2 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                             GENERATE
                         </button>
                         <button onClick = "UniPDf()" type="button" id="htmlToPdf"
@@ -198,6 +289,45 @@
   </body>
 
     <script>
+
+      // by default, mode will be online
+      document.getElementById('toggle_switch_outside').checked = true
+      document.getElementById('toggle_switch').checked = true
+
+      document.addEventListener('click', hideAndSeek);
+
+      function hideAndSeek(event) {
+        const navBarDivision = document.getElementById('navBarDivision');
+        if (event.target.id !== 'navBarIcon') {
+          navBarDivision.style.display = 'none';
+        } else {
+          if (navBarDivision.style.display == 'none') {
+            navBarDivision.style.display = 'inline-block';
+          } else {
+            navBarDivision.style.display = 'none';
+          }
+        }
+      }
+
+      function onmouseoverBGColor(event) {
+        event.target.style.backgroundColor = '#075154';
+      }
+
+      function onmouseoutBGColor(event) {
+        if (event.target.id != 'reportGeneration') {
+          event.target.style.backgroundColor = '#00adb5';
+        }
+      }
+
+      function handleFormSubmit(event) {
+        console.log(event.target.id)
+        if (event.target.id == 'dataEntry') {
+          document.getElementById('followerForm').submit();
+        } else if (event.target.id == 'administration') {
+          document.getElementById('adminForm').submit();
+        }
+      }
+
 
       var tbl;
       var firstSection;
@@ -243,7 +373,7 @@
         }
         var filterForm = document.getElementById('filterForm')
         let container = document.getElementById('container');
-        let filter_container = document.getElementById('filter-container');
+        let filter_container = document.getElementsByClassName('filter-container')[0];
         container.style.display = 'inline-block';
         filter_container.style.display = 'none';
         if (!filterForm.checkValidity()) {
@@ -1035,6 +1165,8 @@
 
           TotalZones.map( (singleZone) => {
             let dataPoints = []
+            let indexLabelContent = ''
+            // no of bars in x axis
             Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
               if(Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName]).includes(singleZone)){
                 dataPoints.push({y: majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName][singleZone], label: subCategoryName})
@@ -1042,14 +1174,18 @@
                 dataPoints.push({y:0, label: subCategoryName})
               }
             })
+            // no of stacked column
             singleGroupChartMainData.push({ 
               type: 'stackedColumn',
               name: `Z${singleZone.replace('_','')}`,
+              indexLabel: indexLabelContent,
+              indexLabelPlacement: "inside",  
+              indexLabelOrientation: "horizontal",
               // showInLegend: true,
               dataPoints: dataPoints
             })
           })
-          // console.log('singleGroupChartMainData: ',singleGroupChartMainData);
+          console.log('singleGroupChartMainData: ',singleGroupChartMainData);
 
           groupWiseMajorSubDefectChart.push(new CanvasJS.Chart(groupWiseMajorSubDefectChartDivision.id, {
             animationEnabled: true,
@@ -2256,7 +2392,7 @@
         // side heading row
         const sideHeadingRow = document.createElement('tr')
         sideHeadingRow.style.position = 'sticky'
-        sideHeadingRow.style.top = '16.4%'
+        sideHeadingRow.style.top = '124px'
         sideHeadingRow.style.zIndex = '2%'
         sideHeadingRow.id = `${defectName}SideHeadingRow`
         summaryTable.appendChild(sideHeadingRow)
@@ -2282,7 +2418,7 @@
         const secondRowMainHeading = document.createElement('tr')
         secondRowMainHeading.id = `${defectName}secondRowMainHeading`
         secondRowMainHeading.style.position = 'sticky'
-        secondRowMainHeading.style.top = '19.77%'
+        secondRowMainHeading.style.top = '148px'
         summaryTable.appendChild(secondRowMainHeading)
         const secondRowHeadingList = ['Location','Nature of Defect','Total']
 
@@ -2290,7 +2426,7 @@
         const secondRowSubHeading = document.createElement('tr')
         secondRowSubHeading.id = `${defectName}secondRowSubHeading`
         secondRowSubHeading.style.position = 'sticky'
-        secondRowSubHeading.style.top = '23%'
+        secondRowSubHeading.style.top = '171px'
         summaryTable.appendChild(secondRowSubHeading)
 
           // printing category alone
@@ -2514,7 +2650,7 @@
           const firstSubDefect = Object.keys(data.data[category][subCategory][selectedDefect])[0]
           Object.keys(data.data[category][subCategory][selectedDefect][firstSubDefect]).map( (singleZone) => {
             let zoneDefectCountData = document.createElement('p')
-            zoneDefectCountData.id = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
+            zoneDefectCountData.className = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
             zoneDefectCountData.innerHTML = `Z ${singleZone.replace('_','')}: ${data.data[category][subCategory][selectedDefect][firstSubDefect][singleZone]}`
             zoneDefectCountData.style.display = 'flex'
             
@@ -2536,7 +2672,7 @@
             // updating zone Details
           Object.keys(data.data[category][subCategory][selectedDefect][selectedSubDefect]).map( (singleZone) => {
             let zoneDefectCountData = document.createElement('p')
-            zoneDefectCountData.id = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
+            zoneDefectCountData.className = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
             zoneDefectCountData.innerHTML = `Z ${singleZone.replace('_','')}: ${data.data[category][subCategory][selectedDefect][selectedSubDefect][singleZone]}`
             zoneDefectCountData.style.display = 'flex'
             
@@ -2815,7 +2951,7 @@
             //displaying zones with defect count
             Object.keys(data.data[category][subCategory][fistDefect][fistSubDefect]).map( (singleZone) => {
               let zoneDefectCountData = document.createElement('p')
-              zoneDefectCountData.id = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
+              zoneDefectCountData.className = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
               // console.log('id: ',zoneDefectCountData.id)
               zoneDefectCountData.innerHTML = `Z ${singleZone.replace('_','')}: ${data.data[category][subCategory][fistDefect][fistSubDefect][singleZone]}`
               zoneDefectCountData.style.display = 'flex'
@@ -2831,452 +2967,63 @@
       // Exporting  Table DPV to PDF
 
       function UniPDf(eve){
-  
-    // const input=document.getElementById('reportParent');  
-  //   const input=document.getElementsByTagName('body') 
+        // Method to print the pdf of whole page
+        var height=document.body.scrollHeight;
+        console.log("height",height)
+        // console.log('scrollY', window.scrollY);
 
-  //   const ans=document.body
-  //   const input_2=document.getElementById('reportChild');  
-  //   const p1=document.getElementById('from-date-condition-input').value
-  //   const p2=document.getElementById('to-date-condition-input').value
-  //   const reportValue=document.getElementById('report-topic-data').innerText
-  //  console.log("input",input)
-  //  console.log("input_2",input_2)
-  
-  //     // const height=input.scrollHeight+input_2.scrollHeight;
-  //       const height=input.offsetHeight;
+        html2canvas(document.html, {
+          // windowHeight:height,
+          allowTaint: true,
+          useCORS: true,
+          logging: false,
+          height: window.outerHeight + window.innerHeight,
+          windowHeight: window.outerHeight + window.innerHeight, 
+          onrendered:function(canvas) {
+            var contentWidth = canvas.width;
+            var contentHeight = canvas.height;
+            console.log("contentHeight",contentHeight)
 
-  //         console.log("input.scrollHeight ",height)
-  //    var doc = new jsPDF("p", "mm",'A4',true);
-  
-  //       // doc.setTextColor(0, 0, 0)
-  //       //  doc.setFontType('sans')
-  //       //  doc.text(4, 10, String(reportValue))
-  //       //  doc.text(106,10,"From : ")
-  //       //  doc.text(157,10,"To : ")
-         
-  //       //  doc.setTextColor(0,0,0)
-  //       //  doc.text(125,10,String(p1).split('-').reverse().join('-'))
-  //       //  doc.setTextColor(0,0,0)
-  //       //  doc.text(168,10,String(p2).split('-').reverse().join('-'))
-  
-  //           html2canvas(ans, {
-  //           logging: 1,
-  //           letterRendering: true,
-  //           scale: 2,
-  //           windowWidth: window.innerWidth,
-  //           windowHeight: height,
-  //           allowTaint: true,
-  //           useCORS: true
-  //         }).then((canvas) => {
+            var img = canvas.toDataURL();
+
             
-  
-  //       var imgData = canvas.toDataURL("image/png");
-  //       console.log("image ka data",)
-  //       var imgWidth = 210;
-  //       var pageHeight = 250;
-  //       var imgHeight = (canvas.height * imgWidth) / canvas.width;
-      
-  //       var heightLeft = imgHeight;
-        
-  //       var position = 0;
-  //       doc.addImage(imgData, "jpeg", 0, position, imgWidth, imgHeight,'','FAST');
-      
-  //       heightLeft -= pageHeight;
-  //       while (heightLeft >= 0) {
-  //         position = heightLeft - imgHeight;
-  //         console.log("Next page position",position)
-  //         doc.addPage();
-  //         doc.addImage(imgData, "jpeg", 0, position, imgWidth, imgHeight,'','FAST');
-  //         heightLeft -= pageHeight;
-  //       }
-  
-  
-  
-  //        doc.save("Report.pdf");
-      
-  //       console.log("Pdf generated");
-  
-  //     })
-        
-  
-  
-  
-  // Method to print the pdf of whole page
-  var height=document.body.scrollHeight;
-  console.log("height",height)
-  // console.log('scrollY', window.scrollY);
+            var pageHeight = contentWidth / 592.28 * 841.89;
+            
+            var leftHeight = contentHeight;
+            
+            var position = 0;
+            
+            var imgWidth = 595.28;
+            // var imgHeight = imgWidth/contentWidth * contentHeight;
+            var imgHeight = (contentHeight * imgWidth) / contentWidth
 
-  html2canvas(document.body, {
-                  // windowHeight:height,
-                  allowTaint: true,
-                  useCORS: true,
-                  logging: false,
-                  height: window.outerHeight + window.innerHeight,
-                  windowHeight: window.outerHeight + window.innerHeight, 
-                onrendered:function(canvas) {
-  
-                    var contentWidth = canvas.width;
-                    var contentHeight = canvas.height;
-                    console.log("contentHeight",contentHeight)
+            var pageData = canvas.toDataURL('image/jpeg', 1.0);
 
-                    var img = canvas.toDataURL();
-  
-                    
-                    var pageHeight = contentWidth / 592.28 * 841.89;
-                    
-                    var leftHeight = contentHeight;
-                    
-                    var position = 0;
-                    
-                    var imgWidth = 595.28;
-                    // var imgHeight = imgWidth/contentWidth * contentHeight;
-                    var imgHeight = (contentHeight * imgWidth) / contentWidth
-  
-                    var pageData = canvas.toDataURL('image/jpeg', 1.0);
-  
-                    var pdf = new jsPDF('', 'pt', 'a4');
-  
+            var pdf = new jsPDF('', 'pt', 'a4');
 
-                    
-                    if (leftHeight < pageHeight) {
-                        pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight );
-                    } else {
-                        while(leftHeight > 0) {
-                            pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
-                            leftHeight -= pageHeight;
-                            position -= 841.89;
-                            
-                            if(leftHeight > 0) {
-                                pdf.addPage();
-                            }
-                        }
-                    }
-                    // console.log(img);
-                    // window.open(img)
-                    // window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
-                    pdf.save('content.pdf');
-                } 
-            })
-  console.log("PDF generated")
+
+            
+            if (leftHeight < pageHeight) {
+              pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight );
+            } else {
+              while(leftHeight > 0) {
+                pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
+                leftHeight -= pageHeight;
+                position -= 841.89;
+                
+                if(leftHeight > 0) {
+                  pdf.addPage();
+                }
+              }
+            }
+            // console.log(img);
+            // window.open(img)
+            // window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight);
+            pdf.save('content.pdf');
+          } 
+    })
+        console.log("PDF generated")
    }
-
-   //! Making of graphs 
-    function exportFunction(event){
-
-        const input=document.getElementById('aa');  
-        // const input=document.getElementById('aa');
-        // const input=document.getElementsByClassName('report-content-data')
-
-        console.log('element',input)
-
-        // console.log('element',elemenet)
-        // console.log("table",tbl)
-        // html2pdf().from(elemenet).save()
-        // console.log(event.view.screen.availWidth)
-        
-        var doc = new jsPDF("p", "mm",'A4', true);
-        // console.log('window.innerWidth',window.innerWidth)
-        console.log('event',event);
-        // console.log('window.innerHeight',window.innerHeight)
-        html2canvas(input, {
-          logging: true,
-          letterRendering: 1,
-          scale: 2,
-          windowWidth: window.innerWidth,
-          windowHeight: 5000,
-         
-          useCORS: true
-        }).then((canvas) => {
-          // doc.setFillColor(0, 255, 255)
-          // doc.rect(0,-30,1280,2000,'F')
-
-      var imgData = canvas.toDataURL("image/png");
-      var imgWidth = 210;
-      var pageHeight = 295;
-      var imgHeight = (canvas.height * imgWidth) / canvas.width;
-      var heightLeft = imgHeight;
-      
-      var position = 50;
-      doc.addImage(imgData, "jpeg", 0, position, imgWidth, imgHeight,'', 'FAST');
-      heightLeft -= pageHeight;
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        doc.addPage();
-        doc.addImage(imgData, "jpeg", 0, position, imgWidth, imgHeight, '', 'FAST');
-        heightLeft -= pageHeight;
-      }
-
-      // const pages = doc.internal.getNumberOfPages();
-
-      // for (let j = 1; j < pages + 1; j++) {
-      //   let horizontalPos = imgWidth / 3;
-      //   let verticalPos = pageHeight - 1;
-      //   doc.setPage(j);
-      //   doc.setFontSize(10);
-
-      //   doc.text(`${j} of ${pages}`, horizontalPos, verticalPos, {
-      //     align: "center"
-      //   });
-      // }
-    
-      doc.save("dashboard.pdf");
-      console.log("Pdf generated");
-    });
-      // var eleme=document.getElementsByClassName('report-content-data')
-
-      // console.log("bhayar",eleme)
-      // html2pdf().from(eleme).save("ge");
-      // console.log("andar")
-      
-      // const p1=document.getElementById('from-date-condition-input').value
-      // const p2=document.getElementById('to-date-condition-input').value
-
-      //  var doc = new jsPDF('l', 'pt');
-      //  var res = doc.autoTableHtmlToJson(tbl);
-       
-      //  let temp1 = res.rows[6][0]
-      //  let temp2 = res.rows[6][1]
-      //  res.rows[6] = [undefined,undefined,undefined,undefined,undefined,undefined,temp1,temp2]
-      //  console.log('res: ',res)
-      
-
-      //  doc.setDrawColor(0,0,0)
-      // doc.setLineWidth(1.5)
-      // doc.line(120, 40, 650, 40)
-      
-  
-      //  doc.setTextColor(0, 0, 0)
-      //  doc.setFontType('bold')
-      //  doc.text(123, 33, "Defects Per Vehicle  Report")
-      //  doc.text(350,33,"From : ")
-      //  doc.text(520,33,"To : ")
-       
-      //  doc.setTextColor(0,0,0)
-      //  doc.text(405,33,String(p1))
-      //  doc.setTextColor(0,0,0)
-      //  doc.text(557,33,String(p2))
-
-      //  doc.autoTable(res.columns, res.data, {
-      //  startY: 100,
-
-      //   });
-
-      //   console.log(res.data)
-
-      // doc.save('DPV.pdf');
-
-      
-      }
-
-         // Exporting MASTER REPOTE to PDF
-
-    function masterPdf(){      
-      const p1=document.getElementById('from-date-condition-input').value
-      const p2=document.getElementById('to-date-condition-input').value
-  
-  
-      const totalCanvasElements = document.getElementsByTagName('canvas')
-      // (296.99966mm)11.6929/(420mm)16.5354
-  
-      var pdf = new jsPDF({
-        orientation: "landscape",
-        unit: "px",
-        format: 'A3'
-      });
-       pdf.setFillColor(0,0,0)
-      pdf.rect(0,0,1280,2000,'F')
-      // pdf.rect(0,0,600,500,'F')
-      var dataURL = []
-      let xValue = 20, yValue = 75
-  
-      pdf.setDrawColor(255,255,255)
-      pdf.setLineWidth(1.5)
-      pdf.line(120, 35, 625, 35)
-      
-  
-       pdf.setTextColor(255, 255, 255)
-       pdf.setFontType('bold')
-       pdf.text(123, 30, "MASTER REPORT")
-       pdf.text(350,30,"From : ")
-       pdf.text(520,30,"To : ")
-       
-       pdf.setTextColor(255,255,255)
-       pdf.text(400,30,String(p1))
-       pdf.setTextColor(255,255,255)
-       pdf.text(560,30,String(p2))
-    //0 to 35
-    for(let i=0; i<totalCanvasElements.length; i++){
-      if(i%2==0){ //even elements
-        canvasHolder = totalCanvasElements[i]
-        dataURL.push(canvasHolder.toDataURL());
-      }     
-    }
-    for(let i=0; i< dataURL.length/2;i++){
-      if(i>0){
-        if(i % 3 == 0){
-          yValue += 180
-          xValue = 20
-        }
-      } 
-      pdf.addImage(dataURL[i],'JPEG',xValue,yValue, 250,160)
-      xValue += 300
-    }
-  
-  pdf.addPage();
-  pdf.setFillColor(0,0,0)
-  pdf.rect(0,0,1280,2000,'F')
-  
-  let mValue=20,nValue=-160
-  
-    for(let i= dataURL.length/2; i<dataURL.length; i++){
-      if(i>0){
-        if(i % 3 == 0){
-          nValue += 200
-          mValue = 20
-        }
-      } 
-      pdf.addImage(dataURL[i],'JPEG',mValue,nValue, 250,180)
-      mValue += 300
-    }
-  
-      pdf.save("Master.pdf");
-  
-  
-   }
-
-   // Function to create the pareto graph 
-   function paretoPDF(){
-      
-      const p1=document.getElementById('from-date-condition-input').value
-      const p2=document.getElementById('to-date-condition-input').value
-       const totalCanvasElements = document.getElementsByTagName('canvas')
-     console.log("canvas", totalCanvasElements)
-
-     var pdf = new jsPDF({
-        orientation: "landscape",
-        unit: "px",
-        format: 'A3'
-      });
-       pdf.setFillColor(0,0,0)
-      pdf.rect(0,0,1280,2000,'F')
-      // pdf.rect(0,0,600,500,'F')
-      var dataURL = []
-      let xValue = 70, yValue = 75
-  
-      pdf.setDrawColor(255,255,255)
-      pdf.setLineWidth(1.5)
-      pdf.line(170, 35, 675, 35)
-      
-  
-       pdf.setTextColor(255, 255, 255)
-       pdf.setFontType('bold')
-       pdf.text(173, 30, "PARETO REPORT")
-       pdf.text(400,30,"From : ")
-       pdf.text(570,30,"To : ")
-       
-       pdf.setTextColor(255,255,255)
-       pdf.text(450,30,String(p1))
-       pdf.setTextColor(255,255,255)
-       pdf.text(610,30,String(p2))
-    //0 to 8
-    for(let i=0; i<totalCanvasElements.length; i++){
-      if(i%2==0){ //even elements
-        canvasHolder = totalCanvasElements[i]
-        dataURL.push(canvasHolder.toDataURL());
-      }     
-    }
-    for(let i=0; i< dataURL.length/2;i++){
-        pdf.addImage(dataURL[i],'JPEG',xValue,yValue, 750,250)   
-        yValue += 280
-    }
-  
-  pdf.addPage();
-  pdf.setFillColor(0,0,0)
-  pdf.rect(0,0,1280,2000,'F')
-  
-  let mValue=70,nValue=50
-  
-    for(let i= dataURL.length/2; i<dataURL.length; i++){
-         pdf.addImage(dataURL[i],'JPEG',mValue,nValue, 750,250)   
-      nValue += 280
-    }
-  
-      pdf.save("Pareto.pdf");
-  
-
-   }
-
-   function Export(){
-  var report = document.getElementById('chart-condition-input').value;
-  switch (report) {
-        case 'DPV (Defects Per Vehicle) Report': exportFunction(); break;
-        case 'Master Report': masterPdf(); break;
-        case 'Pareto Report': paretoPDF(); break;
-        default: break;
-      }
- }
-
-
-// Method to print the pdf of whole page
-
- function s(){
-  
-  
-
-var height=document.body.scrollHeight;
-console.log("height",height)
-
-html2canvas(document.body, {
-                allowTaint: true,
-                useCORS: true,
-                logging: false,
-                height: window.outerHeight + window.innerHeight,
-                windowHeight: window.outerHeight + window.innerHeight, 
-              onrendered:function(canvas) {
-
-                  var contentWidth = canvas.width;
-                  var contentHeight = canvas.height;
-                  console.log("contentHeight",contentHeight)
-
-                  var img = canvas.toDataURL();
-
-                  
-                  var pageHeight = contentWidth / 592.28 * 841.89;
-                  
-                  var leftHeight = contentHeight;
-                  
-                  var position = 0;
-                  
-                  var imgWidth = 595.28;
-                  var imgHeight = (contentHeight * imgWidth) / contentWidth
-
-                  var pageData = canvas.toDataURL('image/jpeg', 1.0);
-
-                  var pdf = new jsPDF('', 'pt', 'a4');
-
-
-                  
-                  if (leftHeight < pageHeight) {
-                      pdf.addImage(pageData, 'JPEG', 0, 0, imgWidth, imgHeight );
-                  } else {
-                      while(leftHeight > 0) {
-                          pdf.addImage(pageData, 'JPEG', 0, position, imgWidth, imgHeight)
-                          leftHeight -= pageHeight;
-                          position -= 841.89;
-                          
-                          if(leftHeight > 0) {
-                              pdf.addPage();
-                          }
-                      }
-                  }
-                  pdf.save('content.pdf');
-              } 
-          })
-console.log("PDF generated")
- }
 
     </script>
-
-  </body>
 </html>

@@ -10,14 +10,24 @@
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <script  src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="../resources/tailwind.config.js"></script>
   </head>
   <body>
     <div>
       <!-- Header part  which contain user_name,  App_Name and LOGOUT btn  -->
       <div class="header">
-        <div class="heading">Data Entry System</div>
+        <div style="display: flex">
+          <img
+            src="./navBarIcon.png"
+            title="Switch Mode"
+            id="navBarIcon"
+            alt="Switch Mode"
+            style="cursor: pointer; width: 8%; margin: 0.5% 3%"
+          />
+          <div class="heading">Data Entry System</div>
+        </div>
+
         <form id="btn" action="/logout" method="get">
           <div class="admin" id="user-mode-name"><%= username %></div>
           <button
@@ -32,6 +42,93 @@
         </form>
       </div>
       <!--  -->
+
+      <div
+        id="navBarDivision"
+        style="
+          position: fixed;
+          display: none;
+          width: 20%;
+          height: 90%;
+          background-color: #00adb5;
+        "
+      >
+        <div
+          id="DataEntryDiv"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 7.5%;
+            cursor: pointer;
+            background-color: #075154 !important;
+          "
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+        >
+          <p
+            id="dataEntry"
+            style="
+              font-size: 130%;
+              font-weight: 500;
+              height: 100%;
+              padding: 2px 10px;
+            "
+          >
+            Data Entry
+          </p>
+        </div>
+        <div
+          id="ReportGenerationDiv"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 7.5%;
+            cursor: pointer;
+          "
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <p
+            id="reportGeneration"
+            style="
+              font-size: 130%;
+              font-weight: 500;
+              height: 100%;
+              padding: 2px 10px;
+            "
+          >
+            Report Generation
+          </p>
+        </div>
+        <div
+          id="AdministrationDiv"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 7.5%;
+            cursor: pointer;
+          "
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <p
+            id="administration"
+            style="
+              font-size: 130%;
+              font-weight: 500;
+              height: 100%;
+              padding: 2px 10px;
+            "
+          >
+            Administration
+          </p>
+        </div>
+      </div>
+
+      <form action="/filter" id="filterFrom"></form>
+      <form action="/admin" id="adminForm"></form>
 
       <div class="form-content">
         <form action="/firstlayer" method="post" id="bodyNumberForm">
@@ -51,14 +148,16 @@
             value=""
             id="bodyNumberStatus"
           />
-          <button id="body-number-enter-button"
+          <button
+            id="body-number-enter-button"
             type="button"
             onclick="submitBodyNumber()"
             class="enter bg-black text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-700 rounded"
           >
             ENTER
           </button>
-          <button id="body-number-pass-button"
+          <button
+            id="body-number-pass-button"
             type="button"
             onclick="passCar()"
             class="pass bg-black text-white font-bold py-2 px-4 border-b-4 border-gray-700 hover:border-gray-700 rounded"
@@ -74,6 +173,39 @@
 
     <script>
       var bodyNumberRecords;
+
+      document.addEventListener('click', hideAndSeek);
+
+      function hideAndSeek(event) {
+        const navBarDivision = document.getElementById('navBarDivision');
+        if (event.target.id !== 'navBarIcon') {
+          navBarDivision.style.display = 'none';
+        } else {
+          if (navBarDivision.style.display == 'none') {
+            navBarDivision.style.display = 'inline-block';
+          } else {
+            navBarDivision.style.display = 'none';
+          }
+        }
+      }
+
+      function onmouseoverBGColor(event) {
+        event.target.style.backgroundColor = '#075154';
+      }
+
+      function onmouseoutBGColor(event) {
+        if (event.target.id != 'dataEntry') {
+          event.target.style.backgroundColor = '#00adb5';
+        }
+      }
+
+      function handleFormSubmit(event) {
+        if (event.target.id == 'reportGeneration') {
+          document.getElementById('filterFrom').submit();
+        } else if (event.target.id == 'administration') {
+          document.getElementById('adminForm').submit();
+        }
+      }
 
       function submitBodyNumber() {
         var BodyNumberform = document.getElementById('bodyNumberForm');

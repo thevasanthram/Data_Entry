@@ -1,5 +1,6 @@
 const express = require('express');
 var mod = require('nested-property');
+const { type } = require('os');
 const path = require('path');
 const Pool = require('pg').Pool;
 const app = express();
@@ -35,6 +36,17 @@ pool.query(
               password: 'admin',
               port: 5432,
             });
+
+            dbConnectedPool.query(
+              `CREATE TABLE IF NOT EXISTS employee_table(id SERIAL,name varchar(30), password varchar(30), status varchar(8), accessible_charts varchar[],created_by varchar);`,
+              (err, result) => {
+                if (err) {
+                  throw err;
+                } else {
+                  console.log('Employee Table Created');
+                }
+              }
+            );
 
             dbConnectedPool.query(
               `CREATE TABLE IF NOT EXISTS defect_table(body_number int , mode varchar (8) , category varchar(30), subcategory varchar(30), defect varchar(20), subdefect varchar(20), zone int, defectCount int, date varchar(10), time varchar(8), username varchar(30));`,
@@ -802,7 +814,7 @@ const Options = {
     'ROCKER PANEL SIDE - LH SM': ['791', '792', '793', '794', '795', '796'],
     'ROOF SIDE - LH SM': [
       '783',
-      '784',  
+      '784',
       '785',
       '786',
       '787',
@@ -828,6 +840,7 @@ const Options = {
 };
 
 let username = ' ';
+let emp_ID = ' ';
 
 let enteredBodyNumber = 0;
 let mode = 'online';
@@ -843,18 +856,146 @@ app.get('/', (req, res) => {
   }
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
   try {
     username = req.body.username;
     const password = req.body.password;
 
-    if (username == 'Administrator') {
-      res.redirect('/filter');
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = await dbConnectedPool.query(
+      `SELECT * FROM employee_table`
+    );
+
+    if (response.rows.length > 0) {
+      const employeeResponse = await dbConnectedPool.query(
+        `SELECT * FROM employee_table WHERE name='${username}' AND password='${password}'`
+      );
+      if (employeeResponse.rows.length > 0) {
+        emp_ID = employeeResponse.rows[0].id;
+        res.send(
+          JSON.stringify({
+            userStatus: 'Employee',
+            validation: 'success',
+          })
+        );
+      } else {
+        if (username == 'Administrator' && password == 'admin@123') {
+          res.send(
+            JSON.stringify({
+              userStatus: 'Breacher',
+              validation: 'success',
+            })
+          );
+        } else {
+          res.send(
+            JSON.stringify({
+              userStatus: 'Employee',
+              validation: 'failure',
+            })
+          );
+        }
+      }
     } else {
-      res.redirect('/follower');
+      if (username == 'Administrator' && password == 'admin@123') {
+        res.send(
+          JSON.stringify({
+            userStatus: 'First User',
+            validation: 'success',
+          })
+        );
+      } else {
+        res.send(
+          JSON.stringify({
+            userStatus: 'First User',
+            validation: 'failure',
+          })
+        );
+      }
     }
   } catch (err) {
     console.log(err);
+  }
+});
+
+app.post('/addUser', (req, res) => {
+  try {
+    const firstUser = req.body.firstUser;
+    res.render(path.join(__dirname, '/views/createNewUser.ejs'), {
+      username: username,
+      firstUser: firstUser,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/removeUser', async (req, res) => {
+  try {
+    const userID = req.body.userID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = await dbConnectedPool.query(
+      `DELETE FROM employee_table WHERE id = ${userID}`
+    );
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
+app.post('/newUser', async (req, res) => {
+  try {
+    const empName = req.body.empName;
+    const empPassword = req.body.empPassword;
+    const empStatus = req.body.empStatus;
+    const accessibleCharts = req.body.accessibleCharts;
+    const creator = req.body.creator;
+
+    console.log('New User Created: ', empName);
+    console.log('status: ', empStatus);
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    if (creator == 'Root User') {
+      const response = await dbConnectedPool.query(
+        `INSERT INTO employee_table (name,password,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empStatus}',ARRAY['${accessibleCharts.join(
+          `','`
+        )}'],'Root User')`
+      );
+    } else {
+      const response = await dbConnectedPool.query(
+        `INSERT INTO employee_table (name,password,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empStatus}',ARRAY['${accessibleCharts.join(
+          `','`
+        )}'],'${creator}')`
+      );
+    }
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
   }
 });
 
@@ -1359,40 +1500,99 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
   }
 });
 
-app.get('/redirectedfirstlayer', (req, res) => {
+app.get('/admin', async (req, res) => {
   try {
-    bodyNumberOptions = Object.keys(Options);
-    res.render(path.join(__dirname, '/views/redirectedFirstLayer.ejs'), {
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const employeeRecords = await dbConnectedPool.query(
+      'SELECT * FROM employee_table'
+    );
+
+    console.log(employeeRecords.rows);
+
+    res.render(path.join(__dirname, '/views/adminPage.ejs'), {
       username,
-      enteredBodyNumber,
-      bodyNumberOptions: bodyNumberOptions,
+      employeeRecords: employeeRecords.rows,
     });
   } catch (err) {
     console.log(err);
   }
 });
 
-app.get('/administrator', async (req, res) => {
+app.post('/updateEmpStatus', async (req, res) => {
   try {
-    if (username == 'Administrator') {
-      res.render(path.join(__dirname, '/views/admin.ejs'), { username });
-    } else {
-      res.redirect('/');
-    }
+    const currentEmpID = req.body.currentEmpID;
+    const changeEmpStatus = req.body.changeEmpStatus;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = dbConnectedPool.query(
+      `UPDATE employee_table SET status='${changeEmpStatus}' WHERE id=${currentEmpID}`
+    );
+
+    res.sendStatus(200);
   } catch (err) {
     console.log(err);
+    res.sendStatus(400);
+  }
+});
+
+app.post('/updateEmpChartAccess', async (req, res) => {
+  try {
+    const currentEmpID = req.body.currentEmpID;
+    const selectedChartAccess = req.body.selectedChartAccess;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = dbConnectedPool.query(
+      `UPDATE employee_table SET accessible_charts= ARRAY['${selectedChartAccess}'] WHERE id=${currentEmpID}`
+    );
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
   }
 });
 
 app.get('/filter', async (req, res) => {
   try {
-    if (username == 'Administrator') {
-      res.render(path.join(__dirname, '/views/adminLaundingPage.ejs'), {
-        username,
-      });
-    } else {
-      res.send('Enter as Administrator mode');
-    }
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+    console.log('empID: ', emp_ID);
+
+    const response = await dbConnectedPool.query(
+      `SELECT accessible_charts FROM employee_table WHERE id=${emp_ID}`
+    );
+
+    const accessibleReport = response.rows[0].accessible_charts;
+    console.log('accessible Report: ', accessibleReport);
+    res.render(path.join(__dirname, '/views/adminLaundingPage.ejs'), {
+      username,
+    });
   } catch (err) {
     console.log(err);
   }
