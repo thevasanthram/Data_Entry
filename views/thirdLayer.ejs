@@ -57,11 +57,14 @@
         </div>
         <!-- Toggle Switch for online / offline -->
         <div id="toggle" class="mt-10 ml-24">
-          <div class="flex w-full " style="margin-top: -2rem; margin-left:-1rem">
+          <div
+            class="flex w-full"
+            style="margin-top: -2rem; margin-left: -1rem"
+          >
             <label
               for="toggle_switch"
               class="flex items-center cursor-pointer"
-              style="justify-content: center; margin-left: -1rem;"
+              style="justify-content: center; margin-left: -1rem"
             >
               <div class="relative">
                 <input
@@ -166,7 +169,7 @@
                   >
                     <% for (let l = 0; l < ShortlistedSubCategoryOptions.length;
                     l++){%>
-                    <div 
+                    <div
                       class="<%= categoryId %>_<%= subcategoryId %><%= ShortlistedSubCategoryOptions[l] %>"
                       id="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
                     >
@@ -174,10 +177,12 @@
                         type="number"
                         inputmode="numeric"
                         class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
-                        name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"                
+                        name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"
                         min="1"
                       />
-                      <div class="zone-number"><%= ShortlistedSubCategoryOptions[l] %></div>
+                      <div class="zone-number">
+                        <%= ShortlistedSubCategoryOptions[l] %>
+                      </div>
                     </div>
                     <%}%>
                   </div>
@@ -351,19 +356,16 @@
           const saveButton = document.getElementsByClassName('save-button')[0];
           saveButton.removeAttribute('onclick');
 
-          const zoneCheckerResponse = await fetch(
-            'http://localhost:8000/zonechecker',
-            {
-              method: 'POST',
-              headers: {
-                'Content-type': 'application/json',
-              },
-              body: JSON.stringify({
-                defectObj: defectLayerFormData,
-                mode,
-              }),
-            }
-          );
+          const zoneCheckerResponse = await fetch('/zonechecker', {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              defectObj: defectLayerFormData,
+              mode,
+            }),
+          });
 
           const zoneCheckerResponseObject = await zoneCheckerResponse.json();
 
@@ -404,19 +406,16 @@
           console.log('message: ', message);
 
           if (confirm(message) == true) {
-            const mainResponse = await fetch(
-              'http://localhost:8000/receive-thirdLayer-temp',
-              {
-                method: 'POST',
-                headers: {
-                  'Content-type': 'application/json',
-                },
-                body: JSON.stringify({
-                  defectObj: defectLayerFormData,
-                  mode,
-                }),
-              }
-            );
+            const mainResponse = await fetch('/receive-thirdLayer-temp', {
+              method: 'POST',
+              headers: {
+                'Content-type': 'application/json',
+              },
+              body: JSON.stringify({
+                defectObj: defectLayerFormData,
+                mode,
+              }),
+            });
 
             const mainResponseObject = await mainResponse.json();
 

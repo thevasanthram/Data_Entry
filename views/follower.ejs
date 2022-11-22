@@ -210,7 +210,7 @@
       function submitBodyNumber() {
         var BodyNumberform = document.getElementById('bodyNumberForm');
 
-        fetch('http://localhost:8000/bodyNumber', {
+        fetch('/bodyNumber', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
@@ -250,7 +250,7 @@
       function passCar() {
         var BodyNumberform = document.getElementById('bodyNumberForm');
 
-        fetch('http://localhost:8000/bodyNumber', {
+        fetch('/bodyNumber', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
@@ -295,7 +295,7 @@
         var bodyNumberStatus =
           document.getElementById('bodyNumberStatus').value;
 
-        fetch('http://localhost:8000/passcar', {
+        fetch('/passcar', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',

@@ -419,7 +419,7 @@
           'SM': [`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Water Leak'`],
         }
         
-        fetch('http://localhost:8000/reportDataProvider', {
+        fetch('/reportDataProvider', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
@@ -660,7 +660,7 @@
           'SM': [`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Surface'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Body Fitting'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Missing & Wrong Part'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Welding'`,`SELECT * FROM defect_table WHERE (category='LEFT SIDE MEMBER' or category='RH SIDE MEMBER') and defect='Water Leak'`],
         }
         
-        const response = await fetch('http://localhost:8000/reportDataProvider', {
+        const response = await fetch('/reportDataProvider', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
@@ -747,7 +747,7 @@
           'SB ML': findMajorDefect(data.data['SB ML'].indexOf(Math.max(...data.data['SB ML']))),
           'SM': findMajorDefect(data.data.SM.indexOf(Math.max(...data.data.SM))),
         }
-        const newResponse = await fetch('http://localhost:8000/majorDefectDetail' , {
+        const newResponse = await fetch('/majorDefectDetail' , {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
@@ -792,7 +792,7 @@
 
         console.log('majorSubDefectsInAllGroup: ', majorSubDefectsInAllGroup)
 
-        const majorSubDefectsResponse = await fetch('http://localhost:8000/majorSubDefectDetail' , {
+        const majorSubDefectsResponse = await fetch('/majorSubDefectDetail' , {
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
@@ -1213,7 +1213,7 @@
         var toDate = document.getElementById('to-date-condition-input').value
         console.log('main Pareto');
 
-        const response = await fetch('http://localhost:8000/pareto',{
+        const response = await fetch('/pareto',{
           method: 'POST',
           headers:{
             'Content-type': 'application/json',
@@ -1766,7 +1766,7 @@
         var toDate = document.getElementById('to-date-condition-input').value
         console.log('pareto');
 
-        const response = await fetch('http://localhost:8000/pareto',{
+        const response = await fetch('/pareto',{
           method: 'POST',
           headers:{
             'Content-type': 'application/json',
@@ -2348,7 +2348,7 @@
         var fromDate = document.getElementById('from-date-condition-input').value
         var toDate = document.getElementById('to-date-condition-input').value
 
-        const response = await fetch('http://localhost:8000/individualSummaryReport',{
+        const response = await fetch('/individualSummaryReport',{
           method: 'POST',
           headers:{
             'Content-type': 'application/json'
@@ -2580,7 +2580,7 @@
         var fromDate = document.getElementById('from-date-condition-input').value
         var toDate = document.getElementById('to-date-condition-input').value
 
-        const response = await fetch('http://localhost:8000/colorMap',{
+        const response = await fetch('/colorMap',{
           method:'POST',
           headers:{
             'Content-type': 'application/json',
