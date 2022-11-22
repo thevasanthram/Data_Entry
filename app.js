@@ -1561,7 +1561,9 @@ app.post('/updateEmpChartAccess', async (req, res) => {
     });
 
     const response = dbConnectedPool.query(
-      `UPDATE employee_table SET accessible_charts= ARRAY['${selectedChartAccess}'] WHERE id=${currentEmpID}`
+      `UPDATE employee_table SET accessible_charts= ARRAY['${selectedChartAccess.join(
+        `','`
+      )}'] WHERE id=${currentEmpID}`
     );
 
     res.sendStatus(200);
@@ -1585,9 +1587,8 @@ app.get('/filter', async (req, res) => {
       `SELECT accessible_charts FROM employee_table WHERE id=${emp_ID}`
     );
 
-    const accessibleReport = response.rows[0].accessible_charts[0].split(',');
-    console.log(typeof accessibleReport);
-    console.log(accessibleReport);
+    const accessibleReport = response.rows[0].accessible_charts;
+
     res.render(path.join(__dirname, '/views/adminLaundingPage.ejs'), {
       username,
       accessibleReport,
