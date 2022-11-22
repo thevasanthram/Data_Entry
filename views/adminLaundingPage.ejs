@@ -167,16 +167,9 @@
                   <div class="chart-condition" id="chart-condition-select-content-1"><p class="Empty_Tag"><br/><br><br></p>
                     <p id="chart-Condition-topic" style="display:inline-block"> Report<strong>:</strong></p>
                     <select name="chartCondition" id="chart-condition-input" required>
-                      <option value="DPV (Defects Per Vehicle) Report">DPV (Defects Per Vehicle) Report</option>
-                      <option value="Master Report">Master Report</option>
-                      <option value="Main Pareto Report">Main Pareto Report</option>
-                      <option value="Pareto Report">Pareto Report</option>
-                      <option value="Surface Summary">Surface Summary</option>
-                      <option value="Body Fitting Summary">Body Fitting Summary</option>
-                      <option value="Missing & Wrong Part Summary">Missing & Wrong Part Summary</option>
-                      <option value="Welding Summary">Welding Summary</option>
-                      <option value="Water Leak Summary">Water Leak Summary</option>
-                      <option value="Color Map">Color Map</option>
+                      <% for(let i = 0; i < accessibleReport.length; i++){ %>
+                        <option value="<%= accessibleReport[i] %>"><%= accessibleReport[i] %></option>
+                      <%}%>
                     </select>
                   </div>
                 <label for="toggle_switch" class="toggle_content flex items-center cursor-pointer">
@@ -244,16 +237,9 @@
                     <div id="chart-condition-select-content"  >
                       <p class="Card-Report-heading" style="font-size: 1.25rem; " >Report :</p>
                       <select name="chartCondition" id="chart-condition-input-card" required >
-                          <option value="DPV (Defects Per Vehicle) Report">DPV (Defects Per Vehicle) Report</option>
-                          <option value="Master Report">Master Report</option>
-                          <option value="Main Pareto Report">Main Pareto Report</option>
-                          <option value="Pareto Report">Pareto Report</option>
-                          <option value="Surface Summary">Surface Summary</option>
-                          <option value="Body Fitting Summary">Body Fitting Summary</option>
-                          <option value="Missing & Wrong Part Summary">Missing & Wrong Part Summary</option>
-                          <option value="Welding Summary">Welding Summary</option>
-                          <option value="Water Leak Summary">Water Leak Summary</option>
-                          <option value="Color Map">Color Map</option>
+                        <% for(let i = 0; i < accessibleReport.length; i++){ %>
+                          <option value="<%= accessibleReport[i] %>"><%= accessibleReport[i] %></option>
+                        <%}%>
                       </select>
                     </div>
                     <div id="card-submit" >

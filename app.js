@@ -1514,8 +1514,6 @@ app.get('/admin', async (req, res) => {
       'SELECT * FROM employee_table'
     );
 
-    console.log(employeeRecords.rows);
-
     res.render(path.join(__dirname, '/views/adminPage.ejs'), {
       username,
       employeeRecords: employeeRecords.rows,
@@ -1582,16 +1580,17 @@ app.get('/filter', async (req, res) => {
       password: 'admin',
       port: 5432,
     });
-    console.log('empID: ', emp_ID);
 
     const response = await dbConnectedPool.query(
       `SELECT accessible_charts FROM employee_table WHERE id=${emp_ID}`
     );
 
-    const accessibleReport = response.rows[0].accessible_charts;
-    console.log('accessible Report: ', accessibleReport);
+    const accessibleReport = response.rows[0].accessible_charts[0].split(',');
+    console.log(typeof accessibleReport);
+    console.log(accessibleReport);
     res.render(path.join(__dirname, '/views/adminLaundingPage.ejs'), {
       username,
+      accessibleReport,
     });
   } catch (err) {
     console.log(err);
