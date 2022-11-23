@@ -145,6 +145,40 @@
         </div>
       </div>
 
+      <div id="adminAccessDeniedDivision">
+      <div class="adminAccessDeniedDivisionModalContent">
+        <!-- <span
+          class="close"
+          onclick="(() => {document.getElementById('adminAccessDeniedDivision').style.visibility = 'hidden'})()"
+          >&times;</span
+        > -->
+        <div
+          id="adminAccessDeniedDivisionHolder"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            top: 25%;
+            gap: 1.5rem;
+            justify-content: center;
+          "
+        >
+          <p id="adminAccessDeniedDivisionMessage">
+            Unauthorized Access. Only Admin has privilege
+          </p>
+          <div id="editEmployeeChartAccessEnsureButton">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onclick="(() => {document.getElementById('adminAccessDeniedDivision').style.visibility = 'hidden'})()"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
       <form action="/follower" id="followerForm" method="get"></form>
       <form action="/admin" id="adminForm" method="get"></form>
         <div id="container" style="display: none; position: sticky; top: 67px; z-index: 2;" >
@@ -306,11 +340,18 @@
       }
 
       function handleFormSubmit(event) {
-        console.log(event.target.id)
+        var empStatus = '<%= emp_Status %>';
+
         if (event.target.id == 'dataEntry') {
           document.getElementById('followerForm').submit();
         } else if (event.target.id == 'administration') {
-          document.getElementById('adminForm').submit();
+          if (empStatus == 'admin') {
+            document.getElementById('adminForm').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
         }
       }
 
@@ -890,6 +931,7 @@
           axisY: {
             title: "Defects",
             titleFontFamily: 'tahoma',
+            minimum: 0,
             gridThickness: 0,
               stripLines: [
                 {
@@ -1066,6 +1108,7 @@
             axisY: {
               title: "Total no of defects",
               gridThickness: 0,
+              minimum: 0,
               stripLines: [
                 {
                   value: 0,
@@ -1109,6 +1152,7 @@
             axisY: {
               title: "Total no of defects",
               gridThickness: 0,
+              minimum: 0,
               stripLines: [
                 {
                   value: 0,
@@ -1188,6 +1232,7 @@
             },
             axisY: {
               title: "Total no of defects",
+              minimum: 0,
               gridThickness: 0,
               stripLines: [
                 {
@@ -1305,7 +1350,7 @@
         tabDivision.style.flexDirection = 'row'
         tabDivision.style.marginLeft = '25%'
         tabDivision.style.position = 'sticky'
-        tabDivision.style.top = '16.4%'
+        tabDivision.style.top = '18.4%'
         tabDivision.style.zIndex = '2'
         mainParetoContentHolder.appendChild(tabDivision)        
 
@@ -1445,6 +1490,7 @@
               title: "No of Defects",
               lineColor: "#4F81BC",
               tickColor: "#4F81BC",
+              minimum: 0,
               labelFontColor: "#4F81BC",
               labelFontFamily: 'tahoma',
               labelFontSize: 12,
@@ -1621,6 +1667,7 @@
                 title: "No of Defects",
                 lineColor: "#4F81BC",
                 tickColor: "#4F81BC",
+                minimum: 0,
                 labelFontColor: "#4F81BC",
                 labelFontFamily: 'tahoma',
                 labelFontSize: 12,
@@ -2072,6 +2119,7 @@
             labelFontColor: "#4F81BC",
             labelFontFamily: 'tahoma',
             labelFontSize: 18,
+            minimum: 0,
             gridThickness: 0,
             stripLines: [
               {
@@ -2156,6 +2204,7 @@
             labelFontColor: "#4F81BC",
             labelFontFamily: 'tahoma',
             labelFontSize: 12,
+            minimum: 0,
             gridThickness: 0,
             stripLines: [
               {
@@ -2240,6 +2289,7 @@
             labelFontColor: "#4F81BC",
             labelFontFamily: 'tahoma',
             labelFontSize: 18,
+            minimum: 0,
             gridThickness: 0,
             stripLines: [
               {
@@ -2317,6 +2367,7 @@
             labelFontColor: "#4F81BC",
             labelFontFamily: 'tahoma',
             labelFontSize: 18,
+            minimum: 0,
             gridThickness: 0,
             stripLines: [
               {

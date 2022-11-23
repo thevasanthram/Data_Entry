@@ -334,29 +334,75 @@
       }
 
       async function handleSave() {
-        if (confirm('Are you sure want to save?') == true) {
-          const defectLayerForm = document.getElementById('defectLayerForm');
-          var defectLayerFormData = {};
-          var defectLayerFormInputElements =
-            document.getElementsByTagName('input');
+        const defectLayerForm = document.getElementById('defectLayerForm');
+        var defectLayerFormData = {};
+        var defectLayerFormInputElements =
+          document.getElementsByTagName('input');
 
-          Object.values(defectLayerFormInputElements).map(
-            (singleInput, index) => {
-              if (index != 0) {
-                if (singleInput.value) {
-                  defectLayerFormData[singleInput.name] = singleInput.value;
-                }
+        Object.values(defectLayerFormInputElements).map(
+          (singleInput, index) => {
+            if (index != 0) {
+              if (singleInput.value) {
+                defectLayerFormData[singleInput.name] = singleInput.value;
               }
             }
-          );
+          }
+        );
 
-          console.log('defectLayerFormData: ', defectLayerFormData);
+        console.log('defectLayerFormData: ', defectLayerFormData);
 
-          //disabling onclick function of the save button, :- save button can be clicked only once.
-          const saveButton = document.getElementsByClassName('save-button')[0];
-          saveButton.removeAttribute('onclick');
+        //disabling onclick function of the save button, :- save button can be clicked only once.
+        const saveButton = document.getElementsByClassName('save-button')[0];
 
-          const zoneCheckerResponse = await fetch('/zonechecker', {
+        const zoneCheckerResponse = await fetch('/zonechecker', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            defectObj: defectLayerFormData,
+            mode,
+          }),
+        });
+
+        const zoneCheckerResponseObject = await zoneCheckerResponse.json();
+
+        console.log('zoneCheckerResponseObject: ', zoneCheckerResponseObject);
+
+        let message = 'Defect Report.Are you sure want to make changes\n\n';
+
+        // making up zone report for prompt box
+        for (let i in zoneCheckerResponseObject.data) {
+          message = message + i + ': \n';
+          for (let j in zoneCheckerResponseObject.data[i]) {
+            message = message + ' ' + j.replace('_', '') + ': ';
+            for (let k in zoneCheckerResponseObject.data[i][j]) {
+              message += k + '->';
+              for (let l in zoneCheckerResponseObject.data[i][j][k]) {
+                message +=
+                  l + `(${zoneCheckerResponseObject.data[i][j][k][l]})`;
+                if (
+                  Object.keys(zoneCheckerResponseObject.data[i][j][k]).length >
+                  1
+                ) {
+                  message += ',';
+                }
+              }
+              if (
+                Object.keys(zoneCheckerResponseObject.data[i][j]).length > 1 &&
+                Object.keys(zoneCheckerResponseObject.data[i][j][k]).length == 1
+              ) {
+                message += ',';
+              }
+            }
+            message += '\n';
+          }
+          message += '\n';
+        }
+        console.log('message: ', message);
+
+        if (confirm(message) == true) {
+          const mainResponse = await fetch('/receive-thirdLayer-temp', {
             method: 'POST',
             headers: {
               'Content-type': 'application/json',
@@ -367,27 +413,28 @@
             }),
           });
 
-          const zoneCheckerResponseObject = await zoneCheckerResponse.json();
+          const mainResponseObject = await mainResponse.json();
 
-          console.log('zoneCheckerResponseObject: ', zoneCheckerResponseObject);
+          console.log('mainResponseObject: ', mainResponseObject);
 
-          let message = 'Defect Report. Click OK to make changes\n\n';
+          let finalMessage =
+            'Defects Saved. Click OK to add more defects to the same body number\n\n';
 
           // making up zone report for prompt box
           for (let i in zoneCheckerResponseObject.data) {
-            message = message + i + ': \n';
+            finalMessage = finalMessage + i + ': \n';
             for (let j in zoneCheckerResponseObject.data[i]) {
-              message = message + ' ' + j.replace('_', '') + ': ';
+              finalMessage = finalMessage + ' ' + j.replace('_', '') + ': ';
               for (let k in zoneCheckerResponseObject.data[i][j]) {
-                message += k + '->';
+                finalMessage += k + '->';
                 for (let l in zoneCheckerResponseObject.data[i][j][k]) {
-                  message +=
+                  finalMessage +=
                     l + `(${zoneCheckerResponseObject.data[i][j][k][l]})`;
                   if (
                     Object.keys(zoneCheckerResponseObject.data[i][j][k])
                       .length > 1
                   ) {
-                    message += ',';
+                    finalMessage += ',';
                   }
                 }
                 if (
@@ -396,73 +443,23 @@
                   Object.keys(zoneCheckerResponseObject.data[i][j][k]).length ==
                     1
                 ) {
-                  message += ',';
+                  finalMessage += ',';
                 }
-              }
-              message += '\n';
-            }
-            message += '\n';
-          }
-          console.log('message: ', message);
-
-          if (confirm(message) == true) {
-            const mainResponse = await fetch('/receive-thirdLayer-temp', {
-              method: 'POST',
-              headers: {
-                'Content-type': 'application/json',
-              },
-              body: JSON.stringify({
-                defectObj: defectLayerFormData,
-                mode,
-              }),
-            });
-
-            const mainResponseObject = await mainResponse.json();
-
-            console.log('mainResponseObject: ', mainResponseObject);
-
-            let finalMessage =
-              'Defects Saved. Click OK to add more defects to the same body number\n\n';
-
-            // making up zone report for prompt box
-            for (let i in zoneCheckerResponseObject.data) {
-              finalMessage = finalMessage + i + ': \n';
-              for (let j in zoneCheckerResponseObject.data[i]) {
-                finalMessage = finalMessage + ' ' + j.replace('_', '') + ': ';
-                for (let k in zoneCheckerResponseObject.data[i][j]) {
-                  finalMessage += k + '->';
-                  for (let l in zoneCheckerResponseObject.data[i][j][k]) {
-                    finalMessage +=
-                      l + `(${zoneCheckerResponseObject.data[i][j][k][l]})`;
-                    if (
-                      Object.keys(zoneCheckerResponseObject.data[i][j][k])
-                        .length > 1
-                    ) {
-                      finalMessage += ',';
-                    }
-                  }
-                  if (
-                    Object.keys(zoneCheckerResponseObject.data[i][j]).length >
-                      1 &&
-                    Object.keys(zoneCheckerResponseObject.data[i][j][k])
-                      .length == 1
-                  ) {
-                    finalMessage += ',';
-                  }
-                }
-                finalMessage += '\n';
               }
               finalMessage += '\n';
             }
-            console.log('finalMessage: ', finalMessage);
-
-            if (confirm(finalMessage) == false) {
-              document.getElementById('followerForm').submit();
-            } else {
-              document.getElementById('firstLayerform').submit();
-            }
-          } else {
+            finalMessage += '\n';
           }
+          console.log('finalMessage: ', finalMessage);
+
+          if (confirm(finalMessage) == false) {
+            document.getElementById('followerForm').submit();
+          } else {
+            document.getElementById('firstLayerform').submit();
+          }
+        } else {
+          event.preventDefault();
+          return false;
         }
       }
 

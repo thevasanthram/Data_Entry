@@ -171,6 +171,66 @@
       <span id="message"></span>
     </div>
 
+    <!-- Denial of Access for AdminPage -->
+    <div id="adminAccessDeniedDivision">
+      <div class="adminAccessDeniedDivisionModalContent">
+        <div
+          id="adminAccessDeniedDivisionHolder"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            top: 25%;
+            gap: 1.5rem;
+            justify-content: center;
+          "
+        >
+          <p id="adminAccessDeniedDivisionMessage">
+            Unauthorized Access. Only Admin has privilege
+          </p>
+          <div id="editEmployeeChartAccessEnsureButton">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onclick="(() => {document.getElementById('adminAccessDeniedDivision').style.visibility = 'hidden'})()"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Denial of Access for reportGeneration -->
+    <div id="reportGenerationDeniedDivision">
+      <div class="reportGenerationDeniedDivisionModalContent">
+        <div
+          id="reportGenerationDeniedDivisionHolder"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            top: 25%;
+            gap: 1.5rem;
+            justify-content: center;
+          "
+        >
+          <p id="reportGenerationDeniedDivisionMessage">
+            No Accessible Charts.
+          </p>
+          <div id="editEmployeeChartAccessEnsureButton">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onclick="(() => {document.getElementById('reportGenerationDeniedDivision').style.visibility = 'hidden'})()"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
       var bodyNumberRecords;
 
@@ -200,10 +260,25 @@
       }
 
       function handleFormSubmit(event) {
+        var empStatus = '<%= emp_Status %>';
+        var empChartAccess = '<%= emp_ChartAccess %>';
+
         if (event.target.id == 'reportGeneration') {
-          document.getElementById('filterFrom').submit();
+          if (empChartAccess.length > 0) {
+            document.getElementById('filterFrom').submit();
+          } else {
+            document.getElementById(
+              'reportGenerationDeniedDivision'
+            ).style.visibility = 'visible';
+          }
         } else if (event.target.id == 'administration') {
-          document.getElementById('adminForm').submit();
+          if (empStatus == 'admin') {
+            document.getElementById('adminForm').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
         }
       }
 

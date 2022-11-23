@@ -999,9 +999,28 @@ app.post('/newUser', async (req, res) => {
   }
 });
 
-app.get('/follower', (req, res) => {
+app.get('/follower', async (req, res) => {
   try {
-    res.render(path.join(__dirname, '/views/follower.ejs'), { username });
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${emp_ID};`
+    );
+
+    emp_Status = response.rows[0].status;
+    emp_ChartAccess = response.rows[0].accessible_charts;
+
+    res.render(path.join(__dirname, '/views/follower.ejs'), {
+      username,
+      emp_Status,
+      emp_ChartAccess,
+    });
   } catch (err) {
     console.log(err);
   }
@@ -1510,13 +1529,15 @@ app.get('/admin', async (req, res) => {
       port: 5432,
     });
 
-    const employeeRecords = await dbConnectedPool.query(
-      'SELECT * FROM employee_table'
+    let response = await dbConnectedPool.query('SELECT * FROM employee_table');
+
+    employeeRecords = response.rows.sort((r1, r2) =>
+      r1.id > r2.id ? 1 : r1.id < r2.id ? -1 : 0
     );
 
     res.render(path.join(__dirname, '/views/adminPage.ejs'), {
       username,
-      employeeRecords: employeeRecords.rows,
+      employeeRecords,
     });
   } catch (err) {
     console.log(err);
@@ -1584,14 +1605,16 @@ app.get('/filter', async (req, res) => {
     });
 
     const response = await dbConnectedPool.query(
-      `SELECT accessible_charts FROM employee_table WHERE id=${emp_ID}`
+      `SELECT * FROM employee_table WHERE id=${emp_ID};`
     );
 
     const accessibleReport = response.rows[0].accessible_charts;
+    const emp_Status = response.rows[0].status;
 
     res.render(path.join(__dirname, '/views/adminLaundingPage.ejs'), {
       username,
       accessibleReport,
+      emp_Status,
     });
   } catch (err) {
     console.log(err);
