@@ -42,6 +42,7 @@ body {
 
 #navBarDivision{
   position: fixed;
+  z-index:5;
   display: none;
   width: 17%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
