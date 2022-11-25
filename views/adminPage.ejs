@@ -423,7 +423,7 @@
 
       async function removeUserFinal(){
         const selectedUserID = document.getElementById('selectUserID');
-        const response = await fetch('http://localhost:8000/removeUser', {
+        const response = await fetch('/removeUser', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
@@ -467,7 +467,7 @@
           changeEmpStatus = 'employee'
         }
 
-        const response = await fetch('http://localhost:8000/updateEmpStatus',{
+        const response = await fetch('/updateEmpStatus',{
           method: 'POST',
           headers: {
             'Content-type': 'application/json'
