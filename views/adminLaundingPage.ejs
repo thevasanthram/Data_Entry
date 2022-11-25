@@ -355,6 +355,19 @@
         }
       }
 
+      function generateRandomColor(colorSet) {
+        let maxVal = 0xffffff; // 16777215
+        let randomNumber = Math.random() * maxVal;
+        randomNumber = Math.floor(randomNumber);
+        randomNumber = randomNumber.toString(16);
+        let randColor = randomNumber.padStart(6, 0);
+        if (colorSet.includes(randColor)) {
+          generateRandomColor(colorSet);
+        } else {
+          return `#${randColor.toUpperCase()}`;
+        }
+      }
+
 
       var tbl;
       var firstSection;
@@ -447,6 +460,14 @@
           case 'Color Map': colorMap(); break;
           default: break;
         }
+      }
+
+      function hideIndexLabelOnZero(e) {
+        return e.dataPoint.y !== 0 ? e.dataPoint.label + " " + e.dataPoint.y + " " + "kg": "" ;
+      }
+
+      function addIndexLabelFormatterToChart(chart) {
+        chart.data[0].set("indexLabelFormatter", hideIndexLabelOnZero);
       }
 
       function dpv(){
@@ -689,7 +710,7 @@
       }
 
       // Master Report Function
-     async function master(){
+      async function master(){
         var fromDate = document.getElementById('from-date-condition-input').value
         var toDate = document.getElementById('to-date-condition-input').value
 
@@ -756,7 +777,7 @@
           // creating dataset for individualGroupWisechart
           let singleGroupChartDataset = []
           Object.keys(groupDefectData[group]).map( (defect) => {
-            singleGroupChartDataset.push({ y: groupDefectData[group][defect], label: defect })
+            singleGroupChartDataset.push({ y: groupDefectData[group][defect] == 0 ? '' :groupDefectData[group][defect], label: defect })
           })
           individualGroupWiseChartDataset.push(singleGroupChartDataset)
         })
@@ -889,7 +910,7 @@
         Object.keys(majorDefectsDataInAllGroup).map( (group) => {
           let tempArr = []
           Object.keys(majorDefectsDataInAllGroup[group]).map( (defect) => {
-            tempArr.push({y: majorDefectsDataInAllGroup[group][defect] , label: defect})
+            tempArr.push({y: majorDefectsDataInAllGroup[group][defect] == 0 ? '' : majorDefectsDataInAllGroup[group][defect] , label: defect})
           })
           labelSetForMajorDefects.push(tempArr)
         } )
@@ -1129,7 +1150,6 @@
 
           individualGroupWisechart[i].render();
 
-
           var groupWiseMajorDefectChartDivision= document.createElement('div')
           groupWiseMajorDefectChartDivision.id=`${groupID[i]}_GroupWise_Major_Defect_Counts`
           groupWiseMajorDefectChartDivision.style.width = '30%'
@@ -1195,22 +1215,21 @@
 
           TotalZones.map( (singleZone) => {
             let dataPoints = []
-            let indexLabelContent = ''
             // no of bars in x axis
             Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]]).map( (subCategoryName) => {
               if(Object.keys(majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName]).includes(singleZone)){
                 dataPoints.push({y: majorSubDefectsDataInAllGroup.data[groupKeyForDataObj[i]][subCategoryName][singleZone], label: subCategoryName})
               }else{
-                dataPoints.push({y:0, label: subCategoryName})
+                dataPoints.push({y:'', label: subCategoryName})
               }
             })
             // no of stacked column
             singleGroupChartMainData.push({ 
               type: 'stackedColumn',
               name: `Z${singleZone.replace('_','')}`,
-              indexLabel: indexLabelContent,
-              indexLabelPlacement: "inside",  
-              indexLabelOrientation: "horizontal",
+              // indexLabel: "{y}",
+              // indexLabelPlacement: "inside",  
+              // indexLabelOrientation: "horizontal",
               // showInLegend: true,
               dataPoints: dataPoints
             })
@@ -1308,17 +1327,17 @@
                     if(!zoneSubDefectCountProvider[`${singleZone}`]){
                       zoneSubDefectCountProvider[`${singleZone}`] = {}
                       zoneSubDefectCountProvider[`${singleZone}`][defect] = {}
-                      zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`] = defectCount
+                      zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}`] = defectCount
                     }else{
                       if(!zoneSubDefectCountProvider[`${singleZone}`][defect]){
                         zoneSubDefectCountProvider[`${singleZone}`][defect] = {}
-                        zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`] = defectCount
+                        zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}`] = defectCount
                       }else{
-                        if(!zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`]){
-                          zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`] = defectCount
+                        if(!zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}`]){
+                          zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}`] = defectCount
                         }
                         else{
-                          zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}${singleZone}`] += defectCount
+                          zoneSubDefectCountProvider[`${singleZone}`][defect][`${subDefect}`] += defectCount
                         }
                       }
                     }
@@ -1444,15 +1463,15 @@
             subDefectList.push(...Object.keys(zoneSubDefectCountProvider[zone][defect]))
           })
 
-          // console.log(`${defect} Zone Count:`,individualDefectCountProvider)
+          console.log(`${defect} Zone Count:`,individualDefectCountProvider)
           console.log(`${defect} Zone Sub-Defect Count:`,individualSubDefectCountProvider)
 
           let mainDefectParetoDataset = []
           // preparing the dataset for the mainDefect Pareto Chart
-          subDefectList.map( (subDefect) => {
+          subDefects[defect].map( (subDefect) => {
             let dataPoints = []
             Object.keys(individualDefectCountProvider).map( (zone) => {
-              let yValue = 0
+              let yValue = ''
               if(individualSubDefectCountProvider[zone][subDefect]){
                 yValue = individualSubDefectCountProvider[zone][subDefect]
               }
@@ -1460,11 +1479,19 @@
             })
             mainDefectParetoDataset.push({
               type:'stackedColumn',
-              // showInLegend: true,
+              showInLegend: true,
+              indexLabel: "{y}",
+              indexLabelPlacement: "inside",  
+              indexLabelOrientation: "horizontal",
               name: subDefect.split('_')[0],
               dataPoints: dataPoints
             })  
           })
+
+          let mainParetoColorSet = []
+          subDefects[defect].map(() => {
+            mainParetoColorSet.push(generateRandomColor(mainParetoColorSet));
+          });
 
           // division for chart & table for main Defect Pareto
           let mainDefectParetoChartDivision = document.createElement('div')
@@ -1475,9 +1502,12 @@
           mainDefectParetoChartDivision.style.height = '400px'
           correspondingTabDivisionHolder.appendChild(mainDefectParetoChartDivision)
 
+          CanvasJS.addColorSet("mainParetoColorSet", mainParetoColorSet);
+
           // chart configuration
           var mainDefectParetoChart =  new CanvasJS.Chart(`main${defect}ParetoChartDivision`, {
             animationEnabled: true,
+            colorSet: "mainParetoColorSet",
             backgroundColor: "rgba(0, 0, 0, 0)",
             theme: "dark1",
             title:{
@@ -1491,7 +1521,7 @@
               lineColor: "#4F81BC",
               tickColor: "#4F81BC",
               minimum: 0,
-              labelFontColor: "#4F81BC",
+              // ,
               labelFontFamily: 'tahoma',
               labelFontSize: 12,
               gridThickness: 0,
@@ -1506,7 +1536,7 @@
             },
             axisX:{
               title: 'Zones',
-              labelFontColor: "#4F81BC",
+              // ,
               labelFontFamily: 'tahoma',
               labelFontSize: 12,
               gridThickness: 0,
@@ -1630,8 +1660,8 @@
             let subDefectZoneCount = {}
             Object.keys(zoneSubDefectCountProvider).map( (singleZone) => {
               if(zoneSubDefectCountProvider[singleZone][defect]){
-                if(zoneSubDefectCountProvider[singleZone][defect][`${subdefect}${singleZone}`]){
-                  subDefectZoneCount[singleZone] = zoneSubDefectCountProvider[singleZone][defect][`${subdefect}${singleZone}`]
+                if(zoneSubDefectCountProvider[singleZone][defect][`${subdefect}`]){
+                  subDefectZoneCount[singleZone] = zoneSubDefectCountProvider[singleZone][defect][`${subdefect}`]
                 }
               }
             })
@@ -1668,7 +1698,6 @@
                 lineColor: "#4F81BC",
                 tickColor: "#4F81BC",
                 minimum: 0,
-                labelFontColor: "#4F81BC",
                 labelFontFamily: 'tahoma',
                 labelFontSize: 12,
                 gridThickness: 0,
@@ -1683,7 +1712,7 @@
               },
               axisX:{
                 title: 'Zones',
-                labelFontColor: "#4F81BC",
+                
                 labelFontFamily: 'tahoma',
                 labelFontSize: 12,
                 gridThickness: 0,
@@ -1695,7 +1724,13 @@
                 content: 'Z {label} : {y}'
               },
               data: [{        
-              type: "column",  
+              type: "column",
+              showInLegend: true,
+              legendText: `${subdefect}`,
+              color: mainParetoColorSet[index],
+              indexLabel: "{y}",
+              indexLabelPlacement: "outside",  
+              indexLabelOrientation: "horizontal",
               dataPoints: subDefectParetoChartDataset
             }]
             });
@@ -1870,14 +1905,14 @@
                       // for Zone & Defect Count
                     if(!zoneDefectCountProvider[singleZone]){
                       zoneDefectCountProvider[singleZone] = {}
-                      if(!zoneDefectCountProvider[singleZone][`${defect}${singleZone}`]){
-                        zoneDefectCountProvider[singleZone][`${defect}${singleZone}`] = data.data[group][category][defect][subDefect][bodyNumber][singleZone]
+                      if(!zoneDefectCountProvider[singleZone][`${defect}`]){
+                        zoneDefectCountProvider[singleZone][`${defect}`] = data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                       }
                     }else{
-                      if(!zoneDefectCountProvider[singleZone][`${defect}${singleZone}`]){
-                        zoneDefectCountProvider[singleZone][`${defect}${singleZone}`] = data.data[group][category][defect][subDefect][bodyNumber][singleZone]
+                      if(!zoneDefectCountProvider[singleZone][`${defect}`]){
+                        zoneDefectCountProvider[singleZone][`${defect}`] = data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                       }else{
-                        zoneDefectCountProvider[singleZone][`${defect}${singleZone}`] += data.data[group][category][defect][subDefect][bodyNumber][singleZone]
+                        zoneDefectCountProvider[singleZone][`${defect}`] += data.data[group][category][defect][subDefect][bodyNumber][singleZone]
                       }
                     }
                     
@@ -2005,7 +2040,6 @@
           delete zoneDefectCountProvider[singleZone]
         })
         
-        let defectList = []
         let zoneDefectCountProviderTemp = {}
         Object.keys(zoneCountProvider).map( (zone) => {
           zoneDefectCountProvider[zone] = Object.entries(zoneDefectCountProvider[zone])
@@ -2018,7 +2052,6 @@
               {}
             )
           zoneDefectCountProviderTemp[zone] = zoneDefectCountProvider[zone]
-          defectList.push(...Object.keys(zoneDefectCountProvider[zone]))
         })
         zoneDefectCountProvider = JSON.parse(JSON.stringify(zoneDefectCountProviderTemp))
 
@@ -2079,11 +2112,19 @@
         function subCategoryParetoNavigate(){
           document.getElementById(`mainParetoSubCategoryChartDivision`).scrollIntoView({ behavior: "smooth" })
         }
+
+        let firstParetoColorSet = []
+        categoryList.map(() => {
+          firstParetoColorSet.push(generateRandomColor(firstParetoColorSet));
+        });
+
+        console.log('firstParetoColorSet: ',firstParetoColorSet)
+
         // populating data attribute for mainPareto Category Visualization
         categoryList.map( (category,index) => {
           let dataPoints = []
           Object.keys(groupCountProvider).map( (group) => {
-            let yValue = 0
+            let yValue;
             if(groupCategoryCountProvider[group][category]){
               yValue = groupCategoryCountProvider[group][category]
             }
@@ -2093,17 +2134,23 @@
           })
           mainParetoCategoryChartDataset.push({
             type:'stackedColumn',
-            // showInLegend: true,
+            showInLegend: true,
+            // indexLabel: "{y}",
+            // indexLabelPlacement: "inside",
+            // indexLabelOrientation: "horizontal",
             name: category,
             dataPoints: dataPoints
           })
         })
 
-        // console.log('mainParetoCategoryChartDataset: ',mainParetoCategoryChartDataset)
+        console.log('mainParetoCategoryChartDataset: ',mainParetoCategoryChartDataset)
+
+        CanvasJS.addColorSet("firstParetoColorSet", firstParetoColorSet);
 
         // chart configuration
         var mainParetoCategoryChart= new CanvasJS.Chart("mainParetoCategoryChartDivision", {
           animationEnabled: true,
+          colorSet: "firstParetoColorSet",
           backgroundColor: "rgba(0, 0, 0, 0)",
           theme: "dark1",
           title:{
@@ -2113,10 +2160,11 @@
           },
           dataPointWidth: 30,
           axisY: {
+            // logarithmic: true,
             title: "No of Defects",
             lineColor: "#4F81BC",
             tickColor: "#4F81BC",
-            labelFontColor: "#4F81BC",
+            
             labelFontFamily: 'tahoma',
             labelFontSize: 18,
             minimum: 0,
@@ -2132,7 +2180,7 @@
           },
           axisX:{
             title: 'Category',
-            labelFontColor: "#4F81BC",
+            
             labelFontFamily: 'tahoma',
             labelFontSize: 18,
             gridThickness: 0,
@@ -2162,6 +2210,11 @@
 
         let mainParetoSubCategoryChartDataset = []
 
+        let secondParetoColorSet = []
+        zoneList.map(() => {
+          secondParetoColorSet.push(generateRandomColor(secondParetoColorSet));
+        });
+
         function zoneParetoNavigate(){
           document.getElementById(`mainParetoZoneChartDivision`).scrollIntoView({ behavior: "smooth" })
         }
@@ -2170,7 +2223,7 @@
         zoneList.map( (zone) => {
           let dataPoints = []
           Object.keys(categoryCountProvider).map( (category) => {
-            let yValue = 0
+            let yValue;
             if(categoryZoneCountProvider[category][zone]){
               yValue = categoryZoneCountProvider[category][zone]
             }
@@ -2178,7 +2231,10 @@
           })
           mainParetoSubCategoryChartDataset.push({
             type:'stackedColumn',
-            // showInLegend: true,
+            showInLegend: true,
+            // indexLabel: "{y}",
+            // indexLabelPlacement: "inside",
+            // indexLabelOrientation: "horizontal",
             name: `Z${zone.replace('_','')}`,
             dataPoints: dataPoints
           })
@@ -2186,9 +2242,12 @@
 
         // console.log('mainParetoSubCategoryChartDataset: ',mainParetoSubCategoryChartDataset)
 
+        CanvasJS.addColorSet("secondParetoColorSet", secondParetoColorSet);
+
         // chart configuration
         var mainParetoSubCategoryChart= new CanvasJS.Chart("mainParetoSubCategoryChartDivision", {
           animationEnabled: true,
+          colorSet: "secondParetoColorSet",
           backgroundColor: "rgba(0, 0, 0, 0)",
           theme: "dark1",
           title:{
@@ -2198,10 +2257,11 @@
           },
           dataPointWidth: 30,
           axisY: {
+            // logarithmic: true,
             title: "No of Defects",
             lineColor: "#4F81BC",
             tickColor: "#4F81BC",
-            labelFontColor: "#4F81BC",
+            
             labelFontFamily: 'tahoma',
             labelFontSize: 12,
             minimum: 0,
@@ -2217,7 +2277,7 @@
           },
           axisX:{
             title: 'Sub-Category',
-            labelFontColor: "#4F81BC",
+            
             labelFontFamily: 'tahoma',
             labelFontSize: 12,
             gridThickness: 0,
@@ -2247,15 +2307,21 @@
 
         let mainParetoZoneChartDataset = []
 
+        let thirdParetoColorSet = []
+
         function defectParetoNavigate(){
           document.getElementById(`mainParetoDefectChartDivision`).scrollIntoView({ behavior: "smooth" })
         }
 
+        defectListTemp = ['Surface','Body Fitting','Missing & Wrong Part','Welding','Water Leak']
+        defectListTemp.map(() => {
+          thirdParetoColorSet.push(generateRandomColor(thirdParetoColorSet));
+        });
         // populating data attribute for main Pareto Visualization
-        defectList.map( (defect) => {
+        defectListTemp.map( (defect) => {
           let dataPoints = []
           Object.keys(zoneCountProvider).map( (zone) => {
-            let yValue = 0
+            let yValue;
             if(zoneDefectCountProvider[zone][defect]){
               yValue = zoneDefectCountProvider[zone][defect]
             }
@@ -2263,7 +2329,10 @@
           })
           mainParetoZoneChartDataset.push({
             type:'stackedColumn',
-            // showInLegend: true,
+            showInLegend: true,
+            // indexLabel: "{y}",
+            // indexLabelPlacement: "inside",  
+            // indexLabelOrientation: "horizontal",
             name: defect.split('_')[0],
             dataPoints: dataPoints
           })
@@ -2271,9 +2340,12 @@
 
         console.log('mainParetoZoneChartDataset: ',mainParetoZoneChartDataset)
 
+        CanvasJS.addColorSet("thirdParetoColorSet", thirdParetoColorSet);
+
         // chart configuration
         var mainParetoZoneChart= new CanvasJS.Chart("mainParetoZoneChartDivision", {
           animationEnabled: true,
+          colorSet: "thirdParetoColorSet",
           backgroundColor: "rgba(0, 0, 0, 0)",
           theme: "dark1",
           title:{
@@ -2286,7 +2358,7 @@
             title: "No of Defects",
             lineColor: "#4F81BC",
             tickColor: "#4F81BC",
-            labelFontColor: "#4F81BC",
+            
             labelFontFamily: 'tahoma',
             labelFontSize: 18,
             minimum: 0,
@@ -2302,7 +2374,7 @@
           },
           axisX:{
             title: 'Zones',
-            labelFontColor: "#4F81BC",
+            
             labelFontFamily: 'tahoma',
             labelFontSize: 18,
             gridThickness: 0,
@@ -2315,6 +2387,7 @@
           data: mainParetoZoneChartDataset
         });
         mainParetoZoneChart.render();
+        console.log(mainParetoZoneChart)
 
 
         // fourth Pareto chart
@@ -2329,13 +2402,18 @@
 
         let mainParetoDefectChartDataset = []
 
+        let fourthParetoColorSet = []
+        subDefectList.map(() => {
+          fourthParetoColorSet.push(generateRandomColor(fourthParetoColorSet));
+        });
+
         // const subDefectList = ['Dent','Bump','Burrs','Spatters','Others','Body Fitting 1','Body Fitting 2', 'Body Fitting Others','Missing Part','Wrong Part','Welding Part 1', 'Welding Part 2', 'Welding Part 3','Welding Part Others', 'Water Leak 1', 'Water Leak 2', 'Water Leak Others']
 
         // populating data attribute for main Pareto Visualization
         subDefectList.map( (subDefect) => {
           let dataPoints = []
           Object.keys(defectCountProvider).map( (defect) => {
-            let yValue = 0
+            let yValue;
             if(defectSubDefectCountProvider[defect][subDefect]){
               yValue = defectSubDefectCountProvider[defect][subDefect]
             }
@@ -2343,15 +2421,21 @@
           })
           mainParetoDefectChartDataset.push({
             type:'stackedColumn',
-            // showInLegend: true,
+            showInLegend: true,
+            // indexLabel: "{y}",
+            // indexLabelPlacement: "inside",  
+            // indexLabelOrientation: "horizontal",
             name: subDefect,
             dataPoints: dataPoints
           })
         })
 
+        CanvasJS.addColorSet("fourthParetoColorSet", fourthParetoColorSet);
+
         // chart configuration
         var mainParetoDefectChart= new CanvasJS.Chart("mainParetoDefectChartDivision", {
           animationEnabled: true,
+          colorSet: "fourthParetoColorSet",
           backgroundColor: "rgba(0, 0, 0, 0)",
           theme: "dark1",
           title:{
@@ -2364,7 +2448,6 @@
             title: "No of Defects",
             lineColor: "#4F81BC",
             tickColor: "#4F81BC",
-            labelFontColor: "#4F81BC",
             labelFontFamily: 'tahoma',
             labelFontSize: 18,
             minimum: 0,

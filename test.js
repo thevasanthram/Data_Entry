@@ -1,13 +1,20 @@
-const obj = [
-  {
-    id: 1,
-  },
-  {
-    id: 5,
-  },
-  {
-    id: 2,
-  },
-];
+function generateRandomColor() {
+  let maxVal = 0xffffff; // 16777215
+  let randomNumber = Math.random() * maxVal;
+  randomNumber = Math.floor(randomNumber);
+  randomNumber = randomNumber.toString(16);
+  let randColor = randomNumber.padStart(6, 0);
+  if (colorSet.includes(randColor)) {
+    generateRandomColor();
+  } else {
+    return `#${randColor.toUpperCase()}`;
+  }
+}
 
-console.log(obj.sort((r1, r2) => (r1.id > r2.id ? 1 : r1.id < r2.id ? -1 : 0)));
+var colorSet = [];
+const iterator = [1, 2, 3, 4, 5];
+iterator.map((el) => {
+  colorSet.push(generateRandomColor());
+});
+
+console.log(colorSet);
