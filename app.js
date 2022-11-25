@@ -1619,8 +1619,6 @@ app.get('/admin', async (req, res) => {
     const emp_ChartAccess = response2.rows[0].accessible_charts;
     const emp_Status = response2.rows[0].status;
 
-    console.log('emp_ChartAccess: ', typeof emp_ChartAccess, emp_ChartAccess);
-
     res.render(path.join(__dirname, '/views/adminPage.ejs'), {
       username,
       employeeRecords,
