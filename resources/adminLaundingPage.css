@@ -60,13 +60,13 @@ body {
   display: inline-block;
   width: 100%;
   cursor: pointer;
-  background-color: #075154 ;
 }
 
 #ReportGenerationDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;
+  background-color: #075154 ;
 }
 
 #AdministrationDiv{
