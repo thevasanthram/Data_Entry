@@ -1240,8 +1240,8 @@ app.post('/thirdlayer', (req, res) => {
       },
     };
 
-    let categoryId = selectedCategory.replaceAll(' ', '_');
-    let subcategoryId = selectedSubCategory.replaceAll(' ', '');
+    let categoryId = selectedCategory.replace(' ', '_');
+    let subcategoryId = selectedSubCategory.replace(' ', '');
 
     console.log(`${categoryId}_${subcategoryId}`);
 

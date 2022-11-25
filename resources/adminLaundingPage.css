@@ -38,6 +38,44 @@ body {
   padding-right: 2%;
   margin-right: 5%;
 }
+/* TODO ...........SIDE NAV BAR MENU................................... */
+
+#navBarDivision{
+  position: fixed;
+  z-index:5;
+  display: none;
+  width: 17%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  background-color: #00adb5;
+}
+.category{
+    font-size: 140%;
+    font-weight: 500;
+    min-height: 8vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+}
+#DataEntryDiv{
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
+#ReportGenerationDiv{
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  background-color: #075154 ;
+}
+
+#AdministrationDiv{
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+/* ! End of Nav Side Bar Menu */
 
 #adminAccessDeniedDivision {
   visibility: hidden; /* Hidden by default */
