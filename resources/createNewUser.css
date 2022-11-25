@@ -8,64 +8,50 @@
 
 body {
   padding: 0;
+  width: 100%;
+  height: 100%;
   font-family: 'Raleway', sans-serif;
-  font-size: 14px;
-  /* color: black; */
-  color: white;
-  background-color: #393e46;
+  /* font-size: 14px; */
+  color: #EEEEEE;
+  background-color: #222831;
   background-size: cover;
 }
-
+/* Styling for header part which contain user_name App_Name and LOGOUT btn  */
 .header {
   width: 100%;
   display: flex;
-  min-height: 4.5rem;
+  height: 4.5rem;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #222831;
-  color: #f0e3e3;
-  position: relative;
-  height: 70px;
-}
-#btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  right: 2%;
+  background-color: #393e46;
+  color: #EEEEEE;
 }
 .admin {
   color: #00adb5;
   margin-right: 10%;
-  padding-right: 46%;
   font-weight: 500;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
-  height: 3% !important;
-  width: 25% !important;
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
 }
+
 .heading {
   padding-left: 1%;
   font-weight: 700;
   font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
-
+#btn {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
 .button-logout {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2%;
-  margin: 5%;
-  font-weight: 600;
-  font-size: medium;
-  border-radius: 5px;
-  color: #eeeeee;
-  border-color: rgb(91, 97, 166);
-  height: 4% !important;
-  width: 38% !important;
-}
-.button-logout:hover {
-  border-right-color: rgb(45, 56, 184);
+  padding-right: 2%;
+  margin-right: 5%;
+  width: 115px;
+  height: 45px;
 }
 
 #go-back-icon {
@@ -75,7 +61,7 @@ body {
 }
 .wrapper {
   /* background: linear-gradient(to right, #4ca1af, #2c3e50); */
-  background-color: #222831;
+  background-color: #393E46;
   padding-right: 1em;
   padding-left: 1em;
   border-radius: 14px;
@@ -121,7 +107,7 @@ header h2 {
 form {
   border-top: 2px solid rgba(45, 57, 69);
   margin-top: 2px;
-  padding-top: 1em;
+  padding:2px;
 }
 
 #user-id-mode-name {
@@ -190,17 +176,9 @@ textarea:focus {
   border: 2px solid #ff7463;
 }
 
-[type='submit'] {
-  width: 100%;
-  background-color: #eeeec6;
-  height: 60px;
-  border: none;
-  border-radius: 5px;
-  color: #444444;
-  font-size: 1.25em;
-}
 
-[type='submit']:hover {
+
+#createUserButton:hover {
   opacity: 0.8;
 }
 
@@ -222,43 +200,22 @@ textarea:focus {
 #createUserButton {
   /* background: linear-gradient(to right, #0f0c29, #302b63, #24243e); */
   color: black;
-  background-color: white;
+  width: 100%;
+  background-color: #eeeeee;
   font-weight: 600;
   height: 40px;
   font-size: 20px;
+  border-radius: 5px;
 }
-
-@media (min-width: 760px) {
-  .wrapper {
-    max-width: 685px;
-  }
-
-  .info h3 {
-    font-size: 2.5em;
-    letter-spacing: 1px;
-  }
-
-  .info p {
-    font-size: 1.1em;
-  }
-
-  .contact-info label {
-    display: inline-block;
-    width: 20%;
-  }
-
-  .contact-info input,
-  select {
-    width: 78%;
-  }
-
-  .newsletter .checkboxes p {
-    padding-top: 2px;
-    padding-bottom: 2px;
-  }
+.contact-info label {
+  display: inline-block;
+  width: 20%;
 }
-
-@media (min-width: 1024px) {
+.contact-info input,
+select {
+  width: 85%;
+}
+@media screen and (min-width: 1024px) {
   .wrapper {
     width: 90%;
     max-width: 950px;
@@ -266,7 +223,7 @@ textarea:focus {
 
   .contact-info label {
     display: inline-block;
-    width: 26%;
+    width: 40%;
   }
 
   .contact-info input,
@@ -306,7 +263,92 @@ textarea:focus {
     width: 41%;
   }
 
-  form {
+  /* form {
     padding-top: 1em;
+  } */
+}
+@media screen and (min-width: 760px) {
+
+  .wrapper {
+    max-width: 685px;
+  }
+
+  .info h3 {
+    font-size: 2.5em;
+    letter-spacing: 1px;
+  }
+
+  .info p {
+    font-size: 1.1em;
+  }
+
+  .contact-info label {
+    display: inline-block;
+    /* width: 40%; */
+  }
+
+  .contact-info input,
+  select {
+    width: 78%;
+  }
+
+  .newsletter .checkboxes p {
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
 }
+ @media screen and (max-width: 481px) {
+
+  .header {
+    min-width: 100%;
+    display: flex;
+    min-height: 4.5rem;
+    flex-direction: row;
+    align-items: center;
+    padding: 1%;
+    justify-content: space-between;
+    background-color: #393e46;
+    color: #f0e3e3;
+  }
+
+  .heading {
+    padding-left: 1%;
+    font-weight: 700;
+    font-size: clamp(19px, 0.8vw, 1.5rem);
+    
+  }
+
+  #btn {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    line-height: 28px;
+  }
+  .admin {
+    color: #00adb5;
+    margin-right: 10%;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+  }
+
+  .button-logout {
+    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+    width: 60px;   
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+  #go-back-icon {
+    margin: 0.5% 25% 0% 5%;
+    max-width: 7%;
+    cursor: pointer;
+  }
+  .contact-info label {
+    display: inline-block;
+    width: 40%;
+  }
+ }

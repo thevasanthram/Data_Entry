@@ -1,3 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  width: 100%;
+  height: 100%;
+  /* background-color: #f5f9fc; */
+  background-color: #222831;
+  /* background-color: #EEEBDD; */
+  /* background-color: #222831; */
+}
+.header {
+  width: 100%;
+  display: flex;
+  height: 4.5rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #393e46;
+  color: #eeeeee;
+}
+.admin {
+  color: #00adb5;
+  margin-right: 10%;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+}
+
+.heading {
+  padding-left: 1%;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+#btn {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.button-logout {
+  display: flex;
+  align-items: center;
+  padding-right: 2%;
+  margin-right: 5%;
+}
+.user_update_container {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  justify-content: space-around;
+  margin: 1%;
+}
+
+#addUser,
+#removeUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+#addUser-img,
+#removeUser-img {
+  cursor: pointer;
+  width: 6rem;
+}
+#employeeTableDivision {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  margin-left: 5%;
+}
+.table_content {
+  /* background-color: #D6E4E5; */
+  /* background-color: #00ADB5; */
+  background-color: #eeeeee;
+}
+.table-heading-container {
+  color: #000000;
+}
+.table_row {
+  color: #000000;
+  font-weight: 400;
+}
+.table_row:hover {
+  background-color: #97bfb4;
+}
+th,
+tr,
+td {
+  border: 0.66px solid black;
+}
+
+.charts_list,
+.user_mode {
+  text-align: center;
+}
+.switch_btn,
+.edit_btn {
+  position: relative;
+  text-align: center;
+  padding-top: 0.66%;
+  padding-left: 0.75%;
+}
+.switch_btn:hover {
+  transform: scale(0.97);
+}
+
+.edit_btn:hover {
+  transform: scale(0.97);
+}
 .close {
   color: #aaaaaa;
   float: right;
@@ -30,7 +140,35 @@
 }
 
 .removeUserModalContent {
+  background-color: #faf7f0;
+  margin: auto;
+  padding: 2%;
+  border: 1px solid #888;
+  width: 35%;
+  min-height: 25%;
+  border-radius: 10px;
+}
+
+#reportGenerationDeniedDivision {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.reportGenerationDeniedDivisionModalContent {
   background-color: #fefefe;
+  color: black;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -38,6 +176,33 @@
   height: 25%;
 }
 
+#removeUserButton {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+/* !.................Remove User........................ */
+
+#removeUserDivisionHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+#removeUserInput {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 60%;
+}
+#selectUserID {
+  padding: 1%;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 125px;
+  background-color: #eeeeee;
+}
 #removeUserDivisionEnsure {
   visibility: hidden; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -55,14 +220,24 @@
 }
 
 .removeUserEnsureModalContent {
-  background-color: #fefefe;
+  background-color: #faf7f0;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 35%;
-  height: 25%;
+  min-height: 25%;
+  border-radius: 10px;
 }
-
+#removeUserDivisionEnsureHolder {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+#removeUserEnsureButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #removeUserDivisionSuccess {
   visibility: hidden; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -80,12 +255,13 @@
 }
 
 .removeUserDivisionSuccessModalContent {
-  background-color: #fefefe;
+  background-color: #faf7f0;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 35%;
-  height: 25%;
+  min-height: 25%;
+  border-radius: 10px;
 }
 
 #editEmployeeStatusEnsureDivision {
@@ -103,14 +279,29 @@
   align-items: center;
   z-index: 3;
 }
-
+/* ! Update Emp Status btn pop up */
 .editEmployeeStatusEnsureModalContent {
-  background-color: #fefefe;
+  background-color: #faf7f0;
   margin: auto;
-  padding: 20px;
+  padding: 2%;
   border: 1px solid #888;
   width: 35%;
-  height: 25%;
+  min-height: 20%;
+  border-radius: 10px;
+}
+#editEmployeeStatusEnsureHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+#editEmployeeStatusEnsureButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  margin-left: 2%;
 }
 
 #editEmployeeStatusDivisionSuccess {
@@ -130,14 +321,21 @@
 }
 
 .editEmployeeStatusDivisionSuccessModalContent {
-  background-color: #fefefe;
+  background-color: #faf7f0;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 35%;
-  height: 25%;
+  min-height: 25%;
+  border-radius: 10px;
 }
-
+#editEmployeeStatusDivisionSuccessHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  justify-content: center;
+}
 #editEmployeeChartAccessDivision {
   visibility: hidden; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -153,45 +351,45 @@
   align-items: center;
   z-index: 3;
 }
+/* ! ................Update Report Access Edit Button....................... */
 
-.editEmployeeChartAccessDivisionModalContent {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%;
-  height: 50%;
+#editEmployeeChartAccessDivisionHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-
+.editEmployeeChartAccessDivisionModalContent {
+  background-color: #faf7f0;
+  margin: auto;
+  padding: 2%;
+  border: 1px solid #888;
+  width: 60%;
+  border-radius: 10px;
+}
+#editEmployeeChartAccessCheckBoxHolder {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 3%;
+  padding: 1%;
+  margin: 1%;
+}
 .editEmployeeChartAccessCheckBox {
   display: flex;
-}
-
-#editEmployeeChartAccessEnsureDivision {
-  visibility: hidden; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-  display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 3;
+  padding: 1%;
+  margin: 1%;
 }
-
-.editEmployeeChartAccessEnsureModalContent {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 35%;
-  height: 25%;
+#editEmployeeChartAccessDivisionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  margin-left: 2%;
 }
-
+/* !...........................Edit Reports Confirmation Button .................................. */
 #editEmployeeChartAccessSuccess {
   visibility: hidden; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -209,10 +407,164 @@
 }
 
 .editEmployeeChartAccessSuccessModalContent {
-  background-color: #fefefe;
+  background-color: #faf7f0;
   margin: auto;
-  padding: 20px;
+  padding: 2%;
   border: 1px solid #888;
   width: 35%;
-  height: 25%;
+  border-radius: 10px;
+}
+
+#editEmployeeChartAccessSuccessHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vw;
+}
+#editEmployeeChartAccessDivisionSuccessButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  margin-left: 2%;
+}
+
+@media screen and (max-width: 780px) {
+  .header {
+    min-width: 100%;
+    display: flex;
+    min-height: 4.5rem;
+    flex-direction: row;
+    align-items: center;
+    padding: 1%;
+    justify-content: space-between;
+    background-color: #393e46;
+    color: #f0e3e3;
+  }
+
+  .heading {
+    padding-left: 1%;
+    font-weight: 700;
+    font-size: clamp(19px, 0.8vw, 1.5rem);
+  }
+
+  #btn {
+    width: auto;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: column;
+    line-height: 28px;
+  }
+  .admin {
+    color: #00adb5;
+    margin-right: 10%;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+  }
+
+  .button-logout {
+    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+    width: 60px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+  .editEmployeeStatusEnsureModalContent {
+    width: 40%;
+    min-height: 25%;
+  }
+
+  #editEmployeeStatusEnsureButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    margin-left: 2%;
+  }
+}
+
+@media screen and (max-width: 481px) {
+  #addUser-img,
+  #removeUser-img {
+    cursor: pointer;
+    width: 5rem;
+  }
+  .editEmployeeStatusEnsureModalContent {
+    padding: 2%;
+    border: 1px solid #888;
+    width: 45%;
+    min-height: 25%;
+  }
+  #editEmployeeStatusEnsureButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    margin-left: 2%;
+  }
+  /* ! ..........................Update Report Access Edit Button............................... */
+
+  .editEmployeeChartAccessDivisionModalContent {
+    background-color: #faf7f0;
+    margin: auto;
+    padding: 1%;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  #editEmployeeChartAccessCheckBoxHolder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    gap: 2%;
+    padding: 2%;
+    margin: 3%;
+  }
+
+  #editEmployeeChartAccessDivisionButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10%;
+    margin-top: 10%;
+  }
+  .editEmployeeChartAccessSuccessModalContent {
+    background-color: #faf7f0;
+    margin: auto;
+    padding: 1%;
+    border: 1px solid #888;
+    width: 45%;
+  }
+  #editEmployeeChartAccessSuccessHolder {
+    gap: 3vw;
+  }
+  .removeUserModalContent {
+    background-color: #faf7f0;
+    margin: auto;
+    padding: 2%;
+    border: 1px solid #888;
+    width: 60%;
+    min-height: 25%;
+    border-radius: 10px;
+  }
+  #removeUserButton {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 3px;
+  }
+  .removeUserEnsureModalContent {
+    background-color: #faf7f0;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+    min-height: 25%;
+    border-radius: 10px;
+  }
 }

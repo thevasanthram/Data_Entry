@@ -10,174 +10,195 @@
     <script src="../resources/tailwind.config.js"></script>
   </head>
   <body>
-    <div class="header" style="position: sticky; top: 0px">
-      <div class="heading">Data Entry System</div>
-      <form id="btn" action="/logout" method="get">
-        <div class="admin" id="user-mode-name"><%= username %></div>
-        <button
-          type="submit"
+    <div>
+      <div class="header" style="position: sticky; top: 0px; z-index: 2">
+        <div class="heading">Data Entry System</div>
+        <form id="btn" action="/logout" method="get">
+          <div class="admin" id="user-mode-name"><%= username %></div>
+          <button
+            type="submit"
+            style="
+              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            "
+            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          >
+            LOGOUT
+          </button>
+        </form>
+      </div>
+      <div style="display: flex; padding: 2px">
+        <img
+          src="./arrow.png"
+          title="Back"
+          id="go-back-icon"
+          alt="Go Back"
+          onclick="document.getElementById('adminForm').submit();"
+        />
+        <h1
           style="
-            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            text-align: center;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            text-decoration: underline;
+            font-weight: 500;
           "
-          class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
         >
-          LOGOUT
-        </button>
-      </form>
-    </div>
-    <div style="display: flex">
-      <img
-        src="./arrow.png"
-        title="Back"
-        id="go-back-icon"
-        alt="Go Back"
-        onclick="document.getElementById('adminForm').submit();"
-      />
-      <h1
-        style="
-          text-align: center;
-          font-size: 35px;
-          text-decoration: underline;
-          font-weight: 600;
-        "
-      >
-        Create New User
-      </h1>
-    </div>
-    <div class="wrapper">
-      <main>
-        <form action="" method="GET" id="createNewUserForm">
-          <fieldset class="contact-info">
-            <div class="container">
-              <legend style="text-decoration: underline">
-                Enter Credentials Details
-              </legend>
-              <p>
-                <label for="name">User Name</label>
-                <input
-                  required
-                  type="text"
-                  name="employeeName"
-                  id="employeeName"
-                  placeholder="Required"
-                  title="Please fill out this field"
-                />
-              </p>
-              <p>
-                <label for="address">User Password</label>
-                <input
-                  required
-                  type="password"
-                  name="employeePassword"
-                  id="employeePassword"
-                  placeholder="Required"
-                />
-              </p>
-              <p>
-                <label for="address">Confirm Password</label>
-                <input
-                  required
-                  type="password"
-                  name="employeePassword1"
-                  id="employeePassword1"
-                  placeholder="Required"
-                />
-              </p>
-            </div>
-          </fieldset>
-
-          <fieldset class="newsletter">
-            <div class="container">
-              <legend style="text-decoration: underline">
-                Select the Access Control and Account type
-              </legend>
-              <h3>Accessible Charts</h3>
-              <div class="checkboxes">
+          Create New User
+        </h1>
+      </div>
+      <div class="wrapper" style="margin-bottom: 1%">
+        <main>
+          <form action="" method="GET" id="createNewUserForm">
+            <fieldset class="contact-info">
+              <div class="container">
+                <legend style="text-decoration: underline">
+                  Enter Credentials Details
+                </legend>
                 <p>
+                  <label for="name">User Name</label>
                   <input
-                    type="checkbox"
-                    id="dpv"
-                    value="DPV (Defects Per Vehicle) Report"
+                    required
+                    type="text"
+                    name="employeeName"
+                    id="employeeName"
+                    placeholder="Required"
+                    title="Please fill out this field"
                   />
-                  <label for="html_news"
-                    >DPV (Defects Per Vehicle) Report</label
-                  >
                 </p>
                 <p>
-                  <input type="checkbox" id="master" value="Master Report" />
-                  <label for="html_news">Master Report</label>
-                </p>
-                <p>
+                  <label for="ID">User ID</label>
                   <input
-                    type="checkbox"
-                    id="mainPareto"
-                    value="Main Pareto Report"
+                    required
+                    type="text"
+                    name="employeeID"
+                    id="employeeID"
+                    placeholder="Required"
+                    title="Please fill out this field"
                   />
-                  <label for="css_news">Main Pareto Report</label>
                 </p>
                 <p>
-                  <input type="checkbox" id="pareto" value="Pareto Report" />
-                  <label for="js_news">Pareto Report</label>
-                </p>
-                <p>
-                  <input type="checkbox" id="surface" value="Surface Summary" />
-                  <label for="js_news">Surface Summary</label>
-                </p>
-                <p>
+                  <label for="address">User Password</label>
                   <input
-                    type="checkbox"
-                    id="bodyFitting"
-                    value="Body Fitting Summary"
+                    required
+                    type="password"
+                    name="employeePassword"
+                    id="employeePassword"
+                    placeholder="Required"
                   />
-                  <label for="js_news">Body Fitting Summary</label>
                 </p>
                 <p>
+                  <label for="address">Confirm Password</label>
                   <input
-                    type="checkbox"
-                    id="missingWrongPart"
-                    value="Missing & Wrong Part Summary"
+                    required
+                    type="password"
+                    name="employeePassword1"
+                    id="employeePassword1"
+                    placeholder="Required"
                   />
-                  <label for="js_news">Missing & Wrong Part Summary</label>
-                </p>
-                <p>
-                  <input type="checkbox" id="welding" value="Welding Summary" />
-                  <label for="js_news">Welding Summary</label>
-                </p>
-                <p>
-                  <input
-                    type="checkbox"
-                    id="waterLeak"
-                    value="Water Leak Summary"
-                  />
-                  <label for="js_news">Water Leak Summary</label>
-                </p>
-                <p>
-                  <input type="checkbox" id="colorMap" value="Color Map" />
-                  <label for="js_news">Color Map</label>
                 </p>
               </div>
+            </fieldset>
 
-              <h3>User Status</h3>
-              <p>
-                <select name="employeeStatus" id="employeeStatus" required>
-                  <option value="admin">Admin</option>
-                  <option value="employee">Employee</option>
-                </select>
-              </p>
-            </div>
-          </fieldset>
-        </form>
-        <form action="/" id="homeForm" method="get"></form>
-        <form action="/admin" id="adminForm" method="get"></form>
-        <div class="footer">
-          <span id="error" style="display: none">Error Message</span>
-          <button id="createUserButton" onclick="validate()" type="submit">
-            Create New User
-          </button>
-          <!-- <p>&copy; Deevia Software</p> -->
-          <p></p>
-        </div>
-      </main>
+            <fieldset class="newsletter">
+              <div class="container">
+                <legend style="text-decoration: underline">
+                  Select the Access Control and Account type
+                </legend>
+                <h3>Accessible Charts</h3>
+                <div class="checkboxes">
+                  <p>
+                    <input
+                      type="checkbox"
+                      id="dpv"
+                      value="DPV (Defects Per Vehicle) Report"
+                    />
+                    <label for="html_news"
+                      >DPV (Defects Per Vehicle) Report</label
+                    >
+                  </p>
+                  <p>
+                    <input type="checkbox" id="master" value="Master Report" />
+                    <label for="html_news">Master Report</label>
+                  </p>
+                  <p>
+                    <input
+                      type="checkbox"
+                      id="mainPareto"
+                      value="Main Pareto Report"
+                    />
+                    <label for="css_news">Main Pareto Report</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="pareto" value="Pareto Report" />
+                    <label for="js_news">Pareto Report</label>
+                  </p>
+                  <p>
+                    <input
+                      type="checkbox"
+                      id="surface"
+                      value="Surface Summary"
+                    />
+                    <label for="js_news">Surface Summary</label>
+                  </p>
+                  <p>
+                    <input
+                      type="checkbox"
+                      id="bodyFitting"
+                      value="Body Fitting Summary"
+                    />
+                    <label for="js_news">Body Fitting Summary</label>
+                  </p>
+                  <p>
+                    <input
+                      type="checkbox"
+                      id="missingWrongPart"
+                      value="Missing & Wrong Part Summary"
+                    />
+                    <label for="js_news">Missing & Wrong Part Summary</label>
+                  </p>
+                  <p>
+                    <input
+                      type="checkbox"
+                      id="welding"
+                      value="Welding Summary"
+                    />
+                    <label for="js_news">Welding Summary</label>
+                  </p>
+                  <p>
+                    <input
+                      type="checkbox"
+                      id="waterLeak"
+                      value="Water Leak Summary"
+                    />
+                    <label for="js_news">Water Leak Summary</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="colorMap" value="Color Map" />
+                    <label for="js_news">Color Map</label>
+                  </p>
+                </div>
+
+                <h3>User Status</h3>
+                <p>
+                  <select name="employeeStatus" id="employeeStatus" required>
+                    <option value="admin">Admin</option>
+                    <option value="employee">Employee</option>
+                  </select>
+                </p>
+              </div>
+            </fieldset>
+          </form>
+          <form action="/" id="homeForm" method="get"></form>
+          <form action="/admin" id="adminForm" method="get"></form>
+          <div class="footer">
+            <span id="error" style="display: none">Error Message</span>
+            <button id="createUserButton" onclick="validate()" type="submit">
+              Create New User
+            </button>
+            <!-- <p>&copy; Deevia Software</p> -->
+            <p></p>
+          </div>
+        </main>
+      </div>
     </div>
   </body>
   <script>
@@ -244,7 +265,7 @@
           }
         }
       });
-      const response = await fetch(`/newUser`, {
+      const response = await fetch(`http://localhost:8000/newUser`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',

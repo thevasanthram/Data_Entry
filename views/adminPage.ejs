@@ -5,278 +5,461 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="adminPage.css">
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script  src="https://cdn.tailwindcss.com"></script>
     <title>Data Entry System</title>
   </head>
   <body>
 
     <div>
+      <div class="header" style="position: sticky;top: 0px;z-index: 2;">
+        <div style="display: flex">
+          <img
+            src="./navBarIcon.png"
+            title="Switch Mode"
+            id="navBarIcon"
+            alt="Switch Mode"
+            style="cursor: pointer; width: 8%; margin: 0.5% 3%"
+          />
+          <div class="heading">Data Entry System</div>
+        </div>
+          <form id="btn" action="/logout" method="get">
+              <div class="admin" id="user-mode-name"><%= username %></div>
+              <button type="submit"
+              style="background: linear-gradient(
+                to right, #0f0c29, #302b63, #24243e 
+              );"
+              class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                  LOGOUT
+              </button>
+          </form>
+      </div>
+
+      <div
+        id="navBarDivision"
+        style="
+          position: fixed;
+          display: none;
+          width: 20%;
+          height: 90%;
+          background-color: #00adb5;
+        "
+      >
+        <div
+          id="DataEntryDiv"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 7.5%;
+            cursor: pointer;
+            background-color: #075154 !important;
+          "
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <p
+            id="dataEntry"
+            style="
+              font-size: 130%;
+              font-weight: 500;
+              height: 100%;
+              padding: 2px 10px;
+            "
+          >
+            Data Entry
+          </p>
+        </div>
+        <div
+          id="ReportGenerationDiv"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 7.5%;
+            cursor: pointer;
+          "
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <p
+            id="reportGeneration"
+            style="
+              font-size: 130%;
+              font-weight: 500;
+              height: 100%;
+              padding: 2px 10px;
+            "
+          >
+            Report Generation
+          </p>
+        </div>
+        <div
+          id="AdministrationDiv"
+          style="
+            display: inline-block;
+            width: 100%;
+            height: 7.5%;
+            cursor: pointer;
+          "
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+        >
+          <p
+            id="administration"
+            style="
+              font-size: 130%;
+              font-weight: 500;
+              height: 100%;
+              padding: 2px 10px;
+            "
+          >
+            Administration
+          </p>
+        </div>
+      </div>
+
+      <!-- Denial of Access for reportGeneration -->
+    <div id="reportGenerationDeniedDivision">
+      <div class="reportGenerationDeniedDivisionModalContent">
+        <div
+          id="reportGenerationDeniedDivisionHolder"
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            top: 25%;
+            gap: 1.5rem;
+            justify-content: center;
+          "
+        >
+          <p id="reportGenerationDeniedDivisionMessage">
+            No Accessible Charts.
+          </p>
+          <div id="editEmployeeChartAccessEnsureButton">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onclick="(() => {document.getElementById('reportGenerationDeniedDivision').style.visibility = 'hidden'})()"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
       <!-- division for add and remove user icon -->
-
-    <div style="display: flex; justify-content: center">
-      <div
-        id="addUser"
-        style="
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        "
-      >
-        <img
-          src="addUserIcon.png"
-          class="addUser"
-          onclick="AddOrRemoveUser(event)"
-          alt="Add User"
-          style="cursor: pointer; width: 40%"
-        />
-        <p
-          class="addUser"
-          onclick="AddOrRemoveUser(event)"
-          style="cursor: pointer"
-        >
-          Add User
-        </p>
+      <div class="user_update_container" >
+        <div id="addUser">
+          <img
+            src="addUserIcon.png"
+            class="addUser" id="addUser-img"
+            onclick="AddOrRemoveUser(event)"
+            alt="Add User"
+          />
+          <p
+            class="addUser"
+            onclick="AddOrRemoveUser(event)"
+            style="cursor: pointer ; font-weight: 500;color: #eeeeee;"
+          > Add User
+          </p>
+        </div>
+        <div id="removeUser" class="removeUser">
+          <img
+            src="removeUserIcon.png"
+            alt="Remove User"
+            onclick="(() => document.getElementById('removeUserDivision').style.visibility = 'visible')()"
+            class="removeUser" id="removeUser-img"
+          />
+          <p
+            class="removeUser"
+            onclick="(() => document.getElementById('removeUserDivision').style.visibility = 'visible')()"
+            style="cursor: pointer; font-weight: 500; color: #eeeeee;"
+          > Remove User
+          </p>
+        </div>
+        <form action="/addUser" id="addUserForm" method="post">
+          <input type="hidden" name="firstUser" value="false" />
+        </form>
       </div>
-      <div
-        id="removeUser"
-        class="removeUser"
-        style="
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        "
-      >
-        <img
-          src="removeUserIcon.png"
-          alt="Remove User"
-          onclick="(() => document.getElementById('removeUserDivision').style.visibility = 'visible')()"
-          class="removeUser"
-          style="width: 40%; cursor: pointer"
-        />
-        <p
-          class="removeUser"
-          onclick="(() => document.getElementById('removeUserDivision').style.visibility = 'visible')()"
-          style="cursor: pointer"
-        >
-          Remove User
-        </p>
-      </div>
-      <form action="/addUser" id="addUserForm" method="post">
-        <input type="hidden" name="firstUser" value="false" />
-      </form>
-    </div>
-
-    <!-- employee Table Division -->
-    <div id="employeeTableDivision">
-      <table>
-        <tr>
-          <th>Emp ID</th>
-          <th>Emp Name</th>
-          <th>Emp Status</th>
-          <th>Accessible Charts</th>
-          <th>Created By</th>
-          <th>Change Status</th>
-          <th>Change Chart Access</th>
-        </tr>
-        <%for(let i=0; i<employeeRecords.length; i++){%>
-          <tr>
-            <%for(let j=0; j<Object.keys(employeeRecords[i]).length; j++){
-              if(j != 2){
-                if(j == 4){
-                  if(employeeRecords[i][Object.keys(employeeRecords[i])[j]].length > 0 && employeeRecords[i][Object.keys(employeeRecords[i])[j]][0] != ''){%>
-                    <td>
-                      <%= employeeRecords[i][Object.keys(employeeRecords[i])[j]] %>
-                    </td>
-                  <%}else{%>
-                    <td>
-                      null
-                    </td>
-                  <%}%>
-                <%}else{%>
-                <td>
-                  <%= employeeRecords[i][Object.keys(employeeRecords[i])[j]] %>
-                </td>
-                <%}%>
-              <%}%>
-            <%}
-            if(i != 0){%>
-              <td><button onclick="editEmployeeStatus(event)">Switch</button></td>
-              <td><button onclick="editEmployeeChartAccess(event)">Edit</button></td>
-            <%}%>
+        <!-- Employee Table Division -->
+      <div id="employeeTableDivision" class="overflow-x-auto   ">
+        <table class=" table_content ">
+          <tr class="uppercase  table-heading-container" >
+            <th >Emp ID</th>
+            <th >Emp Name</th>
+            <th >Emp Status</th>
+            <th >Accessible Reports</th>
+            <th >Created By</th>
+            <th >Update Emp Status</th>
+            <th >Update Report Access</th>
           </tr>
-        <%}%>
-      </table>
-    </div>
-
-    <!-- remove User Division with hide & seek -->
-    <div id="removeUserDivision">
-      <div class="removeUserModalContent">
-        <span class="close" onclick="(() => {document.getElementById('removeUserDivision').style.visibility = 'hidden'})()">&times;</span>
-        <div id="removeUserDivisionHolder"  style="display: flex; flex-direction:column; align-items:center; justify-content: center; gap: 20px">
-          <p >Remove User</p>
-          <div id="removeUserInput"  style="display: flex; justify-content: center">
-            <p >Select User ID:</p>
-            <select  id="selectUserID" required>
-              <option value="dummy" selected hidden>Select User</option>
-              <%for(let i=0; i< employeeRecords.length; i++){
-              if(employeeRecords[i].created_by != 'Root User'){%>
-              <option value="<%= employeeRecords[i].id %>">
-               <%= employeeRecords[i].id +': ' + employeeRecords[i].name %>
-              </option>
+          <%for(let i=0; i<employeeRecords.length; i++){%>
+            <tr class="table_row">
+              <%for(let j=0; j<Object.keys(employeeRecords[i]).length; j++){
+                if(j != 2){
+                  if(j == 4){
+                    if(employeeRecords[i][Object.keys(employeeRecords[i])[j]].length > 0 && employeeRecords[i][Object.keys(employeeRecords[i])[j]][0] != ''){%>
+                      <td class="charts_list" >
+                        <%= employeeRecords[i][Object.keys(employeeRecords[i])[j]] %>
+                      </td>
+                    <%}else{%>
+                      <td class="user_mode" >
+                        No Reports to access
+                      </td>
+                    <%}%>
+                  <%}else{%>
+                  <td class="user_mode">
+                    <%= employeeRecords[i][Object.keys(employeeRecords[i])[j]] %>
+                  </td>
+                  <%}%>
+                <%}%>
+              <%}
+              if(i != 0){%>
+                <td class="switch_btn"><button onclick="editEmployeeStatus(event)"
+                  class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                >Switch</button></td>
+                <td class="edit_btn"><button onclick="editEmployeeChartAccess(event)" 
+                  class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2" 
+                  >Edit</button></td>
               <%}%>
-              <%}%>
-            </select>
-          </div>
-          <span  id="selectUserIDErrorMsg" style="display: none">Select an user ID</span>
-          <div id="removeUserButton"  style="display: flex; justify-content: space-evenly;gap: 30px">
-            <button  style="display: block;" onclick="removeUser()">Remove</button>
-            <button  style="display: block;" onclick="(() => {document.getElementById('removeUserDivision').style.visibility = 'hidden'})()">Cancel</button>
+            </tr>
+          <%}%>
+        </table>
+      </div>
+
+      <!-- remove User Division with hide & seek -->
+      <div id="removeUserDivision">
+        <div class="removeUserModalContent">
+          <!-- <button></button> -->
+          <!-- <span class="close" onclick="(() => {document.getElementById('removeUserDivision').style.visibility = 'hidden'})()">&times;</span> -->
+          <div id="removeUserDivisionHolder"  >
+            <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Remove User</p>
+            <div id="removeUserInput"  >
+              <p style="font-weight: 500;" >Select User ID:</p>
+              <select  id="selectUserID" required>
+                <option value="dummy" selected hidden>Select User</option>
+                <%for(let i=0; i< employeeRecords.length; i++){
+                if(employeeRecords[i].created_by != 'Root User'){%>
+                <option value="<%= employeeRecords[i].id %>">
+                <%= employeeRecords[i].id +': ' + employeeRecords[i].name %>
+                </option>
+                <%}%>
+                <%}%>
+              </select>
+            </div>
+            <div  id="selectUserIDErrorMsg" style="visibility: hidden;color: #FF0000;">Select an user ID</div>
+            <div id="removeUserButton">
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 
+              font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="removeUser()">Remove</button>
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="(() => {document.getElementById('removeUserDivision').style.visibility = 'hidden'})()">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="removeUserDivisionEnsure" >
-      <div class="removeUserEnsureModalContent">
-        <span class="close" onclick="(() => {document.getElementById('removeUserDivisionEnsure').style.visibility = 'hidden'})()">&times;</span>
-        <div id="removeUserDivisionEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-          <p>Are you sure want to remove user? </p>
-          <div id="removeUserEnsureButton"  style="display: flex; justify-content: space-evenly;gap: 30px">
-            <button  style="display: block;" onclick="removeUserFinal()">Remove</button>
-            <button  style="display: block;" onclick="(() => {document.getElementById('removeUserDivisionEnsure').style.visibility = 'hidden'})()">Cancel</button>
+      <div id="removeUserDivisionEnsure" >
+        <div class="removeUserEnsureModalContent">
+          <div id="removeUserDivisionEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+            <p style="font-size: large; font-weight:600;">Are you sure want to remove user? </p>
+            <div id="removeUserEnsureButton"  >
+              <button  style="display: block;"
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="removeUserFinal()">Remove</button>
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="(() => {document.getElementById('removeUserDivisionEnsure').style.visibility = 'hidden'})()">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div id="removeUserDivisionSuccess">
-      <div class="removeUserDivisionSuccessModalContent">
-        <div id="removeUserDivisionSuccessHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-          <p id="removeUserFinalUpdateMessage"></p>
-          <div id="removeUserDivisionSuccessButton"  style="display: flex; justify-content: space-evenly">
-            <button  style="display: block;" onclick="(document.getElementById('adminForm').submit())()">OK</button>
+ 
+      <div id="removeUserDivisionSuccess">
+        <div class="removeUserDivisionSuccessModalContent">
+          <div id="removeUserDivisionSuccessHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;">
+            <p id="removeUserFinalUpdateMessage" style="font-size: large; font-weight:500"></p>
+            <div id="removeUserDivisionSuccessButton"  style="display: flex; justify-content: space-evenly">
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="(document.getElementById('adminForm').submit())()">OK</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
 
-    <!-- edit Employee Status -->
-    <div id="editEmployeeStatusEnsureDivision" >
-      <div class="editEmployeeStatusEnsureModalContent">
-        <span class="close" onclick="(() => {document.getElementById('editEmployeeStatusEnsureDivision').style.visibility = 'hidden'})()">&times;</span>
-        <div id="editEmployeeStatusEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-          <p id="editEmployeeStatusEnsureMessage"></p>
-          <div id="editEmployeeStatusEnsureButton"  style="display: flex; justify-content: space-evenly;gap: 30px">
-            <button  style="display: block;" onclick="editEmployeeStatusFinal()">Switch</button>
-            <button  style="display: block;" onclick="(() => {document.getElementById('editEmployeeStatusEnsureDivision').style.visibility = 'hidden'})()">Cancel</button>
+      <!-- edit Employee Status -->
+      <div id="editEmployeeStatusEnsureDivision" >
+        <div class="editEmployeeStatusEnsureModalContent">
+          <div id="editEmployeeStatusEnsureHolder">
+            <p id="editEmployeeStatusEnsureMessage" style="font-weight:500;"></p>
+            <div id="editEmployeeStatusEnsureButton" >
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm 
+              px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="editEmployeeStatusFinal()">Switch</button>
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg 
+              text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="(() => {document.getElementById('editEmployeeStatusEnsureDivision').style.visibility = 'hidden'})()">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="editEmployeeStatusDivisionSuccess">
-      <div class="editEmployeeStatusDivisionSuccessModalContent">
-        <div id="editEmployeeStatusDivisionSuccessHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-          <p id="editEmployeeStatusFinalUpdateMessage"></p>
-          <div id="editEmployeeStatusDivisionSuccessButton"  style="display: flex; justify-content: space-evenly">
-            <button  style="display: block;" onclick="(document.getElementById('adminForm').submit())()">OK</button>
+      <div id="editEmployeeStatusDivisionSuccess">
+        <div class="editEmployeeStatusDivisionSuccessModalContent">
+          <div id="editEmployeeStatusDivisionSuccessHolder" >
+            <p id="editEmployeeStatusFinalUpdateMessage" style="font-weight:600; font-size:large"></p>
+            <div id="editEmployeeStatusDivisionSuccessButton"  style="display: flex; justify-content: space-evenly">
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg 
+              text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="(document.getElementById('adminForm').submit())()">OK</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <p id="currentEmpStatusCache" style="display: none;"></p>
-    <p id="currentEmpIDCache" style="display: none;"></p>
-    <p id="newChartAccessCache" style="display: none;"></p>
+      <p id="currentEmpStatusCache" style="display: none;"></p>
+      <p id="currentEmpIDCache" style="display: none;"></p>
+      <p id="newChartAccessCache" style="display: none;"></p>
 
-    <!-- edit Employee Chart Access -->
-    <div id="editEmployeeChartAccessDivision">
-      <div class="editEmployeeChartAccessDivisionModalContent">
-        <span class="close" onclick="(() => {document.getElementById('editEmployeeChartAccessDivision').style.visibility = 'hidden'})()">&times;</span>
-        <div id="editEmployeeChartAccessDivisionHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-          <p id="editEmployeeChartAccessTitle">Edit Chart Access: </p>
-          <div>
-            <div id="editEmployeeChartAccessCheckBoxHolder" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
-            <div class="editEmployeeChartAccessCheckBox">
-            <input type="checkbox" value="DPV (Defects Per Vehicle) Report"/>
-            <p>DPV (Defects Per Vehicle) Report</p>
-          </div>
-          <div class="editEmployeeChartAccessCheckBox">
-            <input type="checkbox" value="Master Report"/>
-            <p>Master Report</p>
-          </div>
-          <div class="editEmployeeChartAccessCheckBox">
-            <input type="checkbox" value="Main Pareto Report"/>
-            <p>Main Pareto Report</p>
-          </div>
-          <div class="editEmployeeChartAccessCheckBox">
-            <input type="checkbox" value="Pareto Report"/>
-          <p>Pareto Report</p>
-          </div>
-          <div>
-            <input type="checkbox" value="Surface Summary"/>
-            <p>Surface Summary</p>
-          </div>
-          <div class="editEmployeeChartAccessCheckBox">
-            <input type="checkbox" value="Body Fitting Summary"/>
-            <p>Body Fitting Summary</p>
-          </div>
-          <div class="editEmployeeChartAccessCheckBox">
-            <input type="checkbox" value="Missing & Wrong Part Summary"/>
-            <p>Missing & Wrong Part Summary</p>
-          </div>
-          <div class="editEmployeeChartAccessCheckBox">
-            <input type="checkbox" value="Welding Summary"/>
-            <p>Welding Summary</p>
-          </div>
-          <div class="editEmployeeChartAccessCheckBox">
-            <input type="checkbox" value="Water Leak Summary"/>
-            <p>Water Leak Summary</p>
-          </div>
-          <div class="editEmployeeChartAccessCheckBox">
-            <input type="checkbox" value="Color Map"/>
-            <p>Color Map</p>
-          </div>
-          </div>
-          
-          </div>
-          <div id="editEmployeeChartAccessDivisionButton"  style="display: flex; justify-content: space-evenly">
-            <button  style="display: block;" onclick="(document.getElementById('editEmployeeChartAccessEnsureDivision').style.visibility = 'visible')()">Edit</button>
-            <button  style="display: block;" onclick="(document.getElementById('editEmployeeChartAccessDivision').style.visibility = 'hidden')()">Cancel</button>
+      <!-- edit Employee Chart Access -->
+      <div id="editEmployeeChartAccessDivision">
+        <div class="editEmployeeChartAccessDivisionModalContent">
+          <!-- <span class="close" onclick="(() => {document.getElementById('editEmployeeChartAccessDivision').style.visibility = 'hidden'})()">&times;</span> -->
+          <div id="editEmployeeChartAccessDivisionHolder" >
+            <div id="editEmployeeChartAccessTitle" class="underline" style="font-weight: 700;padding: 1%;margin: 1%;">Accessible Reports </div>
+              <div id="editEmployeeChartAccessCheckBoxHolder" >
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;"type="checkbox" value="DPV (Defects Per Vehicle) Report"/>
+                  <p style="font-weight: 500;">DPV (Defects Per Vehicle) Report</p>
+                </div>
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;" type="checkbox" value="Master Report"/>
+                  <p style="font-weight: 500;">Master Report</p>
+                </div>
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;" type="checkbox" value="Main Pareto Report"/>
+                  <p style="font-weight: 500;">Main Pareto Report</p>
+                </div>
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;" type="checkbox" value="Pareto Report"/>
+                  <p style="font-weight: 500;">Pareto Report</p>
+                </div>
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;" type="checkbox" value="Surface Summary"/>
+                  <p style="font-weight: 500;">Surface Summary</p>
+                </div>
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;" type="checkbox" value="Body Fitting Summary"/>
+                  <p style="font-weight: 500;">Body Fitting Summary</p>
+                </div>
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;" type="checkbox" value="Missing & Wrong Part Summary"/>
+                  <p style="font-weight: 500;">Missing & Wrong Part Summary</p>
+                </div>
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;" type="checkbox" value="Welding Summary"/>
+                  <p style="font-weight: 500;">Welding Summary</p>
+                </div>
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;" type="checkbox" value="Water Leak Summary"/>
+                  <p style="font-weight: 500;">Water Leak Summary</p>
+                </div>
+                <div class="editEmployeeChartAccessCheckBox">
+                  <input style="margin-top: 1.5% ;" type="checkbox" value="Color Map"/>
+                  <p style="font-weight: 500;">Color Map</p>
+                </div>
+            </div>
+            <div id="editEmployeeChartAccessDivisionButton" >
+              <button id="save_reports_btn" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg 
+              text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="editEmployeeChartAccessFinal()">Save</button>
+              <button id="cancle_btn" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg 
+              text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="(document.getElementById('adminForm').submit())()">Cancel</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div id="editEmployeeChartAccessEnsureDivision" >
-      <div class="editEmployeeChartAccessEnsureModalContent">
-        <span class="close" onclick="(() => {document.getElementById('editEmployeeChartAccessEnsureDivision').style.visibility = 'hidden'})()">&times;</span>
-        <div id="editEmployeeChartAccessEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-          <p id="editEmployeeChartAccessEnsureMessage">Are you sure want to edit chart access ?</p>
-          <div id="editEmployeeChartAccessEnsureButton"  style="display: flex; justify-content: space-evenly;gap: 30px">
-            <button  style="display: block;" onclick="editEmployeeChartAccessFinal()">Edit</button>
-            <button  style="display: block;" onclick="(() => {document.getElementById('editEmployeeChartAccessEnsureDivision').style.visibility = 'hidden'})()">Cancel</button>
+      <div id="editEmployeeChartAccessSuccess">
+        <div class="editEmployeeChartAccessSuccessModalContent">
+          <div id="editEmployeeChartAccessSuccessHolder" >
+            <p id="editEmployeeChartAccessFinalUpdateMessage" style="font-weight:500;padding: 1%;margin: 1%;"></p>
+            <div id="editEmployeeChartAccessDivisionSuccessButton" >
+              <button  class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg 
+              text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+               onclick="(document.getElementById('adminForm').submit())()">OK</button>
+            </div>
           </div>
         </div>
       </div>
+
+      <form action="/filter" id="filterForm" method="get"></form>
+      <form action="/follower" id="followerForm" method="get"></form>
+      <form action="/admin" id="adminForm" method="get"></form>
     </div>
-
-    <div id="editEmployeeChartAccessSuccess">
-      <div class="editEmployeeChartAccessSuccessModalContent">
-        <div id="editEmployeeChartAccessSuccessHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-          <p id="editEmployeeChartAccessFinalUpdateMessage"></p>
-          <div id="editEmployeeChartAccessDivisionSuccessButton"  style="display: flex; justify-content: space-evenly">
-            <button  style="display: block;" onclick="(document.getElementById('adminForm').submit())()">OK</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <form action="/admin" id="adminForm" method="get"></form>
-
     <script>
+
+      document.addEventListener('click', hideAndSeek);
+
+      function hideAndSeek(event) {
+        const navBarDivision = document.getElementById('navBarDivision');
+        if (event.target.id !== 'navBarIcon') {
+          navBarDivision.style.display = 'none';
+        } else {
+          if (navBarDivision.style.display == 'none') {
+            navBarDivision.style.display = 'inline-block';
+          } else {
+            navBarDivision.style.display = 'none';
+          }
+        }
+      }
+
+      function onmouseoverBGColor(event) {
+        event.target.style.backgroundColor = '#075154';
+      }
+
+      function onmouseoutBGColor(event) {
+        if (event.target.id != 'dataEntry') {
+          event.target.style.backgroundColor = '#00adb5';
+        }
+      }
+
+      function handleFormSubmit(event) {
+        var empStatus = '<%= emp_Status %>';
+        var empChartAccess = '<%= emp_ChartAccess %>';
+
+        if (event.target.id == 'reportGeneration') {
+          if (empChartAccess.length > 0) {
+            document.getElementById('filterForm').submit();
+          } else {
+            document.getElementById(
+              'reportGenerationDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'dataEntry') {
+          console.log('dataEntry')
+          document.getElementById('followerForm').submit();
+        }
+      }
 
       var removeUserDivisionModal = document.getElementById("removeUserDivision");
 
@@ -291,11 +474,11 @@
         const selectedUserID = document.getElementById('selectUserID');
 
         if (selectedUserID.value == 'dummy') {
-          document.getElementById('selectUserIDErrorMsg').style.display =
-            'block';
+          document.getElementById('selectUserIDErrorMsg').style.visibility =
+            'visible';
           setTimeout(() => {
-            document.getElementById('selectUserIDErrorMsg').style.display =
-              'none';
+            document.getElementById('selectUserIDErrorMsg').style.visibility =
+              'hidden';
           }, 2000);
         } else {
            document.getElementById('removeUserDivisionEnsure').style.visibility = 'visible'
@@ -304,7 +487,7 @@
 
       async function removeUserFinal(){
         const selectedUserID = document.getElementById('selectUserID');
-        const response = await fetch('/removeUser', {
+        const response = await fetch('http://localhost:8000/removeUser', {
           method: 'POST',
           headers: {
             'Content-type': 'application/json',
@@ -348,7 +531,7 @@
           changeEmpStatus = 'employee'
         }
 
-        const response = await fetch('/updateEmpStatus',{
+        const response = await fetch('http://localhost:8000/updateEmpStatus',{
           method: 'POST',
           headers: {
             'Content-type': 'application/json'

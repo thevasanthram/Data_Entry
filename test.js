@@ -1,20 +1,14 @@
-function generateRandomColor() {
-  let maxVal = 0xffffff; // 16777215
-  let randomNumber = Math.random() * maxVal;
-  randomNumber = Math.floor(randomNumber);
-  randomNumber = randomNumber.toString(16);
-  let randColor = randomNumber.padStart(6, 0);
-  if (colorSet.includes(randColor)) {
-    generateRandomColor();
-  } else {
-    return `#${randColor.toUpperCase()}`;
-  }
-}
+const arrayTest = [
+  'DPV (Defects Per Vehicle) Report',
+  'Master Report',
+  'Main Pareto Report',
+  'Pareto Report',
+  'Surface Summary',
+  'Body Fitting Summary',
+  'Missing & Wrong Part Summary',
+  'Welding Summary',
+  'Water Leak Summary',
+  'Color Map',
+];
 
-var colorSet = [];
-const iterator = [1, 2, 3, 4, 5];
-iterator.map((el) => {
-  colorSet.push(generateRandomColor());
-});
-
-console.log(colorSet);
+console.log(arrayTest.length);
