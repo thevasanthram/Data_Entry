@@ -66,7 +66,6 @@ body {
   display: inline-block;
   width: 100%;
   cursor: pointer;
-  background-color: #075154 ;
 }
 
 #ReportGenerationDiv{
@@ -79,6 +78,7 @@ body {
   display: inline-block;
   width: 100%;
   cursor: pointer;
+  background-color: #075154 ;
 }
 /* ! End of Nav Side Bar Menu */
 
@@ -420,6 +420,7 @@ td {
   display: flex;
   align-items: center;
   padding: 1%;
+  gap: 2%;
   margin: 1%;
 }
 #editEmployeeChartAccessDivisionButton {
