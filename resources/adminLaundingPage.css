@@ -24,6 +24,15 @@ body {
   display: none;
 }
 
+
+#my-table{
+  width: 80%;
+  margin: 5% 10%;
+  border: 1px solid rgb(100, 102, 106);
+  border-radius: 4px;
+  font-size: 18px;
+}
+
 /* #filter {
   background-color: #393e46;
 } */
