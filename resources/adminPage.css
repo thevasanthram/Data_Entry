@@ -45,7 +45,7 @@ body {
 
 /* TODO ...........SIDE NAV BAR MENU................................ */
 
-#navBarDivision{
+#navBarDivision {
   position: fixed;
   display: none;
   width: 17%;
@@ -53,32 +53,32 @@ body {
   height: 90%;
   background-color: #00adb5;
 }
-.category{
-    font-size: 140%;
-    font-weight: 500;
-    min-height: 8vh;
-    display: flex;
-    color: #eeeeee;
-    align-items: center;
-    padding: 2px 10px;
+.category {
+  font-size: 140%;
+  font-weight: 500;
+  min-height: 8vh;
+  display: flex;
+  color: #eeeeee;
+  align-items: center;
+  padding: 2px 10px;
 }
-#DataEntryDiv{
+#DataEntryDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
 }
 
-#ReportGenerationDiv{
+#ReportGenerationDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
 }
 
-#AdministrationDiv{
+#AdministrationDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
-  background-color: #075154 ;
+  background-color: #075154;
 }
 /* ! End of Nav Side Bar Menu */
 
@@ -446,7 +446,15 @@ td {
   align-items: center;
   z-index: 3;
 }
-
+#selectAllDivision {
+  display: flex;
+  width: 30%;
+  align-items: center;
+  justify-content: center;
+  padding: 1%;
+  gap: 2%;
+  margin: 1%;
+}
 .editEmployeeChartAccessSuccessModalContent {
   background-color: #faf7f0;
   margin: auto;
@@ -471,7 +479,7 @@ td {
   margin-left: 2%;
 }
 @media screen and (max-width: 1024px) {
-  #navBarDivision{
+  #navBarDivision {
     position: fixed;
     display: none;
     width: 30%;
@@ -479,14 +487,14 @@ td {
     height: 100%;
     background-color: #00adb5;
   }
-  .category{
-      font-size: 130%;
-      font-weight: 500;
-      min-height: 7vh;
-      color: #eeeeee;
-      display: flex;
-      align-items: center;
-      padding: 2px 10px;
+  .category {
+    font-size: 130%;
+    font-weight: 500;
+    min-height: 7vh;
+    color: #eeeeee;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
   }
 }
 @media screen and (max-width: 780px) {
@@ -533,7 +541,7 @@ td {
     font-size: 10px;
   }
 
-  #navBarDivision{
+  #navBarDivision {
     position: fixed;
     display: none;
     width: 45%;
@@ -541,7 +549,7 @@ td {
     height: 100%;
     background-color: #00adb5;
   }
-  .category{
+  .category {
     font-size: 120%;
     font-weight: 500;
     min-height: 7vh;
@@ -564,7 +572,7 @@ td {
 }
 
 @media screen and (max-width: 481px) {
-  #navBarDivision{
+  #navBarDivision {
     position: fixed;
     display: none;
     width: 45%;
@@ -572,7 +580,7 @@ td {
     height: 90%;
     background-color: #00adb5;
   }
-  .category{
+  .category {
     font-size: 120%;
     font-weight: 500;
     min-height: 7vh;

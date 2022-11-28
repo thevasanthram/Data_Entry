@@ -279,45 +279,49 @@
           <!-- <span class="close" onclick="(() => {document.getElementById('editEmployeeChartAccessDivision').style.visibility = 'hidden'})()">&times;</span> -->
           <div id="editEmployeeChartAccessDivisionHolder" >
             <div id="editEmployeeChartAccessTitle" class="underline" style="font-weight: 700;padding: 1%;margin: 1%;">Accessible Reports </div>
+            <div id="selectAllDivision">
+              <input style="margin-top: 1.5% ;" type="checkbox" id="selectAllCheckBox" onclick="selectAll(event)">
+              <p style="font-weight: 500;">Select All</p>
+            </div>
               <div id="editEmployeeChartAccessCheckBoxHolder" >
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;"type="checkbox" value="DPV (Defects Per Vehicle) Report"/>
+                  <input style="margin-top: 1.5% ;"type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="DPV (Defects Per Vehicle) Report"/>
                   <p style="font-weight: 500;">DPV (Defects Per Vehicle) Report</p>
                 </div>
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;" type="checkbox" value="Master Report"/>
+                  <input style="margin-top: 1.5% ;" type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="Master Report"/>
                   <p style="font-weight: 500;">Master Report</p>
                 </div>
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;" type="checkbox" value="Main Pareto Report"/>
+                  <input style="margin-top: 1.5% ;" type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="Main Pareto Report"/>
                   <p style="font-weight: 500;">Main Pareto Report</p>
                 </div>
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;" type="checkbox" value="Pareto Report"/>
+                  <input style="margin-top: 1.5% ;" type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="Pareto Report"/>
                   <p style="font-weight: 500;">Pareto Report</p>
                 </div>
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;" type="checkbox" value="Surface Summary"/>
+                  <input style="margin-top: 1.5% ;" type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="Surface Summary"/>
                   <p style="font-weight: 500;">Surface Summary</p>
                 </div>
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;" type="checkbox" value="Body Fitting Summary"/>
+                  <input style="margin-top: 1.5% ;" type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="Body Fitting Summary"/>
                   <p style="font-weight: 500;">Body Fitting Summary</p>
                 </div>
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;" type="checkbox" value="Missing & Wrong Part Summary"/>
+                  <input style="margin-top: 1.5% ;" type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="Missing & Wrong Part Summary"/>
                   <p style="font-weight: 500;">Missing & Wrong Part Summary</p>
                 </div>
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;" type="checkbox" value="Welding Summary"/>
+                  <input style="margin-top: 1.5% ;" type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="Welding Summary"/>
                   <p style="font-weight: 500;">Welding Summary</p>
                 </div>
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;" type="checkbox" value="Water Leak Summary"/>
+                  <input style="margin-top: 1.5% ;" type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="Water Leak Summary"/>
                   <p style="font-weight: 500;">Water Leak Summary</p>
                 </div>
                 <div class="editEmployeeChartAccessCheckBox">
-                  <input style="margin-top: 1.5% ;" type="checkbox" value="Color Map"/>
+                  <input style="margin-top: 1.5% ;" type="checkbox" onclick="checkChartAccessSelected()" class="employeeChartAccessCheckBox" value="Color Map"/>
                   <p style="font-weight: 500;">Color Map</p>
                 </div>
             </div>
@@ -498,22 +502,64 @@
 
         const empChartAccessArray = currentEmpChartAccess.split(',')
 
-        const inputTags = document.getElementsByTagName('input')
-        Object.values(inputTags).map( (singleInput) => {
-          if(singleInput.type == 'checkbox'){
-            if(empChartAccessArray.includes(singleInput.value)){
-              singleInput.checked = true
-            }
+        const employeeChartAccessCheckBox = document.getElementsByClassName('employeeChartAccessCheckBox')
+        let checkboxCheckedCounter = 0
+        Object.values(employeeChartAccessCheckBox).map( (singleInput) => {
+          if(empChartAccessArray.includes(singleInput.value)){
+            singleInput.checked = true
+          }
+          if(singleInput.checked == true){
+            checkboxCheckedCounter += 1
           }
         })
+
+        if( checkboxCheckedCounter == employeeChartAccessCheckBox.length){
+          document.getElementById('selectAllCheckBox').checked = true
+        }
         
         document.getElementById('editEmployeeChartAccessDivision').style.visibility = 'visible'
       }
 
+      function selectAll(event){
+        const selectAllCheckBox = event.target
+        const employeeChartAccessCheckBox = document.getElementsByClassName('employeeChartAccessCheckBox')
+
+        Object.values(employeeChartAccessCheckBox).map( (singleCheckBox) => {
+          if(selectAllCheckBox.checked == true){
+            if(singleCheckBox.checked == false){
+              singleCheckBox.checked = true
+            }
+          }else{
+            if(singleCheckBox.checked == true){
+              singleCheckBox.checked = false
+            }
+          }
+        })
+      }
+
+      function checkChartAccessSelected(){
+        const employeeChartAccessCheckBox = document.getElementsByClassName('employeeChartAccessCheckBox')
+        let checkboxCheckedCounter = 0
+        Object.values(employeeChartAccessCheckBox).map( (singleChart) => {
+          if(singleChart.checked == true){
+            checkboxCheckedCounter += 1
+          }
+        })
+
+        console.log('employeeChartAccessCheckBox: ',employeeChartAccessCheckBox.length)
+        console.log('checkboxCheckedCounter',checkboxCheckedCounter)
+
+        if( checkboxCheckedCounter == employeeChartAccessCheckBox.length){
+          document.getElementById('selectAllCheckBox').checked = true
+        }else{
+          document.getElementById('selectAllCheckBox').checked = false          
+        }
+      }
+
       async function editEmployeeChartAccessFinal(){
         let selectedChartAccess = []
-        const inputTags = document.getElementsByTagName('input')
-        Object.values(inputTags).map( (singleInput) => {
+        const employeeChartAccessCheckBox = document.getElementsByClassName('employeeChartAccessCheckBox')
+        Object.values(employeeChartAccessCheckBox).map( (singleInput) => {
           if(singleInput.checked == true){
             selectedChartAccess.push(singleInput.value)
           }
