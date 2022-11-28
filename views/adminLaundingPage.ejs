@@ -256,15 +256,12 @@
 
       function hideAndSeek(event) {
         const navBarDivision = document.getElementById('navBarDivision');
-        if (event.target.id != 'navBarIcon') {
+        if (event.target.id !== 'navBarIcon') {
           navBarDivision.style.display = 'none';
         } else {
-          if (
-            navBarDivision.style.display == 'none' ||
-            navBarDivision.style.display == ''
-          ) {
+          if (navBarDivision.style.display == 'none') {
             navBarDivision.style.display = 'inline-block';
-          } else if (navBarDivision.style.display == 'inline-block') {
+          } else {
             navBarDivision.style.display = 'none';
           }
         }
@@ -2043,7 +2040,6 @@
         paretoDivision.style.flexDirection = 'column'
         paretoDivision.style.justifyContent = 'center'
         paretoDivision.style.alignItems = 'center'
-        paretoDivision.style.gap = '100px'
         document.getElementsByClassName('report-content-data')[0].appendChild(paretoDivision)
 
         // first Pareto chart
@@ -2051,7 +2047,7 @@
         mainParetoCategoryChartDivision.id = 'mainParetoCategoryChartDivision'
         paretoDivision.appendChild(mainParetoCategoryChartDivision)
         mainParetoCategoryChartDivision.style.width = '80%'
-        mainParetoCategoryChartDivision.style.height = '500px'
+        mainParetoCategoryChartDivision.style.height = '400px'
 
         let mainParetoCategoryChartDataset = []
 
@@ -2144,7 +2140,7 @@
         mainParetoSubCategoryChartDivision.id = 'mainParetoSubCategoryChartDivision'
         paretoDivision.appendChild(mainParetoSubCategoryChartDivision)
         mainParetoSubCategoryChartDivision.style.width = '80%'
-        mainParetoSubCategoryChartDivision.style.height = '500px'
+        mainParetoSubCategoryChartDivision.style.height = '400px'
         mainParetoSubCategoryChartDivision.style.position = 'relative'
 
         let mainParetoSubCategoryChartDataset = []
@@ -2236,7 +2232,7 @@
         mainParetoZoneChartDivision.id = 'mainParetoZoneChartDivision'
         paretoDivision.appendChild(mainParetoZoneChartDivision)
         mainParetoZoneChartDivision.style.width = '80%'
-        mainParetoZoneChartDivision.style.height = '500px'
+        mainParetoZoneChartDivision.style.height = '400px'
         mainParetoZoneChartDivision.style.position = 'relative'
 
         let mainParetoZoneChartDataset = []
@@ -2326,7 +2322,7 @@
         mainParetoDefectChartDivision.id = 'mainParetoDefectChartDivision'
         paretoDivision.appendChild(mainParetoDefectChartDivision)
         mainParetoDefectChartDivision.style.width = '80%'
-        mainParetoDefectChartDivision.style.height = '500px'
+        mainParetoDefectChartDivision.style.height = '400px'
         mainParetoDefectChartDivision.style.position = 'relative'
 
         let mainParetoDefectChartDataset = []
@@ -2370,7 +2366,7 @@
           title:{
             text: "Defect Pareto Visualization",
             fontFamily: 'tahoma',
-            fontSize: 18,
+            fontSize: 12,
           },
           dataPointWidth: 30,
           axisY: {
@@ -2959,7 +2955,7 @@
             subDefectDivision.style.justifyContent = 'center'
             subDefectDivision.style.alignItems = 'center'
             subDefectDivision.style.flexDirection = 'column'
-            subDefectDivision.style.height = '40vh'
+            subDefectDivision.style.height = '60vh'
             subDefectDivision.style.width = '100%'
             subDefectDivision.style.position = 'relative'
             subDefectContainer.appendChild(subDefectDivision)
