@@ -93,11 +93,21 @@
                   Select the Access Control and Account type
                 </legend>
                 <h3>Accessible Charts</h3>
+                <p>
+                  <input
+                    type="checkbox"
+                    id="selectAllInput"
+                    onclick="selectAll(event)"
+                  />
+                  <label for="html_news">Select All</label>
+                </p>
                 <div class="checkboxes">
                   <p>
                     <input
                       type="checkbox"
                       id="dpv"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
                       value="DPV (Defects Per Vehicle) Report"
                     />
                     <label for="html_news"
@@ -105,25 +115,41 @@
                     >
                   </p>
                   <p>
-                    <input type="checkbox" id="master" value="Master Report" />
+                    <input
+                      type="checkbox"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
+                      id="master"
+                      value="Master Report"
+                    />
                     <label for="html_news">Master Report</label>
                   </p>
                   <p>
                     <input
                       type="checkbox"
                       id="mainPareto"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
                       value="Main Pareto Report"
                     />
                     <label for="css_news">Main Pareto Report</label>
                   </p>
                   <p>
-                    <input type="checkbox" id="pareto" value="Pareto Report" />
+                    <input
+                      type="checkbox"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
+                      id="pareto"
+                      value="Pareto Report"
+                    />
                     <label for="js_news">Pareto Report</label>
                   </p>
                   <p>
                     <input
                       type="checkbox"
                       id="surface"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
                       value="Surface Summary"
                     />
                     <label for="js_news">Surface Summary</label>
@@ -132,6 +158,8 @@
                     <input
                       type="checkbox"
                       id="bodyFitting"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
                       value="Body Fitting Summary"
                     />
                     <label for="js_news">Body Fitting Summary</label>
@@ -140,6 +168,8 @@
                     <input
                       type="checkbox"
                       id="missingWrongPart"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
                       value="Missing & Wrong Part Summary"
                     />
                     <label for="js_news">Missing & Wrong Part Summary</label>
@@ -148,6 +178,8 @@
                     <input
                       type="checkbox"
                       id="welding"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
                       value="Welding Summary"
                     />
                     <label for="js_news">Welding Summary</label>
@@ -156,19 +188,32 @@
                     <input
                       type="checkbox"
                       id="waterLeak"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
                       value="Water Leak Summary"
                     />
                     <label for="js_news">Water Leak Summary</label>
                   </p>
                   <p>
-                    <input type="checkbox" id="colorMap" value="Color Map" />
+                    <input
+                      type="checkbox"
+                      class="reportCheckbox"
+                      onclick="checkChartAccessSelected()"
+                      id="colorMap"
+                      value="Color Map"
+                    />
                     <label for="js_news">Color Map</label>
                   </p>
                 </div>
 
                 <h3>User Status</h3>
                 <p>
-                  <select name="employeeStatus" id="employeeStatus" required>
+                  <select
+                    name="employeeStatus"
+                    id="employeeStatus"
+                    onchange="employeeStatusChange(event)"
+                    required
+                  >
                     <option value="admin">Admin</option>
                     <option value="employee">Employee</option>
                   </select>
@@ -192,14 +237,14 @@
   </body>
   <script>
     const firstUserValue = '<%= firstUser %>';
-    const inputTags = document.getElementsByTagName('input');
+    const reportCheckbox = document.getElementsByClassName('reportCheckbox');
     let creator = '';
 
+    document.getElementById('selectAllInput').click();
+
     if (firstUserValue === 'true') {
-      Object.values(inputTags).map((inputTag) => {
-        if (inputTag.type == 'checkbox') {
-          inputTag.checked = true;
-        }
+      Object.values(reportCheckbox).map((inputTag) => {
+        inputTag.checked = true;
       });
 
       const statusSelectTag = document.getElementById('employeeStatus');
@@ -242,16 +287,65 @@
       }
     }
 
+    function selectAll(event) {
+      const selectAllCheckBox = event.target;
+      const reportCheckbox = document.getElementsByClassName('reportCheckbox');
+
+      Object.values(reportCheckbox).map((singleCheckBox) => {
+        if (selectAllCheckBox.checked == true) {
+          if (singleCheckBox.checked == false) {
+            singleCheckBox.checked = true;
+          }
+        } else {
+          if (singleCheckBox.checked == true) {
+            singleCheckBox.checked = false;
+          }
+        }
+      });
+    }
+
+    function checkChartAccessSelected() {
+      const reportCheckbox = document.getElementsByClassName('reportCheckbox');
+      let checkboxCheckedCounter = 0;
+      Object.values(reportCheckbox).map((singleChart) => {
+        if (singleChart.checked == true) {
+          checkboxCheckedCounter += 1;
+        }
+      });
+
+      if (checkboxCheckedCounter == reportCheckbox.length) {
+        document.getElementById('selectAllInput').checked = true;
+      } else {
+        document.getElementById('selectAllInput').checked = false;
+      }
+    }
+
+    function employeeStatusChange() {
+      const selectedEmployeeStatus = event.target.value;
+      const inputTags = document.getElementsByTagName('input');
+      if (selectedEmployeeStatus == 'employee') {
+        Object.values(inputTags).map((singleInput) => {
+          if (singleInput.type == 'checkbox') {
+            singleInput.checked = false;
+          }
+        });
+      } else {
+        Object.values(inputTags).map((singleInput) => {
+          if (singleInput.type == 'checkbox') {
+            singleInput.checked = true;
+          }
+        });
+      }
+    }
+
     async function createUser() {
       const empName = document.getElementById('employeeName').value;
       const empPassword = document.getElementById('employeePassword').value;
       const empStatus = document.getElementById('employeeStatus').value;
       const accessibleCharts = [];
-      Object.values(inputTags).map((singleInput) => {
-        if (singleInput.type == 'checkbox') {
-          if (singleInput.checked == true) {
-            accessibleCharts.push(singleInput.value);
-          }
+      Object.values(reportCheckbox).map((singleInput) => {
+        if (singleInput.checked == true) {
+          accessibleCharts.push(singleInput.value);
         }
       });
       const response = await fetch(`http://localhost:8000/newUser`, {
