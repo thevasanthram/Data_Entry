@@ -43,23 +43,29 @@
       </div>
       <!--  -->
 
-       <div id="navBarDivision">
-        <div id="DataEntryDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)">
-          <div id="dataEntry" class="category"> Data Entry</div>
-        </div>
-        <div id="ReportGenerationDiv"
+      <div id="navBarDivision">
+        <div
+          id="DataEntryDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)">
-          <div id="reportGeneration" class="category">Report Generation </div>
+        >
+          <div id="dataEntry" class="category">Data Entry</div>
         </div>
-        <div id="AdministrationDiv" 
+        <div
+          id="ReportGenerationDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)">
-          <div id="administration" class="category"> Administration</div>
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="reportGeneration" class="category">Report Generation</div>
+        </div>
+        <div
+          id="AdministrationDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="administration" class="category">Administration</div>
         </div>
       </div>
 
@@ -174,12 +180,15 @@
 
       function hideAndSeek(event) {
         const navBarDivision = document.getElementById('navBarDivision');
-        if (event.target.id !== 'navBarIcon') {
+        if (event.target.id != 'navBarIcon') {
           navBarDivision.style.display = 'none';
         } else {
-          if (navBarDivision.style.display == 'none') {
+          if (
+            navBarDivision.style.display == 'none' ||
+            navBarDivision.style.display == ''
+          ) {
             navBarDivision.style.display = 'inline-block';
-          } else {
+          } else if (navBarDivision.style.display == 'inline-block') {
             navBarDivision.style.display = 'none';
           }
         }

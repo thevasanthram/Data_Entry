@@ -256,12 +256,15 @@
 
       function hideAndSeek(event) {
         const navBarDivision = document.getElementById('navBarDivision');
-        if (event.target.id !== 'navBarIcon') {
+        if (event.target.id != 'navBarIcon') {
           navBarDivision.style.display = 'none';
         } else {
-          if (navBarDivision.style.display == 'none') {
+          if (
+            navBarDivision.style.display == 'none' ||
+            navBarDivision.style.display == ''
+          ) {
             navBarDivision.style.display = 'inline-block';
-          } else {
+          } else if (navBarDivision.style.display == 'inline-block') {
             navBarDivision.style.display = 'none';
           }
         }
