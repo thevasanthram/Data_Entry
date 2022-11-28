@@ -49,9 +49,10 @@ body {
   position: fixed;
   display: none;
   width: 17%;
+  z-index: 5;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 90%;
-  background-color: #00adb5;
+  background-color: #4ca1af;
 }
 .category {
   font-size: 140%;
@@ -103,19 +104,25 @@ body {
   width: 6rem;
 }
 #employeeTableDivision {
-  display: flex;
-  flex-direction: column;
+  display: block;
+  position: absolute;
   align-items: center;
   width: 90%;
+  height: 60%;
+  overflow-y: auto;
   margin-left: 5%;
 }
 .table_content {
-  /* background-color: #D6E4E5; */
-  /* background-color: #00ADB5; */
-  background-color: #eeeeee;
+  background: -webkit-linear-gradient(to right, #4ca1af, #485d71);
+  background: linear-gradient(to right, #4ca1af, #485d71);
 }
 .table-heading-container {
-  color: #000000;
+  position: sticky;
+  top: 0px;
+  z-index: 2;
+  color: #eeeeee;
+  background-color: #221d51;
+  /* color: #eeeeee; */
 }
 .table_row {
   color: #000000;
@@ -165,7 +172,7 @@ td {
 #removeUserDivision {
   visibility: hidden; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 2; /* Sit on top */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -176,7 +183,6 @@ td {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
 }
 
 .removeUserModalContent {
@@ -265,7 +271,10 @@ td {
   padding: 20px;
   border: 1px solid #888;
   width: 35%;
-  min-height: 25%;
+  min-height: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 10px;
 }
 #removeUserDivisionEnsureHolder {
@@ -297,11 +306,14 @@ td {
 .removeUserDivisionSuccessModalContent {
   background-color: #faf7f0;
   margin: auto;
-  padding: 20px;
+  padding: 0px;
   border: 1px solid #888;
   width: 35%;
-  min-height: 25%;
+  min-height: 33%;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #editEmployeeStatusEnsureDivision {
@@ -528,12 +540,12 @@ td {
     color: #00adb5;
     margin-right: 10%;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
   }
 
   .button-logout {
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-    width: 60px;
+    width: 65px;
     height: 30px;
     display: flex;
     align-items: center;
@@ -572,6 +584,23 @@ td {
 }
 
 @media screen and (max-width: 481px) {
+  .admin {
+    color: #00adb5;
+    margin-right: 4%;
+    position: relative;
+    /* left: 8%; */
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+  }
+  .button-logout {
+    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+    width: 70px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
   #navBarDivision {
     position: fixed;
     display: none;
@@ -661,10 +690,25 @@ td {
   .removeUserEnsureModalContent {
     background-color: #faf7f0;
     margin: auto;
+    display: flex;
     padding: 20px;
     border: 1px solid #888;
     width: 60%;
-    min-height: 25%;
+    align-items: center;
+    min-height: 33%;
     border-radius: 10px;
+    justify-content: center;
+  }
+  .removeUserDivisionSuccessModalContent {
+    background-color: #faf7f0;
+    margin: auto;
+    padding: 0px;
+    border: 1px solid #888;
+    width: 60%;
+    min-height: 33%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

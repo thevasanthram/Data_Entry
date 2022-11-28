@@ -32,9 +32,9 @@ body {
 }
 .admin {
   color: #00adb5;
-  margin-right: 5%;
+  margin-right: 8%;
+  padding: 3%;
   font-weight: 500;
-  padding: 2px;
   font-size: clamp(1.1rem, 2vw, 1.6rem);
 }
 .heading {
@@ -199,6 +199,7 @@ input:checked ~ .dot {
   font-size: clamp(1.3rem, 2.2vw, 2rem);
   color: #eeeeee;
   position: relative;
+  left: 12%;
 }
 .save-reset-content {
   font-size: 100%;

@@ -32,9 +32,10 @@ body {
 }
 .admin {
   color: #00adb5;
-  margin-right: 10%;
+  margin-right: 8%;
+  padding: 3%;
   font-weight: 500;
-  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
 }
 .heading {
   padding-left: 1%;
@@ -176,17 +177,20 @@ input:checked ~ .dot {
   }
   .admin {
     color: #00adb5;
-    margin-right: 10%;
+    margin-right: 4%;
+    position: relative;
+    /* left: 2%; */
     font-weight: 500;
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
   }
-
-  #btn button {
+  .button-logout {
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-    width: 50px;   
-    height: 25px;
-    font-size: 9px;
-
+    width: 65px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
   }
   #home-icon{
     margin-left: 2%;

@@ -42,32 +42,6 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   --moz-appearance: textfield;
 }
-/* .save-reset-content {
-  margin-top: 25%;
-  margin-left: 73%;
-  font-size: 100%;
-  position: absolute;
-  width: auto;
-}
-
-.reset-button {
-  position: absolute;
-  border: 1px solid #b6cbf5;
-  border-radius: 4px;
-  padding: 8px 16px 8px 16px;
-  margin-left: 100px;
-  cursor: pointer;
-}
-
-.save-button {
-  float: left;
-  position: absolute;
-  border: 1px solid #b6cbf5;
-  border-radius: 4px;
-  padding: 8px 16px 8px 16px;
-  cursor: pointer;
-  margin-left: 20px;
-} */
 
 /*! LH SIDE MEMBER A-PILLAR  */
 
@@ -9658,35 +9632,6 @@ input[type='number'] {
 /* !CSS for REsponsive Design */
 
 @media screen and (max-width: 1281px) {
-  .save_reset_container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    justify-content: center;
-    margin-left: 5%;
-  }
-  .zones-title-name {
-    font-size: clamp(1.3rem, 2.2vw, 2rem);
-    color: #eeeeee;
-    position: relative;
-  }
-  .save-reset-content {
-    font-size: 100%;
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    justify-content: center;
-    gap: 1%;
-  }
-  .reset-button {
-    border: 1px solid #b6cbf5;
-    border-radius: 5px;
-    padding: 8px 16px 8px 16px;
-  }
-  .save-button {
-    border: 1px solid #b6cbf5;
-    border-radius: 5px;
-    padding: 8px 16px 8px 16px;
-  }
   #zone-division1,
   #zone-division2,
   #zone-division3,
@@ -9744,15 +9689,15 @@ input[type='number'] {
 /* !....................... Media Screen (1024)............................*/
 
 @media screen and (max-width: 1025px) {
-    #navBarDivision{
+  #navBarDivision {
     position: fixed;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
-    background-color: #00adb5;
+    /* background-color: #00adb5; */
   }
-  .category{
+  .category {
     font-size: 130%;
     font-weight: 500;
     min-height: 7vh;
@@ -9827,45 +9772,7 @@ input[type='number'] {
     margin: 2px;
     padding: 2px;
   }
-  #home-icon {
-    margin-left: 1%;
-    min-width: 30px;
-    min-height: 30px;
-    margin-right: 2%;
-    min-height: 3%;
-  }
-  #go-back-icon {
-    max-width: 5.5%;
-  }
-  .save_reset_container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    justify-content: center;
-    margin-left: 3%;
-  }
-  .zones-title-name {
-    font-size: clamp(1.3rem, 2.2vw, 2rem);
-    color: #eeeeee;
-    position: relative;
-  }
-  .save-reset-content {
-    font-size: 100%;
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    justify-content: center;
-    gap: 1%;
-  }
-  .reset-button {
-    border: 1px solid #b6cbf5;
-    border-radius: 5px;
-    padding: 8px 16px 8px 16px;
-  }
-  .save-button {
-    border: 1px solid #b6cbf5;
-    border-radius: 5px;
-    padding: 8px 16px 8px 16px;
-  }
+
   .zone_division {
     background-repeat: no-repeat;
     background-position: center;
@@ -10335,15 +10242,27 @@ input[type='number'] {
 }
 
 @media screen and (max-width: 769px) {
-    #navBarDivision{
+  #filter-container {
+    width: 90%;
+  }
+  #navBarDivision {
     position: fixed;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
-    background-color: #00adb5;
   }
-  .category{
+
+  #tabDivision {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    position: sticky;
+    width: 100%;
+    top: 145px;
+    z-index: 2;
+  }
+  .category {
     font-size: 130%;
     font-weight: 500;
     min-height: 7vh;
@@ -10351,7 +10270,7 @@ input[type='number'] {
     align-items: center;
     padding: 2px 10px;
   }
-  .form {
+  /* .form {
     min-height: 8rem;
   }
   .Date_Filter {
@@ -10376,79 +10295,8 @@ input[type='number'] {
     position: relative;
     top: 5%;
     left: -22%;
-  }
-  #home-icon {
-    margin-left: 10%;
-    min-width: 30px;
-    min-height: 30px;
-    margin-right: 2%;
-    min-height: 3%;
-  }
-  #go-back-icon {
-    max-width: 5.5%;
-  }
-  .defect-category-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px;
-    margin: 0% 15% 0 15%;
-  }
-  .defect-category {
-    align-items: center;
-    justify-content: center;
-    font-size: 100%;
-    padding: 2%;
-    margin: 3%;
-    margin-left: 10%;
-    border-radius: 5px;
-  }
-  .sub-defects-category-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px;
-    margin: 0% 15% 0 15%;
-  }
+  } */
 
-  .sub-defect-category {
-    align-items: center;
-    justify-content: center;
-    font-size: 100%;
-    background-color: black;
-    color: #eeeeee;
-    padding: 3%;
-    margin: 3%;
-    margin-left: 10%;
-    border-radius: 5px;
-  }
-  .save_reset_container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    justify-content: center;
-    margin-left: 3%;
-  }
-  .zones-title-name {
-    font-size: clamp(1.3rem, 2.2vw, 2rem);
-    color: #eeeeee;
-    position: relative;
-  }
-  .save-reset-content {
-    font-size: 100%;
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    justify-content: center;
-    gap: 1%;
-  }
-  .reset-button {
-    border: 1px solid #b6cbf5;
-    border-radius: 5px;
-    padding: 8px 16px 8px 16px;
-  }
-  .save-button {
-    border: 1px solid #b6cbf5;
-    border-radius: 5px;
-    padding: 8px 16px 8px 16px;
-  }
   .zone_division {
     background-repeat: no-repeat;
     background-position: center;
@@ -11070,10 +10918,54 @@ input[type='number'] {
     font-size: 45%;
   }
 }
-
-@media screen and (max-width: 530px) {
+@media screen and (max-width: 700px) {
+  .form {
+    min-height: 8rem;
+  }
+  .Date_Filter {
+    margin-top: -7%;
+  }
+  .toggle_content {
+    position: relative;
+    top: -2.5rem;
+    margin-left: -12rem;
+    flex-direction: row;
+  }
+  .Empty_Tag {
+    display: block;
+  }
+  #chart-condition-select-content-1 {
+    display: flex;
+    position: relative;
+    top: 2rem;
+    right: 15rem;
+  }
+  .button_container {
+    position: relative;
+    top: 5%;
+    left: -22%;
+  }
+}
+@media screen and (max-width: 610px) {
+  #chart-condition-select-content {
+    margin-left: 1%;
+    margin-top: 1.5rem;
+  }
+}
+@media screen and (max-width: 540px) {
   body {
-    width: 120%;
+    width: 100%;
+  }
+  .admin {
+    color: #00adb5;
+    margin-right: 4%;
+    padding: 3%;
+    font-weight: 500;
+    font-size: clamp(1.1rem, 2vw, 1.6rem);
+  }
+  .card-title-name {
+    position: relative;
+    left: 1%;
   }
   #title-name-content {
     position: relative;
@@ -11107,26 +10999,37 @@ input[type='number'] {
     height: 100%;
   }
   body {
-    min-width: 100%;
+    min-width: 120%;
     min-height: 100vh;
     background-color: #282c34;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   }
-  .header {
+
+  #tabDivision {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
     position: sticky;
-    top: 0%;
-    min-width: 100%;
+    width: 100%;
+    top: 190px;
+    z-index: 2;
+  }
+
+  #filter-container {
+    width: 95%;
+  }
+  .header {
+    width: 100%;
     display: flex;
     min-height: 4.5rem;
     flex-direction: row;
     align-items: center;
-    padding: 1%;
     justify-content: space-between;
     background-color: #393e46;
     color: #f0e3e3;
+    position: relative;
   }
-
   .heading {
     padding-left: 1%;
     font-weight: 700;
@@ -11143,26 +11046,31 @@ input[type='number'] {
   }
   .admin {
     color: #00adb5;
-    margin-right: 10%;
+    margin-right: 4%;
+    position: relative;
+    /* left: 8%; */
     font-weight: 500;
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
   }
 
-  #btn button {
+  .button-logout {
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-    width: 50px;
-    height: 25px;
-    font-size: 9px;
+    width: 65px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
   }
-    #navBarDivision{
+  #navBarDivision {
     position: fixed;
     display: none;
     width: 45%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 90%;
-    background-color: #00adb5;
+    height: 100%;
+    /* background-color: #485d71; */
   }
-  .category{
+  .category {
     font-size: 120%;
     font-weight: 500;
     min-height: 7vh;
@@ -11190,110 +11098,11 @@ input[type='number'] {
     margin: 2%;
     justify-content: center;
   }
-  #home-icon {
-    margin-left: 2%;
-    min-width: 25px;
-    min-height: 25px;
-    margin-right: 1%;
-    min-height: 3%;
-  }
-  .selected-message {
-    text-align: center;
-    line-height: 1.1;
-    margin: 2%;
-    padding: 5px;
-    font-size: clamp(0.9rem, 1.2vw, 1.3rem);
-    color: #eeeeee;
-  }
-  #title-name-content {
-    position: relative;
-    margin: 2px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-  }
-  #go-back-icon {
-    min-width: 25px;
-    margin-left: 25%;
-  }
-  #title-name {
-    padding: 2px;
-    line-height: 1;
-    font-size: clamp(16px, 1.2vw, 1.5rem);
-    color: #f0e3e3;
-  }
-  .defect-category-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px;
-    margin: 0% 15% 0 15%;
-  }
-  .defect-category {
-    align-items: center;
+
+  #card-date {
     justify-content: center;
-    font-size: 80%;
-    font-weight: 400;
-    padding: 2%;
-    margin: 3%;
-    margin-left: 10%;
-    border-radius: 5px;
-  }
-  .sub-defects-category-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px;
-    margin: 0% 15% 0 15%;
   }
 
-  .sub-defect-category {
-    align-items: center;
-    justify-content: center;
-    font-size: 80%;
-    font-weight: 400;
-    background-color: black;
-    color: #eeeeee;
-    padding: 3%;
-    margin: 3%;
-    margin-left: 10%;
-    border-radius: 5px;
-  }
-  .save_reset_container {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    justify-content: center;
-    margin-left: 5%;
-  }
-  .zones-title-name {
-    font-size: clamp(1.3rem, 2.2vw, 2rem);
-    color: #eeeeee;
-    position: relative;
-  }
-  .save-reset-content {
-    font-size: 90%;
-    display: flex;
-    flex-direction: row;
-    position: relative;
-    justify-content: center;
-    gap: 1%;
-    margin-right: 10%;
-  }
-  .reset-button {
-    border: 1px solid #b6cbf5;
-    border-radius: 5px;
-    padding: 8px 16px 8px 16px;
-  }
-  .save-button {
-    border: 1px solid #b6cbf5;
-    border-radius: 5px;
-    padding: 8px 16px 8px 16px;
-  }
-
-  .zone-number {
-    margin-top: 12px;
-    font-size: 0.7rem;
-    font-weight: 500;
-  }
   .zone_division {
     background-repeat: no-repeat;
     background-position: center;

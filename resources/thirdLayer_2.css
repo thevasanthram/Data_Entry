@@ -1,8 +1,7 @@
-
 /* !CSS for REsponsive Design */
 
 @media screen and (max-width: 1281px) {
-  .save_reset_container{
+  .save_reset_container {
     display: grid;
     grid-template-columns: 1fr 2fr;
     justify-content: center;
@@ -25,13 +24,17 @@
     border: 1px solid #b6cbf5;
     border-radius: 5px;
     padding: 8px 16px 8px 16px;
-  } 
+  }
   .save-button {
     border: 1px solid #b6cbf5;
     border-radius: 5px;
     padding: 8px 16px 8px 16px;
   }
-  #zone-division1, #zone-division2, #zone-division3, #zone-division4, #zone-division5 {
+  #zone-division1,
+  #zone-division2,
+  #zone-division3,
+  #zone-division4,
+  #zone-division5 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -45,8 +48,7 @@
 
 /* !....................... Media Screen (1024)............................*/
 
-@media screen   and (max-width: 1025px) {
-
+@media screen and (max-width: 1025px) {
   #home-icon {
     margin-left: 1%;
     min-width: 30px;
@@ -55,9 +57,9 @@
     min-height: 3%;
   }
   #go-back-icon {
-    max-width: 5.5%;
+    max-width: 7.5%;
   }
-  .save_reset_container{
+  .save_reset_container {
     display: grid;
     grid-template-columns: 1fr 2fr;
     justify-content: center;
@@ -80,13 +82,17 @@
     border: 1px solid #b6cbf5;
     border-radius: 5px;
     padding: 8px 16px 8px 16px;
-  } 
+  }
   .save-button {
     border: 1px solid #b6cbf5;
     border-radius: 5px;
     padding: 8px 16px 8px 16px;
   }
-  #zone-division1, #zone-division2, #zone-division3, #zone-division4, #zone-division5 {
+  #zone-division1,
+  #zone-division2,
+  #zone-division3,
+  #zone-division4,
+  #zone-division5 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -102,13 +108,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 24vh;
+    height: 35vh;
     width: 100%;
     margin: 40px auto;
   }
 
   input[type='number'] {
-    width: 35px!important;
+    width: 35px !important;
     position: absolute;
     z-index: 0;
     border: 1px solid #000000;
@@ -119,183 +125,181 @@
   /*!...................... BACK DOOR OPENING..........................  */
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM851 {
-  margin-top: 29%;
-  width: 80px;
-  margin-left: 49%;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
+    margin-top: 29%;
+    width: 80px;
+    margin-left: 49%;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
   }
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM851:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM852 {
-  margin-top: 29%;
-  margin-left: 55%;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
+    margin-top: 29%;
+    margin-left: 55%;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM852:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM853 {
-  margin-top: 29%;
-  margin-left: 61%;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
+    margin-top: 29%;
+    margin-left: 61%;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM853:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM854 {
-  margin-top: 29%;
-  width: 15%;
-  margin-left: 66%;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
+    margin-top: 29%;
+    width: 15%;
+    margin-left: 66%;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM854:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM855 {
-  margin-top: 29%;
-  margin-left: 72%;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
+    margin-top: 29%;
+    margin-left: 72%;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM855:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM856 {
-  margin-top: 20%;
-  margin-left: 72%;
-  padding: 1rem 2rem 1rem 2rem;
-  position: absolute;
+    margin-top: 20%;
+    margin-left: 72%;
+    padding: 1rem 2rem 1rem 2rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM856:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM857 {
-  margin-top: 20%;
-  width: 15%;
-  margin-left: 66%;
-  padding: 1rem 3rem 1rem 2rem;
-  position: absolute;
+    margin-top: 20%;
+    width: 15%;
+    margin-left: 66%;
+    padding: 1rem 3rem 1rem 2rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM857:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM858 {
-  margin-top: 13%;
-  width: 15%;
-  margin-left: 66%;
-  padding: 1rem 3rem 1rem 2rem;
-  position: absolute;
+    margin-top: 13%;
+    width: 15%;
+    margin-left: 66%;
+    padding: 1rem 3rem 1rem 2rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM858:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM859 {
-  margin-top: 13%;
-  width: 15%;
-  margin-left: 72%;
-  padding: 1rem 3rem 1rem 2rem;
-  position: absolute;
+    margin-top: 13%;
+    width: 15%;
+    margin-left: 72%;
+    padding: 1rem 3rem 1rem 2rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM859:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM860 {
-  margin-top: 5.5%;
-  margin-left: 72%;
-  padding: 1rem 3rem 1rem 2rem;
-  position: absolute;
+    margin-top: 5.5%;
+    margin-left: 72%;
+    padding: 1rem 3rem 1rem 2rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM860:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM861 {
-  margin-top: 5.5%;
-  width: 15%;
-  margin-left: 66%;
-  padding: 1rem 2rem 1rem 2rem;
-  position: absolute;
+    margin-top: 5.5%;
+    width: 15%;
+    margin-left: 66%;
+    padding: 1rem 2rem 1rem 2rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM861:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM862 {
-  margin-top: -0.5%;
-  width: 15%;
-  margin-left: 68%;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
+    margin-top: -0.5%;
+    width: 15%;
+    margin-left: 68%;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM862:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM863 {
-  margin-top: -1%;
-  margin-left: 61%;
-  padding: 1rem 3rem 1rem 1rem;
-  position: absolute;
+    margin-top: -1%;
+    margin-left: 61%;
+    padding: 1rem 3rem 1rem 1rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM863:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM864 {
-  margin-top: -3%;
-  margin-left: 54%;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
+    margin-top: -3%;
+    margin-left: 54%;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM864:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM865 {
-  margin-top: -3%;
-  margin-left: 48%;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
+    margin-top: -3%;
+    margin-left: 48%;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
   }
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM865:hover {
-  background-color: rgba(135, 207, 235, 0.563);
+    background-color: rgba(135, 207, 235, 0.563);
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM865:hover {
     background-color: rgba(135, 207, 235, 0.563);
   }
-
 }
 
-
-@media screen and  (max-width: 769px) {
+@media screen and (max-width: 769px) {
   #home-icon {
     margin-left: 10%;
     min-width: 30px;
@@ -304,7 +308,7 @@
     min-height: 3%;
   }
   #go-back-icon {
-    max-width: 5.5%;
+    max-width: 7.5%;
   }
   .defect-category-content {
     display: grid;
@@ -339,7 +343,7 @@
     margin-left: 10%;
     border-radius: 5px;
   }
-  .save_reset_container{
+  .save_reset_container {
     display: grid;
     grid-template-columns: 1fr 2fr;
     justify-content: center;
@@ -362,192 +366,193 @@
     border: 1px solid #b6cbf5;
     border-radius: 5px;
     padding: 8px 16px 8px 16px;
-  } 
+  }
   .save-button {
     border: 1px solid #b6cbf5;
     border-radius: 5px;
     padding: 8px 16px 8px 16px;
   }
-  #zone-division1, #zone-division2, #zone-division3, #zone-division4, #zone-division5 {
+  #zone-division1,
+  #zone-division2,
+  #zone-division3,
+  #zone-division4,
+  #zone-division5 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    width: 600px;
+    width: 560px;
     height: 250px;
     position: absolute;
     /* margin-left: 5%; */
   }
   input[type='number'] {
-    width: 35px!important;
-    height: 20px!important;
+    width: 35px !important;
+    height: 20px !important;
     position: absolute;
     z-index: 0;
     border: 1px solid #000000;
   }
-  .zone-number{
+  .zone-number {
     margin-top: 18px;
   }
   /*TODO:..............RH SIDE MEMBER (Media Query 768px)................ */
 
-/*! BACK DOOR OPENING  */
+  /*! BACK DOOR OPENING  */
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM851 {
-  margin-top: 170px;
-  margin-left: 285px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM851:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM851 {
+    margin-top: 170px;
+    margin-left: 285px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM851:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM852 {
-  margin-top: 170px;
-  margin-left: 325px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM852:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM852 {
+    margin-top: 170px;
+    margin-left: 325px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM852:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM853 {
+    margin-top: 170px;
+    margin-left: 365px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM853:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM853 {
-  margin-top: 170px;
-  margin-left: 365px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM853:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM854 {
+    margin-top: 170px;
+    margin-left: 402px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM854:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM854 {
-  margin-top: 170px;
-  margin-left: 402px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM854:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM855 {
+    margin-top: 170px;
+    margin-left: 440px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM855:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM855 {
-  margin-top: 170px;
-  margin-left: 440px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM855:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM856 {
+    margin-top: 130px;
+    margin-left: 445px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM856:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM856 {
-  margin-top: 130px;
-  margin-left: 445px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM856:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM857 {
+    margin-top: 130px;
+    margin-left: 410px;
+    padding: 1rem 3rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM857:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM857 {
-  margin-top: 130px;
-  margin-left: 410px;
-  padding: 1rem 3rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM857:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM858 {
+    margin-top: 90px;
+    margin-left: 410px;
+    padding: 1rem 3rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM858:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM858 {
-  margin-top: 90px;
-  margin-left: 410px;
-  padding: 1rem 3rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM858:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM859 {
+    margin-top: 90px;
+    margin-left: 445px;
+    padding: 1rem 3rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM859:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM859 {
-  margin-top: 90px;
-  margin-left: 445px;
-  padding: 1rem 3rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM859:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM860 {
+    margin-top: 50px;
+    margin-left: 445px;
+    padding: 1rem 3rem 1rem 1rem;
+    position: absolute;
+  }
 
- .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM860 {
-  margin-top: 50px;
-  margin-left: 445px;
-  padding: 1rem 3rem 1rem 1rem;
-  position: absolute;
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM860:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM860:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-} 
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM861 {
+    margin-top: 50px;
+    margin-left: 410px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM861:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM861 {
-  margin-top: 50px;
-  margin-left: 410px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM861:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
- 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM862 {
-  margin-top: 5px;
-  margin-left: 420px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM862:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM862 {
+    margin-top: 5px;
+    margin-left: 420px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM862:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM863 {
-  margin-top: -5px;
-  margin-left: 380px;
-  padding: 1rem 3rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM863:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM863 {
+    margin-top: -5px;
+    margin-left: 380px;
+    padding: 1rem 3rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM863:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM864 {
-  margin-top: -20px;
-  margin-left: 338px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM864:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM864 {
+    margin-top: -20px;
+    margin-left: 338px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM864:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 
-
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM865 {
-  margin-top: -20px;
-  margin-left: 295px;
-  padding: 1rem 2rem 1rem 1rem;
-  position: absolute;
-}
-.RH_SIDE_MEMBER_BACKDOOROPENING-RHSM865:hover {
-  background-color: rgba(135, 207, 235, 0.563);
-}
-
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM865 {
+    margin-top: -20px;
+    margin-left: 295px;
+    padding: 1rem 2rem 1rem 1rem;
+    position: absolute;
+  }
+  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM865:hover {
+    background-color: rgba(135, 207, 235, 0.563);
+  }
 }
 
 /* *.......................Media Query for width 30rem..................... */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   * {
     box-sizing: border-box;
   }
@@ -592,16 +597,20 @@
   }
   .admin {
     color: #00adb5;
-    margin-right: 10%;
+    margin-right: 4%;
+    position: relative;
+    /* left: 1%; */
     font-weight: 500;
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
   }
-
-  #btn button {
+  .button-logout {
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-    width: 50px;
-    height: 25px;
-    font-size: 9px;
+    width: 65px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
   }
   #home-icon {
     margin-left: 2%;
@@ -638,7 +647,7 @@
   }
   .defect-category-content {
     display: grid;
-    grid-template-columns:1fr  1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
     margin: 0% 15% 0 15%;
   }
@@ -654,7 +663,7 @@
   }
   .sub-defects-category-content {
     display: grid;
-    grid-template-columns:  1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     padding: 10px;
     margin: 0% 15% 0 15%;
   }
@@ -671,7 +680,7 @@
     margin-left: 10%;
     border-radius: 5px;
   }
-  .save_reset_container{
+  .save_reset_container {
     display: grid;
     grid-template-columns: 1fr 2fr;
     justify-content: center;
@@ -695,35 +704,35 @@
     border: 1px solid #b6cbf5;
     border-radius: 5px;
     padding: 8px 16px 8px 16px;
-  } 
+  }
   .save-button {
     border: 1px solid #b6cbf5;
     border-radius: 5px;
     padding: 8px 16px 8px 16px;
   }
 
-  .zone-number{
+  .zone-number {
     margin-top: 12px;
     font-size: 0.7rem;
     font-weight: 500;
   }
-  #zone-division1, #zone-division2, 
-  #zone-division3, #zone-division4, 
+  #zone-division1,
+  #zone-division2,
+  #zone-division3,
+  #zone-division4,
   #zone-division5 {
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    /* margin-top: 6%;
-    margin-left: 12%; */
     height: auto;
-    width: 258px;
-    height: 150px;
+    width: 320px;
+    height: 155px;
     position: absolute;
   }
-  
+
   input[type='number'] {
-    width: 25px!important;
-    height: 15px!important;
+    width: 25px !important;
+    height: 15px !important;
     position: absolute;
     z-index: 0;
     border: 1px solid darkslategray;
@@ -735,13 +744,13 @@
     padding: 1rem 4rem 0rem 2rem;
     position: absolute;
   }
-  
+
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM865:hover {
     background-color: rgba(135, 207, 235, 0.563);
   }
-/*TODO:................RH SIDE MEMBER (Media Query 480px)............ */
+  /*TODO:................RH SIDE MEMBER (Media Query 480px)............ */
 
-/*! BACK DOOR OPENING  */
+  /*! BACK DOOR OPENING  */
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM851 {
     margin-top: 90px;
@@ -766,7 +775,7 @@
     margin-left: 163px;
     padding: 1rem 2rem 1rem 1rem;
     position: absolute;
-    }
+  }
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM853:hover {
     background-color: rgba(135, 207, 235, 0.563);
   }
@@ -843,7 +852,7 @@
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM861 {
     margin-top: 12px;
-    margin-left: 187px ;
+    margin-left: 187px;
     padding: 1rem 2rem 1rem 1rem;
     position: absolute;
   }
@@ -881,7 +890,7 @@
     margin-left: 120px;
     padding: 1rem 2rem 1rem 1rem;
     position: absolute;
-}
+  }
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM865:hover {
     background-color: rgba(135, 207, 235, 0.563);
   }

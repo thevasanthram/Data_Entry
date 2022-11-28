@@ -176,7 +176,7 @@
                       <input
                         type="number"
                         inputmode="numeric"
-                        class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %>"
+                        class="<%= categoryId %>_<%= subcategoryId %>_<%= defectListId[i] %>_<%= subDefectListId[k] %>_<%= l+1 %> defectInputTag"
                         name="<%= defectObject[defectListId[i]].name %>_<%= subDefectListName[k] %>_<%= ShortlistedSubCategoryOptions[l] %>"
                         min="1"
                       />
@@ -321,13 +321,23 @@
 
       function validate() {
         var defectLayerFormInputElements =
-          document.getElementsByTagName('input');
+          document.getElementsByClassName('defectInputTag');
+
+        console.log(
+          'defectLayerFormInputElements: ',
+          defectLayerFormInputElements
+        );
         var checkBoxNotSelectedCount = 0;
         Object.values(defectLayerFormInputElements).map((singleInput) => {
           if (!singleInput.value) {
             checkBoxNotSelectedCount++;
           }
         });
+        console.log('checkBoxNotSelectedCount: ', checkBoxNotSelectedCount);
+        console.log(
+          'defectLayerFormInputElements.length: ',
+          defectLayerFormInputElements.length
+        );
         if (checkBoxNotSelectedCount == defectLayerFormInputElements.length) {
           alert('No Zones were selected as defect. Atleast select a zone');
         } else {

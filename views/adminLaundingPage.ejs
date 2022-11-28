@@ -164,7 +164,7 @@
                   <button type="button" id="htmlToPdf" onclick="UniPDf()"
                   style="background: linear-gradient(
                   to right, #0f0c29, #302b63, #24243e 
-                  );"
+                  ); display: none;"
                   class="download_btn bg-blue-500 hover:bg-blue-400 text-white font-bold py-1 px-1 border-b-4 border-blue-700 hover:border-blue-500 rounded"         
                   >Export</button>
                 </div>    
@@ -180,7 +180,7 @@
               <div class="card-toggle_container flex " >
                 <h5  class="card-title-name   underline leading-tight ">Filtering Condition</h5>
                 <!-- Toggle Switch for online / offline -->
-                <div id="toggle" class="mt-6 ml-24">
+                <div id="toggle" class="mt-8 ml-24">
                   <div class="flex w-full mb-12">
                     <label for="toggle_switch_outside" class="flex items-center cursor-pointer">
                       <div class="relative">
@@ -195,7 +195,7 @@
                   </div>
                 </div>
               </div>
-                <div class="footer ml-5 -mt-12 " >
+                <div class="footer ml-2 -mt-12 " >
                     <div id="card-date" >
                         <div class="card-from-date-condition-content">From :
                             <input type="date" name="fromDateCondition"
@@ -226,7 +226,7 @@
                         <button onClick = "UniPdf()" type="button" id="htmlToPdf"
                           style="background: linear-gradient(
                             to right, #0f0c29, #302b63, #24243e
-                          );"
+                          ); display: none;"
                            class="download_btn m-5 bg-blue-500 hover:bg-blue-400 text-white
                            font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                               EXPORT
@@ -256,12 +256,15 @@
 
       function hideAndSeek(event) {
         const navBarDivision = document.getElementById('navBarDivision');
-        if (event.target.id !== 'navBarIcon') {
+        if (event.target.id != 'navBarIcon') {
           navBarDivision.style.display = 'none';
         } else {
-          if (navBarDivision.style.display == 'none') {
+          if (
+            navBarDivision.style.display == 'none' ||
+            navBarDivision.style.display == ''
+          ) {
             navBarDivision.style.display = 'inline-block';
-          } else {
+          } else if (navBarDivision.style.display == 'inline-block') {
             navBarDivision.style.display = 'none';
           }
         }
@@ -1305,14 +1308,6 @@
           // 5 tabs
         const tabDivision = document.createElement('div')
         tabDivision.id = 'tabDivision'
-        tabDivision.style.display = 'flex'
-        tabDivision.style.justifyContent = 'center'
-        tabDivision.style.flexDirection = 'row'
-        tabDivision.style.position = 'sticky'
-        tabDivision.style.display = 'flex'
-        tabDivision.style.width = '100%'
-        tabDivision.style.top = '130px'
-        tabDivision.style.zIndex = '2'
         mainParetoContentHolder.appendChild(tabDivision)
 
         // function for only showing corresponding defect division
@@ -2040,6 +2035,7 @@
         paretoDivision.style.flexDirection = 'column'
         paretoDivision.style.justifyContent = 'center'
         paretoDivision.style.alignItems = 'center'
+        paretoDivision.style.gap = '100px'
         document.getElementsByClassName('report-content-data')[0].appendChild(paretoDivision)
 
         // first Pareto chart
@@ -2047,7 +2043,7 @@
         mainParetoCategoryChartDivision.id = 'mainParetoCategoryChartDivision'
         paretoDivision.appendChild(mainParetoCategoryChartDivision)
         mainParetoCategoryChartDivision.style.width = '80%'
-        mainParetoCategoryChartDivision.style.height = '400px'
+        mainParetoCategoryChartDivision.style.height = '500px'
 
         let mainParetoCategoryChartDataset = []
 
@@ -2140,7 +2136,7 @@
         mainParetoSubCategoryChartDivision.id = 'mainParetoSubCategoryChartDivision'
         paretoDivision.appendChild(mainParetoSubCategoryChartDivision)
         mainParetoSubCategoryChartDivision.style.width = '80%'
-        mainParetoSubCategoryChartDivision.style.height = '400px'
+        mainParetoSubCategoryChartDivision.style.height = '500px'
         mainParetoSubCategoryChartDivision.style.position = 'relative'
 
         let mainParetoSubCategoryChartDataset = []
@@ -2232,7 +2228,7 @@
         mainParetoZoneChartDivision.id = 'mainParetoZoneChartDivision'
         paretoDivision.appendChild(mainParetoZoneChartDivision)
         mainParetoZoneChartDivision.style.width = '80%'
-        mainParetoZoneChartDivision.style.height = '400px'
+        mainParetoZoneChartDivision.style.height = '500px'
         mainParetoZoneChartDivision.style.position = 'relative'
 
         let mainParetoZoneChartDataset = []
@@ -2322,7 +2318,7 @@
         mainParetoDefectChartDivision.id = 'mainParetoDefectChartDivision'
         paretoDivision.appendChild(mainParetoDefectChartDivision)
         mainParetoDefectChartDivision.style.width = '80%'
-        mainParetoDefectChartDivision.style.height = '400px'
+        mainParetoDefectChartDivision.style.height = '500px'
         mainParetoDefectChartDivision.style.position = 'relative'
 
         let mainParetoDefectChartDataset = []
@@ -2366,7 +2362,7 @@
           title:{
             text: "Defect Pareto Visualization",
             fontFamily: 'tahoma',
-            fontSize: 12,
+            fontSize: 18,
           },
           dataPointWidth: 30,
           axisY: {

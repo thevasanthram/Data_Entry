@@ -9,10 +9,21 @@ body {
   background-color: #222831;
   color: #eeeeee;
 }
+
+#tabDivision {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  position: sticky;
+  width: 100%;
+  top: 130px;
+  z-index: 2;
+}
+
 .header {
   width: 100%;
   display: flex;
-  height: 4.5rem;
+  min-height: 4.5rem;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -24,8 +35,7 @@ body {
   display: none;
 }
 
-
-#my-table{
+#my-table {
   width: 80%;
   margin: 5% 10%;
   border: 1px solid rgb(100, 102, 106);
@@ -49,37 +59,37 @@ body {
 }
 /* TODO ...........SIDE NAV BAR MENU................................... */
 
-#navBarDivision{
+#navBarDivision {
   position: fixed;
-  z-index:5;
+  z-index: 5;
   display: none;
   width: 17%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100%;
   background-color: #00adb5;
 }
-.category{
-    font-size: 140%;
-    font-weight: 500;
-    min-height: 8vh;
-    display: flex;
-    align-items: center;
-    padding: 2px 10px;
+.category {
+  font-size: 140%;
+  font-weight: 500;
+  min-height: 8vh;
+  display: flex;
+  align-items: center;
+  padding: 2px 10px;
 }
-#DataEntryDiv{
+#DataEntryDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  background-color: #075154;
+}
+
+#ReportGenerationDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
 }
 
-#ReportGenerationDiv{
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-  background-color: #075154 ;
-}
-
-#AdministrationDiv{
+#AdministrationDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
@@ -126,17 +136,19 @@ input:checked ~ .dot {
 #chart-condition-select-content {
   margin: 1.5rem;
 }
+
 .admin {
   color: #00adb5;
-  margin-right: 10%;
+  margin-right: 8%;
+  padding: 3%;
   font-weight: 500;
-  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
 }
 
 .heading {
   padding-left: 1%;
   font-weight: 700;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
 }
 
 .filtering-condition-content {
@@ -151,7 +163,7 @@ input:checked ~ .dot {
   width: 100%;
   padding-left: 2px;
   display: flex;
-  height: 4rem;
+  min-height: 4rem;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -508,7 +520,7 @@ input:checked ~ .dot {
 }
 .card-from-date-condition-content {
   font-size: 1.25rem;
-  margin: 1rem;
+  margin: 2%;
 }
 .card-to-date-condition-content {
   font-size: 1.25rem;
@@ -537,8 +549,8 @@ input:checked ~ .dot {
   padding: 4px;
 }
 #chart-condition-select-content {
-  margin-left: -1rem;
-  margin-top: 2rem;
+  margin-left: 0%;
+  margin-top: 1.5rem;
 }
 
 #chart-condition-input-card {

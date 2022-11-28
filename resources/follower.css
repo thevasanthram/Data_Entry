@@ -46,9 +46,10 @@ input[type='number'] {
 }
 .admin {
   color: #00adb5;
-  margin-right: 10%;
+  margin-right: 8%;
+  padding: 3%;
   font-weight: 500;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(1.1rem, 2vw, 1.9rem);
 }
 .heading {
   padding-left: 1%;
@@ -131,6 +132,9 @@ input[type='number'] {
 }
 .enter,
 .pass {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #eeeeee;
   margin-left: 2%;
   width: 6rem;
@@ -317,17 +321,22 @@ select {
   }
   .admin {
     color: #00adb5;
-    margin-right: 10%;
+    margin-right: 4%;
+    position: relative;
+    /* left: 2%; */
     font-weight: 500;
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
   }
 
-  #btn button {
-    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-    width: 50px;
-    height: 25px;
-    font-size: 9px;
-  }
+.button-logout {
+  background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+  width: 70px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
   #navBarDivision{
     position: fixed;
     display: none;
@@ -376,7 +385,7 @@ select {
   .enter {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
-    height: 30px;
+    height: 35px;
     font-size: 14px;
     text-align: center;
     margin-left: 48px;
@@ -385,7 +394,7 @@ select {
   .pass {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
-    height: 30px;
+    height: 35px;
     font-size: 14px;
     text-align: center;
     margin-left: 48px;
