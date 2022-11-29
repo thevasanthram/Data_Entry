@@ -490,6 +490,7 @@ input:checked ~ .dot {
   width: 97px;
   height: 27%;
   margin: 3px;
+  z-index: 1;
 }
 
 .subDefectStyle {
@@ -501,6 +502,7 @@ input:checked ~ .dot {
   top: 24px;
   left: 20%;
   margin: 3px;
+  z-index: 1;
 }
 
 #colorMapNavigator {

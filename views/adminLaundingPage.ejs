@@ -162,10 +162,10 @@
                   );"
                   class="generate_btn bg-blue-500 hover:bg-blue-400 text-white font-bold py-1 px-1 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                   >Generate</button>
-                  <button type="button" id="htmlToPdf" onclick="UniPDf()"
+                  <button type="button" id="htmlToPdf" onclick="UniPdf()"
                   style="background: linear-gradient(
                   to right, #0f0c29, #302b63, #24243e 
-                  ); display: none;"
+                  );"
                   class="download_btn bg-blue-500 hover:bg-blue-400 text-white font-bold py-1 px-1 border-b-4 border-blue-700 hover:border-blue-500 rounded"         
                   >Export</button>
                 </div>    
@@ -227,7 +227,7 @@
                         <button onClick = "UniPdf()" type="button" id="htmlToPdf"
                           style="background: linear-gradient(
                             to right, #0f0c29, #302b63, #24243e
-                          ); display: none;"
+                          );display: none;"
                            class="download_btn m-5 bg-blue-500 hover:bg-blue-400 text-white
                            font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
                               EXPORT
@@ -3009,13 +3009,14 @@
             // console.log('sideCodeSplit: ', sideCodeSplit)
             // console.log('Image name: ',`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
 
+            console.log('triggering')
             //displaying zones with defect count
             Object.keys(data.data[category][subCategory][fistDefect][fistSubDefect]).map( (singleZone) => {
               let zoneDefectCountData = document.createElement('div')
               let zoneCounter = document.createElement('p')
               zoneDefectCountData.appendChild(zoneCounter)
               zoneDefectCountData.className = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
-              // console.log('id: ',zoneDefectCountData.id)
+              console.log('className: ',zoneDefectCountData.className)
               zoneCounter.innerHTML = `${singleZone.replace('_','')}: ${data.data[category][subCategory][fistDefect][fistSubDefect][singleZone]}`
               visualPresentation.appendChild(zoneDefectCountData)
             })
@@ -3066,7 +3067,9 @@
       //   }, margins);
       // }
 
-      function UniPdf(eve){
+      function UniPdf(){
+        document.getElementsByTagName('body')[0].scrollIntoView({ behavior: "auto" })
+
         // Method to print the pdf of whole page
         var height=document.body.scrollHeight;
         console.log("height",height)
