@@ -713,7 +713,7 @@
 
   .zone-number {
     margin-top: 12px;
-    font-size: 0.7rem;
+    font-size: 0.6rem;
     font-weight: 500;
   }
   #zone-division1,
@@ -728,6 +728,7 @@
     width: 320px;
     height: 155px;
     position: absolute;
+    font-size: 10px;
   }
 
   input[type='number'] {
