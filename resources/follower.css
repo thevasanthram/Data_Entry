@@ -77,7 +77,7 @@ input[type='number'] {
 
 /* TODO ...........SIDE NAV BAR MENU................................................................ */
 
-#navBarDivision{
+#navBarDivision {
   position: fixed;
   display: none;
   width: 17%;
@@ -85,28 +85,28 @@ input[type='number'] {
   height: 90%;
   background-color: #00adb5;
 }
-.category{
-    font-size: 140%;
-    font-weight: 500;
-    min-height: 8vh;
-    display: flex;
-    align-items: center;
-    padding: 2px 10px;
+.category {
+  font-size: 140%;
+  font-weight: 500;
+  min-height: 8vh;
+  display: flex;
+  align-items: center;
+  padding: 2px 10px;
 }
-#DataEntryDiv{
+#DataEntryDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
-  background-color: #075154 ;
+  background-color: #075154;
 }
 
-#ReportGenerationDiv{
+#ReportGenerationDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
 }
 
-#AdministrationDiv{
+#AdministrationDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
@@ -242,7 +242,7 @@ select {
 /*! CSS for Responsive Design  */
 
 @media screen and (max-width: 1024px) {
-  #navBarDivision{
+  #navBarDivision {
     position: fixed;
     display: none;
     width: 30%;
@@ -250,18 +250,32 @@ select {
     height: 100%;
     background-color: #00adb5;
   }
-  .category{
-      font-size: 130%;
-      font-weight: 500;
-      min-height: 7vh;
-      display: flex;
-      align-items: center;
-      padding: 2px 10px;
+  .category {
+    font-size: 130%;
+    font-weight: 500;
+    min-height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  #navBarDivision{
+  body {
+    width: 100%;
+    height: 100vh;
+    background-color: #222831;
+    color: #eeeeee;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    background-image: url('hyrider.jpg');
+    background-repeat: no-repeat;
+    /* margin-bottom: 2%; */
+    background-size: 130%;
+    background-position: center;
+  }
+
+  #navBarDivision {
     position: fixed;
     display: none;
     width: 45%;
@@ -269,13 +283,49 @@ select {
     height: 100%;
     background-color: #00adb5;
   }
-  .category{
-      font-size: 120%;
-      font-weight: 500;
-      min-height: 7vh;
-      display: flex;
-      align-items: center;
-      padding: 2px 10px;
+  .category {
+    font-size: 120%;
+    font-weight: 500;
+    min-height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+  }
+  #bodyNumberForm {
+    margin-top: 15%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #bodyNumber {
+    padding: 2px;
+    /* margin: 0 -21px; */
+    margin-bottom: 5%;
+    width: 134%;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 500;
+    color: #eeeeee;
+    padding-right: 1%;
+  }
+  #bodyNumberfield {
+    width: 60%;
+    font-size: 110%;
+    padding: 10px 20px;
+    margin: 8px 0 27px 0;
+    display: inline-block;
+    border: 1px solid #64666a;
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    box-sizing: border-box;
+  }
+  .enter {
+    margin: auto 70%;
+  }
+  .pass {
+    margin: auto 14%;
   }
 }
 @media screen and (max-width: 480px) {
@@ -290,7 +340,7 @@ select {
     background-repeat: no-repeat;
     /* margin-bottom: 2%; */
     background-size: 130%;
-    background-position: -30px 150px 0px 0px;
+    background-position: center;
   }
 
   .header {
@@ -328,16 +378,16 @@ select {
     font-size: clamp(1.2rem, 2vw, 1.6rem);
   }
 
-.button-logout {
-  background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-  width: 70px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-}
-  #navBarDivision{
+  .button-logout {
+    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+    width: 70px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+  #navBarDivision {
     position: fixed;
     display: none;
     width: 45%;
@@ -345,21 +395,34 @@ select {
     height: 90%;
     background-color: #00adb5;
   }
-  .category{
-      font-size: 120%;
-      font-weight: 500;
-      min-height: 7vh;
-      display: flex;
-      align-items: center;
-      padding: 2px 10px;
+  .category {
+    font-size: 120%;
+    font-weight: 500;
+    min-height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
   }
+  #bodyNumberfield {
+    width: 60%;
+    font-size: 110%;
+    padding: 10px 20px;
+    margin: 8px 0px 10px 27px;
+    display: inline-block;
+    border: 1px solid #64666a;
+    border-radius: 4px;
+    background-color: black;
+    color: white;
+    box-sizing: border-box;
+  }
+
   #bodyNumberForm {
+    margin-top: 15%;
     display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    row-gap: 30%;
   }
 
   #bodyNumber {
@@ -406,7 +469,6 @@ select {
     text-decoration: underline;
   }
 }
-
 
 @media screen and (max-width: 1280px) {
 }
