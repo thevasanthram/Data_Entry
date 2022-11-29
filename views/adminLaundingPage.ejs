@@ -1613,6 +1613,12 @@
                 }),
                 {}
               )
+            
+              // having only top zone, deleting others
+          let exceptnTopZonesSubDefect = Object.keys(subDefectZoneCount).filter(x => !Object.keys(subDefectZoneCount).slice(0,nTop).includes(x))
+          exceptnTopZonesSubDefect.map( (zone) => {
+            delete subDefectZoneCount[zone]
+          })
 
             Object.keys(subDefectZoneCount).map( (singleZone) => {
               subDefectParetoChartDataset.push({y: subDefectZoneCount[singleZone], label: singleZone.replace('_','')})
