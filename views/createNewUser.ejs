@@ -350,7 +350,7 @@
           accessibleCharts.push(singleInput.value);
         }
       });
-      const response = await fetch(`http://localhost:8000/newUser`, {
+      const response = await fetch(`/newUser`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
