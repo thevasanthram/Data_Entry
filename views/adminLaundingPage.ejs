@@ -2914,14 +2914,15 @@
 
             // defect select
             const defectSelect= document.createElement('select')
+            defectSelect.className = 'defectStyle'
             defectSelect.id = `${subCategory.replace(`${category}`,'')}DefectSelect`
             defectSelect.addEventListener('change', () => changeSubDefectOptions(event,category,subCategory,sideCode,categoryCode))
-            defectSelect.style.color = '#808080'
-            defectSelect.style.backgroundColor = '#eeeeee'
-            defectSelect.style.fontSize = '120%'
-            defectSelect.style.marginLeft = '6%'
-            defectSelect.style.marginTop = '2%'
-            defectSelect.style.borderRadius = '5px'
+            // defectSelect.style.color = '#808080'
+            // defectSelect.style.backgroundColor = '#eeeeee'
+            // defectSelect.style.fontSize = '120%'
+            // defectSelect.style.marginLeft = '6%'
+            // defectSelect.style.marginTop = '2%'
+            // defectSelect.style.borderRadius = '5px'
             // defectName.className = 'mt-7'
             defectDivision.appendChild(defectSelect)
 
@@ -2944,6 +2945,20 @@
             // defectDivision.style.margin = '12rem 0'
             defectDivision.appendChild(subDefectContainer)
 
+            //subDefect select
+            const subDefectSelect = document.createElement('select')
+            subDefectSelect.id = `${subCategory.replace(`${category}`,'')}SubDefectSelect`
+            subDefectSelect.className = 'subDefectStyle'
+            // subDefectSelect.style.borderRadius = '5px'
+            // subDefectSelect.style.backgroundColor = '#eeeeee'
+            // subDefectSelect.style.color = '#808080'
+            subDefectSelect.addEventListener('change', () => changeSubDefectZones(event, category, subCategory,defectSelect.value,sideCode,categoryCode))
+            // subDefectSelect.style.fontSize = '120%'
+            // subDefectSelect.style.position = 'relative'
+            // subDefectSelect.style.top = '-27px'
+            // subDefectSelect.style.left = '22%'
+            subDefectContainer.appendChild(subDefectSelect)
+
             // division for subDefects
             const subDefectDivision = document.createElement('div')
             subDefectDivision.id = `${subCategory.replace(`${category}`,'')}SubDefectColorMap`
@@ -2955,19 +2970,7 @@
             subDefectDivision.style.height = '60vh'
             subDefectDivision.style.width = '100%'
             subDefectDivision.style.position = 'relative'
-            subDefectContainer.appendChild(subDefectDivision)
-
-            //subDefect select
-            const subDefectSelect = document.createElement('select')
-            subDefectSelect.id = `${subCategory.replace(`${category}`,'')}SubDefectSelect`
-            subDefectSelect.style.borderRadius = '5px'
-            subDefectSelect.style.backgroundColor = '#eeeeee'
-            subDefectSelect.style.color = '#808080'
-            subDefectSelect.addEventListener('change', () => changeSubDefectZones(event, category, subCategory,defectSelect.value,sideCode,categoryCode))
-            subDefectSelect.style.fontSize = '120%'
-            subDefectSelect.style.marginTop = '-4%'
-            subDefectSelect.style.marginLeft = '0%'
-            subDefectDivision.appendChild(subDefectSelect)
+            subDefectContainer.appendChild(subDefectDivision)            
 
             let fistSubDefect = Object.keys(data.data[category][subCategory][fistDefect])[0]
             // subDefect Option

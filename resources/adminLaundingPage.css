@@ -475,6 +475,34 @@ input:checked ~ .dot {
 }
 
 /*! Color Map  */
+
+.defectStyle {
+  color: rgb(128, 128, 128);
+  background-color: rgb(238, 238, 238);
+  font-size: 120%;
+  margin-top: 2%;
+  border-radius: 5px;
+  height: 18px;
+  width: 97px;
+  position: relative;
+  top: 57px;
+  left: 137px;
+  width: 97px;
+  height: 27%;
+  margin: 3px;
+}
+
+.subDefectStyle {
+  border-radius: 5px;
+  background-color: rgb(238, 238, 238);
+  color: rgb(128, 128, 128);
+  font-size: 120%;
+  position: relative;
+  top: 24px;
+  left: 20%;
+  margin: 3px;
+}
+
 #colorMapNavigator {
   display: flex;
   justify-content: space-evenly;

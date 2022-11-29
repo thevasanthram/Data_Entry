@@ -9970,6 +9970,31 @@ input[type='number'] {
     background-color: rgba(135, 207, 235, 0.563);
   }
 
+  .defectStyle {
+    color: rgb(128, 128, 128);
+    background-color: rgb(238, 238, 238);
+    font-size: 120%;
+    margin-top: 2%;
+    border-radius: 5px;
+    height: 18px;
+    width: 97px;
+    position: relative;
+    top: 57px;
+    left: 137px;
+    width: 97px;
+    height: 27%;
+  }
+
+  .subDefectStyle {
+    border-radius: 5px;
+    background-color: rgb(238, 238, 238);
+    color: rgb(128, 128, 128);
+    font-size: 120%;
+    position: relative;
+    top: 24px;
+    left: 33%;
+  }
+
   /*! DPV CHart  */
   #my-table {
     font-size: 12px;
@@ -10315,6 +10340,31 @@ input[type='number'] {
   }
   .zone-number {
     margin-top: 18px;
+  }
+
+  .defectStyle {
+    color: rgb(128, 128, 128);
+    background-color: rgb(238, 238, 238);
+    font-size: 120%;
+    margin-top: 2%;
+    border-radius: 5px;
+    height: 18px;
+    width: 97px;
+    position: relative;
+    top: 57px;
+    left: 137px;
+    width: 97px;
+    height: 27%;
+  }
+
+  .subDefectStyle {
+    border-radius: 5px;
+    background-color: rgb(238, 238, 238);
+    color: rgb(128, 128, 128);
+    font-size: 120%;
+    position: relative;
+    top: 24px;
+    left: 42%;
   }
 
   /*! DPV CHart  */
@@ -11113,6 +11163,33 @@ input[type='number'] {
     width: 258px;
     height: 150px;
     position: absolute;
+  }
+
+  .defectStyle {
+    color: rgb(128, 128, 128);
+    background-color: rgb(238, 238, 238);
+    font-size: 16px;
+    margin-top: 2%;
+    border-radius: 5px;
+    /* height: 18px; */
+    /* width: 97px; */
+    position: relative;
+    top: 52px;
+    left: 20px;
+    height: 24px;
+    width: 94px;
+  }
+
+  .subDefectStyle {
+    border-radius: 5px;
+    background-color: rgb(238, 238, 238);
+    color: rgb(128, 128, 128);
+    font-size: 14px;
+    position: relative;
+    top: 22px;
+    left: 48%;
+    height: 24px;
+    width: 51px;
   }
 
   /*! DPV Chart  */
