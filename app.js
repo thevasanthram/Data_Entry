@@ -1375,94 +1375,98 @@ app.post('/thirdlayer', (req, res) => {
 
 app.post('/zonechecker', async (req, res) => {
   try {
-    const defectObj = req.body.defectObj;
-    mode = req.body.mode;
-    let filledDefects = {};
-    let currentDate = new Date();
-    const date =
-      String(currentDate.getFullYear()) +
-      '-' +
-      (currentDate.getMonth() + 1 <= 9
-        ? '0' + Number(currentDate.getMonth() + 1)
-        : Number(currentDate.getMonth() + 1)) +
-      '-' +
-      (currentDate.getDate() <= 9
-        ? '0' + Number(currentDate.getDate())
-        : Number(currentDate.getDate()));
+    if ((username = ' ')) {
+      res.redirect('/');
+    } else {
+      const defectObj = req.body.defectObj;
+      mode = req.body.mode;
+      let filledDefects = {};
+      let currentDate = new Date();
+      const date =
+        String(currentDate.getFullYear()) +
+        '-' +
+        (currentDate.getMonth() + 1 <= 9
+          ? '0' + Number(currentDate.getMonth() + 1)
+          : Number(currentDate.getMonth() + 1)) +
+        '-' +
+        (currentDate.getDate() <= 9
+          ? '0' + Number(currentDate.getDate())
+          : Number(currentDate.getDate()));
 
-    const time =
-      String(currentDate.getHours()) +
-      ':' +
-      String(currentDate.getMinutes()) +
-      ':' +
-      String(currentDate.getSeconds());
+      const time =
+        String(currentDate.getHours()) +
+        ':' +
+        String(currentDate.getMinutes()) +
+        ':' +
+        String(currentDate.getSeconds());
 
-    Object.keys(defectObj).map((defect) => {
-      let defectArray = defect.split('_');
-      defectArray[2] = `_${defectArray[2]}`;
-      mod.set(filledDefects, defectArray.join('.'), defectObj[defect]);
-    });
+      Object.keys(defectObj).map((defect) => {
+        let defectArray = defect.split('_');
+        defectArray[2] = `_${defectArray[2]}`;
+        mod.set(filledDefects, defectArray.join('.'), defectObj[defect]);
+      });
 
-    console.log('filledDefects:', filledDefects);
+      console.log('filledDefects:', filledDefects);
 
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
+      let dbConnectedPool = new Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'data_entry_systems',
+        password: 'admin',
+        port: 5432,
+      });
 
-    let messageObject = {};
+      let messageObject = {};
 
-    async function storeManager() {
-      // storing the defects or modifying
-      await Promise.all(
-        Object.keys(filledDefects).map(async (defectName) => {
-          await Promise.all(
-            Object.keys(filledDefects[defectName]).map(
-              async (subDefectName) => {
-                await Promise.all(
-                  Object.keys(filledDefects[defectName][subDefectName]).map(
-                    async (zone) => {
-                      const result = await dbConnectedPool.query(
-                        `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone = ${zone.replace(
-                          '_',
-                          ''
-                        )}`
-                      );
-                      if (result.rows.length == 0) {
-                        mod.set(
-                          messageObject,
-                          `New Zone.${zone}.${defectName}.${subDefectName}`,
-                          filledDefects[defectName][subDefectName][zone]
+      async function storeManager() {
+        // storing the defects or modifying
+        await Promise.all(
+          Object.keys(filledDefects).map(async (defectName) => {
+            await Promise.all(
+              Object.keys(filledDefects[defectName]).map(
+                async (subDefectName) => {
+                  await Promise.all(
+                    Object.keys(filledDefects[defectName][subDefectName]).map(
+                      async (zone) => {
+                        const result = await dbConnectedPool.query(
+                          `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone = ${zone.replace(
+                            '_',
+                            ''
+                          )}`
                         );
-                      } else {
-                        // block to modify existing defect records
-                        mod.set(
-                          messageObject,
-                          `Existing Zone.${zone}.${defectName}.${subDefectName}`,
-                          filledDefects[defectName][subDefectName][zone]
-                        );
+                        if (result.rows.length == 0) {
+                          mod.set(
+                            messageObject,
+                            `New Zone.${zone}.${defectName}.${subDefectName}`,
+                            filledDefects[defectName][subDefectName][zone]
+                          );
+                        } else {
+                          // block to modify existing defect records
+                          mod.set(
+                            messageObject,
+                            `Existing Zone.${zone}.${defectName}.${subDefectName}`,
+                            filledDefects[defectName][subDefectName][zone]
+                          );
+                        }
                       }
-                    }
-                  )
-                );
-              }
-            )
-          );
-        })
-      );
-    }
+                    )
+                  );
+                }
+              )
+            );
+          })
+        );
+      }
 
-    storeManager().then(() => {
-      res.send(
-        JSON.stringify({
-          status: 'success',
-          data: messageObject,
-        })
-      );
-    });
+      storeManager().then(() => {
+        res.send(
+          JSON.stringify({
+            status: 'success',
+            data: messageObject,
+          })
+        );
+      });
+    }
   } catch (err) {
     console.log(err);
   }
@@ -1470,162 +1474,166 @@ app.post('/zonechecker', async (req, res) => {
 
 app.post('/receive-thirdLayer-temp', async (req, res) => {
   try {
-    const defectObj = req.body.defectObj;
-    mode = req.body.mode;
-    let filledDefects = {};
-    let currentDate = new Date();
-    const date =
-      String(currentDate.getFullYear()) +
-      '-' +
-      (currentDate.getMonth() + 1 <= 9
-        ? '0' + Number(currentDate.getMonth() + 1)
-        : Number(currentDate.getMonth() + 1)) +
-      '-' +
-      (currentDate.getDate() <= 9
-        ? '0' + Number(currentDate.getDate())
-        : Number(currentDate.getDate()));
+    if (username == ' ') {
+      res.redirect('/');
+    } else {
+      const defectObj = req.body.defectObj;
+      mode = req.body.mode;
+      let filledDefects = {};
+      let currentDate = new Date();
+      const date =
+        String(currentDate.getFullYear()) +
+        '-' +
+        (currentDate.getMonth() + 1 <= 9
+          ? '0' + Number(currentDate.getMonth() + 1)
+          : Number(currentDate.getMonth() + 1)) +
+        '-' +
+        (currentDate.getDate() <= 9
+          ? '0' + Number(currentDate.getDate())
+          : Number(currentDate.getDate()));
 
-    const time =
-      String(currentDate.getHours()) +
-      ':' +
-      String(currentDate.getMinutes()) +
-      ':' +
-      String(currentDate.getSeconds());
+      const time =
+        String(currentDate.getHours()) +
+        ':' +
+        String(currentDate.getMinutes()) +
+        ':' +
+        String(currentDate.getSeconds());
 
-    Object.keys(defectObj).map((defect) => {
-      let defectArray = defect.split('_');
-      defectArray[2] = `_${defectArray[2]}`;
-      mod.set(filledDefects, defectArray.join('.'), defectObj[defect]);
-    });
+      Object.keys(defectObj).map((defect) => {
+        let defectArray = defect.split('_');
+        defectArray[2] = `_${defectArray[2]}`;
+        mod.set(filledDefects, defectArray.join('.'), defectObj[defect]);
+      });
 
-    console.log('filledDefects:', filledDefects);
+      console.log('filledDefects:', filledDefects);
 
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
+      let dbConnectedPool = new Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'data_entry_systems',
+        password: 'admin',
+        port: 5432,
+      });
 
-    let messageObject = {};
+      let messageObject = {};
 
-    async function storeManager() {
-      // storing the defects or modifying
-      await Promise.all(
-        Object.keys(filledDefects).map(async (defectName) => {
-          await Promise.all(
-            Object.keys(filledDefects[defectName]).map(
-              async (subDefectName) => {
-                await Promise.all(
-                  Object.keys(filledDefects[defectName][subDefectName]).map(
-                    async (zone) => {
-                      const result = await dbConnectedPool.query(
-                        `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone = ${zone.replace(
-                          '_',
-                          ''
-                        )}`
-                      );
-                      if (result.rows.length == 0) {
-                        mod.set(
-                          messageObject,
-                          `Newly Saved Zone.${zone}.${defectName}.${subDefectName}`,
-                          filledDefects[defectName][subDefectName][zone]
-                        );
-                        // block to save defects record for the first time
-                        console.log(
-                          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
-                            '_',
-                            ''
-                          )},${
-                            filledDefects[defectName][subDefectName][zone]
-                          },'${date}','${time}','${username}');`
-                        );
-                        await dbConnectedPool.query(
-                          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
-                            '_',
-                            ''
-                          )},${
-                            filledDefects[defectName][subDefectName][zone]
-                          },'${date}','${time}','${username}');`
-                        );
-                      } else {
-                        // block to modify existing defect records
-                        mod.set(
-                          messageObject,
-                          `Overwritten Zone.${zone}.${defectName}.${subDefectName}`,
-                          filledDefects[defectName][subDefectName][zone]
-                        );
-
-                        console.log(
-                          `UPDATE defect_table SET defectCount=${
-                            filledDefects[defectName][subDefectName][zone]
-                          },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
+      async function storeManager() {
+        // storing the defects or modifying
+        await Promise.all(
+          Object.keys(filledDefects).map(async (defectName) => {
+            await Promise.all(
+              Object.keys(filledDefects[defectName]).map(
+                async (subDefectName) => {
+                  await Promise.all(
+                    Object.keys(filledDefects[defectName][subDefectName]).map(
+                      async (zone) => {
+                        const result = await dbConnectedPool.query(
+                          `SELECT * FROM defect_table WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone = ${zone.replace(
                             '_',
                             ''
                           )}`
                         );
-
-                        await dbConnectedPool.query(
-                          `UPDATE defect_table SET defectCount=${
+                        if (result.rows.length == 0) {
+                          mod.set(
+                            messageObject,
+                            `Newly Saved Zone.${zone}.${defectName}.${subDefectName}`,
                             filledDefects[defectName][subDefectName][zone]
-                          },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
-                            '_',
-                            ''
-                          )}`
-                        );
+                          );
+                          // block to save defects record for the first time
+                          console.log(
+                            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
+                              '_',
+                              ''
+                            )},${
+                              filledDefects[defectName][subDefectName][zone]
+                            },'${date}','${time}','${username}');`
+                          );
+                          await dbConnectedPool.query(
+                            `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,username) VALUES (${enteredBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
+                              '_',
+                              ''
+                            )},${
+                              filledDefects[defectName][subDefectName][zone]
+                            },'${date}','${time}','${username}');`
+                          );
+                        } else {
+                          // block to modify existing defect records
+                          mod.set(
+                            messageObject,
+                            `Overwritten Zone.${zone}.${defectName}.${subDefectName}`,
+                            filledDefects[defectName][subDefectName][zone]
+                          );
+
+                          console.log(
+                            `UPDATE defect_table SET defectCount=${
+                              filledDefects[defectName][subDefectName][zone]
+                            },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
+                              '_',
+                              ''
+                            )}`
+                          );
+
+                          await dbConnectedPool.query(
+                            `UPDATE defect_table SET defectCount=${
+                              filledDefects[defectName][subDefectName][zone]
+                            },date='${date}',time='${time}',username='${username}' WHERE body_number=${enteredBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
+                              '_',
+                              ''
+                            )}`
+                          );
+                        }
                       }
-                    }
-                  )
-                );
-              }
-            )
+                    )
+                  );
+                }
+              )
+            );
+          })
+        );
+
+        console.log(defectBodyNumberStatus);
+
+        if (defectBodyNumberStatus == 'newBodyNumber') {
+          console.log(
+            `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`
           );
-        })
-      );
-
-      console.log(defectBodyNumberStatus);
-
-      if (defectBodyNumberStatus == 'newBodyNumber') {
-        console.log(
-          `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`
-        );
-        dbConnectedPool.query(
-          `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`,
-          (error, result) => {
-            if (error) {
-              throw error;
-            } else {
-              // console.log('New Body Number', result);
+          dbConnectedPool.query(
+            `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${enteredBodyNumber},'Defect','${date}','${time}','${username}')`,
+            (error, result) => {
+              if (error) {
+                throw error;
+              } else {
+                // console.log('New Body Number', result);
+              }
             }
-          }
-        );
-        defectBodyNumberStatus = 'existingBodyNumber';
-      } else if (defectBodyNumberStatus == 'existingBodyNumber') {
-        console.log(
-          `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`
-        );
-        dbConnectedPool.query(
-          `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`,
-          (error, result) => {
-            if (error) {
-              throw error;
-            } else {
-              // console.log('Body Number Modified', result);
+          );
+          defectBodyNumberStatus = 'existingBodyNumber';
+        } else if (defectBodyNumberStatus == 'existingBodyNumber') {
+          console.log(
+            `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`
+          );
+          dbConnectedPool.query(
+            `UPDATE body_number_table SET time='${time}' WHERE body_number = '${enteredBodyNumber}' and date='${date}';`,
+            (error, result) => {
+              if (error) {
+                throw error;
+              } else {
+                // console.log('Body Number Modified', result);
+              }
             }
-          }
-        );
+          );
+        }
       }
-    }
 
-    storeManager().then(() => {
-      res.send(
-        JSON.stringify({
-          status: 'success',
-          data: messageObject,
-        })
-      );
-    });
+      storeManager().then(() => {
+        res.send(
+          JSON.stringify({
+            status: 'success',
+            data: messageObject,
+          })
+        );
+      });
+    }
   } catch (err) {
     console.log(err);
   }
@@ -1633,26 +1641,30 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
 
 app.get('/filter', async (req, res) => {
   try {
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
+    if (username == ' ') {
+      res.redirect('/');
+    } else {
+      let dbConnectedPool = new Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'data_entry_systems',
+        password: 'admin',
+        port: 5432,
+      });
 
-    const response = await dbConnectedPool.query(
-      `SELECT * FROM employee_table WHERE id=${emp_ID};`
-    );
+      const response = await dbConnectedPool.query(
+        `SELECT * FROM employee_table WHERE id=${emp_ID};`
+      );
 
-    const accessibleReport = response.rows[0].accessible_charts;
-    const emp_Status = response.rows[0].status;
+      const accessibleReport = response.rows[0].accessible_charts;
+      const emp_Status = response.rows[0].status;
 
-    res.render(path.join(__dirname, '/views/adminLaundingPage.ejs'), {
-      username,
-      accessibleReport,
-      emp_Status,
-    });
+      res.render(path.join(__dirname, '/views/adminLaundingPage.ejs'), {
+        username,
+        accessibleReport,
+        emp_Status,
+      });
+    }
   } catch (err) {
     console.log(err);
   }
@@ -1710,33 +1722,39 @@ app.post('/updateEmpChartAccess', async (req, res) => {
 
 app.get('/admin', async (req, res) => {
   try {
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
+    if (username == ' ') {
+      res.redirect('/');
+    } else {
+      let dbConnectedPool = new Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'data_entry_systems',
+        password: 'admin',
+        port: 5432,
+      });
 
-    let response = await dbConnectedPool.query('SELECT * FROM employee_table');
+      let response = await dbConnectedPool.query(
+        'SELECT * FROM employee_table'
+      );
 
-    const employeeRecords = response.rows.sort((r1, r2) =>
-      r1.id > r2.id ? 1 : r1.id < r2.id ? -1 : 0
-    );
+      const employeeRecords = response.rows.sort((r1, r2) =>
+        r1.id > r2.id ? 1 : r1.id < r2.id ? -1 : 0
+      );
 
-    const response2 = await dbConnectedPool.query(
-      `SELECT * FROM employee_table WHERE id=${emp_ID};`
-    );
+      const response2 = await dbConnectedPool.query(
+        `SELECT * FROM employee_table WHERE id=${emp_ID};`
+      );
 
-    const emp_ChartAccess = response2.rows[0].accessible_charts;
-    const emp_Status = response2.rows[0].status;
+      const emp_ChartAccess = response2.rows[0].accessible_charts;
+      const emp_Status = response2.rows[0].status;
 
-    res.render(path.join(__dirname, '/views/adminPage.ejs'), {
-      username,
-      employeeRecords,
-      emp_ChartAccess,
-      emp_Status,
-    });
+      res.render(path.join(__dirname, '/views/adminPage.ejs'), {
+        username,
+        employeeRecords,
+        emp_ChartAccess,
+        emp_Status,
+      });
+    }
   } catch (err) {
     console.log(err);
   }
