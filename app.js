@@ -1375,7 +1375,7 @@ app.post('/thirdlayer', (req, res) => {
 
 app.post('/zonechecker', async (req, res) => {
   try {
-    if ((username = ' ')) {
+    if (username == ' ') {
       res.redirect('/');
     } else {
       const defectObj = req.body.defectObj;
