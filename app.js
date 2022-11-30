@@ -1085,26 +1085,30 @@ app.post('/newUser', async (req, res) => {
 
 app.get('/follower', async (req, res) => {
   try {
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
+    if (username == '' || emp_ID == '') {
+      res.redirect('/');
+    } else {
+      let dbConnectedPool = new Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'data_entry_systems',
+        password: 'admin',
+        port: 5432,
+      });
 
-    const response = await dbConnectedPool.query(
-      `SELECT * FROM employee_table WHERE id=${emp_ID};`
-    );
+      const response = await dbConnectedPool.query(
+        `SELECT * FROM employee_table WHERE id=${emp_ID};`
+      );
 
-    const emp_Status = response.rows[0].status;
-    const emp_ChartAccess = response.rows[0].accessible_charts;
+      const emp_Status = response.rows[0].status;
+      const emp_ChartAccess = response.rows[0].accessible_charts;
 
-    res.render(path.join(__dirname, '/views/follower.ejs'), {
-      username,
-      emp_Status,
-      emp_ChartAccess,
-    });
+      res.render(path.join(__dirname, '/views/follower.ejs'), {
+        username,
+        emp_Status,
+        emp_ChartAccess,
+      });
+    }
   } catch (err) {
     console.log(err);
   }
@@ -1112,61 +1116,65 @@ app.get('/follower', async (req, res) => {
 
 app.post('/bodyNumber', (req, res) => {
   try {
-    const enteredBodyNumberValue = req.body.enteredBodyNumberValue;
+    if (username == '') {
+      res.redirect('/');
+    } else {
+      const enteredBodyNumberValue = req.body.enteredBodyNumberValue;
 
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
+      let dbConnectedPool = new Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'data_entry_systems',
+        password: 'admin',
+        port: 5432,
+      });
 
-    // console.log(
-    //   `SELECT * FROM body_number_table WHERE body_number=${enteredBodyNumberValue};`
-    // );
+      // console.log(
+      //   `SELECT * FROM body_number_table WHERE body_number=${enteredBodyNumberValue};`
+      // );
 
-    let currentDate = new Date();
+      let currentDate = new Date();
 
-    const date =
-      String(currentDate.getFullYear()) +
-      '-' +
-      (currentDate.getMonth() + 1 <= 9
-        ? '0' + Number(currentDate.getMonth() + 1)
-        : Number(currentDate.getMonth() + 1)) +
-      '-' +
-      (currentDate.getDate() <= 9
-        ? '0' + Number(currentDate.getDate())
-        : Number(currentDate.getDate()));
+      const date =
+        String(currentDate.getFullYear()) +
+        '-' +
+        (currentDate.getMonth() + 1 <= 9
+          ? '0' + Number(currentDate.getMonth() + 1)
+          : Number(currentDate.getMonth() + 1)) +
+        '-' +
+        (currentDate.getDate() <= 9
+          ? '0' + Number(currentDate.getDate())
+          : Number(currentDate.getDate()));
 
-    dbConnectedPool.query(
-      `SELECT * FROM body_number_table WHERE body_number=${enteredBodyNumberValue} and date ='${date}';`,
-      (error, result) => {
-        if (error) {
-          console.log(error);
-        } else {
-          if (result.rows.length == 0) {
-            let response = {
-              status: 'success',
-              data: [],
-            };
-
-            // console.log(JSON.stringify(response));
-
-            res.send(JSON.stringify(response));
+      dbConnectedPool.query(
+        `SELECT * FROM body_number_table WHERE body_number=${enteredBodyNumberValue} and date ='${date}';`,
+        (error, result) => {
+          if (error) {
+            console.log(error);
           } else {
-            let response = {
-              status: 'success',
-              data: result.rows,
-            };
+            if (result.rows.length == 0) {
+              let response = {
+                status: 'success',
+                data: [],
+              };
 
-            // console.log(JSON.stringify(response));
+              // console.log(JSON.stringify(response));
 
-            res.end(JSON.stringify(response));
+              res.send(JSON.stringify(response));
+            } else {
+              let response = {
+                status: 'success',
+                data: result.rows,
+              };
+
+              // console.log(JSON.stringify(response));
+
+              res.end(JSON.stringify(response));
+            }
           }
         }
-      }
-    );
+      );
+    }
   } catch (err) {
     console.log(err);
   }
@@ -1174,57 +1182,61 @@ app.post('/bodyNumber', (req, res) => {
 
 app.post('/passcar', (req, res) => {
   try {
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
+    if (username == '') {
+      res.redirect('/');
+    } else {
+      let dbConnectedPool = new Pool({
+        user: 'postgres',
+        host: 'localhost',
+        database: 'data_entry_systems',
+        password: 'admin',
+        port: 5432,
+      });
 
-    let currentDate = new Date();
-    const date =
-      String(currentDate.getFullYear()) +
-      '-' +
-      (currentDate.getMonth() + 1 <= 9
-        ? '0' + Number(currentDate.getMonth() + 1)
-        : Number(currentDate.getMonth() + 1)) +
-      '-' +
-      (currentDate.getDate() <= 9
-        ? '0' + Number(currentDate.getDate())
-        : Number(currentDate.getDate()));
+      let currentDate = new Date();
+      const date =
+        String(currentDate.getFullYear()) +
+        '-' +
+        (currentDate.getMonth() + 1 <= 9
+          ? '0' + Number(currentDate.getMonth() + 1)
+          : Number(currentDate.getMonth() + 1)) +
+        '-' +
+        (currentDate.getDate() <= 9
+          ? '0' + Number(currentDate.getDate())
+          : Number(currentDate.getDate()));
 
-    const time =
-      String(currentDate.getHours()) +
-      ':' +
-      String(currentDate.getMinutes()) +
-      ':' +
-      String(currentDate.getSeconds());
+      const time =
+        String(currentDate.getHours()) +
+        ':' +
+        String(currentDate.getMinutes()) +
+        ':' +
+        String(currentDate.getSeconds());
 
-    bodyNumber = req.body.bodyNumber;
-    bodyNumberStatus = req.body.bodyNumberStatus;
+      bodyNumber = req.body.bodyNumber;
+      bodyNumberStatus = req.body.bodyNumberStatus;
 
-    if (bodyNumberStatus == 'newBodyNumber') {
-      console.log(
-        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}','${username}')`
-      );
-      dbConnectedPool.query(
-        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}','${username}')`,
-        (error, result) => {
-          if (error) {
-            throw error;
-          } else {
-            // console.log('New Body Number', result);
+      if (bodyNumberStatus == 'newBodyNumber') {
+        console.log(
+          `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}','${username}')`
+        );
+        dbConnectedPool.query(
+          `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}','${username}')`,
+          (error, result) => {
+            if (error) {
+              throw error;
+            } else {
+              // console.log('New Body Number', result);
+            }
           }
-        }
-      );
+        );
+      }
+
+      let response = {
+        status: 'success',
+      };
+
+      res.end(JSON.stringify(response));
     }
-
-    let response = {
-      status: 'success',
-    };
-
-    res.end(JSON.stringify(response));
   } catch (err) {
     console.log(err);
   }
@@ -1232,17 +1244,21 @@ app.post('/passcar', (req, res) => {
 
 app.post('/firstlayer', (req, res) => {
   try {
-    if (Object.keys(req.body).length > 0) {
-      enteredBodyNumber = req.body.bodyNumber;
-      defectBodyNumberStatus = req.body.bodyNumberStatus;
-    }
+    if (username == ' ') {
+      res.redirect('/');
+    } else {
+      if (Object.keys(req.body).length > 0) {
+        enteredBodyNumber = req.body.bodyNumber;
+        defectBodyNumberStatus = req.body.bodyNumberStatus;
+      }
 
-    bodyNumberOptions = Object.keys(Options);
-    res.render(path.join(__dirname, '/views/firstLayer.ejs'), {
-      username,
-      enteredBodyNumber,
-      bodyNumberOptions: bodyNumberOptions,
-    });
+      bodyNumberOptions = Object.keys(Options);
+      res.render(path.join(__dirname, '/views/firstLayer.ejs'), {
+        username,
+        enteredBodyNumber,
+        bodyNumberOptions: bodyNumberOptions,
+      });
+    }
   } catch (err) {
     console.log(err);
   }
@@ -1250,19 +1266,25 @@ app.post('/firstlayer', (req, res) => {
 
 app.post('/secondlayer', (req, res) => {
   try {
-    if (Object.keys(req.body).length > 0) {
-      selectedCategory = req.body.selectedCategory;
-      mode = req.body.mode;
+    if (username == ' ') {
+      res.redirect('/');
+    } else if (enteredBodyNumber == 0) {
+      res.redirect('/follower');
+    } else {
+      if (Object.keys(req.body).length > 0) {
+        selectedCategory = req.body.selectedCategory;
+        mode = req.body.mode;
+      }
+      const categoryOptions = Options[selectedCategory];
+      let ShortlistedCategoryOptions = Object.keys(categoryOptions);
+      res.render(path.join(__dirname, '/views/secondLayer.ejs'), {
+        username,
+        enteredBodyNumber,
+        selectedCategory,
+        ShortlistedCategoryOptions,
+        mode,
+      });
     }
-    const categoryOptions = Options[selectedCategory];
-    let ShortlistedCategoryOptions = Object.keys(categoryOptions);
-    res.render(path.join(__dirname, '/views/secondLayer.ejs'), {
-      username,
-      enteredBodyNumber,
-      selectedCategory,
-      ShortlistedCategoryOptions,
-      mode,
-    });
   } catch (err) {
     console.log(err);
   }
@@ -1270,76 +1292,82 @@ app.post('/secondlayer', (req, res) => {
 
 app.post('/thirdlayer', (req, res) => {
   try {
-    if (Object.keys(req.body).length > 0) {
-      selectedSubCategory = req.body.selectedSubCategory;
-      mode = req.body.mode;
+    if (username == ' ') {
+      res.redirect('/');
+    } else if (enteredBodyNumber == 0) {
+      res.redirect('/follower');
+    } else {
+      if (Object.keys(req.body).length > 0) {
+        selectedSubCategory = req.body.selectedSubCategory;
+        mode = req.body.mode;
+      }
+
+      var SubCategoryOptions = Options[selectedCategory];
+      SubCategoryOptions = SubCategoryOptions[selectedSubCategory];
+
+      ShortlistedSubCategoryOptions = SubCategoryOptions;
+      const defectObject = {
+        surface: {
+          name: 'Surface',
+          subdefects: {
+            dent: 'Dent',
+            bump: 'Bump',
+            burrs: 'Burrs',
+            spatters: 'Spatters',
+            others: 'Others',
+          },
+        },
+        bodyFitting: {
+          name: 'Body Fitting',
+          subdefects: {
+            'body-fitting-1': 'Body Fitting 1',
+            'body-fitting-2': 'Body Fitting 2',
+            'body-fitting-others': 'Body Fitting Others',
+          },
+        },
+        missingWrongPart: {
+          name: 'Missing & Wrong Part',
+          subdefects: {
+            'missing-part': 'Missing Part',
+            'wrong-part': 'Wrong Part',
+          },
+        },
+        welding: {
+          name: 'Welding',
+          subdefects: {
+            'welding-part-1': 'Welding Part 1',
+            'welding-part-2': 'Welding Part 2',
+            'welding-part-3': 'Welding Part 3',
+            'welding-part-others': 'Welding Part Others',
+          },
+        },
+        waterLeak: {
+          name: 'Water Leak',
+          subdefects: {
+            'water-leak-1': 'Water Leak 1',
+            'water-leak-2': 'Water Leak 2',
+            'water-leak-others': 'Water Leak Others',
+          },
+        },
+      };
+
+      let categoryId = selectedCategory.replace(/ /g, '_');
+      let subcategoryId = selectedSubCategory.replace(/ /g, '');
+
+      console.log(`${categoryId}_${subcategoryId}`);
+
+      res.render(path.join(__dirname, '/views/thirdLayer.ejs'), {
+        username,
+        enteredBodyNumber,
+        selectedCategory,
+        selectedSubCategory,
+        defectObject,
+        ShortlistedSubCategoryOptions,
+        categoryId,
+        subcategoryId,
+        mode,
+      });
     }
-
-    var SubCategoryOptions = Options[selectedCategory];
-    SubCategoryOptions = SubCategoryOptions[selectedSubCategory];
-
-    ShortlistedSubCategoryOptions = SubCategoryOptions;
-    const defectObject = {
-      surface: {
-        name: 'Surface',
-        subdefects: {
-          dent: 'Dent',
-          bump: 'Bump',
-          burrs: 'Burrs',
-          spatters: 'Spatters',
-          others: 'Others',
-        },
-      },
-      bodyFitting: {
-        name: 'Body Fitting',
-        subdefects: {
-          'body-fitting-1': 'Body Fitting 1',
-          'body-fitting-2': 'Body Fitting 2',
-          'body-fitting-others': 'Body Fitting Others',
-        },
-      },
-      missingWrongPart: {
-        name: 'Missing & Wrong Part',
-        subdefects: {
-          'missing-part': 'Missing Part',
-          'wrong-part': 'Wrong Part',
-        },
-      },
-      welding: {
-        name: 'Welding',
-        subdefects: {
-          'welding-part-1': 'Welding Part 1',
-          'welding-part-2': 'Welding Part 2',
-          'welding-part-3': 'Welding Part 3',
-          'welding-part-others': 'Welding Part Others',
-        },
-      },
-      waterLeak: {
-        name: 'Water Leak',
-        subdefects: {
-          'water-leak-1': 'Water Leak 1',
-          'water-leak-2': 'Water Leak 2',
-          'water-leak-others': 'Water Leak Others',
-        },
-      },
-    };
-
-    let categoryId = selectedCategory.replace(/ /g, '_');
-    let subcategoryId = selectedSubCategory.replace(/ /g, '');
-
-    console.log(`${categoryId}_${subcategoryId}`);
-
-    res.render(path.join(__dirname, '/views/thirdLayer.ejs'), {
-      username,
-      enteredBodyNumber,
-      selectedCategory,
-      selectedSubCategory,
-      defectObject,
-      ShortlistedSubCategoryOptions,
-      categoryId,
-      subcategoryId,
-      mode,
-    });
   } catch (err) {
     console.log(err);
   }
