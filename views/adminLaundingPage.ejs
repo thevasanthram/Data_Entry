@@ -806,14 +806,23 @@
 
         // sorting majorSubDefectsDataInAllGroup.data in descending based on no of zones
         let sortedMajorSubDefectsDataInAllGroup= JSON.parse(JSON.stringify(majorSubDefectsDataInAllGroup.data))
+        let majorSubDefectsDataInAllGroupCount = JSON.parse(JSON.stringify(majorSubDefectsDataInAllGroup.data))
 
         Object.keys(majorSubDefectsDataInAllGroup.data).map( (groupName) => {
-          // counting no of zones in each subCategory
+          // counting defectCount in each subCategory
           Object.keys(majorSubDefectsDataInAllGroup.data[groupName]).map( (subCategoryName) =>{
-            sortedMajorSubDefectsDataInAllGroup[groupName][subCategoryName] = sortedMajorSubDefectsDataInAllGroup[groupName][subCategoryName].length;
+            // sortedMajorSubDefectsDataInAllGroup[groupName][subCategoryName] = sortedMajorSubDefectsDataInAllGroup[groupName][subCategoryName].length;
+            let subCategoryCount = 0
+            Object.keys(majorSubDefectsDataInAllGroup.data[groupName][subCategoryName]).map( (zone) => {
+              subCategoryCount += majorSubDefectsDataInAllGroup.data[groupName][subCategoryName][zone]
+            })
+            majorSubDefectsDataInAllGroupCount[groupName][subCategoryName] = subCategoryCount
           })
-          // sorting based on Zone Count & storing it in duplicate Obj
-          sortedMajorSubDefectsDataInAllGroup[groupName] = Object.entries(sortedMajorSubDefectsDataInAllGroup[groupName])
+        })
+
+        // sorting
+        Object.keys(majorSubDefectsDataInAllGroupCount).map( (groupName) => {
+          majorSubDefectsDataInAllGroupCount[groupName] = Object.entries(majorSubDefectsDataInAllGroupCount[groupName])
             .sort(([, a], [, b]) => b - a)
             .reduce(
               (r, [k, v]) => ({
@@ -822,21 +831,13 @@
               }),
               {}
             )
-          // arranging the data in original obj by referrring sorted duplicate Obj
+          
           let temp = {}
-          Object.keys(sortedMajorSubDefectsDataInAllGroup[groupName]).map( (subCategoryName) => {
+          Object.keys(majorSubDefectsDataInAllGroupCount[groupName]).map( (subCategoryName) => {
             temp[subCategoryName] = majorSubDefectsDataInAllGroup.data[groupName][subCategoryName]
           })
           majorSubDefectsDataInAllGroup.data[groupName] = temp
         })
-
-        // const array = [
-        //   { y: 3, label: "Dent" },
-        //   { y: 0,  label: "Bump" },
-        //   { y: 0,  label: "Burrs" },
-        //   { y: 0,  label: "Spatters" },
-        //   { y: 0,  label: "Others" },
-        // ]
 
         const labelSetForMajorDefects = []
         const labelSetForMajorDefectsTitle = Object.values(majorDefectsInAllGroup)
@@ -848,7 +849,7 @@
           labelSetForMajorDefects.push(tempArr)
         } )
 
-        console.log('labelSetForMajorDefects: ', labelSetForMajorDefects)
+        // console.log('labelSetForMajorDefects: ', labelSetForMajorDefects)
 
         // console.log('Total DPV: ', horizontalTotalDPV)
         // console.log('Category wise: ', individualDefectTotal)
@@ -1180,7 +1181,7 @@
               dataPoints: dataPoints
             })
           })
-          console.log('singleGroupChartMainData: ',singleGroupChartMainData);
+          // console.log('singleGroupChartMainData: ',singleGroupChartMainData);
 
           groupWiseMajorSubDefectChart.push(new CanvasJS.Chart(groupWiseMajorSubDefectChartDivision.id, {
             animationEnabled: true,
