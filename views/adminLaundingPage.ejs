@@ -836,6 +836,12 @@
           Object.keys(majorSubDefectsDataInAllGroupCount[groupName]).map( (subCategoryName) => {
             temp[subCategoryName] = majorSubDefectsDataInAllGroup.data[groupName][subCategoryName]
           })
+          let nTopMaster = 5;
+            // having only top zone, deleting others
+          let exceptnTopCategory = Object.keys(temp).filter(x => !Object.keys(temp).slice(0,nTopMaster).includes(x))
+          exceptnTopCategory.map( (subCategoryName) => {
+            delete temp[subCategoryName]
+          })
           majorSubDefectsDataInAllGroup.data[groupName] = temp
         })
 
