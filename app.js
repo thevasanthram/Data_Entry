@@ -2265,6 +2265,8 @@ app.post('/colorMap', async (req, res) => {
     });
     // console.log('color Map dataFetcher', dataFetcher);
 
+    delete dataFetcher[''];
+
     let response = {
       message: 'success',
       data: dataFetcher,
