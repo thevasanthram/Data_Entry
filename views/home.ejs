@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
     <link rel="icon" href="diagram.png" type="image/icon type" />
-    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
@@ -113,7 +113,10 @@
           </div>
         </div>
       </div>
-      <form action="/follower" id="followerForm" method="get"></form>
+      <form action="/follower" id="followerForm" method="post">
+        <input type="hidden" id="currentUser" name="currentUser" value="" />
+        <input type="hidden" id="currentEmpID" name="currentEmpID" value="" />
+      </form>
       <form action="/addUser" id="firstUserForm" method="post">
         <input type="hidden" name="firstUser" value="true" />
       </form>
@@ -163,6 +166,8 @@
             if (data.userStatus == 'First User') {
               document.getElementById('firstUserForm').submit();
             } else {
+              document.getElementById('currentUser').value = data.username;
+              document.getElementById('currentEmpID').value = data.emp_ID;
               document.getElementById('followerForm').submit();
             }
           }

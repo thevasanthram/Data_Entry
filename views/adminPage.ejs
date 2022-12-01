@@ -27,7 +27,7 @@
           <div class="heading">Data Entry System</div>
         </div>
           <form id="btn" action="/logout" method="get">
-              <div class="admin" id="user-mode-name"><%= username %></div>
+              <div class="admin" id="user-mode-name"><%= currentUser %></div>
               <button type="submit"
               style="background: linear-gradient(
                 to right, #0f0c29, #302b63, #24243e 
@@ -352,9 +352,48 @@
         </div>
       </div>
 
-      <form action="/filter" id="filterForm" method="get"></form>
-      <form action="/follower" id="followerForm" method="get"></form>
-      <form action="/admin" id="adminForm" method="get"></form>
+      <form action="/filter" id="filterForm" method="post">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
+      <form action="/follower" id="followerForm" method="post">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
+      <form action="/admin" id="adminForm" method="get">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
     </div>
     <script>
 

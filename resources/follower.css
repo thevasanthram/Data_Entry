@@ -161,10 +161,11 @@ select {
 #body-number-pass-button:hover {
   transform: scale(0.97);
 }
-*/ #message-content {
+#message-content {
   position: relative;
   color: rgb(249, 28, 28);
   margin-left: 40.5%;
+  font-size: large;
   font-style: italic;
 }
 
@@ -462,7 +463,14 @@ select {
     text-align: center;
     margin-left: 48px;
   }
-
+  #message-content {
+    position: relative;
+    color: rgb(249, 28, 28);
+    right: 16%;
+    top: 5%;
+    font-style: italic;
+    font-size: large;
+  }
   #SMTopicElemet {
     color: rgb(255, 255, 255);
     margin-left: 4%;

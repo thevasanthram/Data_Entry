@@ -31,7 +31,7 @@
         </div>
 
         <form id="btn" action="/logout" method="get">
-          <div class="admin" id="user-mode-name"><%= username %></div>
+          <div class="admin" id="user-mode-name"><%= currentUser %></div>
           <button
             type="submit"
             style="
@@ -71,8 +71,34 @@
         </div>
       </div>
 
-      <form action="/filter" id="filterFrom"></form>
-      <form action="/admin" id="adminForm"></form>
+      <form action="/filter" method="post" id="filterFrom">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
+      <form action="/admin" method="post" id="adminForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
 
       <div class="form-content">
         <form action="/firstlayer" method="post" id="bodyNumberForm">
@@ -91,6 +117,14 @@
             name="bodyNumberStatus"
             value=""
             id="bodyNumberStatus"
+          />
+          <input type="hidden" id="currentUser" name="currentUser" value="" />
+          <input type="hidden" id="currentEmpID" name="currentEmpID" value="" />
+          <input
+            type="hidden"
+            id="currentBodyNumber"
+            name="currentBodyNumber"
+            value=""
           />
           <button
             id="body-number-enter-button"
@@ -251,8 +285,7 @@
             'Content-type': 'application/json',
           },
           body: JSON.stringify({
-            enteredBodyNumberValue:
-              document.getElementById('bodyNumberfield').value,
+            currentBodyNumber: document.getElementById('bodyNumberfield').value,
           }),
         })
           .then((response) => response.json())
@@ -262,6 +295,8 @@
             if (data.data.length == 0) {
               document.getElementById('bodyNumberStatus').value =
                 'newBodyNumber';
+              document.getElementById('currentBodyNumber').value =
+                document.getElementById('bodyNumberfield').value;
               BodyNumberform.submit();
             } else {
               if (data.data[0].status == 'No Defect') {
@@ -273,6 +308,8 @@
               } else {
                 document.getElementById('bodyNumberStatus').value =
                   'existingBodyNumber';
+                document.getElementById('currentBodyNumber').value =
+                  document.getElementById('bodyNumberfield').value;
                 BodyNumberform.submit();
               }
             }
@@ -291,8 +328,7 @@
             'Content-type': 'application/json',
           },
           body: JSON.stringify({
-            enteredBodyNumberValue:
-              document.getElementById('bodyNumberfield').value,
+            currentBodyNumber: document.getElementById('bodyNumberfield').value,
           }),
         })
           .then((response) => response.json())
@@ -338,6 +374,7 @@
           body: JSON.stringify({
             bodyNumber: bodyNumberValue,
             bodyNumberStatus: bodyNumberStatus,
+            currentUser: '<%= currentUser %>',
           }),
         })
           .then((response) => response.json())

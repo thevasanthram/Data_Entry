@@ -12,7 +12,7 @@ body {
   height: 100%;
   font-family: 'Raleway', sans-serif;
   /* font-size: 14px; */
-  color: #EEEEEE;
+  color: #eeeeee;
   background-color: #222831;
   background-size: cover;
 }
@@ -25,7 +25,7 @@ body {
   align-items: center;
   justify-content: space-between;
   background-color: #393e46;
-  color: #EEEEEE;
+  color: #eeeeee;
 }
 .admin {
   color: #00adb5;
@@ -61,7 +61,7 @@ body {
 }
 .wrapper {
   /* background: linear-gradient(to right, #4ca1af, #2c3e50); */
-  background-color: #393E46;
+  background-color: #393e46;
   padding-right: 1em;
   padding-left: 1em;
   border-radius: 14px;
@@ -107,7 +107,7 @@ header h2 {
 form {
   border-top: 2px solid rgba(45, 57, 69);
   margin-top: 2px;
-  padding:2px;
+  padding: 2px;
 }
 
 #user-id-mode-name {
@@ -126,7 +126,7 @@ fieldset {
 fieldset legend {
   font-size: 1.65em;
   font-weight: bold;
-  padding-bottom: 0.75em;
+  padding-bottom: 0em;
 }
 
 .contact-info label {
@@ -175,8 +175,6 @@ textarea:focus {
 #email:focus {
   border: 2px solid #ff7463;
 }
-
-
 
 #createUserButton:hover {
   opacity: 0.8;
@@ -268,7 +266,6 @@ select {
   } */
 }
 @media screen and (min-width: 760px) {
-
   .wrapper {
     max-width: 685px;
   }
@@ -297,8 +294,7 @@ select {
     padding-bottom: 2px;
   }
 }
- @media screen and (max-width: 481px) {
-
+@media screen and (max-width: 481px) {
   .header {
     min-width: 100%;
     display: flex;
@@ -315,7 +311,6 @@ select {
     padding-left: 1%;
     font-weight: 700;
     font-size: clamp(19px, 0.8vw, 1.5rem);
-    
   }
 
   #btn {
@@ -335,7 +330,7 @@ select {
 
   .button-logout {
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-    width: 60px;   
+    width: 60px;
     height: 30px;
     display: flex;
     align-items: center;
@@ -351,4 +346,4 @@ select {
     display: inline-block;
     width: 40%;
   }
- }
+}

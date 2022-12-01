@@ -23,10 +23,10 @@
           onclick="document.getElementById('followerForm').submit();"
         />
           <div class="heading">Data Entry System</div>
-          <p class="selected-message">Body Number : <%= enteredBodyNumber %> | Category : <%= selectedCategory %></p>
+          <p class="selected-message">Body Number : <%= currentBodyNumber %> | Category : <%= selectedCategory %></p>
         </div>
         <form id="btn" action="/logout" method="get">
-          <div class="admin" id="user-mode-name"><%= username %></div>
+          <div class="admin" id="user-mode-name"><%= currentUser %></div>
           <button
             type="submit"
             style="
@@ -67,45 +67,6 @@
         </div>
       </div>
     </div>
-      <!-- <div id="title-name-content">
-        <div>
-          <div class="sub_container">
-            <img
-              src="./arrow.png"
-              title="Back"
-              id="go-back-icon"
-              alt="Go Back"
-              onclick="document.getElementById('firstLayerForm').submit();"
-            />
-            <p id="title-name">Select Sub-Category :</p>
-          </div>
-        </div>
-        
-        <label
-          for="toggle_switch"
-          class="flex items-center cursor-pointer"
-          style="flex-direction: column"
-        >
-          <div class="relative">
-            <input
-              type="checkbox"
-              id="toggle_switch"
-              class="sr-only mode"
-              onclick="dynamicText()"
-            />
-            <div class="block bg-gray-300 w-14 h-8 rounded-full"></div>
-            <div
-              class="dot absolute left-1 top-1 mr-4 bg-white w-6 h-6 rounded-full transition"
-            ></div>
-          </div>
-          <div
-            id="mode_status"
-            class="ml-32 -mt-2 text-gray-300 font-medium text-2xl modeName"
-          >
-            Online
-          </div>
-        </label>
-      </div> -->
       <div class="main-content">
         <% for(let i = 0 ; i < ShortlistedCategoryOptions.length ; i++){ %>
           <button
@@ -122,8 +83,46 @@
         </form>
         <%}%>
       </div>
-      <form action="/follower" method="get" id="followerForm"></form>
-      <form action="/firstlayer" method="post" id="firstLayerForm"></form>
+      <form action="/follower" method="post" id="followerForm">
+        <input
+            type="hidden"
+            id="currentUser"
+            name="currentUser"
+            value="<%= currentUser %>"
+          />
+          <input
+            type="hidden"
+            id="currentEmpID"
+            name="currentEmpID"
+            value="<%= currentEmpID %>"
+          />
+      </form>
+      <form action="/firstlayer" method="post" id="firstLayerForm">
+        <input
+            type="hidden"
+            id="currentUser"
+            name="currentUser"
+            value="<%= currentUser %>"
+          />
+          <input
+            type="hidden"
+            id="currentEmpID"
+            name="currentEmpID"
+            value="<%= currentEmpID %>"
+          />
+          <input
+            type="hidden"
+            id="currentBodyNumber"
+            name="currentBodyNumber"
+            value="<%= currentBodyNumber %>"
+          />
+          <input
+            type="hidden"
+            id="defectBodyNumberStatus"
+            name="defectBodyNumberStatus"
+            value="<%= defectBodyNumberStatus %>"
+          />
+      </form>
       <form action="/thirdlayer" method="post" id="secondLayerForm">
         <input
           type="hidden"
@@ -131,10 +130,26 @@
           id="selectedSubCategory"
           value=""
         />
+        <input type="hidden" id="currentUser" name="currentUser" value="<%= currentUser %>" />
+        <input type="hidden" id="currentEmpID" name="currentEmpID" value="<%= currentEmpID %>" />
+        <input type="hidden" id="currentBodyNumber" name="currentBodyNumber" value="<%= currentBodyNumber %>" />
+        <input
+          type="hidden"
+          id="defectBodyNumberStatus"
+          name="defectBodyNumberStatus"
+          value="<%= defectBodyNumberStatus %>"
+        />
+        <input
+          type="hidden"
+          id="selectedCategory"
+          name="selectedCategory"
+          value="<%= selectedCategory %>"
+        />
         <input type="hidden" name="mode" id="mode" value="" />
       </form>
     </div>
     <script>
+
       modeDOM = document.getElementsByClassName('mode')[0];
       if('<%= mode %>' == 'online'){
         modeDOM.checked = true;

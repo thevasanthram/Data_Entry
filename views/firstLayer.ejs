@@ -10,7 +10,7 @@
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <script  src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- <script src="../resources/tailwind.config.js"></script> -->
   </head>
   <body>
@@ -25,10 +25,10 @@
             onclick="document.getElementById('followerForm').submit();"
           />
           <div class="heading">Data Entry System</div>
-          <p class="selected-message">Body Number : <%= enteredBodyNumber %></p>
+          <p class="selected-message">Body Number : <%= currentBodyNumber %></p>
         </div>
         <form id="btn" action="/logout" method="get">
-          <div class="admin" id="user-mode-name"><%= username %></div>
+          <div class="admin" id="user-mode-name"><%= currentUser %></div>
           <button
             type="submit"
             style="
@@ -41,28 +41,41 @@
         </form>
       </div>
       <div id="title-name-content">
-          <div class="sub_container">
-            <img
-              src="./arrow.png"
-              title="Back"
-              id="go-back-icon"
-              alt="Go Back"
-              onclick="document.getElementById('followerForm').submit();"
-            />
-            <p id="title-name">Select Category :</p>
-          </div>
+        <div class="sub_container">
+          <img
+            src="./arrow.png"
+            title="Back"
+            id="go-back-icon"
+            alt="Go Back"
+            onclick="document.getElementById('followerForm').submit();"
+          />
+          <p id="title-name">Select Category :</p>
+        </div>
         <!-- Toggle Switch for online / offline -->
-        <div id="toggle" class="mt-10 ml-24" >
-          <div class="flex w-full mb-12"> 
-            <label id="label_switch" for="toggle_switch" class="flex items-center cursor-pointer"
-            style="justify-content:center ;">
+        <div id="toggle" class="mt-10 ml-24">
+          <div class="flex w-full mb-12">
+            <label
+              id="label_switch"
+              for="toggle_switch"
+              class="flex items-center cursor-pointer"
+              style="justify-content: center"
+            >
               <div class="relative">
-                <input type="checkbox" id="toggle_switch" class="sr-only mode" onclick="dynamicText()">
+                <input
+                  type="checkbox"
+                  id="toggle_switch"
+                  class="sr-only mode"
+                  onclick="dynamicText()"
+                />
                 <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
-                <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+                <div
+                  class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"
+                ></div>
               </div>
-              <div class="ml-2 text-gray-300 font-medium text-2xl "
-              id="mode_status">
+              <div
+                class="ml-2 text-gray-300 font-medium text-2xl"
+                id="mode_status"
+              >
                 Online
               </div>
             </label>
@@ -81,13 +94,50 @@
         </button>
         <%}%>
       </div>
-      <form action="/follower" method="get" id="followerForm"></form>
+      <form action="/follower" method="post" id="followerForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
       <form action="/secondlayer" method="post" id="firstLayerForm">
         <input
           type="hidden"
           name="selectedCategory"
           id="selectedCategory"
           value=""
+        />
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="currentBodyNumber"
+          name="currentBodyNumber"
+          value="<%= currentBodyNumber %>"
+        />
+        <input
+          type="hidden"
+          id="defectBodyNumberStatus"
+          name="defectBodyNumberStatus"
+          value="<%= defectBodyNumberStatus %>"
         />
         <input type="hidden" name="mode" id="mode" value="" />
       </form>

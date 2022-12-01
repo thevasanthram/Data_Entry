@@ -28,12 +28,12 @@
           />
           <div class="heading">Data Entry System</div>
           <p class="selected-message">
-            Body Number : <%= enteredBodyNumber %> | Category : <%=
+            Body Number : <%= currentBodyNumber %> | Category : <%=
             selectedCategory %> | Sub-Category : <%= selectedSubCategory %>
           </p>
         </div>
         <form id="btn" action="/logout" method="get">
-          <div class="admin" id="user-mode-name"><%= username %></div>
+          <div class="admin" id="user-mode-name"><%= currentUser %></div>
           <button
             type="submit"
             style="
@@ -196,9 +196,79 @@
         </form>
       </div>
       <div>
-        <form action="/follower" method="get" id="followerForm"></form>
-        <form action="/firstlayer" method="post" id="firstLayerform"></form>
-        <form action="/secondlayer" method="post" id="secondLayerForm"></form>
+        <form action="/follower" method="post" id="followerForm">
+          <input
+            type="hidden"
+            id="currentUser"
+            name="currentUser"
+            value="<%= currentUser %>"
+          />
+          <input
+            type="hidden"
+            id="currentEmpID"
+            name="currentEmpID"
+            value="<%= currentEmpID %>"
+          />
+        </form>
+        <form action="/firstlayer" method="post" id="firstLayerform">
+          <input
+            type="hidden"
+            id="currentUser"
+            name="currentUser"
+            value="<%= currentUser %>"
+          />
+          <input
+            type="hidden"
+            id="currentEmpID"
+            name="currentEmpID"
+            value="<%= currentEmpID %>"
+          />
+          <input
+            type="hidden"
+            id="currentBodyNumber"
+            name="currentBodyNumber"
+            value="<%= currentBodyNumber %>"
+          />
+          <input
+            type="hidden"
+            id="defectBodyNumberStatus"
+            name="defectBodyNumberStatus"
+            value="<%= defectBodyNumberStatus %>"
+          />
+        </form>
+        <form action="/secondlayer" method="post" id="secondLayerForm">
+          <input
+            type="hidden"
+            id="currentUser"
+            name="currentUser"
+            value="<%= currentUser %>"
+          />
+          <input
+            type="hidden"
+            id="currentEmpID"
+            name="currentEmpID"
+            value="<%= currentEmpID %>"
+          />
+          <input
+            type="hidden"
+            id="currentBodyNumber"
+            name="currentBodyNumber"
+            value="<%= currentBodyNumber %>"
+          />
+          <input
+            type="hidden"
+            id="defectBodyNumberStatus"
+            name="defectBodyNumberStatus"
+            value="<%= defectBodyNumberStatus %>"
+          />
+          <input
+            type="hidden"
+            id="selectedCategory"
+            name="selectedCategory"
+            value="<%= selectedCategory %>"
+          />
+          <input type="hidden" name="mode" id="mode" value="" />
+        </form>
       </div>
     </div>
 
@@ -347,10 +417,9 @@
       }
 
       async function handleSave() {
-        const defectLayerForm = document.getElementById('defectLayerForm');
         var defectLayerFormData = {};
         var defectLayerFormInputElements =
-          document.getElementsByTagName('input');
+          document.getElementsByClassName('defectInputTag');
 
         Object.values(defectLayerFormInputElements).map(
           (singleInput, index) => {
@@ -375,6 +444,12 @@
           body: JSON.stringify({
             defectObj: defectLayerFormData,
             mode,
+            currentUser: '<%= currentUser %>',
+            currentEmpID: '<%= currentEmpID %>',
+            currentBodyNumber: '<%= currentBodyNumber %>',
+            defectBodyNumberStatus: '<%= defectBodyNumberStatus %>',
+            selectedCategory: '<%= selectedCategory %>',
+            selectedSubCategory: '<%= selectedSubCategory %>',
           }),
         });
 
@@ -423,6 +498,12 @@
             body: JSON.stringify({
               defectObj: defectLayerFormData,
               mode,
+              currentUser: '<%= currentUser %>',
+              currentEmpID: '<%= currentEmpID %>',
+              currentBodyNumber: '<%= currentBodyNumber %>',
+              defectBodyNumberStatus: '<%= defectBodyNumberStatus %>',
+              selectedCategory: '<%= selectedCategory %>',
+              selectedSubCategory: '<%= selectedSubCategory %>',
             }),
           });
 
