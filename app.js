@@ -1245,9 +1245,6 @@ app.post('/passcar', (req, res) => {
 
 app.post('/firstlayer', (req, res) => {
   try {
-    if (Object.keys(req.body).length > 0) {
-      enteredBodyNumber = req.body.bodyNumber;
-    }
     console.log('first layer');
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
@@ -1264,7 +1261,6 @@ app.post('/firstlayer', (req, res) => {
       currentUser,
       currentEmpID,
       currentBodyNumber,
-      enteredBodyNumber,
       bodyNumberOptions,
       defectBodyNumberStatus,
     });
