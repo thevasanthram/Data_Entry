@@ -120,6 +120,18 @@
         </div>
         <form action="/addUser" id="addUserForm" method="post">
           <input type="hidden" name="firstUser" value="false" />
+          <input
+            type="hidden"
+            id="currentUser"
+            name="currentUser"
+            value="<%= currentUser %>"
+          />
+          <input
+            type="hidden"
+            id="currentEmpID"
+            name="currentEmpID"
+            value="<%= currentEmpID %>"
+          />
         </form>
       </div>
         <!-- Employee Table Division -->

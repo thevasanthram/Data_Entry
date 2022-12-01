@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="createNewUser.css" />
-    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
 
     <title>Data Entry System</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,7 +16,7 @@
       <div class="header" style="position: sticky; top: 0px; z-index: 2">
         <div class="heading">Data Entry System</div>
         <form id="btn" action="/logout" method="get">
-          <div class="admin" id="user-mode-name"><%= username %></div>
+          <div class="admin" id="user-mode-name"><%= currentUser %></div>
           <button
             type="submit"
             style="
@@ -40,11 +40,11 @@
           style="
             text-align: center;
             font-size: clamp(1.5rem, 2.5vw, 2rem);
-            
+
             font-weight: 500;
           "
         >
-           Create New User
+          Create New User
         </h1>
       </div>
       <div class="wrapper" style="margin-bottom: 1%">
@@ -52,9 +52,7 @@
           <form action="" method="GET" id="createNewUserForm">
             <fieldset class="contact-info">
               <div class="container">
-                <legend >
-                  Enter Credentials Details
-                </legend>
+                <legend>Enter Credentials Details</legend>
                 <p>
                   <label for="name">User Name</label>
                   <input
@@ -91,9 +89,7 @@
 
             <fieldset class="newsletter">
               <div class="container">
-                <legend >
-                  Select the Access Control and Account type
-                </legend>
+                <legend>Select the Access Control and Account type</legend>
                 <h3>Accessible Charts</h3>
                 <p>
                   <input
@@ -224,7 +220,20 @@
             </fieldset>
           </form>
           <form action="/" id="homeForm" method="get"></form>
-          <form action="/admin" id="adminForm" method="get"></form>
+          <form action="/admin" id="adminForm" method="post">
+            <input
+              type="hidden"
+              id="currentUser"
+              name="currentUser"
+              value="<%= currentUser %>"
+            />
+            <input
+              type="hidden"
+              id="currentEmpID"
+              name="currentEmpID"
+              value="<%= currentEmpID %>"
+            />
+          </form>
           <div class="footer">
             <span id="error" style="display: none">Error Message</span>
             <button id="createUserButton" onclick="validate()" type="submit">
@@ -255,7 +264,7 @@
 
       creator = 'Root User';
     } else {
-      creator = '<%= username %>';
+      creator = '<%= currentUser %>';
     }
 
     function validate() {

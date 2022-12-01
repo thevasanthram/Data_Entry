@@ -1011,9 +1011,13 @@ app.post('/login', async (req, res) => {
 app.post('/addUser', (req, res) => {
   try {
     const firstUser = req.body.firstUser;
+
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
     res.render(path.join(__dirname, '/views/createNewUser.ejs'), {
-      username: username,
-      firstUser: firstUser,
+      currentUser,
+      currentEmpID,
+      firstUser,
     });
   } catch (err) {
     console.log(err);
