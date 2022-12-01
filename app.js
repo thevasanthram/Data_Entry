@@ -1770,45 +1770,39 @@ app.post('/updateEmpChartAccess', async (req, res) => {
 
 app.post('/admin', async (req, res) => {
   try {
-    if (username == ' ') {
-      res.redirect('/');
-    } else {
-      console.log('admin');
+    console.log('admin');
 
-      const currentUser = req.body.currentUser;
-      const currentEmpID = req.body.currentEmpID;
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
 
-      let dbConnectedPool = new Pool({
-        user: 'postgres',
-        host: 'localhost',
-        database: 'data_entry_systems',
-        password: 'admin',
-        port: 5432,
-      });
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
 
-      let response = await dbConnectedPool.query(
-        'SELECT * FROM employee_table'
-      );
+    let response = await dbConnectedPool.query('SELECT * FROM employee_table');
 
-      const employeeRecords = response.rows.sort((r1, r2) =>
-        r1.id > r2.id ? 1 : r1.id < r2.id ? -1 : 0
-      );
+    const employeeRecords = response.rows.sort((r1, r2) =>
+      r1.id > r2.id ? 1 : r1.id < r2.id ? -1 : 0
+    );
 
-      const response2 = await dbConnectedPool.query(
-        `SELECT * FROM employee_table WHERE id=${emp_ID};`
-      );
+    const response2 = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${emp_ID};`
+    );
 
-      const emp_ChartAccess = response2.rows[0].accessible_charts;
-      const emp_Status = response2.rows[0].status;
+    const emp_ChartAccess = response2.rows[0].accessible_charts;
+    const emp_Status = response2.rows[0].status;
 
-      res.render(path.join(__dirname, '/views/adminPage.ejs'), {
-        currentUser,
-        currentEmpID,
-        employeeRecords,
-        emp_ChartAccess,
-        emp_Status,
-      });
-    }
+    res.render(path.join(__dirname, '/views/adminPage.ejs'), {
+      currentUser,
+      currentEmpID,
+      employeeRecords,
+      emp_ChartAccess,
+      emp_Status,
+    });
   } catch (err) {
     console.log(err);
   }
