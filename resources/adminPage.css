@@ -18,6 +18,9 @@ body {
   justify-content: space-between;
   background-color: #393e46;
   color: #eeeeee;
+  position: sticky;
+  top: 0px;
+  z-index: 2;
 }
 .admin {
   color: #00adb5;
@@ -108,9 +111,9 @@ body {
   position: absolute;
   align-items: center;
   width: 90%;
-  height: 60%;
+  height: 70%;
   overflow-y: auto;
-  margin-left: 5%;
+  left: 5%;
 }
 .table_content {
   background: -webkit-linear-gradient(to right, #4ca1af, #485d71);
@@ -239,6 +242,7 @@ td {
 #removeUserInput {
   display: flex;
   align-items: center;
+  gap: 1.25rem;
   justify-content: space-evenly;
   width: 60%;
 }
@@ -309,7 +313,7 @@ td {
   padding: 0px;
   border: 1px solid #888;
   width: 35%;
-  min-height: 33%;
+  height: 33%;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -336,6 +340,7 @@ td {
   background-color: #faf7f0;
   margin: auto;
   padding: 2%;
+  text-align: center;
   border: 1px solid #888;
   width: 35%;
   min-height: 20%;
@@ -345,6 +350,7 @@ td {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   justify-content: center;
   gap: 2rem;
 }
@@ -375,17 +381,20 @@ td {
 .editEmployeeStatusDivisionSuccessModalContent {
   background-color: #faf7f0;
   margin: auto;
-  padding: 20px;
+  display: flex;
+  padding: 0px;
+  align-items: center;
   border: 1px solid #888;
-  width: 35%;
-  min-height: 25%;
+  width: 38%;
+  min-height: 20%;
   border-radius: 10px;
 }
 #editEmployeeStatusDivisionSuccessHolder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  text-align: center;
+  gap: 1rem;
   justify-content: center;
 }
 #editEmployeeChartAccessDivision {
@@ -490,6 +499,27 @@ td {
   gap: 10%;
   margin-left: 2%;
 }
+.reportGenerationDeniedDivisionModalContent {
+  background-color: #fefefe;
+  color: black;
+  margin: auto;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 40%;
+  height: 22%;
+}
+
+#reportGenerationDeniedDivisionHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: 25%;
+  gap: 1.5rem;
+  justify-content: center;
+}
 @media screen and (max-width: 1024px) {
   #navBarDivision {
     position: fixed;
@@ -520,6 +550,7 @@ td {
     justify-content: space-between;
     background-color: #393e46;
     color: #f0e3e3;
+    position: relative;
   }
 
   .heading {
@@ -534,6 +565,8 @@ td {
     justify-content: end;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    right: 2%;
     line-height: 28px;
   }
   .admin {
@@ -571,7 +604,8 @@ td {
   }
   .editEmployeeStatusEnsureModalContent {
     width: 40%;
-    min-height: 25%;
+    display: flex;
+    min-height: 20%;
   }
 
   #editEmployeeStatusEnsureButton {
@@ -580,6 +614,53 @@ td {
     justify-content: center;
     gap: 5%;
     margin-left: 2%;
+  }
+  #employeeTableDivision {
+    display: block;
+    position: absolute;
+    align-items: center;
+    width: 90%;
+    height: 80%;
+    overflow-y: auto;
+    padding-bottom: 8%;
+    /* left: 5%; */
+  }
+  #addUser-img,
+  #removeUser-img {
+    cursor: pointer;
+    width: 4rem;
+  }
+  .reportGenerationDeniedDivisionModalContent {
+    background-color: #fefefe;
+    color: black;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 60%;
+    height: 18%;
+  }
+
+  #reportGenerationDeniedDivisionHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 20%;
+    gap: 1.25rem;
+    justify-content: center;
+  }
+  .removeUserEnsureModalContent {
+    background-color: #faf7f0;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 35%;
+    min-height: 26%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    border-radius: 10px;
   }
 }
 
@@ -591,6 +672,16 @@ td {
     /* left: 8%; */
     font-weight: 500;
     font-size: clamp(1.2rem, 2vw, 1.6rem);
+  }
+  #btn {
+    width: auto;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    right: 2%;
+    line-height: 28px;
   }
   .button-logout {
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
@@ -620,7 +711,7 @@ td {
   #addUser-img,
   #removeUser-img {
     cursor: pointer;
-    width: 5rem;
+    width: 3rem;
   }
   .editEmployeeStatusEnsureModalContent {
     padding: 2%;
@@ -667,11 +758,16 @@ td {
     background-color: #faf7f0;
     margin: auto;
     padding: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 1px solid #888;
-    width: 45%;
+    width: 50%;
+    height: 20%;
   }
   #editEmployeeChartAccessSuccessHolder {
     gap: 3vw;
+    text-align: center;
   }
   .removeUserModalContent {
     background-color: #faf7f0;
@@ -709,6 +805,26 @@ td {
     border-radius: 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
+  }
+  .reportGenerationDeniedDivisionModalContent {
+    background-color: #fefefe;
+    color: black;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 60%;
+    height: 26%;
+  }
+
+  #reportGenerationDeniedDivisionHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 20%;
+    gap: 1.25rem;
     justify-content: center;
   }
 }

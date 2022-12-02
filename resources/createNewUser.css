@@ -103,7 +103,10 @@ header h2 {
   padding-bottom: 3em;
   margin-bottom: 0;
 }
-
+.checkbox-container {
+  display: flex;
+  gap: 1rem;
+}
 form {
   border-top: 2px solid rgba(45, 57, 69);
   margin-top: 2px;
@@ -338,7 +341,7 @@ select {
     font-size: 10px;
   }
   #go-back-icon {
-    margin: 0.5% 25% 0% 5%;
+    margin: 0.5% 14% 0% 5%;
     max-width: 7%;
     cursor: pointer;
   }

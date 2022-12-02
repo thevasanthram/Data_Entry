@@ -15,7 +15,7 @@
   <body>
 
     <div>
-      <div class="header" style="position: sticky;top: 0px;z-index: 2;">
+      <div class="header" >
         <div style="display: flex">
           <img
             src="./navBarIcon.png"
@@ -61,24 +61,14 @@
       <!-- Denial of Access for reportGeneration -->
     <div id="reportGenerationDeniedDivision">
       <div class="reportGenerationDeniedDivisionModalContent">
-        <div
-          id="reportGenerationDeniedDivisionHolder"
-          style="
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            top: 25%;
-            gap: 1.5rem;
-            justify-content: center;
-          "
-        >
-          <p id="reportGenerationDeniedDivisionMessage">
+        <div id="reportGenerationDeniedDivisionHolder">
+          <p id="reportGenerationDeniedDivisionMessage" style="font-size:larger; font-weight:600">
             No Accessible Charts.
           </p>
           <div id="editEmployeeChartAccessEnsureButton">
             <button
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"              
               onclick="(() => {document.getElementById('reportGenerationDeniedDivision').style.visibility = 'hidden'})()"
             >
               OK

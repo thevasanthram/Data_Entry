@@ -11655,6 +11655,16 @@ input[type='number'] {
     height: 100%;
   }
 
+  .colorMapSubDefects{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 354px;
+    width: 100%;
+    position: relative;
+  }
+
   #tabDivision {
     display: flex;
     justify-content: center;
@@ -12482,6 +12492,16 @@ input[type='number'] {
     font-size: clamp(1.2rem, 2vw, 1.6rem);
   }
 
+  .colorMapSubDefects {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 354px;
+    width: 100%;
+    position: relative;
+  }
+
   .button-logout {
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
     width: 65px;
@@ -12507,7 +12527,25 @@ input[type='number'] {
     align-items: center;
     padding: 2px 10px;
   }
-
+  .adminAccessDeniedDivisionModalContent {
+    background-color: #fefefe;
+    color: black;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 60%;
+    height: 2%;
+  }
+  #adminAccessDeniedDivisionHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 20%;
+    gap: 1.25rem;
+    justify-content: center;
+  }
   #from-date-condition-input-card,
   #to-date-condition-input-card {
     background-color: #eeeeee;
