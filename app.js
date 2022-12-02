@@ -1790,7 +1790,7 @@ app.post('/admin', async (req, res) => {
     );
 
     const response2 = await dbConnectedPool.query(
-      `SELECT * FROM employee_table WHERE id=${emp_ID};`
+      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
     );
 
     const emp_ChartAccess = response2.rows[0].accessible_charts;

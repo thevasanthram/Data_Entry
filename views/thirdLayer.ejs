@@ -421,15 +421,11 @@
         var defectLayerFormInputElements =
           document.getElementsByClassName('defectInputTag');
 
-        Object.values(defectLayerFormInputElements).map(
-          (singleInput, index) => {
-            if (index != 0) {
-              if (singleInput.value) {
-                defectLayerFormData[singleInput.name] = singleInput.value;
-              }
-            }
+        Object.values(defectLayerFormInputElements).map((singleInput) => {
+          if (singleInput.value) {
+            defectLayerFormData[singleInput.name] = singleInput.value;
           }
-        );
+        });
 
         console.log('defectLayerFormData: ', defectLayerFormData);
 
