@@ -96,3 +96,197 @@
   }
   /* ! End of Nav Side Bar Menu */
   
+
+
+
+  /* !...........................Media query Responsive Style....................... */
+  @media screen and (max-width: 1024px) {
+    #navBarDivision {
+      position: fixed;
+      display: none;
+      width: 30%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100%;
+      background-color: #00adb5;
+    }
+    .category {
+      font-size: 130%;
+      font-weight: 500;
+      min-height: 7vh;
+      color: #eeeeee;
+      display: flex;
+      align-items: center;
+      padding: 2px 10px;
+    }
+  }
+  @media screen and (max-width: 780px) {
+    .header {
+      min-width: 100%;
+      display: flex;
+      min-height: 4.5rem;
+      flex-direction: row;
+      align-items: center;
+      padding: 1%;
+      justify-content: space-between;
+      background-color: #393e46;
+      color: #f0e3e3;
+      position: relative;
+    }
+  
+    .heading {
+      padding-left: 1%;
+      font-weight: 700;
+      font-size: clamp(19px, 0.8vw, 1.5rem);
+    }
+  
+    #btn {
+      width: auto;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      right: 2%;
+      line-height: 28px;
+    }
+    .admin {
+      color: #00adb5;
+      margin-right: 10%;
+      font-weight: 500;
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+    }
+  
+    .button-logout {
+      background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+      width: 65px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+  
+    #navBarDivision {
+      position: fixed;
+      display: none;
+      width: 45%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100%;
+      background-color: #00adb5;
+    }
+    .category {
+      font-size: 120%;
+      font-weight: 500;
+      min-height: 7vh;
+      display: flex;
+      align-items: center;
+      padding: 2px 10px;
+    }
+    .editEmployeeStatusEnsureModalContent {
+      width: 40%;
+      display: flex;
+      min-height: 20%;
+    }
+  
+    #editEmployeeStatusEnsureButton {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5%;
+      margin-left: 2%;
+    }
+    #employeeTableDivision {
+      display: block;
+      position: absolute;
+      align-items: center;
+      width: 90%;
+      height: 80%;
+      overflow-y: auto;
+      padding-bottom: 8%;
+      /* left: 5%; */
+    }
+    #addUser-img,
+    #removeUser-img {
+      cursor: pointer;
+      width: 4rem;
+    }
+    .reportGenerationDeniedDivisionModalContent {
+      background-color: #fefefe;
+      color: black;
+      margin: auto;
+      text-align: center;
+      padding: 5px;
+      border: 1px solid #888;
+      width: 60%;
+      height: 18%;
+    }
+  
+    #reportGenerationDeniedDivisionHolder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      top: 20%;
+      gap: 1.25rem;
+      justify-content: center;
+    }
+    .removeUserEnsureModalContent {
+      background-color: #faf7f0;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 35%;
+      min-height: 26%;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      border-radius: 10px;
+    }
+  }
+  
+  @media screen and (max-width: 481px) {
+    .admin {
+      color: #00adb5;
+      margin-right: 4%;
+      position: relative;
+      /* left: 8%; */
+      font-weight: 500;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+    }
+    #btn {
+      width: auto;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      right: 2%;
+      line-height: 28px;
+    }
+    .button-logout {
+      background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+      width: 70px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+    #navBarDivision {
+      position: fixed;
+      display: none;
+      width: 45%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 90%;
+      background-color: #00adb5;
+    }
+    .category {
+      font-size: 120%;
+      font-weight: 500;
+      min-height: 7vh;
+      display: flex;
+      align-items: center;
+      padding: 2px 10px;
+    }
+  }
+  
