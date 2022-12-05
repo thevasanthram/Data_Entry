@@ -61,26 +61,29 @@
         >
           <div id="reportGeneration" class="category">Report Generation</div>
         </div>
-        <div id="AdministrationDiv"
+        <div
+          id="AdministrationDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
           onclick="handleFormSubmit(event)"
         >
-        <div id="administration" class="category">Administration</div>
+          <div id="administration" class="category">Administration</div>
         </div>
-        <div id="AdminLogDiv"
+        <div
+          id="AdminLogDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
           onclick="handleFormSubmit(event)"
         >
-        <div id="adminLog" class="category">Admin Logs</div>
+          <div id="adminLog" class="category">Admin Logs</div>
         </div>
-        <div id="DashboardDiv"
+        <div
+          id="DashboardDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
           onclick="handleFormSubmit(event)"
         >
-        <div id="activityLog" class="category">Dashboard</div>
+          <div id="activityLog" class="category">Dashboard</div>
         </div>
       </div>
 
@@ -99,6 +102,34 @@
         />
       </form>
       <form action="/admin" method="post" id="adminForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
+      <form action="/adminLog" method="post" id="adminLogForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
+      <form action="/dashboard" method="post" id="dashboardForm">
         <input
           type="hidden"
           id="currentUser"
@@ -202,7 +233,8 @@
             <button
               class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
               onclick="(() => {document.getElementById('reportGenerationDeniedDivision').style.visibility = 'hidden'})()"
-            > OK
+            >
+              OK
             </button>
           </div>
         </div>
@@ -255,6 +287,22 @@
         } else if (event.target.id == 'administration') {
           if (empStatus == 'admin') {
             document.getElementById('adminForm').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'adminLog') {
+          if (empStatus == 'admin') {
+            document.getElementById('adminLogForm').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'activityLog') {
+          if (empStatus == 'admin') {
+            document.getElementById('dashboardForm').submit();
           } else {
             document.getElementById(
               'adminAccessDeniedDivision'

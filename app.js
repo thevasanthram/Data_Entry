@@ -1808,6 +1808,68 @@ app.post('/admin', async (req, res) => {
   }
 });
 
+app.post('/adminLog', async (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response2 = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
+    );
+
+    const emp_ChartAccess = response2.rows[0].accessible_charts;
+    const emp_Status = response2.rows[0].status;
+
+    res.render(path.join(__dirname, '/views/adminLog.ejs'), {
+      currentUser,
+      currentEmpID,
+      emp_ChartAccess,
+      emp_Status,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/dashboard', async (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response2 = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
+    );
+
+    const emp_ChartAccess = response2.rows[0].accessible_charts;
+    const emp_Status = response2.rows[0].status;
+
+    res.render(path.join(__dirname, '/views/liveDashboard.ejs'), {
+      currentUser,
+      currentEmpID,
+      emp_ChartAccess,
+      emp_Status,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.post('/reportDataProvider', async (req, res) => {
   try {
     const queryReceiver = req.body.querySender;
