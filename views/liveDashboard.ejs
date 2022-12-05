@@ -1,48 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./liveDashboard.css" />
-    <title>Live Dashboard</title>
-    <!-- <link rel="stylesheet" href="liveDashboard.css"> -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./adminLog.css">
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body style="background-color: #222831">
-    <div class="container">
-      <div class="header">
-        <div style="display: flex; align-items: center; padding: 1%">
-          <img
-            src="./home.png"
-            title="Home"
-            id="home-icon"
-            alt="Home"
-            onclick="document.getElementById('followerForm').submit();"
-          />
-          <div class="heading">Data Entry System</div>
-          <p class="selected-message">Body Number : <%= currentBodyNumber %></p>
+    <script  src="https://cdn.tailwindcss.com"></script>
+    <title>Live Dashboard</title>
+</head>
+<body>
+    <div class="main">
+        <div class="header" >
+            <div style="display: flex">
+              <img
+                src="./navBarIcon.png"
+                title="Switch Mode"
+                id="navBarIcon"
+                alt="Switch Mode"
+                style="cursor: pointer; width: 8%; margin: 0.5% 3%"
+              />
+              <div class="heading">Data Entry System</div>
+            </div>
+              <form id="btn" action="/logout" method="get">
+                  <div class="admin" id="user-mode-name"><%= currentUser %></div>
+                  <button type="submit"
+                  style="background: linear-gradient(
+                    to right, #0f0c29, #302b63, #24243e 
+                  );"
+                  class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+                      LOGOUT
+                  </button>
+              </form>
+          </div>
+          <!-- ! ........SIde Nav Bar Menu......... -->
+      <div id="navBarDivision">
+        <div id="DataEntryDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)">
+          <div id="dataEntry" class="category"> Data Entry</div>
         </div>
-        <form id="btn" action="/logout" method="get">
-          <div class="admin" id="user-mode-name"><%= currentUser %></div>
-          <button
-            type="submit"
-            style="
-              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-            "
-            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-          >
-            LOGOUT
-          </button>
-        </form>
-      </div>
-      <div class="dataBody">
-        
+        <div id="ReportGenerationDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)">
+          <div id="reportGeneration" class="category">Report Generation </div>
+        </div>
+        <div id="AdministrationDiv"
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)" 
+            >
+            <div id="administration" class="category">Administration</div>
+            <!-- <ul style="text-align: center; display: none;">
+              <li style="padding-right: 5%;  font-size: 120%;">User Management </li>
+              <li style="padding-right: 26%;  font-size: 120%;"> Dashboard</li>
+              <li style="padding-right: 26%;  font-size: 120%;">Admin Log</li>
+            </ul> -->
+        </div>
+        <div id="AdminLogDiv"
+        onmouseover="onmouseoverBGColor(event)"
+        onmouseout="onmouseoutBGColor(event)"
+        onclick="handleFormSubmit(event)"
+        >
+          <div id="adminLog" class="category">Admin Logs</div>
+        </div>
+        <div id="DashboardDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="activityLog" class="category">Dashboard</div>
+        </div>
       </div>
     </div>
-  </body>
+</body>
 </html>
