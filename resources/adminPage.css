@@ -85,6 +85,18 @@ body {
   cursor: pointer;
   background-color: #075154;
 }
+
+#AdminLogDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
+#DashboardDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
 /* ! End of Nav Side Bar Menu */
 
 .user_update_container {
@@ -124,7 +136,7 @@ body {
   position: sticky;
   top: -1px;
   z-index: 2;
-  color: #E2B842;
+  color: #e2b842;
   background-color: #221d51;
   /* color: #eeeeee; */
 }
@@ -524,7 +536,6 @@ td {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
     background-color: #4ca1af;
-    
   }
   .category {
     font-size: 130%;

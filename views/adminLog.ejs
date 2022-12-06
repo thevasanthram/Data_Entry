@@ -1,75 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./adminLog.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./adminLog.css" />
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <script  src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Admin Log</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="main">
-        <div class="header" >
-            <div style="display: flex">
-              <img
-                src="./navBarIcon.png"
-                title="Switch Mode"
-                id="navBarIcon"
-                alt="Switch Mode"
-                style="cursor: pointer; width: 8%; margin: 0.5% 3%"
-              />
-              <div class="heading">Data Entry System</div>
-            </div>
-              <form id="btn" action="/logout" method="get">
-                  <div class="admin" id="user-mode-name"><%= currentUser %></div>
-                  <button type="submit"
-                  style="background: linear-gradient(
-                    to right, #0f0c29, #302b63, #24243e 
-                  );"
-                  class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                      LOGOUT
-                  </button>
-              </form>
-          </div>
-<!-- ! ................................Side Nav Bar Menu................................ -->
+      <div class="header">
+        <div style="display: flex">
+          <img
+            src="./navBarIcon.png"
+            title="Switch Mode"
+            id="navBarIcon"
+            alt="Switch Mode"
+            style="cursor: pointer; width: 8%; margin: 0.5% 3%"
+          />
+          <div class="heading">Data Entry System</div>
+        </div>
+        <form id="btn" action="/logout" method="get">
+          <div class="admin" id="user-mode-name"><%= currentUser %></div>
+          <button
+            type="submit"
+            style="
+              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            "
+            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          >
+            LOGOUT
+          </button>
+        </form>
+      </div>
+      <!-- ! ................................Side Nav Bar Menu................................ -->
       <div id="navBarDivision">
-        <div id="DataEntryDiv"
+        <div
+          id="DataEntryDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)">
-          <div id="dataEntry" class="category"> Data Entry</div>
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="dataEntry" class="category">Data Entry</div>
         </div>
-        <div id="ReportGenerationDiv"
+        <div
+          id="ReportGenerationDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)">
-          <div id="reportGeneration" class="category">Report Generation </div>
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="reportGeneration" class="category">Report Generation</div>
         </div>
-        <div id="AdministrationDiv"
-            onmouseover="onmouseoverBGColor(event)"
-            onmouseout="onmouseoutBGColor(event)"
-            onclick="handleFormSubmit(event)" 
-            >
-            <div id="administration" class="category">Administration</div>
-            <!-- <ul style="text-align: center; display: none;">
+        <div
+          id="AdministrationDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="administration" class="category">Administration</div>
+          <!-- <ul style="text-align: center; display: none;">
               <li style="padding-right: 5%;  font-size: 120%;">User Management </li>
               <li style="padding-right: 26%;  font-size: 120%;"> Dashboard</li>
               <li style="padding-right: 26%;  font-size: 120%;">Admin Log</li>
             </ul> -->
         </div>
-        <div id="AdminLogDiv"
-        onmouseover="onmouseoverBGColor(event)"
-        onmouseout="onmouseoutBGColor(event)"
-        onclick="handleFormSubmit(event)"
+        <div
+          id="AdminLogDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
         >
           <div id="adminLog" class="category">Admin Logs</div>
         </div>
-        <div id="DashboardDiv"
+        <div
+          id="DashboardDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
           onclick="handleFormSubmit(event)"
@@ -80,94 +89,39 @@
       <div class="title_container flex justify-center px-16 py-4 mt-2">
         <!-- <div class="flex justify-center px-16 py-2">
           <div class="block p-6 rounded-lg shadow-lg bg-gray-300 max-w-sm"> -->
-            <h1 class="text-white text-2xl leading-tight font-medium mb-2">Admin Activity Logs</h1>
-          <!-- </div>
+        <h1 class="text-white text-2xl leading-tight font-medium mb-2">
+          Admin Activity Logs
+        </h1>
+        <!-- </div>
         </div> -->
       </div>
       <div class="table_container">
         <table>
           <thead>
             <tr>
-              <th>Emp ID
-              <th>Done By
-              <th>Activity
-              <th>Emp ID
-              <th>Done To
-              <th>Date
-              <th>Time
+              <th>Emp ID</th>
+              <th>Done By</th>
+              <th>Activity</th>
+              <th>Emp ID</th>
+              <th>Done To</th>
+              <th>Date</th>
+              <th>Time</th>
+            </tr>
           </thead>
+
           <tbody>
+            <%for(let i = 0; i< adminActivityRecords.length; i++) { const
+            singleProperties = Object.keys(adminActivityRecords[i])%>
             <tr>
-              <td>1
-              <td>Malcolm
-              <td>Reynolds
-              <td>Mal, Cap'n
-              <td>M
-              <td>Captain
-              <td>Yes
-            <tr>
-              <td>2
-              <td>Zoe
-              <td>Washburn
-              <td>Zoe
-              <td>F
-              <td>First Mate
-              <td>Yes
-            <tr >
-              <td>3
-              <td>Hoban
-              <td>Washburn
-              <td>Wash
-              <td>M
-              <td>Pilot
-              <td>No
-            <tr>
-              <td>4
-              <td>Kaylee
-              <td>Frye
-              <td>Kaylee
-              <td>F
-              <td>Mechanic
-              <td>Yes
-            <tr>
-              <td>5
-              <td>Jayne
-              <td>Cobb
-              <td>Jayne
-              <td>M
-              <td>Muscle
-              <td>Yes
-            <tr class="disabled">
-              <td>6
-              <td>[unknown]
-              <td>Book
-              <td>Shepherd
-              <td>M
-              <td>Passenger
-              <td>No
-            <tr>
-              <td>7
-              <td>Simon
-              <td>Tam
-              <td>Simon
-              <td>M
-              <td>Passenger
-              <td>Yes
-            <tr>
-              <td>8
-              <td>River
-              <td>Tam
-              <td>River
-              <td>F
-              <td>Passenger
-              <td>Yes
+              <%for(let j = 0; j< singleProperties.length; j++) {%>
+              <td><%= adminActivityRecords[i][singleProperties[j]] %></td>
+              <%}%>
+            </tr>
+            <%}%>
           </tbody>
         </table>
       </div>
     </div>
-</body>
-<script>
-
-    
-</script>
+  </body>
+  <script></script>
 </html>
