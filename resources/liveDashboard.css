@@ -64,9 +64,10 @@ body {
   position: fixed;
   display: none;
   width: 17%;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100%;
   background-color: #00adb5;
+  z-index: 5;
 }
 .category {
   font-size: 140%;
@@ -80,7 +81,6 @@ body {
   display: inline-block;
   width: 100%;
   cursor: pointer;
-  background-color: #075154;
 }
 
 #ReportGenerationDiv {
@@ -93,6 +93,19 @@ body {
   display: inline-block;
   width: 100%;
   cursor: pointer;
+}
+
+#AdminLogDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
+#DashboardDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  background-color: #075154;
 }
 /* ! End of Nav Side Bar Menu */
 
@@ -116,14 +129,14 @@ body {
 }
 
 .infoCard {
-	height: 72%;
-	width: 67%;
-	background-color: #00adb5;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 12px;
-	flex-direction: column;
+  height: 72%;
+  width: 67%;
+  background-color: #00adb5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  flex-direction: column;
 }
 
 .infoCardText {
@@ -132,8 +145,8 @@ body {
 }
 
 .infoCardData {
-	font-size: 239%;
-	font-weight: 700;
+  font-size: 239%;
+  font-weight: 700;
 }
 
 .mainTable {
@@ -144,3 +157,55 @@ body {
   overflow: auto;
 }
 
+#stats {
+	background-color: #1f2937;
+	height: 135px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.dataCard{
+  width: 180px;
+}
+
+@media screen and (max-width: 1280px){
+  #stats{
+    background-color: #1f2937;
+    height: 193px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  #stats {
+    background-color: #1f2937;
+    height: 283px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  #stats {
+    background-color: #1f2937;
+    height: 388px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #stats {
+    background-color: #1f2937;
+    height: 448px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
