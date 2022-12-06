@@ -158,6 +158,34 @@
           value="<%= currentEmpID %>"
         />
       </form>
+      <form action="/adminLog" method="post" id="adminLogForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
+      <form action="/dashboard" method="post" id="dashboardForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
         <div id="container" style="display: none; position: sticky; top: 67px; z-index: 2;" >
           <div class="filtering-condition-content" >
             <div class="filtering-condition-form" >
@@ -327,6 +355,22 @@
         } else if (event.target.id == 'administration') {
           if (empStatus == 'admin') {
             document.getElementById('adminForm').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'adminLog') {
+          if (empStatus == 'admin') {
+            document.getElementById('adminLogForm').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'activityLog') {
+          if (empStatus == 'admin') {
+            document.getElementById('dashboardForm').submit();
           } else {
             document.getElementById(
               'adminAccessDeniedDivision'

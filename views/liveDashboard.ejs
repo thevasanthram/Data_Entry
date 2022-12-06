@@ -1,82 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./adminLog.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./liveDashboard.css" />
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <script  src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>Live Dashboard</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="main">
-        <div class="header" >
-            <div style="display: flex">
-              <img
-                src="./navBarIcon.png"
-                title="Switch Mode"
-                id="navBarIcon"
-                alt="Switch Mode"
-                style="cursor: pointer; width: 8%; margin: 0.5% 3%"
-              />
-              <div class="heading">Data Entry System</div>
-            </div>
-              <form id="btn" action="/logout" method="get">
-                  <div class="admin" id="user-mode-name"><%= currentUser %></div>
-                  <button type="submit"
-                  style="background: linear-gradient(
-                    to right, #0f0c29, #302b63, #24243e 
-                  );"
-                  class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                      LOGOUT
-                  </button>
-              </form>
-          </div>
-          <!-- ! ........SIde Nav Bar Menu......... -->
-      <div id="navBarDivision">
-        <div id="DataEntryDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)">
-          <div id="dataEntry" class="category"> Data Entry</div>
+      <div class="header">
+        <div style="display: flex">
+          <img
+            src="./navBarIcon.png"
+            title="Switch Mode"
+            id="navBarIcon"
+            alt="Switch Mode"
+            style="cursor: pointer; width: 8%; margin: 0.5% 3%"
+          />
+          <div class="heading">Data Entry System</div>
         </div>
-        <div id="ReportGenerationDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)">
-          <div id="reportGeneration" class="category">Report Generation </div>
-        </div>
-        <div id="AdministrationDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)" 
+        <form id="btn" action="/logout" method="get">
+          <div class="admin" id="user-mode-name"><%= currentUser %></div>
+          <button
+            type="submit"
+            style="
+              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            "
+            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
           >
-          <div id="administration" class="category">Administration</div>
-          <!-- <ul style="text-align: center; display: none;">
-            <li style="padding-right: 5%;  font-size: 120%;">User Management </li>
-            <li style="padding-right: 26%;  font-size: 120%;"> Dashboard</li>
-            <li style="padding-right: 26%;  font-size: 120%;">Admin Log</li>
-          </ul> -->
-        </div>
-        <div id="AdminLogDiv"
-        onmouseover="onmouseoverBGColor(event)"
-        onmouseout="onmouseoutBGColor(event)"
-        onclick="handleFormSubmit(event)"
-        >
-          <div id="adminLog" class="category">Admin Logs</div>
-        </div>
-        <div id="DashboardDiv"
+            LOGOUT
+          </button>
+        </form>
+      </div>
+      <!-- ! ........SIde Nav Bar Menu......... -->
+      <div id="navBarDivision">
+        <div
+          id="DataEntryDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
           onclick="handleFormSubmit(event)"
         >
+          <div id="dataEntry" class="category">Data Entry</div>
+        </div>
+        <div
+          id="ReportGenerationDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="reportGeneration" class="category">Report Generation</div>
+        </div>
+        <div
+          id="AdministrationDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="administration" class="category">Administration</div>
+        </div>
+        <div
+          id="AdminLogDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="adminLog" class="category">Admin Logs</div>
+        </div>
+        <div
+          id="DashboardDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+        >
           <div id="activityLog" class="category">Dashboard</div>
         </div>
       </div>
+
+      <form action="/follower" id="followerForm" method="post">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
+      <form action="/filter" method="post" id="filterFrom">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
+      <form action="/admin" method="post" id="adminForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
+      <form action="/adminLog" method="post" id="adminLogForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
     </div>
-</body>
+
+    <script>
+      document.addEventListener('click', hideAndSeek);
+
+      function hideAndSeek(event) {
+        const navBarDivision = document.getElementById('navBarDivision');
+        if (event.target.id != 'navBarIcon') {
+          navBarDivision.style.display = 'none';
+        } else {
+          if (
+            navBarDivision.style.display == 'none' ||
+            navBarDivision.style.display == ''
+          ) {
+            navBarDivision.style.display = 'inline-block';
+          } else if (navBarDivision.style.display == 'inline-block') {
+            navBarDivision.style.display = 'none';
+          }
+        }
+      }
+
+      function onmouseoverBGColor(event) {
+        event.target.style.backgroundColor = '#075154';
+      }
+
+      function onmouseoutBGColor(event) {
+        if (event.target.id != 'activityLog') {
+          event.target.style.backgroundColor = '#4ca1af';
+        }
+      }
+
+      function handleFormSubmit(event) {
+        var empStatus = '<%= emp_Status %>';
+        var empChartAccess = '<%= emp_ChartAccess %>';
+
+        if (event.target.id == 'reportGeneration') {
+          if (empChartAccess.length > 0) {
+            document.getElementById('filterFrom').submit();
+          } else {
+            document.getElementById(
+              'reportGenerationDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'dataEntry') {
+          console.log('dataEntry');
+          document.getElementById('followerForm').submit();
+        } else if (event.target.id == 'administration') {
+          if (empStatus == 'admin') {
+            document.getElementById('adminForm').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'adminLog') {
+          if (empStatus == 'admin') {
+            document.getElementById('adminLogForm').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        }
+      }
+    </script>
+  </body>
 </html>
