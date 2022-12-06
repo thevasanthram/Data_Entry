@@ -66,7 +66,7 @@
     width: 17%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
-    background-color: #00adb5;
+    background-color: #4ca1af;
   }
   .category {
     font-size: 140%;
@@ -75,6 +75,7 @@
     display: flex;
     align-items: center;
     padding: 2px 10px;
+    transition: background 0.25s ease;
   }
   #DataEntryDiv {
     display: inline-block;
@@ -96,6 +97,58 @@
   }
   /* ! End of Nav Side Bar Menu */
   
+/* !   ...........................Admin Log Table.......................... */
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* body {
+  background: #012B39;
+  font-family: 'Open Sans', sans-serif;
+} */
+.table_container {
+  display: block;
+  height: 60vh;
+  overflow-y: scroll;
+  overflow-x: auto;
+}
+table {
+  background: #105469;
+  border-radius: 0.5em;
+  border-collapse: collapse;
+  margin: 2%;
+  width: 90%;
+  position: relative;
+  left: 3%;
+}
+th {
+  border-bottom: 1px solid #364043;
+  color: #E2B842;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  text-align: left;
+}
+td {
+  color: #fff;
+  font-weight: 400;
+  padding: 0.65em 1em;
+}
+/* .disabled td {
+  color: #4F5F64;
+} */
+tbody tr {
+  transition: background 0.25s ease;
+}
+tbody tr:hover {
+  background: #012B39;
+}
+
 
 
 
@@ -107,7 +160,7 @@
       width: 30%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       height: 100%;
-      background-color: #00adb5;
+      background-color: #4ca1af;
     }
     .category {
       font-size: 130%;
@@ -172,7 +225,7 @@
       width: 45%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       height: 100%;
-      background-color: #00adb5;
+      background-color: #4ca1af;
     }
     .category {
       font-size: 120%;
@@ -275,10 +328,9 @@
     #navBarDivision {
       position: fixed;
       display: none;
-      width: 45%;
+      width: 48%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      height: 90%;
-      background-color: #00adb5;
+      background-color: #4ca1af;
     }
     .category {
       font-size: 120%;
@@ -287,6 +339,21 @@
       display: flex;
       align-items: center;
       padding: 2px 10px;
+    }
+    .table_container {
+      display: block;
+      width: 90%;
+      height: 60vh;
+      position: relative;
+      left: 2%;
+      overflow-y: scroll;
+      overflow-x: auto;
+    }
+    table {
+      background: #175f75;
+      border-radius: 0.5em;
+      border-collapse: collapse;
+      margin: 2%;
     }
   }
   
