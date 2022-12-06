@@ -154,65 +154,77 @@
         class="border-t border-gray-200 dark:border-gray-600"
       >
         <div
-          class="p-4  rounded-lg md:p-8 dark:bg-gray-800"
+          class="p-4 rounded-lg md:p-8 dark:bg-gray-800"
           id="stats"
           role="tabpanel"
           aria-labelledby="stats-tab"
-          style="background-color: #1f2937;"
+          style="background-color: #1f2937"
         >
           <dl
             class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 sm:grid-cols-3 xl:grid-cols-7 dark:text-white sm:p-8"
-            style="color: white;"
+            style="color: white"
           >
-            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
-              <dt class="mb-2 text-3xl font-extrabold">
-                <%= uniqueBodyNumber.length %>
-              </dt>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt class="mb-2 text-3xl font-extrabold vehicleCount">0</dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Total No. of Vehicals
               </dd>
             </div>
-            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
-              <dt class="mb-2 text-3xl font-extrabold"><%= defectCount %></dt>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt class="mb-2 text-3xl font-extrabold defectCount">0</dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Total No. of Defects
               </dd>
             </div>
-            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
-              <dt class="mb-2 text-3xl font-extrabold">
-                <%= individualDefectCount['Surface'] %>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+                0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Surface
               </dd>
             </div>
-            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
-              <dt class="mb-2 text-3xl font-extrabold">
-                <%= individualDefectCount['Body Fitting'] %>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+                0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Body Fitting
               </dd>
             </div>
-            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
-              <dt class="mb-2 text-3xl font-extrabold">
-                <%= individualDefectCount['Missing & Wrong Part'] %>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+                0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Missing & Wrong Part
               </dd>
             </div>
-            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
-              <dt class="mb-2 text-3xl font-extrabold">
-                <%= individualDefectCount['Welding'] %>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+                0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Welding
               </dd>
             </div>
-            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
-              <dt class="mb-2 text-3xl font-extrabold">
-                <%= individualDefectCount['Water Leak'] %>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+                0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Water Leak
@@ -230,7 +242,7 @@
             >
               <thead
                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 sticky top-0"
-                style="background-color: #374151;  color: gray;"
+                style="background-color: #374151; color: gray"
               >
                 <tr>
                   <th scope="col" class="py-3 px-6">User ID</th>
@@ -241,16 +253,14 @@
                   <th scope="col" class="py-3 px-6">Time</th>
                 </tr>
               </thead>
-              <tbody class="h-96 overflow-y-auto"
-                style="background-color: #1f2937;"
+              <tbody
+                class="h-96 overflow-y-auto"
+                style="background-color: #1f2937"
               >
-
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -260,12 +270,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -275,12 +283,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -290,12 +296,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -305,12 +309,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -320,12 +322,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -335,12 +335,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -350,12 +348,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -365,12 +361,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -380,12 +374,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -395,12 +387,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -410,12 +400,10 @@
                   <td class="py-4 px-6">06/12/22</td>
                   <td class="py-4 px-6">11:03</td>
                 </tr>
-                <tr
-                  class=" border-b dark:bg-gray-800 dark:border-gray-700"
-                >
+                <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
                   <th
                     scope="row"
-                    class="py-4 text-white px-6 font-medium  whitespace-nowrap dark:text-white"
+                    class="py-4 text-white px-6 font-medium whitespace-nowrap dark:text-white"
                   >
                     Microsoft Surface Pro
                   </th>
@@ -492,6 +480,36 @@
           ).style.visibility = 'visible';
         }
       }
+    }
+
+    // live
+    setInterval(liveData, 1000);
+
+    async function liveData() {
+      const response = await fetch('/liveData', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({}),
+      });
+
+      const liveDataResponse = await response.json();
+
+      const individualDefectCount = document.getElementsByClassName(
+        'individualDefectCount'
+      );
+
+      document.getElementsByClassName('vehicleCount')[0].innerHTML =
+        liveDataResponse.uniqueBodyNumber.length;
+      document.getElementsByClassName('defectCount')[0].innerHTML =
+        liveDataResponse.defectCount;
+
+      Object.values(individualDefectCount).map((singleDefect, index) => {
+        individualDefectCount[index].innerHTML = Object.values(
+          liveDataResponse.individualDefectCount
+        )[index];
+      });
     }
   </script>
 </html>

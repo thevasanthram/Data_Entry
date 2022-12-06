@@ -1955,7 +1955,7 @@ app.post('/adminLog', async (req, res) => {
       currentEmpID,
       emp_ChartAccess,
       emp_Status,
-      adminActivityRecords: adminActivityRecords.rows,
+      adminActivityRecords: adminActivityRecords.rows.reverse(),
     });
   } catch (err) {
     console.log(err);
@@ -1993,9 +1993,8 @@ app.post('/dashboard', async (req, res) => {
   }
 });
 
-app.post('/dashboardData', async (req, res) => {
+app.post('/liveData', async (req, res) => {
   try {
-
     let dbConnectedPool = new Pool({
       user: 'postgres',
       host: 'localhost',
@@ -2036,9 +2035,14 @@ app.post('/dashboardData', async (req, res) => {
     // console.log('uniqueBodyNumber: ', uniqueBodyNumber);
     // console.log('defectCount: ', defectCount);
     // console.log('individualDefectCount: ', individualDefectCount);
-    res.send(JSON.stringify({
-      
-    }))
+
+    res.send(
+      JSON.stringify({
+        uniqueBodyNumber,
+        defectCount,
+        individualDefectCount,
+      })
+    );
   } catch (err) {
     console.log(err);
   }
