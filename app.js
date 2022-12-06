@@ -1,8 +1,8 @@
 const express = require('express');
 var mod = require('nested-property');
-const { type } = require('os');
 const path = require('path');
 const Pool = require('pg').Pool;
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,7 +43,7 @@ pool.query(
                 if (err) {
                   throw err;
                 } else {
-                  console.log('Employee Table Created');
+                  console.log('Employee table created');
                 }
               }
             );
@@ -54,7 +54,7 @@ pool.query(
                 if (err) {
                   throw err;
                 } else {
-                  console.log('Defect Table Created');
+                  console.log('Defect table created');
                 }
               }
             );
@@ -65,7 +65,18 @@ pool.query(
                 if (err) {
                   throw err;
                 } else {
-                  console.log('Body Number Table Created');
+                  console.log('Body number table created');
+                }
+              }
+            );
+
+            dbConnectedPool.query(
+              `CREATE TABLE IF NOT EXISTS admin_activity_table(doneByID int , doneByName varchar(20), activity varchar(30), doneToID int, doneToName varchar(20), date varchar(10), time varchar(8));`,
+              (err, result) => {
+                if (err) {
+                  throw err;
+                } else {
+                  console.log('Admin activity log table created');
                 }
               }
             );
@@ -1014,6 +1025,7 @@ app.post('/addUser', (req, res) => {
 
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+
     res.render(path.join(__dirname, '/views/createNewUser.ejs'), {
       currentUser,
       currentEmpID,
@@ -1027,6 +1039,9 @@ app.post('/addUser', (req, res) => {
 app.post('/removeUser', async (req, res) => {
   try {
     const userID = req.body.userID;
+    const userName = req.body.userName;
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -1036,8 +1051,31 @@ app.post('/removeUser', async (req, res) => {
       port: 5432,
     });
 
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
     const response = await dbConnectedPool.query(
       `DELETE FROM employee_table WHERE id = ${userID}`
+    );
+
+    await dbConnectedPool.query(
+      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${currentEmpID},'${currentUser}','removed',${userID},'${userName}','${date}','${time}')`
     );
 
     res.sendStatus(200);
@@ -1054,6 +1092,7 @@ app.post('/newUser', async (req, res) => {
     const empStatus = req.body.empStatus;
     const accessibleCharts = req.body.accessibleCharts;
     const creator = req.body.creator;
+    const creatorID = req.body.creatorID;
 
     console.log('New User Created: ', empName);
     console.log('status: ', empStatus);
@@ -1066,17 +1105,44 @@ app.post('/newUser', async (req, res) => {
       port: 5432,
     });
 
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
     if (creator == 'Root User') {
       const response = await dbConnectedPool.query(
         `INSERT INTO employee_table (name,password,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empStatus}',ARRAY['${accessibleCharts.join(
           `','`
-        )}'],'Root User')`
+        )}'],'Root User') RETURNING id;`
+      );
+
+      await dbConnectedPool.query(
+        `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (0,'${creator}','created',1,'${empName}','${date}','${time}')`
       );
     } else {
       const response = await dbConnectedPool.query(
         `INSERT INTO employee_table (name,password,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empStatus}',ARRAY['${accessibleCharts.join(
           `','`
-        )}'],'${creator}')`
+        )}'],'${creator}') RETURNING id;`
+      );
+
+      await dbConnectedPool.query(
+        `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${creatorID},'${creator}','created',${response.rows[0].id},'${empName}','${date}','${time}')`
       );
     }
 
@@ -1720,8 +1786,12 @@ app.post('/filter', async (req, res) => {
 
 app.post('/updateEmpStatus', async (req, res) => {
   try {
-    const changeEmpID = req.body.currentEmpID;
+    const changeEmpID = req.body.changeEmpID;
+    const changeEmpName = req.body.changeEmpName;
     const changeEmpStatus = req.body.changeEmpStatus;
+
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.current_Emp_ID;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -1731,8 +1801,31 @@ app.post('/updateEmpStatus', async (req, res) => {
       port: 5432,
     });
 
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
     const response = dbConnectedPool.query(
       `UPDATE employee_table SET status='${changeEmpStatus}' WHERE id=${changeEmpID}`
+    );
+
+    await dbConnectedPool.query(
+      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${currentEmpID},'${currentUser}','updated status to ${changeEmpStatus}',${changeEmpID},'${changeEmpName}','${date}','${time}')`
     );
 
     res.sendStatus(200);
@@ -1744,8 +1837,12 @@ app.post('/updateEmpStatus', async (req, res) => {
 
 app.post('/updateEmpChartAccess', async (req, res) => {
   try {
-    const changeEmpID = req.body.currentEmpID;
+    const changeEmpID = req.body.changeEmpID;
+    const changeEmpName = req.body.changeEmpName;
     const selectedChartAccess = req.body.selectedChartAccess;
+
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -1755,10 +1852,33 @@ app.post('/updateEmpChartAccess', async (req, res) => {
       port: 5432,
     });
 
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
     const response = dbConnectedPool.query(
       `UPDATE employee_table SET accessible_charts= ARRAY['${selectedChartAccess.join(
         `','`
       )}'] WHERE id=${changeEmpID}`
+    );
+
+    await dbConnectedPool.query(
+      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${currentEmpID},'${currentUser}','updated report access',${changeEmpID},'${changeEmpName}','${date}','${time}')`
     );
 
     res.sendStatus(200);
@@ -1770,8 +1890,6 @@ app.post('/updateEmpChartAccess', async (req, res) => {
 
 app.post('/admin', async (req, res) => {
   try {
-    console.log('admin');
-
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
 
@@ -1828,11 +1946,18 @@ app.post('/adminLog', async (req, res) => {
     const emp_ChartAccess = response2.rows[0].accessible_charts;
     const emp_Status = response2.rows[0].status;
 
+    const adminActivityRecords = await dbConnectedPool.query(
+      'SELECT * FROM admin_activity_table;'
+    );
+
+    console.log('adminActivityRecords: ', adminActivityRecords.rows);
+
     res.render(path.join(__dirname, '/views/adminLog.ejs'), {
       currentUser,
       currentEmpID,
       emp_ChartAccess,
       emp_Status,
+      adminActivityRecords: adminActivityRecords.rows,
     });
   } catch (err) {
     console.log(err);

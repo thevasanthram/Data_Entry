@@ -204,7 +204,7 @@
                 <option value="dummy" selected hidden>Select User</option>
                 <%for(let i=0; i< employeeRecords.length; i++){
                 if(employeeRecords[i].created_by != 'Root User'){%>
-                <option value="<%= employeeRecords[i].id %>">
+                <option value="<%= employeeRecords[i].id%>_<%= employeeRecords[i].name%>">
                 <%= employeeRecords[i].id +': ' + employeeRecords[i].name %>
                 </option>
                 <%}%>
@@ -294,6 +294,7 @@
 
       <p id="currentEmpStatusCache" style="display: none;"></p>
       <p id="currentEmpIDCache" style="display: none;"></p>
+      <p id="changeEmpNameCache" style="display: none;"></p>
       <p id="newChartAccessCache" style="display: none;"></p>
 
       <!-- edit Employee Chart Access -->
@@ -498,7 +499,10 @@
             'Content-type': 'application/json',
           },
           body: JSON.stringify({
-            userID: selectedUserID.value,
+            userID: selectedUserID.value.split('_')[0],
+            userName: selectedUserID.value.split('_')[1],
+            currentEmpID: '<%= currentEmpID %>',
+            currentUser: '<%= currentUser %>',
           }),
         });
 
@@ -516,8 +520,10 @@
       function editEmployeeStatus(event){
         const currentEmpStatus = event.target.parentNode.parentNode.childNodes[5].innerText
         const currentEmpID= event.target.parentNode.parentNode.childNodes[1].innerText
+        const changeEmpName= event.target.parentNode.parentNode.childNodes[3].innerText
         document.getElementById('currentEmpStatusCache').innerHTML = currentEmpStatus
         document.getElementById('currentEmpIDCache').innerHTML = currentEmpID
+        document.getElementById('changeEmpNameCache').innerHTML = changeEmpName
         document.getElementById('editEmployeeStatusEnsureMessage').innerHTML = `Are you sure want to switch user status to ${currentEmpStatus == 'employee' ? 'admin': 'employee'}`
         document.getElementById('editEmployeeStatusEnsureDivision').style.visibility = 'visible'
       }
@@ -526,7 +532,8 @@
       async function editEmployeeStatusFinal(){
         // editing employee status
         const currentEmpStatus = document.getElementById('currentEmpStatusCache').innerText
-        const currentEmpID = document.getElementById('currentEmpIDCache').innerText 
+        const currentEmpID = document.getElementById('currentEmpIDCache').innerText
+        const changeEmpName = document.getElementById('changeEmpNameCache').innerText
         
         let changeEmpStatus = ''
 
@@ -543,7 +550,10 @@
           },
           body: JSON.stringify({
             changeEmpStatus,
-            currentEmpID
+            changeEmpID: currentEmpID,
+            current_Emp_ID: '<%= currentEmpID %>',
+            changeEmpName: changeEmpName,
+            currentUser: '<%= currentUser %>'
           })
         })
 
@@ -559,11 +569,12 @@
       }
 
       function editEmployeeChartAccess(event){
-        const currentEmpStatus = event.target.parentNode.parentNode.childNodes[5].innerText
         const currentEmpID= event.target.parentNode.parentNode.childNodes[1].innerText
         const currentEmpChartAccess = event.target.parentNode.parentNode.childNodes[7].innerText
+        const changeEmpName= event.target.parentNode.parentNode.childNodes[3].innerText
         
         document.getElementById('currentEmpIDCache').innerHTML = currentEmpID
+        document.getElementById('changeEmpNameCache').innerHTML = changeEmpName
 
         const empChartAccessArray = currentEmpChartAccess.split(',')
 
@@ -621,13 +632,15 @@
       async function editEmployeeChartAccessFinal(){
         let selectedChartAccess = []
         const employeeChartAccessCheckBox = document.getElementsByClassName('employeeChartAccessCheckBox')
+        
         Object.values(employeeChartAccessCheckBox).map( (singleInput) => {
           if(singleInput.checked == true){
             selectedChartAccess.push(singleInput.value)
           }
         })
 
-        const currentEmpID = document.getElementById('currentEmpIDCache').innerText
+        const changeEmpID = document.getElementById('currentEmpIDCache').innerText
+        const changeEmpName = document.getElementById('changeEmpNameCache').innerText
 
         const response = await fetch('/updateEmpChartAccess', {
           method: 'POST',
@@ -635,7 +648,10 @@
             'Content-type': 'application/json'
           },
           body: JSON.stringify({
-            currentEmpID,
+            changeEmpID,
+            changeEmpName,
+            currentEmpID: '<%= currentEmpID %>',
+            currentUser: '<%= currentUser %>',
             selectedChartAccess
           })
         })
