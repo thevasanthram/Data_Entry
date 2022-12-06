@@ -312,9 +312,9 @@ select {
   }
   .admin {
     color: #00adb5;
-    margin-right: 4%;
+    margin-right: 5%;
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
     text-align: center;
   }
   #navBarDivision {

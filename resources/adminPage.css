@@ -569,32 +569,12 @@ td {
     font-size: clamp(19px, 0.8vw, 1.5rem);
   }
 
-  #btn {
-    width: auto;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
-    right: 2%;
-    line-height: 28px;
-  }
   .admin {
     color: #00adb5;
-    margin-right: 4%;
+    margin-right: 5%;
     text-align: center;
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
-  }
-
-  .button-logout {
-    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-    width: 65px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
   }
 
   #navBarDivision {

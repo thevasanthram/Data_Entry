@@ -158,13 +158,13 @@
           id="stats"
           role="tabpanel"
           aria-labelledby="stats-tab"
-          style="background-color: #1f2937; height: 20vh;"
+          style="background-color: #1f2937;"
         >
           <dl
-            class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto  sm:grid-cols-3 xl:grid-cols-7 dark:text-white sm:p-8"
+            class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 sm:grid-cols-3 xl:grid-cols-7 dark:text-white sm:p-8"
             style="color: white;"
           >
-            <div class="flex flex-col items-center justify-center">
+            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
               <dt class="mb-2 text-3xl font-extrabold">
                 <%= uniqueBodyNumber.length %>
               </dt>
@@ -172,13 +172,13 @@
                 Total No. of Vehicals
               </dd>
             </div>
-            <div class="flex flex-col items-center justify-center">
+            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
               <dt class="mb-2 text-3xl font-extrabold"><%= defectCount %></dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Total No. of Defects
               </dd>
             </div>
-            <div class="flex flex-col items-center justify-center">
+            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
               <dt class="mb-2 text-3xl font-extrabold">
                 <%= individualDefectCount['Surface'] %>
               </dt>
@@ -186,7 +186,7 @@
                 Surface
               </dd>
             </div>
-            <div class="flex flex-col items-center justify-center">
+            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
               <dt class="mb-2 text-3xl font-extrabold">
                 <%= individualDefectCount['Body Fitting'] %>
               </dt>
@@ -194,7 +194,7 @@
                 Body Fitting
               </dd>
             </div>
-            <div class="flex flex-col items-center justify-center">
+            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
               <dt class="mb-2 text-3xl font-extrabold">
                 <%= individualDefectCount['Missing & Wrong Part'] %>
               </dt>
@@ -202,7 +202,7 @@
                 Missing & Wrong Part
               </dd>
             </div>
-            <div class="flex flex-col items-center justify-center">
+            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
               <dt class="mb-2 text-3xl font-extrabold">
                 <%= individualDefectCount['Welding'] %>
               </dt>
@@ -210,7 +210,7 @@
                 Welding
               </dd>
             </div>
-            <div class="flex flex-col items-center justify-center">
+            <div class="dataCard flex flex-col items-center justify-center lg\:w-40">
               <dt class="mb-2 text-3xl font-extrabold">
                 <%= individualDefectCount['Water Leak'] %>
               </dt>

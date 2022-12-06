@@ -42,12 +42,12 @@ body {
   text-align: center;
   line-height: initial;
   font-weight: 500;
-  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
 }
 .heading {
   padding-left: 1%;
   font-weight: 700;
-  font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
 .button-logout {
@@ -249,9 +249,9 @@ input:checked ~ .dot {
 @media screen and (max-width: 768px) {
   .admin {
     color: #00adb5;
-    margin-right: 4%;
+    margin-right: 5%;
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
     text-align: center;
   }
 }
