@@ -65,6 +65,7 @@ body {
   color: #eeeeee;
   align-items: center;
   padding: 2px 10px;
+  transition: background 0.25s ease;
 }
 #DataEntryDiv {
   display: inline-block;
@@ -121,15 +122,16 @@ body {
 }
 .table-heading-container {
   position: sticky;
-  top: 0px;
+  top: -1px;
   z-index: 2;
-  color: #eeeeee;
+  color: #E2B842;
   background-color: #221d51;
   /* color: #eeeeee; */
 }
 .table_row {
   color: #000000;
   font-weight: 400;
+  transition: background 0.25s ease;
 }
 .table_row:hover {
   background-color: #97bfb4;
@@ -148,15 +150,8 @@ td {
 .edit_btn {
   position: relative;
   text-align: center;
-  padding-top: 0.66%;
-  padding-left: 0.75%;
-}
-.switch_btn:hover {
-  transform: scale(0.97);
-}
-
-.edit_btn:hover {
-  transform: scale(0.97);
+  /* padding-top: 0.66%;
+  padding-left: 0.75%; */
 }
 .close {
   color: #aaaaaa;
@@ -382,6 +377,7 @@ td {
   background-color: #faf7f0;
   margin: auto;
   display: flex;
+  justify-content: center;
   padding: 0px;
   align-items: center;
   border: 1px solid #888;
@@ -527,7 +523,8 @@ td {
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
-    background-color: #00adb5;
+    background-color: #4ca1af;
+    
   }
   .category {
     font-size: 130%;
@@ -592,7 +589,7 @@ td {
     width: 45%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
-    background-color: #00adb5;
+    background-color: #4ca1af;
   }
   .category {
     font-size: 120%;
@@ -695,10 +692,9 @@ td {
   #navBarDivision {
     position: fixed;
     display: none;
-    width: 45%;
+    width: 48%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 90%;
-    background-color: #00adb5;
+    background-color: #4ca1af;
   }
   .category {
     font-size: 120%;
