@@ -1982,6 +1982,28 @@ app.post('/dashboard', async (req, res) => {
     const emp_ChartAccess = response2.rows[0].accessible_charts;
     const emp_Status = response2.rows[0].status;
 
+    res.render(path.join(__dirname, '/views/liveDashboard.ejs'), {
+      currentUser,
+      currentEmpID,
+      emp_ChartAccess,
+      emp_Status,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/dashboardData', async (req, res) => {
+  try {
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
     // things which are needed
     // total no of cars, defects, individual defect count
     const defectResponse = await dbConnectedPool.query(
@@ -2011,19 +2033,12 @@ app.post('/dashboard', async (req, res) => {
 
     const uniqueBodyNumber = [...new Set(bodyNumberArray)];
 
-    console.log('uniqueBodyNumber: ', uniqueBodyNumber);
-    console.log('defectCount: ', defectCount);
-    console.log('individualDefectCount: ', individualDefectCount);
-
-    res.render(path.join(__dirname, '/views/liveDashboard.ejs'), {
-      currentUser,
-      currentEmpID,
-      emp_ChartAccess,
-      emp_Status,
-      uniqueBodyNumber,
-      defectCount,
-      individualDefectCount,
-    });
+    // console.log('uniqueBodyNumber: ', uniqueBodyNumber);
+    // console.log('defectCount: ', defectCount);
+    // console.log('individualDefectCount: ', individualDefectCount);
+    res.send(JSON.stringify({
+      
+    }))
   } catch (err) {
     console.log(err);
   }
