@@ -30,7 +30,8 @@ body {
 .admin {
   color: #00adb5;
   margin-right: 8%;
-  padding: 3%;
+  line-height: initial;
+  text-align: center;
   font-weight: 500;
   font-size: clamp(1.1rem, 2vw, 1.9rem);
 }
@@ -122,15 +123,9 @@ body {
   box-sizing: border-box;
 }
 
-/* body {
-  background: #012B39;
-  font-family: 'Open Sans', sans-serif;
-} */
 .table_container {
   display: block;
-  height: 60vh;
-  overflow-y: scroll;
-  overflow-x: auto;
+  height: 65vh;
 }
 table {
   background: #105469;
@@ -140,7 +135,17 @@ table {
   width: 90%;
   position: relative;
   left: 3%;
+  overflow-y: scroll;
+  overflow-x: auto;
 }
+.table_Heading {
+  position: sticky;
+  top: -1px;
+  text-align: center;
+  z-index: 2;
+  background-color: #221d51;
+}
+
 th {
   border-bottom: 1px solid #364043;
   color: #e2b842;
@@ -191,7 +196,6 @@ tbody tr:hover {
     min-height: 4.5rem;
     flex-direction: row;
     align-items: center;
-    padding: 1%;
     justify-content: space-between;
     background-color: #393e46;
     color: #f0e3e3;
@@ -216,9 +220,11 @@ tbody tr:hover {
   }
   .admin {
     color: #00adb5;
-    margin-right: 10%;
+    margin-right: 0%;
+    line-height: initial;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    text-align: center;
   }
 
   .button-logout {
@@ -312,11 +318,9 @@ tbody tr:hover {
 @media screen and (max-width: 481px) {
   .admin {
     color: #00adb5;
-    margin-right: 4%;
-    position: relative;
-    /* left: 8%; */
+    margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 2vw, 1.6rem);
   }
   #btn {
     width: auto;
