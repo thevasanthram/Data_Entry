@@ -47,6 +47,8 @@ input[type='number'] {
 .admin {
   color: #00adb5;
   margin-right: 8%;
+  text-align: center;
+  line-height: initial;
   padding: 3%;
   font-weight: 500;
   font-size: clamp(1.1rem, 2vw, 1.9rem);
@@ -309,7 +311,13 @@ select {
     background-size: 130%;
     background-position: center;
   }
-
+  .admin {
+    color: #00adb5;
+    margin-right: 4%;
+    font-weight: 500;
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    text-align: center;
+  }
   #navBarDivision {
     position: fixed;
     display: none;
@@ -448,11 +456,10 @@ select {
   }
   .admin {
     color: #00adb5;
-    margin-right: 4%;
-    position: relative;
-    /* left: 2%; */
+    margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    text-align: center;
   }
 
   .button-logout {

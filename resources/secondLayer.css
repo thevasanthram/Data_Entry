@@ -39,6 +39,8 @@ body {
 .admin {
   color: #00adb5;
   margin-right: 8%;
+  text-align: center;
+  line-height: initial;
   padding: 3%;
   font-weight: 500;
   font-size: clamp(1.1rem, 2vw, 1.6rem);
@@ -175,11 +177,10 @@ input:checked ~ .dot {
   }
   .admin {
     color: #00adb5;
-    margin-right: 4%;
-    position: relative;
-    /* left: 2%; */
+    margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    text-align: center;
   }
 
   .button-logout {
@@ -247,6 +248,13 @@ input:checked ~ .dot {
 }
 
 @media screen and (max-width: 768px) {
+  .admin {
+    color: #00adb5;
+    margin-right: 4%;
+    font-weight: 500;
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 1025px) {

@@ -149,8 +149,8 @@
       </div>
       <div class="table_container">
         <table>
-          <thead>
-            <tr>
+          <thead class="table_Heading">
+            <tr >
               <th>Emp ID</th>
               <th>Done By</th>
               <th>Activity</th>
@@ -163,8 +163,9 @@
 
           <tbody>
             <%for(let i = 0; i< adminActivityRecords.length; i++) { const
-            singleProperties = Object.keys(adminActivityRecords[i])%>
+            singleProperties = Object.keys(adminActivityRecords[i]) %>
             <tr>
+              
               <%for(let j = 0; j< singleProperties.length; j++) {%>
               <td><%= adminActivityRecords[i][singleProperties[j]] %></td>
               <%}%>

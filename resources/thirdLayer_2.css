@@ -300,6 +300,13 @@
 }
 
 @media screen and (max-width: 769px) {
+  .admin {
+    color: #00adb5;
+    margin-right: 3%;
+    font-weight: 500;
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    text-align: center;
+  }
   #home-icon {
     margin-left: 10%;
     min-width: 30px;
@@ -597,11 +604,10 @@
   }
   .admin {
     color: #00adb5;
-    margin-right: 4%;
-    position: relative;
-    /* left: 1%; */
+    margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    text-align: center;
   }
   .button-logout {
     background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);

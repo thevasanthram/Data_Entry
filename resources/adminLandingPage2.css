@@ -11647,6 +11647,14 @@ input[type='number'] {
   #filter-container {
     width: 90%;
   }
+  .admin {
+    color: #00adb5;
+    margin-right: 3%;
+    line-height: initial;
+    font-weight: 500;
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    text-align: center;
+  }
   #navBarDivision {
     position: fixed;
     display: none;
@@ -11682,32 +11690,6 @@ input[type='number'] {
     align-items: center;
     padding: 2px 10px;
   }
-  /* .form {
-    min-height: 8rem;
-  }
-  .Date_Filter {
-    margin-top: -7%;
-  }
-  .toggle_content {
-    position: relative;
-    top: -2.5rem;
-    margin-left: -12rem;
-    flex-direction: row;
-  }
-  .Empty_Tag {
-    display: block;
-  }
-  #chart-condition-select-content-1 {
-    display: flex;
-    position: relative;
-    top: 2rem;
-    right: 15rem;
-  }
-  .button_container {
-    position: relative;
-    top: 5%;
-    left: -22%;
-  } */
 
   .zone_division {
     background-repeat: no-repeat;
@@ -12485,11 +12467,10 @@ input[type='number'] {
   }
   .admin {
     color: #00adb5;
-    margin-right: 4%;
-    position: relative;
-    /* left: 8%; */
+    margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    text-align: center;
   }
 
   .colorMapSubDefects {

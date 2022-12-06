@@ -171,6 +171,8 @@ input:checked ~ .dot {
 .admin {
   color: #00adb5;
   margin-right: 8%;
+  line-height: initial;
+  text-align: center;
   padding: 3%;
   font-weight: 500;
   font-size: clamp(1.1rem, 2vw, 1.6rem);
