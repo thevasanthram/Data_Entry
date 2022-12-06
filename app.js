@@ -1950,8 +1950,6 @@ app.post('/adminLog', async (req, res) => {
       'SELECT * FROM admin_activity_table;'
     );
 
-    console.log('adminActivityRecords: ', adminActivityRecords.rows);
-
     res.render(path.join(__dirname, '/views/adminLog.ejs'), {
       currentUser,
       currentEmpID,
@@ -1984,11 +1982,47 @@ app.post('/dashboard', async (req, res) => {
     const emp_ChartAccess = response2.rows[0].accessible_charts;
     const emp_Status = response2.rows[0].status;
 
+    // things which are needed
+    // total no of cars, defects, individual defect count
+    const defectResponse = await dbConnectedPool.query(
+      `SELECT * FROM defect_table;`
+    );
+
+    // console.log('defectResponse: ', defectResponse);
+
+    let bodyNumberArray = [];
+    let defectCount = 0;
+    let individualDefectCount = {
+      Surface: 0,
+      'Body Fitting': 0,
+      'Missing & Wrong Part': 0,
+      Welding: 0,
+      'Water Leak': 0,
+    };
+
+    defectResponse.rows.map((record) => {
+      // for unique bodyNumber
+      bodyNumberArray.push(record.body_number);
+      // for total defect count
+      defectCount += record.defectcount;
+      // for individual defect count
+      individualDefectCount[record.defect] += record.defectcount;
+    });
+
+    const uniqueBodyNumber = [...new Set(bodyNumberArray)];
+
+    console.log('uniqueBodyNumber: ', uniqueBodyNumber);
+    console.log('defectCount: ', defectCount);
+    console.log('individualDefectCount: ', individualDefectCount);
+
     res.render(path.join(__dirname, '/views/liveDashboard.ejs'), {
       currentUser,
       currentEmpID,
       emp_ChartAccess,
       emp_Status,
+      uniqueBodyNumber,
+      defectCount,
+      individualDefectCount,
     });
   } catch (err) {
     console.log(err);
