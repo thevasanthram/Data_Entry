@@ -174,13 +174,13 @@ input:checked ~ .dot {
   line-height: initial;
   text-align: center;
   font-weight: 500;
-  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
 }
 
 .heading {
   padding-left: 1%;
   font-weight: 700;
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
 }
 
 .filtering-condition-content {
