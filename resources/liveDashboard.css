@@ -156,3 +156,56 @@ body {
   justify-content: center;
   overflow: auto;
 }
+
+#stats {
+	background-color: #1f2937;
+	height: 135px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.dataCard{
+  width: 180px;
+}
+
+@media screen and (max-width: 1280px){
+  #stats{
+    background-color: #1f2937;
+    height: 193px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  #stats {
+    background-color: #1f2937;
+    height: 283px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  #stats {
+    background-color: #1f2937;
+    height: 388px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #stats {
+    background-color: #1f2937;
+    height: 448px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
