@@ -1,107 +1,122 @@
 * {
-    margin: 0px;
-  }
-  
-  body {
-    width: 100%;
-    height: 100vh;
-    background-color: #222831;
-    color: #eeeeee;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-      Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  }
-  /* Styling for header part which contain user_name App_Name and LOGOUT btn  */
-  .header {
-    width: 100%;
-    display: flex;
-    min-height: 4.5rem;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #393e46;
-    color: #f0e3e3;
-    position: relative;
-  }
-  #btn {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-  }
-  .admin {
-    color: #00adb5;
-    margin-right: 8%;
-    padding: 3%;
-    font-weight: 500;
-    font-size: clamp(1.1rem, 2vw, 1.9rem);
-  }
-  .heading {
-    padding-left: 1%;
-    font-weight: 700;
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
-  }
-  
-  .button-logout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2%;
-    margin: 5%;
-    width: 8rem;
-    font-weight: 600;
-    font-size: medium;
-    height: 2.5rem;
-    border-radius: 5px;
-    color: #eeeeee;
-    border-color: rgb(91, 97, 166);
-  }
-  .button-logout:hover {
-    border-right-color: rgb(45, 56, 184);
-  }
-  
-  /* TODO ...........SIDE NAV BAR MENU................................................................ */
-  
-  #navBarDivision {
-    position: fixed;
-    display: none;
-    width: 17%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 100%;
-    background-color: #4ca1af;
-  }
-  .category {
-    font-size: 140%;
-    font-weight: 500;
-    min-height: 8vh;
-    display: flex;
-    align-items: center;
-    padding: 2px 10px;
-    transition: background 0.25s ease;
-  }
-  #DataEntryDiv {
-    display: inline-block;
-    width: 100%;
-    cursor: pointer;
-    background-color: #075154;
-  }
-  
-  #ReportGenerationDiv {
-    display: inline-block;
-    width: 100%;
-    cursor: pointer;
-  }
-  
-  #AdministrationDiv {
-    display: inline-block;
-    width: 100%;
-    cursor: pointer;
-  }
-  /* ! End of Nav Side Bar Menu */
-  
+  margin: 0px;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #222831;
+  color: #eeeeee;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+/* Styling for header part which contain user_name App_Name and LOGOUT btn  */
+.header {
+  width: 100%;
+  display: flex;
+  min-height: 4.5rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #393e46;
+  color: #f0e3e3;
+  position: relative;
+}
+#btn {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.admin {
+  color: #00adb5;
+  margin-right: 8%;
+  padding: 3%;
+  font-weight: 500;
+  font-size: clamp(1.1rem, 2vw, 1.9rem);
+}
+.heading {
+  padding-left: 1%;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.button-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2%;
+  margin: 5%;
+  width: 8rem;
+  font-weight: 600;
+  font-size: medium;
+  height: 2.5rem;
+  border-radius: 5px;
+  color: #eeeeee;
+  border-color: rgb(91, 97, 166);
+}
+.button-logout:hover {
+  border-right-color: rgb(45, 56, 184);
+}
+
+/* TODO ...........SIDE NAV BAR MENU................................................................ */
+
+#navBarDivision {
+  position: fixed;
+  display: none;
+  width: 17%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100%;
+  background-color: #4ca1af;
+  z-index: 5;
+}
+.category {
+  font-size: 140%;
+  font-weight: 500;
+  min-height: 8vh;
+  display: flex;
+  align-items: center;
+  padding: 2px 10px;
+  transition: background 0.25s ease;
+}
+#DataEntryDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
+#ReportGenerationDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
+#AdministrationDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
+#AdminLogDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  background-color: #075154;
+}
+
+#DashboardDiv {
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+/* ! End of Nav Side Bar Menu */
+
 /* !   ...........................Admin Log Table.......................... */
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -128,7 +143,7 @@ table {
 }
 th {
   border-bottom: 1px solid #364043;
-  color: #E2B842;
+  color: #e2b842;
   font-size: 0.85em;
   font-weight: 600;
   padding: 0.5em 1em;
@@ -146,214 +161,210 @@ tbody tr {
   transition: background 0.25s ease;
 }
 tbody tr:hover {
-  background: #012B39;
+  background: #012b39;
 }
 
-
-
-
-  /* !...........................Media query Responsive Style....................... */
-  @media screen and (max-width: 1024px) {
-    #navBarDivision {
-      position: fixed;
-      display: none;
-      width: 30%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      height: 100%;
-      background-color: #4ca1af;
-    }
-    .category {
-      font-size: 130%;
-      font-weight: 500;
-      min-height: 7vh;
-      color: #eeeeee;
-      display: flex;
-      align-items: center;
-      padding: 2px 10px;
-    }
+/* !...........................Media query Responsive Style....................... */
+@media screen and (max-width: 1024px) {
+  #navBarDivision {
+    position: fixed;
+    display: none;
+    width: 30%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    background-color: #4ca1af;
   }
-  @media screen and (max-width: 780px) {
-    .header {
-      min-width: 100%;
-      display: flex;
-      min-height: 4.5rem;
-      flex-direction: row;
-      align-items: center;
-      padding: 1%;
-      justify-content: space-between;
-      background-color: #393e46;
-      color: #f0e3e3;
-      position: relative;
-    }
-  
-    .heading {
-      padding-left: 1%;
-      font-weight: 700;
-      font-size: clamp(19px, 0.8vw, 1.5rem);
-    }
-  
-    #btn {
-      width: auto;
-      display: flex;
-      justify-content: end;
-      align-items: center;
-      flex-direction: column;
-      position: relative;
-      right: 2%;
-      line-height: 28px;
-    }
-    .admin {
-      color: #00adb5;
-      margin-right: 10%;
-      font-weight: 500;
-      font-size: clamp(1.2rem, 2vw, 1.8rem);
-    }
-  
-    .button-logout {
-      background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-      width: 65px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-    }
-  
-    #navBarDivision {
-      position: fixed;
-      display: none;
-      width: 45%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      height: 100%;
-      background-color: #4ca1af;
-    }
-    .category {
-      font-size: 120%;
-      font-weight: 500;
-      min-height: 7vh;
-      display: flex;
-      align-items: center;
-      padding: 2px 10px;
-    }
-    .editEmployeeStatusEnsureModalContent {
-      width: 40%;
-      display: flex;
-      min-height: 20%;
-    }
-  
-    #editEmployeeStatusEnsureButton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5%;
-      margin-left: 2%;
-    }
-    #employeeTableDivision {
-      display: block;
-      position: absolute;
-      align-items: center;
-      width: 90%;
-      height: 80%;
-      overflow-y: auto;
-      padding-bottom: 8%;
-      /* left: 5%; */
-    }
-    #addUser-img,
-    #removeUser-img {
-      cursor: pointer;
-      width: 4rem;
-    }
-    .reportGenerationDeniedDivisionModalContent {
-      background-color: #fefefe;
-      color: black;
-      margin: auto;
-      text-align: center;
-      padding: 5px;
-      border: 1px solid #888;
-      width: 60%;
-      height: 18%;
-    }
-  
-    #reportGenerationDeniedDivisionHolder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      top: 20%;
-      gap: 1.25rem;
-      justify-content: center;
-    }
-    .removeUserEnsureModalContent {
-      background-color: #faf7f0;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 35%;
-      min-height: 26%;
-      display: flex;
-      text-align: center;
-      justify-content: center;
-      border-radius: 10px;
-    }
+  .category {
+    font-size: 130%;
+    font-weight: 500;
+    min-height: 7vh;
+    color: #eeeeee;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
   }
-  
-  @media screen and (max-width: 481px) {
-    .admin {
-      color: #00adb5;
-      margin-right: 4%;
-      position: relative;
-      /* left: 8%; */
-      font-weight: 500;
-      font-size: clamp(1.2rem, 2vw, 1.6rem);
-    }
-    #btn {
-      width: auto;
-      display: flex;
-      justify-content: end;
-      align-items: center;
-      flex-direction: column;
-      position: relative;
-      right: 2%;
-      line-height: 28px;
-    }
-    .button-logout {
-      background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
-      width: 70px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-    }
-    #navBarDivision {
-      position: fixed;
-      display: none;
-      width: 50%;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #4ca1af;
-    }
-    .category {
-      font-size: 120%;
-      font-weight: 500;
-      min-height: 7vh;
-      display: flex;
-      align-items: center;
-      padding: 2px 10px;
-    }
-    .table_container {
-      display: block;
-      width: 90%;
-      height: 60vh;
-      position: relative;
-      left: 2%;
-      overflow-y: scroll;
-      overflow-x: auto;
-    }
-    table {
-      background: #175f75;
-      border-radius: 0.5em;
-      border-collapse: collapse;
-      margin: 2%;
-    }
+}
+@media screen and (max-width: 780px) {
+  .header {
+    min-width: 100%;
+    display: flex;
+    min-height: 4.5rem;
+    flex-direction: row;
+    align-items: center;
+    padding: 1%;
+    justify-content: space-between;
+    background-color: #393e46;
+    color: #f0e3e3;
+    position: relative;
   }
-  
+
+  .heading {
+    padding-left: 1%;
+    font-weight: 700;
+    font-size: clamp(19px, 0.8vw, 1.5rem);
+  }
+
+  #btn {
+    width: auto;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    right: 2%;
+    line-height: 28px;
+  }
+  .admin {
+    color: #00adb5;
+    margin-right: 10%;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+  }
+
+  .button-logout {
+    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+    width: 65px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+
+  #navBarDivision {
+    position: fixed;
+    display: none;
+    width: 45%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    background-color: #4ca1af;
+  }
+  .category {
+    font-size: 120%;
+    font-weight: 500;
+    min-height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+  }
+  .editEmployeeStatusEnsureModalContent {
+    width: 40%;
+    display: flex;
+    min-height: 20%;
+  }
+
+  #editEmployeeStatusEnsureButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    margin-left: 2%;
+  }
+  #employeeTableDivision {
+    display: block;
+    position: absolute;
+    align-items: center;
+    width: 90%;
+    height: 80%;
+    overflow-y: auto;
+    padding-bottom: 8%;
+    /* left: 5%; */
+  }
+  #addUser-img,
+  #removeUser-img {
+    cursor: pointer;
+    width: 4rem;
+  }
+  .reportGenerationDeniedDivisionModalContent {
+    background-color: #fefefe;
+    color: black;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 60%;
+    height: 18%;
+  }
+
+  #reportGenerationDeniedDivisionHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 20%;
+    gap: 1.25rem;
+    justify-content: center;
+  }
+  .removeUserEnsureModalContent {
+    background-color: #faf7f0;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 35%;
+    min-height: 26%;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    border-radius: 10px;
+  }
+}
+
+@media screen and (max-width: 481px) {
+  .admin {
+    color: #00adb5;
+    margin-right: 4%;
+    position: relative;
+    /* left: 8%; */
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+  }
+  #btn {
+    width: auto;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    right: 2%;
+    line-height: 28px;
+  }
+  .button-logout {
+    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+    width: 70px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+  #navBarDivision {
+    position: fixed;
+    display: none;
+    width: 50%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #4ca1af;
+  }
+  .category {
+    font-size: 120%;
+    font-weight: 500;
+    min-height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+  }
+  .table_container {
+    display: block;
+    width: 90%;
+    height: 60vh;
+    position: relative;
+    left: 2%;
+    overflow-y: scroll;
+    overflow-x: auto;
+  }
+  table {
+    background: #175f75;
+    border-radius: 0.5em;
+    border-collapse: collapse;
+    margin: 2%;
+  }
+}
