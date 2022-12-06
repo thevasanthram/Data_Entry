@@ -63,6 +63,11 @@
           onclick="handleFormSubmit(event)"
         >
           <div id="administration" class="category">Administration</div>
+          <!-- <ul style="text-align: center; display: none;">
+            <li style="padding-right: 5%;  font-size: 120%;">User Management </li>
+            <li style="padding-right: 26%;  font-size: 120%;"> Dashboard</li>
+            <li style="padding-right: 26%;  font-size: 120%;">Admin Log</li>
+          </ul> -->
         </div>
         <div
           id="AdminLogDiv"
@@ -76,131 +81,377 @@
           id="DashboardDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
         >
           <div id="activityLog" class="category">Dashboard</div>
         </div>
       </div>
-
-      <form action="/follower" id="followerForm" method="post">
-        <input
-          type="hidden"
-          id="currentUser"
-          name="currentUser"
-          value="<%= currentUser %>"
-        />
-        <input
-          type="hidden"
-          id="currentEmpID"
-          name="currentEmpID"
-          value="<%= currentEmpID %>"
-        />
-      </form>
-      <form action="/filter" method="post" id="filterFrom">
-        <input
-          type="hidden"
-          id="currentUser"
-          name="currentUser"
-          value="<%= currentUser %>"
-        />
-        <input
-          type="hidden"
-          id="currentEmpID"
-          name="currentEmpID"
-          value="<%= currentEmpID %>"
-        />
-      </form>
-      <form action="/admin" method="post" id="adminForm">
-        <input
-          type="hidden"
-          id="currentUser"
-          name="currentUser"
-          value="<%= currentUser %>"
-        />
-        <input
-          type="hidden"
-          id="currentEmpID"
-          name="currentEmpID"
-          value="<%= currentEmpID %>"
-        />
-      </form>
-      <form action="/adminLog" method="post" id="adminLogForm">
-        <input
-          type="hidden"
-          id="currentUser"
-          name="currentUser"
-          value="<%= currentUser %>"
-        />
-        <input
-          type="hidden"
-          id="currentEmpID"
-          name="currentEmpID"
-          value="<%= currentEmpID %>"
-        />
-      </form>
     </div>
+    <div class="mainBody">
+      <h1
+        style="
+          font-size: 182%;
+          text-decoration: underline;
+          padding-left: 2%;
+          font-weight: 600;
+        "
+      >
+        Live Status
+      </h1>
+      <!-- <div class="mainInfoCard">
+        <div class="infoCard" style="background-color: #143f6b">
+          <div style="line-height: 30px; margin-top: 10%">
+            <div class="infoCardText" style="font-size: 17px; font-weight: 700">
+              Total No. of Vehicals
+            </div>
+            <div class="infoCardData" style="font-size: 35px; font-weight: 700">
+              21
+            </div>
+          </div>
+          <div style="margin-bottom: 15%; line-height: 30px">
+            <div class="infoCardText" style="font-size: 17px; font-weight: 700">
+              Total No. of Defects
+            </div>
+            <div class="infoCardData" style="font-size: 35px; font-weight: 700">
+              30
+            </div>
+          </div>
+        </div>
+        <div class="infoCard" style="background-color: #ff6464">
+          <div class="infoCardText">Body Fitting</div>
+          <div class="infoCardData">8</div>
+        </div>
+        <div class="infoCard">
+          <div class="infoCardText">Surface</div>
+          <div class="infoCardData">4</div>
+        </div>
+        <div class="infoCard" style="background-color: #7900ff">
+          <div class="infoCardText">Missing & Wrong Part</div>
+          <div class="infoCardData">12</div>
+        </div>
+        <div class="infoCard" style="background-color: #77d970">
+          <div class="infoCardText">Welding</div>
+          <div class="infoCardData">7</div>
+        </div>
+        <div class="infoCard" style="background-color: #480032">
+          <div class="infoCardText">Water Leak</div>
+          <div class="infoCardData">10</div>
+        </div>
+      </div> -->
 
-    <script>
-      document.addEventListener('click', hideAndSeek);
-
-      function hideAndSeek(event) {
-        const navBarDivision = document.getElementById('navBarDivision');
-        if (event.target.id != 'navBarIcon') {
-          navBarDivision.style.display = 'none';
-        } else {
-          if (
-            navBarDivision.style.display == 'none' ||
-            navBarDivision.style.display == ''
-          ) {
-            navBarDivision.style.display = 'inline-block';
-          } else if (navBarDivision.style.display == 'inline-block') {
-            navBarDivision.style.display = 'none';
-          }
-        }
-      }
-
-      function onmouseoverBGColor(event) {
-        event.target.style.backgroundColor = '#075154';
-      }
-
-      function onmouseoutBGColor(event) {
-        if (event.target.id != 'activityLog') {
-          event.target.style.backgroundColor = '#4ca1af';
-        }
-      }
-
-      function handleFormSubmit(event) {
-        var empStatus = '<%= emp_Status %>';
-        var empChartAccess = '<%= emp_ChartAccess %>';
-
-        if (event.target.id == 'reportGeneration') {
-          if (empChartAccess.length > 0) {
-            document.getElementById('filterFrom').submit();
-          } else {
-            document.getElementById(
-              'reportGenerationDeniedDivision'
-            ).style.visibility = 'visible';
-          }
-        } else if (event.target.id == 'dataEntry') {
-          console.log('dataEntry');
-          document.getElementById('followerForm').submit();
-        } else if (event.target.id == 'administration') {
-          if (empStatus == 'admin') {
-            document.getElementById('adminForm').submit();
-          } else {
-            document.getElementById(
-              'adminAccessDeniedDivision'
-            ).style.visibility = 'visible';
-          }
-        } else if (event.target.id == 'adminLog') {
-          if (empStatus == 'admin') {
-            document.getElementById('adminLogForm').submit();
-          } else {
-            document.getElementById(
-              'adminAccessDeniedDivision'
-            ).style.visibility = 'visible';
-          }
-        }
-      }
-    </script>
+      <div
+        id="fullWidthTabContent"
+        class="border-t border-gray-200 dark:border-gray-600"
+        style="background-color: #1f2937;"
+      >
+        <div
+          class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800"
+          id="stats"
+          role="tabpanel"
+          aria-labelledby="stats-tab"
+        >
+          <dl
+            class="grid max-w-screen-xl grid-cols-2 gap-8 p-4 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-7 dark:text-white sm:p-8"
+          >
+            <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl font-extrabold">20</dt>
+              <dd class="font-light text-lg text-center  dark:text-gray-400">
+                Total No. of Vehicals
+              </dd>
+            </div>
+            <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl font-extrabold">42</dt>
+              <dd class="font-light text-lg text-center  dark:text-gray-400">
+                Total No. of Defects
+              </dd>
+            </div>
+            <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl font-extrabold">8</dt>
+              <dd class="font-light text-lg text-center  dark:text-gray-400">
+                Surface
+              </dd>
+            </div>
+            <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl font-extrabold">4</dt>
+              <dd class="font-light text-lg text-center  dark:text-gray-400">
+                Body Fitting
+              </dd>
+            </div>
+            <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl font-extrabold">12</dt>
+              <dd class="font-light text-lg text-center  dark:text-gray-400">
+                Missing & Wrong Parts
+              </dd>
+            </div>
+            <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl font-extrabold">7</dt>
+              <dd class="font-light text-lg text-center  dark:text-gray-400">
+                Welding
+              </dd>
+            </div>
+            <div class="flex flex-col items-center justify-center">
+              <dt class="mb-2 text-3xl font-extrabold">10</dt>
+              <dd class="font-light text-lg text-center dark:text-gray-400">
+                Water Leaks
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+      
+      <div class="mainTable flex flex-col justify-start content-center">
+        <div class="tableContainer flex flex-col max-h-80 align-center">
+          <div class="relative max-h-screen m-4">
+            <table
+              class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+            >
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 sticky top-0"
+              >
+                <tr>
+                  <th scope="col" class="py-3 px-6">User ID</th>
+                  <th scope="col" class="py-3 px-6">User Name</th>
+                  <th scope="col" class="py-3 px-6">No. of Defects</th>
+                  <th scope="col" class="py-3 px-6">Category</th>
+                  <th scope="col" class="py-3 px-6">Date</th>
+                  <th scope="col" class="py-3 px-6">Time</th>
+                </tr>
+              </thead>
+              <tbody class="h-96 overflow-y-auto">
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+                <tr
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  <th
+                    scope="row"
+                    class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Microsoft Surface Pro
+                  </th>
+                  <td class="py-4 px-6">White</td>
+                  <td class="py-4 px-6">Laptop PC</td>
+                  <td class="py-4 px-6">$1999</td>
+                  <td class="py-4 px-6">06/12/22</td>
+                  <td class="py-4 px-6">11:03</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
+  <script>
+    // by default, mode will be online
+    document.getElementById("toggle_switch_outside").checked = true;
+    document.getElementById("toggle_switch").checked = true;
+
+    document.addEventListener("click", hideAndSeek);
+
+    function hideAndSeek(event) {
+      const navBarDivision = document.getElementById("navBarDivision");
+      if (event.target.id != "navBarIcon") {
+        navBarDivision.style.display = "none";
+      } else {
+        if (
+          navBarDivision.style.display == "none" ||
+          navBarDivision.style.display == ""
+        ) {
+          navBarDivision.style.display = "inline-block";
+        } else if (navBarDivision.style.display == "inline-block") {
+          navBarDivision.style.display = "none";
+        }
+      }
+    }
+
+    function onmouseoverBGColor(event) {
+      event.target.style.backgroundColor = "#075154";
+    }
+
+    function onmouseoutBGColor(event) {
+      if (event.target.id != "reportGeneration") {
+        event.target.style.backgroundColor = "#00adb5";
+      }
+    }
+
+    function handleFormSubmit(event) {
+      var empStatus = "<%= emp_Status %>";
+
+      if (event.target.id == "dataEntry") {
+        document.getElementById("followerForm").submit();
+      } else if (event.target.id == "administration") {
+        if (empStatus == "admin") {
+          document.getElementById("adminForm").submit();
+        } else {
+          document.getElementById(
+            "adminAccessDeniedDivision"
+          ).style.visibility = "visible";
+        }
+      }
+    }
+  </script>
 </html>
