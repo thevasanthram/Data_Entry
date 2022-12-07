@@ -49,7 +49,7 @@ pool.query(
             );
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS defect_table(body_number int , mode varchar (8) , category varchar(30), subcategory varchar(30), defect varchar(20), subdefect varchar(20), zone int, defectCount int, date varchar(10), time varchar(8), username varchar(30));`,
+              `CREATE TABLE IF NOT EXISTS defect_table(body_number int , mode varchar (8) , category varchar(30), subcategory varchar(30), defect varchar(20), subdefect varchar(20), zone int, defectCount int, date varchar(10), time varchar(8), empID int,username varchar(30));`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -60,7 +60,7 @@ pool.query(
             );
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS body_number_table(body_number int , status varchar(10) , date varchar(10), time varchar(8), username varchar(30));`,
+              `CREATE TABLE IF NOT EXISTS body_number_table(body_number int , status varchar(10) , date varchar(10), time varchar(8), empID int,username varchar(30));`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -1281,14 +1281,15 @@ app.post('/passcar', (req, res) => {
       String(currentDate.getSeconds());
 
     const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
     console.log('currentUser: ', currentUser);
 
     if (req.body.bodyNumberStatus == 'newBodyNumber') {
       console.log(
-        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}','${currentUser}')`
+        `INSERT INTO body_number_table (body_number,status,date,time,empID,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}',${currentEmpID},'${currentUser}')`
       );
       dbConnectedPool.query(
-        `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}','${currentUser}')`,
+        `INSERT INTO body_number_table (body_number,status,date,time,empID,username) VALUES (${req.body.bodyNumber},'No Defect','${date}','${time}',${currentEmpID},'${currentUser}')`,
         (error, result) => {
           if (error) {
             throw error;
@@ -1655,20 +1656,20 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
                         );
                         // block to save defects record for the first time
                         console.log(
-                          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,username) VALUES (${currentBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
+                          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,empID,username) VALUES (${currentBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
                             '_',
                             ''
                           )},${
                             filledDefects[defectName][subDefectName][zone]
-                          },'${date}','${time}','${currentUser}');`
+                          },'${date}','${time}',${currentEmpID},'${currentUser}');`
                         );
                         await dbConnectedPool.query(
-                          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,username) VALUES (${currentBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
+                          `INSERT INTO defect_table (body_number,mode,category,subcategory,defect,subdefect,zone,defectCount,date,time,empID,username) VALUES (${currentBodyNumber},'${mode}','${selectedCategory}','${selectedSubCategory}','${defectName}','${subDefectName}',${zone.replace(
                             '_',
                             ''
                           )},${
                             filledDefects[defectName][subDefectName][zone]
-                          },'${date}','${time}','${currentUser}');`
+                          },'${date}','${time}',${currentEmpID},'${currentUser}');`
                         );
                       } else {
                         // block to modify existing defect records
@@ -1690,7 +1691,7 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
                         await dbConnectedPool.query(
                           `UPDATE defect_table SET defectCount=${
                             filledDefects[defectName][subDefectName][zone]
-                          },date='${date}',time='${time}',username='${currentUser}' WHERE body_number=${currentBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
+                          },date='${date}',time='${time}',empID = ${currentEmpID},username='${currentUser}' WHERE body_number=${currentBodyNumber} AND mode='${mode}' AND category='${selectedCategory}' AND subcategory='${selectedSubCategory}' AND defect='${defectName}' AND subdefect='${subDefectName}' AND zone=${zone.replace(
                             '_',
                             ''
                           )}`
@@ -1709,10 +1710,10 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
 
       if (defectBodyNumberStatus == 'newBodyNumber') {
         console.log(
-          `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${currentBodyNumber},'Defect','${date}','${time}','${currentUser}')`
+          `INSERT INTO body_number_table (body_number,status,date,time,empID,username) VALUES (${currentBodyNumber},'Defect','${date}','${time}',${currentEmpID},'${currentUser}')`
         );
         dbConnectedPool.query(
-          `INSERT INTO body_number_table (body_number,status,date,time,username) VALUES (${currentBodyNumber},'Defect','${date}','${time}','${currentUser}')`,
+          `INSERT INTO body_number_table (body_number,status,date,time,empID,username) VALUES (${currentBodyNumber},'Defect','${date}','${time}',${currentEmpID},'${currentUser}')`,
           (error, result) => {
             if (error) {
               throw error;
@@ -1724,10 +1725,10 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
         defectBodyNumberStatus = 'existingBodyNumber';
       } else if (defectBodyNumberStatus == 'existingBodyNumber') {
         console.log(
-          `UPDATE body_number_table SET time='${time}' WHERE body_number = '${currentBodyNumber}' and date='${date}';`
+          `UPDATE body_number_table SET time='${time}',empID=${currentEmpID},username='${currentUser}' WHERE body_number = '${currentBodyNumber}' and date='${date}';`
         );
         dbConnectedPool.query(
-          `UPDATE body_number_table SET time='${time}' WHERE body_number = '${currentBodyNumber}' and date='${date}';`,
+          `UPDATE body_number_table SET time='${time}',empID=${currentEmpID},username='${currentUser}' WHERE body_number = '${currentBodyNumber}' and date='${date}';`,
           (error, result) => {
             if (error) {
               throw error;
@@ -2003,6 +2004,25 @@ app.post('/liveData', async (req, res) => {
       port: 5432,
     });
 
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
     // things which are needed
     // total no of cars, defects, individual defect count
     const defectResponse = await dbConnectedPool.query(
@@ -2033,14 +2053,31 @@ app.post('/liveData', async (req, res) => {
     const uniqueBodyNumber = [...new Set(bodyNumberArray)];
 
     // console.log('uniqueBodyNumber: ', uniqueBodyNumber);
-    // console.log('defectCount: ', defectCount);
-    // console.log('individualDefectCount: ', individualDefectCount);
+    // console.log('defectCount: ', defectCount)
+
+    const employeeDefectResponse = await dbConnectedPool.query(
+      `SELECT * FROM defect_table WHERE date='${date}'`
+    );
+
+    let employeeDefectResponseData = [];
+
+    employeeDefectResponse.rows.map((record) => {
+      let recordData = {
+        empid: record.empid,
+        username: record.username,
+        bodyNumber: record.body_number,
+        defectCount: record.defectcount,
+        time: record.time,
+      };
+      employeeDefectResponseData.push(recordData);
+    });
 
     res.send(
       JSON.stringify({
         uniqueBodyNumber,
         defectCount,
         individualDefectCount,
+        employeeDefectResponse: employeeDefectResponseData.reverse(),
       })
     );
   } catch (err) {
