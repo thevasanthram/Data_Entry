@@ -58,12 +58,14 @@ body {
 
 #navBarDivision {
   position: fixed;
-  z-index: 5;
   display: none;
   width: 17%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100%;
+  z-index: 5;
   background-color: #4ca1af;
+  animation-name: side_bar;
+  animation-duration: 0.7s;
 }
 .category {
   font-size: 140%;
@@ -73,6 +75,18 @@ body {
   align-items: center;
   padding: 2px 10px;
   transition: background 0.25s ease;
+  animation-name: show;
+  animation-duration: 1s;
+}
+/*!.....................Animation for Nav Side Bar.................. */
+
+@keyframes show {
+  0%{font-size: 1%;}
+  50%{font-size: 140%;}
+}
+@keyframes side_bar {
+  0%{width: 0%;}
+  50%{width: 17%;}
 }
 #DataEntryDiv {
   display: inline-block;

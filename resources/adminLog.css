@@ -81,6 +81,8 @@ body {
   height: 100%;
   background-color: #4ca1af;
   z-index: 5;
+  animation-name: side_bar;
+  animation-duration: 0.7s;
 }
 .category {
   font-size: 140%;
@@ -90,6 +92,8 @@ body {
   align-items: center;
   padding: 2px 10px;
   transition: background 0.25s ease;
+  animation-name: show;
+  animation-duration: 1s;
 }
 #DataEntryDiv {
   display: inline-block;
@@ -120,6 +124,26 @@ body {
   display: inline-block;
   width: 100%;
   cursor: pointer;
+}
+
+.title_container{
+  animation-name: shift;
+  position: relative;
+  animation-duration: 5s;
+  animation-timing-function: ease-out;
+}
+/*!.....................Animation for Nav Side Bar.................. */
+@keyframes shift {
+  0% {left: -50%;}
+  50%{left:0px}
+}
+@keyframes show {
+  0%{font-size: 1%;}
+  50%{font-size: 140%;}
+}
+@keyframes side_bar {
+  0%{width: 0%;}
+  50%{width: 17%;}
 }
 /* ! End of Nav Side Bar Menu */
 
@@ -253,6 +277,16 @@ tbody tr:hover {
     align-items: center;
     padding: 2px 10px;
   }
+  /* !........................Animation Style for Side Menu Bar.................... */
+
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 120%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 45%;}
+  }
   .editEmployeeStatusEnsureModalContent {
     width: 40%;
     display: flex;
@@ -355,6 +389,16 @@ tbody tr:hover {
     display: flex;
     align-items: center;
     padding: 2px 10px;
+  }
+/* !........................Animation Style for Side Menu Bar */
+
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 120%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 50%;}
   }
   .table_container {
     display: block;

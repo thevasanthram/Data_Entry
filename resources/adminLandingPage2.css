@@ -11658,9 +11658,33 @@ input[type='number'] {
   #navBarDivision {
     position: fixed;
     display: none;
-    width: 30%;
+    width: 45%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
+    z-index: 5;
+    animation-name: side_bar;
+    animation-duration: 0.7s;
+  }
+  .category {
+    font-size: 120%;
+    font-weight: 500;
+    min-height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+    transition: background 0.25s ease;
+    animation-name: show;
+    animation-duration: 1s;
+  }
+  /* !........................Animation Style for Side Menu Bar.................... */
+
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 120%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 45%;}
   }
 
   .colorMapSubDefects{
@@ -12498,6 +12522,9 @@ input[type='number'] {
     width: 50%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
+    z-index: 5;
+    animation-name: side_bar;
+    animation-duration: 0.7s;
     /* background-color: #485d71; */
   }
   .category {
@@ -12507,6 +12534,19 @@ input[type='number'] {
     display: flex;
     align-items: center;
     padding: 2px 10px;
+    transition: background 0.25s ease;
+    animation-name: show;
+    animation-duration: 1s;
+  }
+  /* !........................Animation Style for Side Menu Bar.................... */
+
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 120%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 50%;}
   }
   .adminAccessDeniedDivisionModalContent {
     background-color: #fefefe;
