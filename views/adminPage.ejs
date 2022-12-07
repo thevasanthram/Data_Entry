@@ -159,7 +159,7 @@
                   if(j == 4){
                     if(employeeRecords[i][Object.keys(employeeRecords[i])[j]].length > 0 && employeeRecords[i][Object.keys(employeeRecords[i])[j]][0] != ''){%>
                       <td class="charts_list" >
-                        <%= employeeRecords[i][Object.keys(employeeRecords[i])[j]] %>
+                        <%= employeeRecords[i][Object.keys(employeeRecords[i])[j]].length == 10 ? 'All Reports' : employeeRecords[i][Object.keys(employeeRecords[i])[j]] %>
                       </td>
                     <%}else{%>
                       <td class="user_mode" >
@@ -191,7 +191,6 @@
           <%}%>
         </table>
       </div>
-
       <!-- remove User Division with hide & seek -->
       <div id="removeUserDivision">
         <div class="removeUserModalContent">
