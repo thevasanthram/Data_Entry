@@ -19,7 +19,7 @@ body {
 /* Hide scrollbar for IE, Edge and Firefox */
 .table_container {
   -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  --scrollbar-width: none;  /* Firefox */
 }
 
 /* Styling for header part which contain user_name App_Name and LOGOUT btn  */
@@ -171,16 +171,16 @@ th {
   font-size: 0.85em;
   font-weight: 600;
   padding: 0.5em 1em;
-  text-align: left;
+  text-align: center;
 }
 td {
   color: #fff;
   font-weight: 400;
   padding: 0.65em 1em;
 }
-/* .disabled td {
-  color: #4F5F64;
-} */
+.table_body{
+  text-align: center;
+}
 tbody tr {
   transition: background 0.25s ease;
 }
