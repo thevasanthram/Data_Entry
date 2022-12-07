@@ -71,7 +71,7 @@ pool.query(
             );
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS admin_activity_table(doneByID int , doneByName varchar(20), activity varchar(30), doneToID int, doneToName varchar(20), date varchar(10), time varchar(8));`,
+              `CREATE TABLE IF NOT EXISTS admin_activity_table(doneByID int , doneByName varchar(30), activity varchar(30), doneToID int, doneToName varchar(30), date varchar(10), time varchar(8));`,
               (err, result) => {
                 if (err) {
                   throw err;
