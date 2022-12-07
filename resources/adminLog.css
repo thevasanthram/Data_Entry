@@ -81,6 +81,7 @@ body {
   height: 100%;
   background-color: #4ca1af;
   z-index: 5;
+  color: #EEEEEE;
   animation-name: side_bar;
   animation-duration: 0.7s;
 }
