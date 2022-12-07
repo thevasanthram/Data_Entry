@@ -1955,7 +1955,7 @@ app.post('/adminLog', async (req, res) => {
       currentEmpID,
       emp_ChartAccess,
       emp_Status,
-      adminActivityRecords: adminActivityRecords.rows,
+      adminActivityRecords: adminActivityRecords.rows.reverse(),
     });
   } catch (err) {
     console.log(err);
@@ -1981,6 +1981,27 @@ app.post('/dashboard', async (req, res) => {
 
     const emp_ChartAccess = response2.rows[0].accessible_charts;
     const emp_Status = response2.rows[0].status;
+
+    res.render(path.join(__dirname, '/views/liveDashboard.ejs'), {
+      currentUser,
+      currentEmpID,
+      emp_ChartAccess,
+      emp_Status,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/liveData', async (req, res) => {
+  try {
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
 
     // things which are needed
     // total no of cars, defects, individual defect count
@@ -2011,19 +2032,17 @@ app.post('/dashboard', async (req, res) => {
 
     const uniqueBodyNumber = [...new Set(bodyNumberArray)];
 
-    console.log('uniqueBodyNumber: ', uniqueBodyNumber);
-    console.log('defectCount: ', defectCount);
-    console.log('individualDefectCount: ', individualDefectCount);
+    // console.log('uniqueBodyNumber: ', uniqueBodyNumber);
+    // console.log('defectCount: ', defectCount);
+    // console.log('individualDefectCount: ', individualDefectCount);
 
-    res.render(path.join(__dirname, '/views/liveDashboard.ejs'), {
-      currentUser,
-      currentEmpID,
-      emp_ChartAccess,
-      emp_Status,
-      uniqueBodyNumber,
-      defectCount,
-      individualDefectCount,
-    });
+    res.send(
+      JSON.stringify({
+        uniqueBodyNumber,
+        defectCount,
+        individualDefectCount,
+      })
+    );
   } catch (err) {
     console.log(err);
   }
