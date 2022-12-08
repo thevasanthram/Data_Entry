@@ -585,6 +585,16 @@ td {
     align-items: center;
     padding: 2px 10px;
   }
+  #employeeTableDivision {
+    display: block;
+    position: absolute;
+    align-items: center;
+    width: 90%;
+    height: 80%;
+    overflow-y: auto;
+    padding-bottom: 8%;
+    left: 5%;
+  }
 }
 @media screen and (max-width: 780px) {
   .header {
@@ -652,16 +662,6 @@ td {
     justify-content: center;
     gap: 5%;
     margin-left: 2%;
-  }
-  #employeeTableDivision {
-    display: block;
-    position: absolute;
-    align-items: center;
-    width: 90%;
-    height: 80%;
-    overflow-y: auto;
-    padding-bottom: 8%;
-    left: 5%;
   }
   #addUser-img,
   #removeUser-img {
