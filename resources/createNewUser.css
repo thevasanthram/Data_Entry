@@ -56,13 +56,14 @@ body {
 }
 
 #go-back-icon {
-  margin: 0.5% 30% 0% 5%;
+  margin: 0% 30% 0% 5%;
   max-width: 4%;
   cursor: pointer;
 }
 .wrapper {
   /* background: linear-gradient(to right, #4ca1af, #2c3e50); */
   background-color: #393e46;
+  /* background-color: #0e5368; */
   padding-right: 1em;
   padding-left: 1em;
   border-radius: 14px;
@@ -200,7 +201,6 @@ textarea:focus {
   margin: 0;
 }
 #createUserButton {
-  /* background: linear-gradient(to right, #0f0c29, #302b63, #24243e); */
   color: black;
   width: 100%;
   background-color: #eeeeee;
@@ -208,6 +208,7 @@ textarea:focus {
   height: 40px;
   font-size: 20px;
   border-radius: 5px;
+  margin-top: 1%;
 }
 .contact-info label {
   display: inline-block;

@@ -86,10 +86,10 @@ body {
   animation-duration: 0.5s;
 }
 
-@keyframes hide {
+/* @keyframes hide {
   0%{width: 17%;}
   50%{width: 0%;}
-}
+} */
 .category {
   font-size: 140%;
   font-weight: 500;
@@ -154,13 +154,9 @@ body {
   animation-name: shift;
   position: relative;
   animation-duration: 5s;
-  animation-timing-function: ease-out;
+  /* animation-timing-function: ease-out; */
 }
 /*!.....................Animation for Nav Side Bar.................. */
-/* @keyframes shift {
-  0% {left: -50%;}
-  50%{left:0px}
-} */
 
 @keyframes show {
   0%{font-size: 1%;}
@@ -193,11 +189,22 @@ body {
   left: 10%;
   border-radius: 0.5em;
   overflow-y: scroll;
+  animation-name: shift_table;
+  animation-duration: 2.5s;
 }
+
+/* @keyframes shift_table {
+  0% {left: -60%;}
+  50%{left:20%px}
+} */
+/* @keyframes shift {
+  0% {left: -50%;}
+  50%{left:0px}
+} */
 
 table {
   background: #105469;
-  border-radius: 1em;
+  border-radius: 0.5em;
   border-collapse: collapse;
   width: 100%;
   position: relative;

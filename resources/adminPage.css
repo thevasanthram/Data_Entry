@@ -140,7 +140,7 @@ body {
   position: absolute;
   width: 80%;
   height: 80%;
-  border-radius: 1em;
+  border-radius: 0.5em;
   overflow-y: auto;
   left: 10%;
 }
@@ -149,7 +149,7 @@ body {
   background: -webkit-linear-gradient(to right, #4ca1af, #485d71);
   background: linear-gradient(to right, #4ca1af, #485d71); */
   background: #105469;
-  border-radius: 1em;
+  border-radius: 0.5em;
   border-collapse: collapse;
   width: 100%;
   position: relative;
