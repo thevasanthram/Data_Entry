@@ -2026,7 +2026,7 @@ app.post('/liveData', async (req, res) => {
     // things which are needed
     // total no of cars, defects, individual defect count
     const defectResponse = await dbConnectedPool.query(
-      `SELECT * FROM defect_table;`
+      `SELECT * FROM defect_table WHERE date='${date}'`
     );
 
     // console.log('defectResponse: ', defectResponse);
@@ -2041,36 +2041,64 @@ app.post('/liveData', async (req, res) => {
       'Water Leak': 0,
     };
 
-    defectResponse.rows.map((record) => {
+    let employeeDefectResponseData = [];
+
+    let recordDataTemp = {
+      empid: defectResponse.rows[0].empid,
+      username: defectResponse.rows[0].username,
+      body_number: defectResponse.rows[0].body_number,
+      defectcount: defectResponse.rows[0].defectcount,
+      time: defectResponse.rows[0].time,
+    };
+
+    defectResponse.rows.map((record, index) => {
       // for unique bodyNumber
       bodyNumberArray.push(record.body_number);
       // for total defect count
       defectCount += record.defectcount;
       // for individual defect count
       individualDefectCount[record.defect] += record.defectcount;
+
+      console.log('record: ', record);
+
+      // for employee defect log table
+
+      if (index != 0) {
+        if (
+          record.empid == recordDataTemp.empid &&
+          record.body_number == recordDataTemp.body_number &&
+          record.time == recordDataTemp.time
+        ) {
+          console.log('same data');
+          recordDataTemp.defectcount += record.defectcount;
+        } else {
+          console.log('different data');
+          employeeDefectResponseData.push(recordDataTemp);
+          recordDataTemp.empid = record.empid;
+          recordDataTemp.username = defectResponse.rows[0].username;
+          recordDataTemp.body_number = defectResponse.rows[0].body_number;
+          recordDataTemp.defectcount = defectResponse.rows[0].defectcount;
+          recordDataTemp.time = defectResponse.rows[0].time;
+          console.log(
+            'employeeDefectResponseData: ',
+            employeeDefectResponseData
+          );
+        }
+      }
+
+      if (index == defectResponse.rows.length - 1) {
+        employeeDefectResponseData.push(recordDataTemp);
+      }
+      // console.log('at each iteration');
+      // console.log('employeeDefectResponseData: ', employeeDefectResponseData);
     });
+
+    // console.log('data: ', employeeDefectResponseData);
 
     const uniqueBodyNumber = [...new Set(bodyNumberArray)];
 
     // console.log('uniqueBodyNumber: ', uniqueBodyNumber);
     // console.log('defectCount: ', defectCount)
-
-    const employeeDefectResponse = await dbConnectedPool.query(
-      `SELECT * FROM defect_table WHERE date='${date}'`
-    );
-
-    let employeeDefectResponseData = [];
-
-    employeeDefectResponse.rows.map((record) => {
-      let recordData = {
-        empid: record.empid,
-        username: record.username,
-        bodyNumber: record.body_number,
-        defectCount: record.defectcount,
-        time: record.time,
-      };
-      employeeDefectResponseData.push(recordData);
-    });
 
     res.send(
       JSON.stringify({
