@@ -139,7 +139,7 @@ body {
   display: block;
   position: absolute;
   width: 80%;
-  height: 60%;
+  height: 80%;
   border-radius: 1em;
   overflow-y: auto;
   left: 10%;
@@ -661,7 +661,7 @@ td {
     height: 80%;
     overflow-y: auto;
     padding-bottom: 8%;
-    /* left: 5%; */
+    left: 5%;
   }
   #addUser-img,
   #removeUser-img {
