@@ -183,6 +183,12 @@ body {
   animation: zoom-in-zoom-out .25s ease-out;
 }
 
+.liveImage {
+	position: relative;
+	left: 89%;
+	bottom: 52%;
+}
+
 @keyframes zoom-in-zoom-out {
   0% {
     transform: scale(0.1, 0.1);
