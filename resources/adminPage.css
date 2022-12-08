@@ -138,15 +138,21 @@ body {
 #employeeTableDivision {
   display: block;
   position: absolute;
-  width: 90%;
+  width: 80%;
   height: 60%;
+  border-radius: 1em;
   overflow-y: auto;
-  left: 5%;
+  left: 10%;
 }
 .table_content {
-  width: 100%;
+  /* width: 100%;
   background: -webkit-linear-gradient(to right, #4ca1af, #485d71);
-  background: linear-gradient(to right, #4ca1af, #485d71);
+  background: linear-gradient(to right, #4ca1af, #485d71); */
+  background: #105469;
+  border-radius: 1em;
+  border-collapse: collapse;
+  width: 100%;
+  position: relative;
 }
 .table-heading-container {
   position: sticky;
@@ -154,20 +160,19 @@ body {
   z-index: 2;
   color: #e2b842;
   background-color: #221d51;
-  /* color: #eeeeee; */
 }
 .table_row {
-  color: #000000;
+  color: #fff;
   font-weight: 400;
   transition: background 0.25s ease;
 }
 .table_row:hover {
-  background-color: #97bfb4;
+  background-color: #012b39;
 }
 th,
 tr,
 td {
-  border: 0.66px solid black;
+  padding: 0.65em 1em;
 }
 
 .charts_list,
@@ -544,6 +549,24 @@ td {
   gap: 1.5rem;
   justify-content: center;
 }
+@media screen and (max-width:1280px) {
+  #navBarDivision {
+    position: fixed;
+    display: none;
+    width: 25%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    z-index: 5;
+    color: #EEEEEE;
+    background-color: #4ca1af;
+    animation-name: side_bar;
+    animation-duration: 0.7s;
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 25%;}
+  }
+}
 @media screen and (max-width: 1024px) {
   #navBarDivision {
     position: fixed;
@@ -594,7 +617,7 @@ td {
   #navBarDivision {
     position: fixed;
     display: none;
-    width: 45%;
+    width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
     background-color: #4ca1af;
@@ -615,7 +638,7 @@ td {
   }
   @keyframes side_bar {
     0%{width: 0%;}
-    50%{width: 45%;}
+    50%{width: 35%;}
   }
   .editEmployeeStatusEnsureModalContent {
     width: 40%;

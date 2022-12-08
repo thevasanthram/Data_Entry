@@ -293,6 +293,25 @@ select {
 
 /*! CSS for Responsive Design  */
 
+@media screen and (max-width:1280px) {
+  #navBarDivision {
+    position: fixed;
+    display: none;
+    width: 25%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    z-index: 5;
+    color: #EEEEEE;
+    background-color: #4ca1af;
+    animation-name: side_bar;
+    animation-duration: 0.7s;
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 25%;}
+  }
+}
+
 @media screen and (max-width: 1024px) {
   #navBarDivision {
     position: fixed;
@@ -336,7 +355,7 @@ select {
   #navBarDivision {
     position: fixed;
     display: none;
-    width: 45%;
+    width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
     background-color: #4ca1af;
@@ -362,7 +381,7 @@ select {
   }
   @keyframes side_bar {
     0%{width: 0%;}
-    50%{width: 45%;}
+    50%{width: 35%;}
   }
   #bodyNumberForm {
     margin-top: 15%;
