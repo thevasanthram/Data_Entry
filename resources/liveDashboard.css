@@ -186,6 +186,9 @@ body {
   position: relative;
   left: 89%;
   bottom: 52%;
+  position: relative;
+  left: 97%;
+  bottom: 35%;
 }
 
 @keyframes zoom-in-zoom-out {
@@ -210,16 +213,8 @@ body {
   }
 }
 
-@media screen and (max-width: 1727px) {
-  .liveImage {
-    position: relative;
-    left: 97%;
-    bottom: 52%;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  #stats {
+@media screen and (max-width: 1280px){
+  #stats{
     background-color: #1f2937;
     height: 193px;
     display: flex;
