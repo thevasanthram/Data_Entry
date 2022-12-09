@@ -2104,6 +2104,13 @@ app.post('/liveData', async (req, res) => {
   }
 });
 
+app.post('/liveNotification', (req, res) => {
+  try {
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.post('/reportDataProvider', async (req, res) => {
   try {
     const queryReceiver = req.body.querySender;
