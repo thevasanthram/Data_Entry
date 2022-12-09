@@ -13,6 +13,8 @@ body {
   background-repeat: no-repeat;
   margin-bottom: 2%;
   background-size: 100%;
+  /* b
+  ackdrop-filter: blur(1px); */
   background-position: center;
   background-position-y: 165px;
 }

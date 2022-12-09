@@ -173,7 +173,7 @@ body {
 /* Hide scrollbar for IE, Edge and Firefox */
 .tableContainer {
   -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  --scrollbar-width: none;  /* Firefox */
 }
 
 .dataCard {
