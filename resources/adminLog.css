@@ -190,18 +190,24 @@ body {
   border-radius: 0.5em;
   overflow-y: scroll;
   animation-name: shift_table;
-  animation-duration: 2.5s;
+  animation-duration: 5s;
 }
 
 /* @keyframes shift_table {
   0% {left: -60%;}
-  50%{left:20%px}
-} */
-/* @keyframes shift {
+  50%{left:10%}
+}
+@keyframes shift {
   0% {left: -50%;}
-  50%{left:0px}
+  50%{left:0%}
 } */
-
+/* @keyframes shift_table {
+  0% {transform: scale(0.1);}
+  25%{transform: scale(0.25);}
+  50%{transform: scale(0.5);}
+  75%{transform: scale(0.75);}
+  100%{transform: scale(1);}
+} */
 table {
   background: #105469;
   border-radius: 0.5em;

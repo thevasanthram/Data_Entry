@@ -139,7 +139,7 @@ body {
   display: block;
   position: absolute;
   width: 80%;
-  height: 80%;
+  height: 70%;
   border-radius: 0.5em;
   overflow-y: auto;
   left: 10%;
@@ -590,9 +590,9 @@ td {
     position: absolute;
     align-items: center;
     width: 90%;
-    height: 80%;
+    height: 70%;
     overflow-y: auto;
-    padding-bottom: 8%;
+    padding-bottom: 1%;
     left: 5%;
   }
 }
