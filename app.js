@@ -2104,8 +2104,111 @@ app.post('/liveData', async (req, res) => {
   }
 });
 
-app.post('/liveNotification', (req, res) => {
+app.post('/liveNotification', async (req, res) => {
   try {
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    console.log('----------------- liveNotification ----------------');
+
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const codedTiming = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      currentDate.getDate(),
+      currentDate.getHours(),
+      currentDate.getMinutes(),
+      currentDate.getSeconds(),
+      0
+    );
+
+    const subbedTime = new Date(codedTiming - 5000);
+
+    const defectResponse = await dbConnectedPool.query(
+      `SELECT * FROM defect_table WHERE date='${date}'`
+    );
+
+    let recordDataTemp = {
+      empid: 0,
+      username: '',
+      body_number: 0,
+      defectcount: 0,
+      time: '',
+    };
+
+    let liveNotificationData = [];
+
+    let flag = false;
+    defectResponse.rows.map((record, index) => {
+      const recordDate = record.date.split('-');
+      const recordTime = record.time.split(':');
+
+      const recordTiming = new Date(
+        recordDate[0],
+        recordDate[1],
+        recordDate[2],
+        recordTime[0],
+        recordTime[1],
+        recordTime[2]
+      );
+
+      if (recordTiming >= subbedTime) {
+        if (flag) {
+          if (
+            record.empid == recordDataTemp.empid &&
+            record.body_number == recordDataTemp.body_number &&
+            record.time == recordDataTemp.time
+          ) {
+            recordDataTemp.defectcount += record.defectcount;
+          } else {
+            liveNotificationData.push(
+              JSON.parse(JSON.stringify(recordDataTemp))
+            );
+
+            recordDataTemp.empid = record.empid;
+            recordDataTemp.username = record.username;
+            recordDataTemp.body_number = record.body_number;
+            recordDataTemp.defectcount = record.defectcount;
+            recordDataTemp.time = record.time;
+          }
+        } else {
+          recordDataTemp.empid = record.empid;
+          recordDataTemp.username = record.username;
+          recordDataTemp.body_number = record.body_number;
+          recordDataTemp.defectcount = record.defectcount;
+          recordDataTemp.time = record.time;
+          flag = true;
+        }
+
+        if (index == defectResponse.rows.length - 1) {
+          liveNotificationData.push(recordDataTemp);
+        }
+      }
+    });
+
+    console.log('liveNotificationData: ', liveNotificationData);
+
+    res.send(
+      JSON.stringify({
+        liveNotificationData,
+      })
+    );
   } catch (err) {
     console.log(err);
   }

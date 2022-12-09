@@ -64,7 +64,7 @@ body {
   position: fixed;
   display: none;
   width: 17%;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   height: 100%;
   background-color: #00adb5;
   z-index: 5;
@@ -173,7 +173,7 @@ body {
 /* Hide scrollbar for IE, Edge and Firefox */
 .tableContainer {
   -ms-overflow-style: none;  /* IE and Edge */
-  --scrollbar-width: none;  /* Firefox */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .dataCard {
@@ -191,7 +191,37 @@ body {
   bottom: 35%;
 }
 
-@keyframes zoom-in-zoom-out {
+#notificationContainer {
+  position: fixed;
+  top: 11%;
+  right: 1%;
+  display: flex;
+  flex-direction: column;
+  height: 88vh;
+  width: 20%;
+  /* background-color: black; */
+}
+
+.notificationDiv {
+  position: relative;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: auto;
+  height: 10vh;
+  opacity: 0.9;
+  background-color: #EEEEEE;
+}
+
+.notificationContent {
+  color: black;
+  font-size: large;
+  font-weight: 500;
+  text-align: center;
+}
+/* @keyframes zoom-in-zoom-out {
   0% {
     transform: scale(0.1, 0.1);
   }
@@ -211,10 +241,10 @@ body {
   100% {
     transform: scale(1, 1);
   }
-}
+} */
 
-@media screen and (max-width: 1280px){
-  #stats{
+@media screen and (max-width: 1280px) {
+  #stats {
     background-color: #1f2937;
     height: 193px;
     display: flex;
