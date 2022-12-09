@@ -2138,7 +2138,7 @@ app.post('/liveNotification', async (req, res) => {
       0
     );
 
-    const subbedTime = new Date(codedTiming - 2000);
+    const subbedTime = new Date(codedTiming - 5000);
 
     const defectResponse = await dbConnectedPool.query(
       `SELECT * FROM defect_table WHERE date='${date}'`

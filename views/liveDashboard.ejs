@@ -273,6 +273,8 @@
         </div>
       </div>
     </div>
+
+    <div id="notificationContainer"></div>
   </body>
   <script>
     document.addEventListener('click', hideAndSeek);
@@ -354,12 +356,66 @@
         'individualDefectCount'
       );
 
+      if (
+        document.getElementsByClassName('vehicleCount')[0].innerHTML !=
+        liveDataResponse.uniqueBodyNumber.length
+      ) {
+        document.getElementsByClassName('vehicleCount')[0].animate(
+          [
+            // keyframes
+            { transform: 'scale(1.5)' },
+          ],
+          {
+            // timing options
+            duration: 500,
+            iterations: 1,
+          }
+        );
+      }
+
+      if (
+        document.getElementsByClassName('defectCount')[0].innerHTML !=
+        liveDataResponse.defectCount
+      ) {
+        document.getElementsByClassName('defectCount')[0].animate(
+          [
+            // keyframes
+            { transform: 'scale(1.5)' },
+          ],
+          {
+            // timing options
+            duration: 500,
+            iterations: 1,
+          }
+        );
+      }
+
       document.getElementsByClassName('vehicleCount')[0].innerHTML =
         liveDataResponse.uniqueBodyNumber.length;
+
+      // console.log(document.getElementsByClassName('vehicleCount')[0].innerHTML);
+      // console.log(liveDataResponse.uniqueBodyNumber.length);
+
       document.getElementsByClassName('defectCount')[0].innerHTML =
         liveDataResponse.defectCount;
 
       Object.values(individualDefectCount).map((singleDefect, index) => {
+        if (
+          individualDefectCount[index].innerHTML !=
+          Object.values(liveDataResponse.individualDefectCount)[index]
+        ) {
+          individualDefectCount[index].animate(
+            [
+              // keyframes
+              { transform: 'scale(1.5)' },
+            ],
+            {
+              // timing options
+              duration: 500,
+              iterations: 1,
+            }
+          );
+        }
         individualDefectCount[index].innerHTML = Object.values(
           liveDataResponse.individualDefectCount
         )[index];
@@ -387,6 +443,40 @@
             activityLogTableRow.appendChild(eachColumnValueCell);
           }
         );
+      });
+    }
+
+    setInterval(liveNotification, 5000);
+
+    async function liveNotification() {
+      const response = await fetch('/liveNotification', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({}),
+      });
+
+      const liveDataResponse = await response.json();
+
+      const notificationContainer = document.getElementById(
+        'notificationContainer'
+      );
+
+      while (notificationContainer.firstChild) {
+        notificationContainer.removeChild(notificationContainer.lastChild);
+      }
+
+      liveDataResponse.liveNotificationData.map((notification) => {
+        const notificationDiv = document.createElement('div');
+        notificationDiv.className = 'notificationDiv';
+        notificationContainer.appendChild(notificationDiv);
+
+        const notificationContent = document.createElement('p');
+        notificationContent.className = 'notificationContent';
+        ('');
+        notificationContent.innerHTML = `${notification['username']} saved ${notification['defectcount']} defects in ${notification['body_number']}`;
+        notificationDiv.appendChild(notificationContent);
       });
     }
   </script>
