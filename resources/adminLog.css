@@ -83,8 +83,13 @@ body {
   z-index: 5;
   color: #EEEEEE;
   animation-name: side_bar;
-  animation-duration: 0.7s;
+  animation-duration: 0.5s;
 }
+
+/* @keyframes hide {
+  0%{width: 17%;}
+  50%{width: 0%;}
+} */
 .category {
   font-size: 140%;
   font-weight: 500;
@@ -96,6 +101,24 @@ body {
   animation-name: show;
   animation-duration: 1s;
 }
+#CloseBtnDiv {
+  display: flex;
+  width: 100.9%;
+  justify-content: end;
+  animation-name: show;
+  animation-duration: 1s;
+}
+
+.close_Btn{
+  font-weight: 500;
+  float: left;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: .2em;
+  transition: background 0.25s ease;
+}
+
 #DataEntryDiv {
   display: inline-block;
   width: 100%;
@@ -131,17 +154,15 @@ body {
   animation-name: shift;
   position: relative;
   animation-duration: 5s;
-  animation-timing-function: ease-out;
+  /* animation-timing-function: ease-out; */
 }
 /*!.....................Animation for Nav Side Bar.................. */
-@keyframes shift {
-  0% {left: -50%;}
-  50%{left:0px}
-}
+
 @keyframes show {
   0%{font-size: 1%;}
   50%{font-size: 140%;}
 }
+
 @keyframes side_bar {
   0%{width: 0%;}
   50%{width: 17%;}
@@ -168,17 +189,25 @@ body {
   left: 10%;
   border-radius: 0.5em;
   overflow-y: scroll;
+  animation-name: shift_table;
+  animation-duration: 2.5s;
 }
+
+/* @keyframes shift_table {
+  0% {left: -60%;}
+  50%{left:20%px}
+} */
+/* @keyframes shift {
+  0% {left: -50%;}
+  50%{left:0px}
+} */
 
 table {
   background: #105469;
-  border-radius: 1em;
+  border-radius: 0.5em;
   border-collapse: collapse;
-  /* margin: 2%; */
   width: 100%;
-  /* height: 59%; */
   position: relative;
-  /* left: 5%; */
   overflow-y: scroll;
   /* overflow-x: auto; */
 }
@@ -214,6 +243,24 @@ tbody tr:hover {
 }
 
 /* !...........................Media query Responsive Style....................... */
+@media screen and (max-width:1280px) {
+  #navBarDivision {
+    position: fixed;
+    display: none;
+    width: 25%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    z-index: 5;
+    color: #EEEEEE;
+    background-color: #4ca1af;
+    animation-name: side_bar;
+    animation-duration: 0.7s;
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 25%;}
+  }
+}
 @media screen and (max-width: 1024px) {
   #navBarDivision {
     position: fixed;
@@ -265,7 +312,7 @@ tbody tr:hover {
   #navBarDivision {
     position: fixed;
     display: none;
-    width: 45%;
+    width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;
     background-color: #4ca1af;
@@ -286,8 +333,9 @@ tbody tr:hover {
   }
   @keyframes side_bar {
     0%{width: 0%;}
-    50%{width: 45%;}
+    50%{width: 35%;}
   }
+
   .editEmployeeStatusEnsureModalContent {
     width: 40%;
     display: flex;

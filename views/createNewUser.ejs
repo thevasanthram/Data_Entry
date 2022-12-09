@@ -40,7 +40,7 @@
           style="
             text-align: center;
             font-size: clamp(1.5rem, 2.5vw, 2rem);
-
+            display: flex; align-items: center;
             font-weight: 500;
           "
         >
@@ -219,6 +219,13 @@
               </div>
             </fieldset>
           </form>
+          <div class="footer">
+            <span id="error" style="display: none">Error Message</span>
+            <button id="createUserButton" onclick="validate()" type="submit">
+              Create New User
+            </button>
+            <!-- <p></p> -->
+          </div>
           <form action="/" id="homeForm" method="get"></form>
           <form action="/admin" id="adminForm" method="post">
             <input
@@ -234,14 +241,6 @@
               value="<%= currentEmpID %>"
             />
           </form>
-          <div class="footer">
-            <span id="error" style="display: none">Error Message</span>
-            <button id="createUserButton" onclick="validate()" type="submit">
-              Create New User
-            </button>
-            <!-- <p>&copy; Deevia Software</p> -->
-            <p></p>
-          </div>
         </main>
       </div>
     </div>

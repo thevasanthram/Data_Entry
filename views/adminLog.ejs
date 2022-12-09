@@ -40,44 +40,47 @@
       </div>
       <!-- ! ................................Side Nav Bar Menu................................ -->
       <div id="navBarDivision">
-        <div
-          id="DataEntryDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)"
-        >
-          <div id="dataEntry" class="category">Data Entry</div>
-        </div>
-        <div
-          id="ReportGenerationDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)"
-        >
-          <div id="reportGeneration" class="category">Report Generation</div>
-        </div>
-        <div
-          id="AdministrationDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)"
-        >
-          <div id="administration" class="category">Administration</div>
-        </div>
-        <div
-          id="AdminLogDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-        >
-          <div id="adminLog" class="category">Admin Logs</div>
-        </div>
-        <div
-          id="DashboardDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)"
-        >
-          <div id="activityLog" class="category">Dashboard</div>
+        <!-- <div class="menu_bar"> -->
+          <div id="CloseBtnDiv">
+            <button onclick="handleSideBar()" type="button" data-mdb-ripple="true" data-mdb-ripple-color="light"
+              class=" close_Btn   bg-black text-white font-medium text-2xl leading-tight uppercase  shadow-md 
+              hover:bg-gray-900 hover:shadow-lg focus:bg-gray-900 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-900 active:shadow-lg transition duration-150 ease-in-out"
+              >x</button>
+          </div>
+          <div id="DataEntryDiv"
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)"
+          >
+            <div id="dataEntry" class="category">Data Entry</div>
+          </div>
+          <div id="ReportGenerationDiv"
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)"
+          >
+            <div id="reportGeneration" class="category">Report Generation</div>
+          </div>
+          <div id="AdministrationDiv"
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)"
+          >
+            <div id="administration" class="category">Administration</div>
+          </div>
+          <div  id="AdminLogDiv"
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+          >
+            <div id="adminLog" class="category">Admin Logs</div>
+          </div>
+          <div  id="DashboardDiv"
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)"
+          >
+            <div id="activityLog" class="category">Dashboard</div>
+          <!-- </div> -->
         </div>
       </div>
 
@@ -139,13 +142,9 @@
       </form>
 
       <div class="title_container flex justify-center px-16 py-4 mt-2">
-        <!-- <div class="flex justify-center px-16 py-2">
-          <div class="block p-6 rounded-lg shadow-lg bg-gray-300 max-w-sm"> -->
         <h1 class="text-white text-2xl leading-tight font-medium mb-2">
           Admin Activity Logs
         </h1>
-        <!-- </div>
-        </div> -->
       </div>
       <div class="table_container">
         <table>
@@ -163,10 +162,10 @@
           <tbody class="table_body">
             <%for(let i = 0; i< adminActivityRecords.length; i++) { const
             singleProperties = Object.keys(adminActivityRecords[i]) %>
-            <tr>
+            <tr class="table_row">
               
               <%for(let j = 0; j< singleProperties.length; j++) {%>
-              <td><%= adminActivityRecords[i][singleProperties[j]] %></td>
+              <td class="table_row"><%= adminActivityRecords[i][singleProperties[j]] %></td>
               <%}%>
             </tr>
             <%}%>
@@ -177,12 +176,13 @@
   </body>
   <script>
     document.addEventListener('click', hideAndSeek);
-
+  
     function hideAndSeek(event) {
       const navBarDivision = document.getElementById('navBarDivision');
       if (event.target.id != 'navBarIcon') {
         navBarDivision.style.display = 'none';
-      } else {
+      }
+       else {
         if (
           navBarDivision.style.display == 'none' ||
           navBarDivision.style.display == ''
@@ -236,5 +236,10 @@
         }
       }
     }
+
+    function handleSideBar() {
+      const navBarDivision = document.getElementById('navBarDivision');
+    }
+
   </script>
 </html>
