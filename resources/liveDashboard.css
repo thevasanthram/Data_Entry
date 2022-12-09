@@ -64,7 +64,7 @@ body {
   position: fixed;
   display: none;
   width: 17%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   height: 100%;
   background-color: #00adb5;
   z-index: 5;
@@ -158,11 +158,11 @@ body {
 }
 
 #stats {
-	background-color: #1f2937;
-	height: 135px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  background-color: #1f2937;
+  height: 135px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -173,39 +173,41 @@ body {
 /* Hide scrollbar for IE, Edge and Firefox */
 .tableContainer {
   -ms-overflow-style: none;  /* IE and Edge */
-  --scrollbar-width: none;  /* Firefox */
+  scrollbar-width: none;  /* Firefox */
 }
 
-
-.dataCard{
+.dataCard {
   width: 180px;
   column-gap: 10px;
-  animation: zoom-in-zoom-out .25s ease-out;
+  animation: zoom-in-zoom-out 0.25s ease-out;
 }
 
 .liveImage {
-	position: relative;
-	left: 89%;
-	bottom: 52%;
+  position: relative;
+  left: 89%;
+  bottom: 52%;
+  position: relative;
+  left: 97%;
+  bottom: 35%;
 }
 
 @keyframes zoom-in-zoom-out {
   0% {
     transform: scale(0.1, 0.1);
   }
-  
-  25%{
-    transform: scale(0.25,0.25);
+
+  25% {
+    transform: scale(0.25, 0.25);
   }
-  
-  50%{
-    transform: scale(0.5,0.5);
+
+  50% {
+    transform: scale(0.5, 0.5);
   }
-  
-  75%{
-    transform: scale(0.75,0.75);
+
+  75% {
+    transform: scale(0.75, 0.75);
   }
-  
+
   100% {
     transform: scale(1, 1);
   }
@@ -219,6 +221,12 @@ body {
     justify-content: center;
     align-items: center;
   }
+
+  .liveImage {
+    position: relative;
+    left: 75%;
+    bottom: 52%;
+  }
 }
 
 @media screen and (max-width: 1279px) {
@@ -228,6 +236,36 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .liveImage {
+    position: relative;
+    left: 846px;
+    bottom: 52%;
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .liveImage {
+    position: relative;
+    left: 752px;
+    bottom: 52%;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  .liveImage {
+    position: relative;
+    left: 698px;
+    bottom: 52%;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .liveImage {
+    position: relative;
+    left: 698px;
+    display: none;
+    bottom: 52%;
   }
 }
 
@@ -239,6 +277,9 @@ body {
     justify-content: center;
     align-items: center;
   }
+  .liveImage {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -248,5 +289,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .liveImage {
+    display: none;
   }
 }

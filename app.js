@@ -1,5 +1,7 @@
+const { rejects } = require('assert');
 const express = require('express');
 var mod = require('nested-property');
+const { resolve } = require('path');
 const path = require('path');
 const Pool = require('pg').Pool;
 
@@ -2059,46 +2061,35 @@ app.post('/liveData', async (req, res) => {
       // for individual defect count
       individualDefectCount[record.defect] += record.defectcount;
 
-      console.log('record: ', record);
-
       // for employee defect log table
-
       if (index != 0) {
         if (
           record.empid == recordDataTemp.empid &&
           record.body_number == recordDataTemp.body_number &&
           record.time == recordDataTemp.time
         ) {
-          console.log('same data');
           recordDataTemp.defectcount += record.defectcount;
         } else {
-          console.log('different data');
-          employeeDefectResponseData.push(recordDataTemp);
-          recordDataTemp.empid = record.empid;
-          recordDataTemp.username = defectResponse.rows[0].username;
-          recordDataTemp.body_number = defectResponse.rows[0].body_number;
-          recordDataTemp.defectcount = defectResponse.rows[0].defectcount;
-          recordDataTemp.time = defectResponse.rows[0].time;
-          console.log(
-            'employeeDefectResponseData: ',
-            employeeDefectResponseData
+          employeeDefectResponseData.push(
+            JSON.parse(JSON.stringify(recordDataTemp))
           );
+
+          recordDataTemp.empid = record.empid;
+          recordDataTemp.username = record.username;
+          recordDataTemp.body_number = record.body_number;
+          recordDataTemp.defectcount = record.defectcount;
+          recordDataTemp.time = record.time;
         }
       }
 
       if (index == defectResponse.rows.length - 1) {
         employeeDefectResponseData.push(recordDataTemp);
       }
-      // console.log('at each iteration');
-      // console.log('employeeDefectResponseData: ', employeeDefectResponseData);
     });
 
     // console.log('data: ', employeeDefectResponseData);
 
     const uniqueBodyNumber = [...new Set(bodyNumberArray)];
-
-    // console.log('uniqueBodyNumber: ', uniqueBodyNumber);
-    // console.log('defectCount: ', defectCount)
 
     res.send(
       JSON.stringify({
@@ -2108,6 +2099,13 @@ app.post('/liveData', async (req, res) => {
         employeeDefectResponse: employeeDefectResponseData.reverse(),
       })
     );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/liveNotification', (req, res) => {
+  try {
   } catch (err) {
     console.log(err);
   }
