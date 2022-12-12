@@ -72,9 +72,9 @@ body {
 .selected-message {
   text-align: center;
   line-height: 0.9;
-  position: relative;
-  left: 25%;
-  padding: 5px;
+  margin-left: 12%;
+  margin-right: 5%;
+  padding: 14px;
   font-size: clamp(0.9rem, 1.2vw, 1.3rem);
   color: #eeeeee;
 }
@@ -136,7 +136,40 @@ input:checked ~ .dot {
   color: #f0e3e3;
   text-align: center;
 }
-/* !CSS for REsponsive Design */
+/* !............CSS for REsponsive Design........... */
+
+@media screen and (max-width: 1025px) {
+  #home-icon {
+    margin-left: 1%;
+    min-width: 30px;
+    min-height: 30px;
+    margin-right: 2%;
+    min-height: 3%;
+  }
+  #go-back-icon {
+    max-width: 5.5%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .admin {
+    color: #00adb5;
+    margin-right: 5%;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+    text-align: center;
+  }
+  /* .selected-message {
+    text-align: center;
+    line-height: 1;
+    margin: 1%;
+    position: relative;
+    left: 0%;
+    padding: 3px;
+    font-size: clamp(0.9rem, 1.2vw, 1.3rem);
+    color: #eeeeee;
+  } */
+}
 
 @media screen and (max-width: 480px) {
   * {
@@ -180,7 +213,7 @@ input:checked ~ .dot {
     color: #00adb5;
     margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 1.8vw, 1.6rem);
     text-align: center;
   }
   .button-logout {
@@ -193,7 +226,7 @@ input:checked ~ .dot {
     font-size: 10px;
   }
   #home-icon {
-    margin-left: 2%;
+    margin-left: 1%;
     min-width: 25px;
     min-height: 25px;
     margin-right: 1%;
@@ -204,7 +237,7 @@ input:checked ~ .dot {
     line-height: 1;
     margin: 1%;
     position: relative;
-    left: -7%;
+    left: -1%;
     padding: 3px;
     font-size: clamp(0.9rem, 1.2vw, 1.3rem);
     color: #eeeeee;
@@ -244,29 +277,6 @@ input:checked ~ .dot {
     background-color: black;
     color: #f0e3e3;
     text-align: center;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .admin {
-    color: #00adb5;
-    margin-right: 5%;
-    font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
-    text-align: center;
-  }
-}
-
-@media screen and (max-width: 1025px) {
-  #home-icon {
-    margin-left: 1%;
-    min-width: 30px;
-    min-height: 30px;
-    margin-right: 2%;
-    min-height: 3%;
-  }
-  #go-back-icon {
-    max-width: 5.5%;
   }
 }
 
