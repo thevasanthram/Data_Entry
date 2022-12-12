@@ -74,7 +74,7 @@ body {
 /* TODO ...........SIDE NAV BAR MENU................................................................ */
 
 #navBarDivision {
-  position: fixed;
+  position: absolute;
   display: none;
   width: 17%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -270,7 +270,7 @@ tbody tr:hover {
 /* !...........................Media query Responsive Style....................... */
 @media screen and (max-width: 1280px) {
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 25%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -292,7 +292,7 @@ tbody tr:hover {
 }
 @media screen and (max-width: 1024px) {
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -339,7 +339,7 @@ tbody tr:hover {
   }
 
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -462,7 +462,7 @@ tbody tr:hover {
     font-size: 11px;
   }
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 50%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
