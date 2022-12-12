@@ -2100,7 +2100,6 @@ app.post('/liveData', async (req, res) => {
       })
     );
   } catch (err) {
-    console.log(err);
     res.send(
       JSON.stringify({
         uniqueBodyNumber: [],
@@ -2224,7 +2223,6 @@ app.post('/liveNotification', async (req, res) => {
       })
     );
   } catch (err) {
-    console.log(err);
     res.send(
       JSON.stringify({
         liveNotificationData: [],
