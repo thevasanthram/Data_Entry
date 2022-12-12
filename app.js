@@ -2100,7 +2100,20 @@ app.post('/liveData', async (req, res) => {
       })
     );
   } catch (err) {
-    console.log(err);
+    res.send(
+      JSON.stringify({
+        uniqueBodyNumber: [],
+        defectCount: 0,
+        individualDefectCount: {
+          Surface: 0,
+          'Body Fitting': 0,
+          'Missing & Wrong Part': 0,
+          Welding: 0,
+          'Water Leak': 0,
+        },
+        employeeDefectResponse: [],
+      })
+    );
   }
 });
 
@@ -2114,7 +2127,7 @@ app.post('/liveNotification', async (req, res) => {
       port: 5432,
     });
 
-    console.log('----------------- liveNotification ----------------');
+    // console.log('----------------- liveNotification ----------------');
 
     let currentDate = new Date();
     const date =
@@ -2202,7 +2215,7 @@ app.post('/liveNotification', async (req, res) => {
       }
     });
 
-    console.log('liveNotificationData: ', liveNotificationData);
+    // console.log('liveNotificationData: ', liveNotificationData);
 
     res.send(
       JSON.stringify({
@@ -2210,7 +2223,11 @@ app.post('/liveNotification', async (req, res) => {
       })
     );
   } catch (err) {
-    console.log(err);
+    res.send(
+      JSON.stringify({
+        liveNotificationData: [],
+      })
+    );
   }
 });
 
