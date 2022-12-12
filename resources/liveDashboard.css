@@ -172,14 +172,21 @@ body {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .tableContainer {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .dataCard {
   width: 180px;
   column-gap: 10px;
   animation: zoom-in-zoom-out 0.25s ease-out;
+}
+
+.liveIcon {
+  position: fixed;
+  right: 10px;
+  /* top: 10px; */
+  /* float: right; */
 }
 
 /* .liveImage {
