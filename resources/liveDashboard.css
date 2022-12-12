@@ -212,7 +212,16 @@ body {
   width: auto;
   height: 10vh;
   opacity: 0.9;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+}
+
+.notificationDiv::-webkit-scrollbar {
+  /* WebKit */
+  width: 0;
+  height: 0;
 }
 
 .notificationContent {
