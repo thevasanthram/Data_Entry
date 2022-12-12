@@ -11099,6 +11099,14 @@ input[type='number'] {
     align-items: center;
     padding: 2px 10px;
   }
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 130%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 30%;}
+  }
   .form {
     height: 5rem;
   }

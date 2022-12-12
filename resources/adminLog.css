@@ -281,13 +281,13 @@ tbody tr:hover {
     animation-name: side_bar;
     animation-duration: 0.7s;
   }
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 130%;}
+  }
   @keyframes side_bar {
-    0% {
-      width: 0%;
-    }
-    50% {
-      width: 25%;
-    }
+    0%{width: 0%;}
+    50%{width: 25%;}
   }
 }
 @media screen and (max-width: 1024px) {
@@ -307,6 +307,14 @@ tbody tr:hover {
     display: flex;
     align-items: center;
     padding: 2px 10px;
+  }
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 130%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 30%;}
   }
 }
 @media screen and (max-width: 780px) {
