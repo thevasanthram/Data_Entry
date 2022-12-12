@@ -182,14 +182,14 @@ body {
   animation: zoom-in-zoom-out 0.25s ease-out;
 }
 
-.liveImage {
+/* .liveImage {
   position: relative;
   left: 89%;
   bottom: 52%;
   position: relative;
   left: 97%;
   bottom: 35%;
-}
+} */
 
 #notificationContainer {
   position: fixed;
@@ -265,6 +265,12 @@ body {
     position: relative;
     left: 75%;
     bottom: 52%;
+  }
+
+  .dataCard img {
+    width: 40px;
+    column-gap: auto;
+    animation: zoom-in-zoom-out 0.25s ease-out;
   }
 }
 
