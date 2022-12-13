@@ -139,11 +139,13 @@ body {
 }
 
 .adminAccessDeniedDivisionModalContent {
-  background-color: #fefefe;
+  align-items: center;
+  background-color: #d83734;
   color: black;
   margin: auto;
   padding: 5px;
   display: flex;
+  justify-content: center;
   text-align: center;
   border: 1px solid #888;
   border-radius: 10px;
@@ -215,7 +217,6 @@ input:checked ~ .dot {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  background-color: #2f576e;
   color: #f0e3e3;
   font-size: clamp(1rem, 1.5vw, 1.25rem);
   background: linear-gradient(to right, #2c3e50, #4ca1af);

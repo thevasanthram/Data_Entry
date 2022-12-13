@@ -235,12 +235,14 @@ select {
 }
 
 .adminAccessDeniedDivisionModalContent {
+  align-items: center;
   background-color: #fefefe;
   color: black;
   margin: auto;
   padding: 5px;
-  text-align: center;
   display: flex;
+  justify-content: center;
+  text-align: center;
   border: 1px solid #888;
   border-radius: 10px;
   width: 40%;
