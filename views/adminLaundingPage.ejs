@@ -186,7 +186,7 @@
           value="<%= currentEmpID %>"
         />
       </form>
-        <div id="container" style="display: none; position: sticky; top: 67px; z-index: 2;" >
+        <div id="container" style="display: none; position: sticky; top: 70px; z-index: 2;" >
           <div class="filtering-condition-content" >
             <div class="filtering-condition-form" >
               <form  action="/filtered-result-bar" method="post" class="form" id="filterForm">
@@ -2799,6 +2799,13 @@
           const firstSubDefect = Object.keys(data.data[category][subCategory][selectedDefect])[0]
           Object.keys(data.data[category][subCategory][selectedDefect][firstSubDefect]).map( (singleZone) => {
             let zoneDefectCountData = document.createElement('p')
+            if(data.data[category][subCategory][selectedDefect][firstSubDefect][singleZone] > 5){
+              zoneDefectCountData.style.backgroundColor = '	#d4120f90'
+            }else if (data.data[category][subCategory][selectedDefect][firstSubDefect][singleZone] > 3 && data.data[category][subCategory][selectedDefect][firstSubDefect][singleZone] <= 5 ){
+              zoneDefectCountData.style.backgroundColor = '	#fcf93590'
+            }else{
+              zoneDefectCountData.style.backgroundColor = '	#87cfeb90'
+            }
             zoneDefectCountData.className = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
             zoneDefectCountData.innerHTML = ` ${singleZone.replace('_','')}: ${data.data[category][subCategory][selectedDefect][firstSubDefect][singleZone]}`
             zoneDefectCountData.style.display = 'flex'
@@ -2821,6 +2828,13 @@
             // updating zone Details
           Object.keys(data.data[category][subCategory][selectedDefect][selectedSubDefect]).map( (singleZone) => {
             let zoneDefectCountData = document.createElement('p')
+            if(data.data[category][subCategory][selectedDefect][selectedSubDefect][singleZone] > 5){
+              zoneDefectCountData.style.backgroundColor = '	#d4120f90'
+            }else if (data.data[category][subCategory][selectedDefect][selectedSubDefect][singleZone] > 3 && data.data[category][subCategory][selectedDefect][selectedSubDefect][singleZone] <= 5 ){
+              zoneDefectCountData.style.backgroundColor = '	#fcf93590'
+            }else{
+              zoneDefectCountData.style.backgroundColor = '	#87cfeb90'
+            }
             zoneDefectCountData.className = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
             zoneDefectCountData.innerHTML = `${singleZone.replace('_','')}: ${data.data[category][subCategory][selectedDefect][selectedSubDefect][singleZone]}`
             zoneDefectCountData.style.display = 'flex'
@@ -2970,7 +2984,7 @@
             const subCategoryDivision = document.createElement('div')
             subCategoryDivision.id = `${subCategory.replace(` ${category}`,'')} ColorMap`
             subCategoryDivision.style.clear = 'left'
-            subCategoryDivision.style.margin = '2rem'
+            subCategoryDivision.style.margin = '1rem'
             subCategoryDivision.style.backgroundColor = '#2b323c'
             subCategoryDivision.style.height = '95%'
             subCategoriesContainer.appendChild(subCategoryDivision)
@@ -2981,8 +2995,8 @@
             subCategoryName.innerHTML = subCategory.replace(`${category}`,'')
             subCategoryName.style.color = '#ffffff'
             subCategoryName.style.fontSize = '145%'
-            subCategoryName.style.marginLeft = '4%'
-            subCategoryName.style.marginTop = '3%'
+            subCategoryName.style.marginLeft = '3%'
+            subCategoryName.style.marginTop = '2%'
             // subCategoryName.style.textAlign = 'center'
             subCategoryDivision.appendChild(subCategoryName)
 
@@ -3109,6 +3123,14 @@
             Object.keys(data.data[category][subCategory][fistDefect][fistSubDefect]).map( (singleZone) => {
               let zoneDefectCountData = document.createElement('div')
               let zoneCounter = document.createElement('p')
+
+              if(data.data[category][subCategory][fistDefect][fistSubDefect][singleZone] > 5){
+                zoneDefectCountData.style.backgroundColor = '	#d4120f90'
+              }else if (data.data[category][subCategory][fistDefect][fistSubDefect][singleZone] > 3 && data.data[category][subCategory][fistDefect][fistSubDefect][singleZone] <= 5 ){
+                zoneDefectCountData.style.backgroundColor = '	#fcf93590'
+              }else{
+                zoneDefectCountData.style.backgroundColor = '	#87cfeb90'
+              }
               zoneDefectCountData.appendChild(zoneCounter)
               zoneDefectCountData.className = `${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}${singleZone.replace('_','')}`
               zoneCounter.innerHTML = `${singleZone.replace('_','')}: ${data.data[category][subCategory][fistDefect][fistSubDefect][singleZone]}`
