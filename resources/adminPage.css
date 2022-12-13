@@ -336,10 +336,9 @@ td {
 }
 
 .removeUserDivisionSuccessModalContent {
-  background-color: #faf7f0;
+  background-color: #00ab41;
   margin: auto;
   padding: 0px;
-  border: 1px solid #888;
   width: 35%;
   height: 33%;
   border-radius: 10px;
@@ -407,13 +406,13 @@ td {
 }
 
 .editEmployeeStatusDivisionSuccessModalContent {
-  background-color: #faf7f0;
+  background-color: #00ab41;
   margin: auto;
   display: flex;
   justify-content: center;
   padding: 0px;
   align-items: center;
-  border: 1px solid #888;
+  /* border: 1px solid #888; */
   width: 35%;
   min-height: 23%;
   border-radius: 10px;
@@ -506,10 +505,9 @@ td {
   margin: 1%;
 }
 .editEmployeeChartAccessSuccessModalContent {
-  background-color: #faf7f0;
+  background-color: #00ab41;
   margin: auto;
   padding: 2%;
-  border: 1px solid #888;
   width: 35%;
   border-radius: 10px;
 }
@@ -519,7 +517,7 @@ td {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2vw;
+  gap: 1vw;
 }
 #editEmployeeChartAccessDivisionSuccessButton {
   display: flex;
@@ -850,10 +848,9 @@ td {
     justify-content: center;
   }
   .removeUserDivisionSuccessModalContent {
-    background-color: #faf7f0;
+    background-color: #00ab41;
     margin: auto;
     padding: 0px;
-    border: 1px solid #888;
     width: 60%;
     min-height: 33%;
     border-radius: 10px;

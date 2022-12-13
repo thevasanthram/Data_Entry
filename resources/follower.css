@@ -236,14 +236,13 @@ select {
 
 .adminAccessDeniedDivisionModalContent {
   align-items: center;
-  background-color: #fefefe;
-  color: black;
+  background-color: #CA0B00;
+  color: #EEEEEE;
   margin: auto;
   padding: 5px;
   display: flex;
   justify-content: center;
   text-align: center;
-  border: 1px solid #888;
   border-radius: 10px;
   width: 40%;
   height: 24%;
