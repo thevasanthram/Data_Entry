@@ -2033,9 +2033,21 @@ app.post('/liveData', async (req, res) => {
 
     // console.log('defectResponse: ', defectResponse);
 
-    let bodyNumberArray = [];
-    let defectCount = 0;
-    let individualDefectCount = {
+    // online
+    let bodyNumberArrayOnline = [];
+    let defectCountOnline = 0;
+    let individualDefectCountOnline = {
+      Surface: 0,
+      'Body Fitting': 0,
+      'Missing & Wrong Part': 0,
+      Welding: 0,
+      'Water Leak': 0,
+    };
+
+    // offline
+    let bodyNumberArrayOffline = [];
+    let defectCountOffline = 0;
+    let individualDefectCountOffline = {
       Surface: 0,
       'Body Fitting': 0,
       'Missing & Wrong Part': 0,
@@ -2054,12 +2066,21 @@ app.post('/liveData', async (req, res) => {
     };
 
     defectResponse.rows.map((record, index) => {
-      // for unique bodyNumber
-      bodyNumberArray.push(record.body_number);
-      // for total defect count
-      defectCount += record.defectcount;
-      // for individual defect count
-      individualDefectCount[record.defect] += record.defectcount;
+      if (record.mode == 'online') {
+        // for unique bodyNumber
+        bodyNumberArrayOnline.push(record.body_number);
+        // for total defect count
+        defectCountOnline += record.defectcount;
+        // for individual defect count
+        individualDefectCountOnline[record.defect] += record.defectcount;
+      } else {
+        // for unique bodyNumber
+        bodyNumberArrayOffline.push(record.body_number);
+        // for total defect count
+        defectCountOffline += record.defectcount;
+        // for individual defect count
+        individualDefectCountOffline[record.defect] += record.defectcount;
+      }
 
       // for employee defect log table
       if (index != 0) {
@@ -2089,13 +2110,17 @@ app.post('/liveData', async (req, res) => {
 
     // console.log('data: ', employeeDefectResponseData);
 
-    const uniqueBodyNumber = [...new Set(bodyNumberArray)];
+    const uniqueBodyNumberOnline = [...new Set(bodyNumberArrayOnline)];
+    const uniqueBodyNumberOffline = [...new Set(bodyNumberArrayOffline)];
 
     res.send(
       JSON.stringify({
-        uniqueBodyNumber,
-        defectCount,
-        individualDefectCount,
+        uniqueBodyNumberOnline,
+        defectCountOnline,
+        individualDefectCountOnline,
+        uniqueBodyNumberOffline,
+        defectCountOffline,
+        individualDefectCountOffline,
         employeeDefectResponse: employeeDefectResponseData.reverse(),
       })
     );
