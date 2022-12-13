@@ -163,7 +163,7 @@
             <div
               class="dataCard flex flex-col items-center justify-center lg\:w-40"
             >
-              <dt class="mb-2 text-3xl font-extrabold vehicleCount">0</dt>
+              <dt class="mb-2 text-3xl font-extrabold vehicleCountOnline">0</dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Total No. of Vehicals
               </dd>
@@ -171,7 +171,7 @@
             <div
               class="dataCard flex flex-col items-center justify-center lg\:w-40"
             >
-              <dt class="mb-2 text-3xl font-extrabold defectCount">0</dt>
+              <dt class="mb-2 text-3xl font-extrabold defectCountOnline">0</dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
                 Total No. of Defects
               </dd>
@@ -179,7 +179,9 @@
             <div
               class="dataCard flex flex-col items-center justify-center lg\:w-40"
             >
-              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOnline"
+              >
                 0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
@@ -189,7 +191,9 @@
             <div
               class="dataCard flex flex-col items-center justify-center lg\:w-40"
             >
-              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOnline"
+              >
                 0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
@@ -199,7 +203,9 @@
             <div
               class="dataCard flex flex-col items-center justify-center lg\:w-40"
             >
-              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOnline"
+              >
                 0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
@@ -209,7 +215,9 @@
             <div
               class="dataCard flex flex-col items-center justify-center lg\:w-40"
             >
-              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOnline"
+              >
                 0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
@@ -219,7 +227,106 @@
             <div
               class="dataCard flex flex-col items-center justify-center lg\:w-40"
             >
-              <dt class="mb-2 text-3xl font-extrabold individualDefectCount">
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOnline"
+              >
+                0
+              </dt>
+              <dd class="font-light text-lg text-center dark:text-gray-400">
+                Water Leak
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <div
+        id="fullWidthTabContent"
+        class="border-t border-gray-200 dark:border-gray-600"
+      >
+        <div
+          class="p-4 rounded-lg md:p-8 dark:bg-gray-800"
+          id="stats"
+          role="tabpanel"
+          aria-labelledby="stats-tab"
+          style="background-color: #1f2937"
+        >
+          <dl
+            class="grid w-100 grid-cols-2 gap-8 p-4 sm:grid-cols-3 xl:grid-cols-7 dark:text-white sm:p-8"
+            style="color: white"
+          >
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt class="mb-2 text-3xl font-extrabold vehicleCountOffline">
+                0
+              </dt>
+              <dd class="font-light text-lg text-center dark:text-gray-400">
+                Total No. of Vehicals
+              </dd>
+            </div>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt class="mb-2 text-3xl font-extrabold defectCountOffline">0</dt>
+              <dd class="font-light text-lg text-center dark:text-gray-400">
+                Total No. of Defects
+              </dd>
+            </div>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOffline"
+              >
+                0
+              </dt>
+              <dd class="font-light text-lg text-center dark:text-gray-400">
+                Surface
+              </dd>
+            </div>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOffline"
+              >
+                0
+              </dt>
+              <dd class="font-light text-lg text-center dark:text-gray-400">
+                Body Fitting
+              </dd>
+            </div>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOffline"
+              >
+                0
+              </dt>
+              <dd class="font-light text-lg text-center dark:text-gray-400">
+                Missing & Wrong Part
+              </dd>
+            </div>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOffline"
+              >
+                0
+              </dt>
+              <dd class="font-light text-lg text-center dark:text-gray-400">
+                Welding
+              </dd>
+            </div>
+            <div
+              class="dataCard flex flex-col items-center justify-center lg\:w-40"
+            >
+              <dt
+                class="mb-2 text-3xl font-extrabold individualDefectCountOffline"
+              >
                 0
               </dt>
               <dd class="font-light text-lg text-center dark:text-gray-400">
@@ -352,15 +459,17 @@
 
       const liveDataResponse = await response.json();
 
-      const individualDefectCount = document.getElementsByClassName(
-        'individualDefectCount'
+      // ONLINE
+
+      const individualDefectCountOnline = document.getElementsByClassName(
+        'individualDefectCountOnline'
       );
 
       if (
-        document.getElementsByClassName('vehicleCount')[0].innerHTML !=
-        liveDataResponse.uniqueBodyNumber.length
+        document.getElementsByClassName('vehicleCountOnline')[0].innerHTML !=
+        liveDataResponse.uniqueBodyNumberOnline.length
       ) {
-        document.getElementsByClassName('vehicleCount')[0].animate(
+        document.getElementsByClassName('vehicleCountOnline')[0].animate(
           [
             // keyframes
             { transform: 'scale(1.5)' },
@@ -374,10 +483,10 @@
       }
 
       if (
-        document.getElementsByClassName('defectCount')[0].innerHTML !=
-        liveDataResponse.defectCount
+        document.getElementsByClassName('defectCountOnline')[0].innerHTML !=
+        liveDataResponse.defectCountOnline
       ) {
-        document.getElementsByClassName('defectCount')[0].animate(
+        document.getElementsByClassName('defectCountOnline')[0].animate(
           [
             // keyframes
             { transform: 'scale(1.5)' },
@@ -390,21 +499,21 @@
         );
       }
 
-      document.getElementsByClassName('vehicleCount')[0].innerHTML =
-        liveDataResponse.uniqueBodyNumber.length;
+      document.getElementsByClassName('vehicleCountOnline')[0].innerHTML =
+        liveDataResponse.uniqueBodyNumberOnline.length;
 
       // console.log(document.getElementsByClassName('vehicleCount')[0].innerHTML);
       // console.log(liveDataResponse.uniqueBodyNumber.length);
 
-      document.getElementsByClassName('defectCount')[0].innerHTML =
-        liveDataResponse.defectCount;
+      document.getElementsByClassName('defectCountOnline')[0].innerHTML =
+        liveDataResponse.defectCountOnline;
 
-      Object.values(individualDefectCount).map((singleDefect, index) => {
+      Object.values(individualDefectCountOnline).map((singleDefect, index) => {
         if (
-          individualDefectCount[index].innerHTML !=
-          Object.values(liveDataResponse.individualDefectCount)[index]
+          individualDefectCountOnline[index].innerHTML !=
+          Object.values(liveDataResponse.individualDefectCountOnline)[index]
         ) {
-          individualDefectCount[index].animate(
+          individualDefectCountOnline[index].animate(
             [
               // keyframes
               { transform: 'scale(1.5)' },
@@ -416,8 +525,79 @@
             }
           );
         }
-        individualDefectCount[index].innerHTML = Object.values(
-          liveDataResponse.individualDefectCount
+        individualDefectCountOnline[index].innerHTML = Object.values(
+          liveDataResponse.individualDefectCountOnline
+        )[index];
+      });
+
+      // OFFLINE
+
+      const individualDefectCountOffline = document.getElementsByClassName(
+        'individualDefectCountOffline'
+      );
+
+      if (
+        document.getElementsByClassName('vehicleCountOffline')[0].innerHTML !=
+        liveDataResponse.uniqueBodyNumberOffline.length
+      ) {
+        document.getElementsByClassName('vehicleCountOffline')[0].animate(
+          [
+            // keyframes
+            { transform: 'scale(1.5)' },
+          ],
+          {
+            // timing options
+            duration: 500,
+            iterations: 1,
+          }
+        );
+      }
+
+      if (
+        document.getElementsByClassName('defectCountOffline')[0].innerHTML !=
+        liveDataResponse.defectCountOffline
+      ) {
+        document.getElementsByClassName('defectCountOffline')[0].animate(
+          [
+            // keyframes
+            { transform: 'scale(1.5)' },
+          ],
+          {
+            // timing options
+            duration: 500,
+            iterations: 1,
+          }
+        );
+      }
+
+      document.getElementsByClassName('vehicleCountOffline')[0].innerHTML =
+        liveDataResponse.uniqueBodyNumberOffline.length;
+
+      // console.log(document.getElementsByClassName('vehicleCount')[0].innerHTML);
+      // console.log(liveDataResponse.uniqueBodyNumber.length);
+
+      document.getElementsByClassName('defectCountOffline')[0].innerHTML =
+        liveDataResponse.defectCountOffline;
+
+      Object.values(individualDefectCountOffline).map((singleDefect, index) => {
+        if (
+          individualDefectCountOffline[index].innerHTML !=
+          Object.values(liveDataResponse.individualDefectCountOffline)[index]
+        ) {
+          individualDefectCountOffline[index].animate(
+            [
+              // keyframes
+              { transform: 'scale(1.5)' },
+            ],
+            {
+              // timing options
+              duration: 500,
+              iterations: 1,
+            }
+          );
+        }
+        individualDefectCountOffline[index].innerHTML = Object.values(
+          liveDataResponse.individualDefectCountOffline
         )[index];
       });
 
