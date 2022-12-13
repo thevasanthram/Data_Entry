@@ -203,6 +203,9 @@ textarea:focus {
 #createUserButton {
   width: 100%;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 40px;
   font-size: 20px;
   border-radius: 5px;
