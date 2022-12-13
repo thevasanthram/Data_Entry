@@ -199,7 +199,7 @@ body {
 /* Hide scrollbar for IE, Edge and Firefox */
 .tableContainer {
   -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  --scrollbar-width: none; /* Firefox */
 }
 
 .dataCard {
@@ -247,7 +247,7 @@ body {
   opacity: 0.9;
   background-color: #eeeeee;
   overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
+  --scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;
 }
 
