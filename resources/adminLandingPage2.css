@@ -11009,7 +11009,7 @@ input[type='number'] {
 @media screen and (max-width: 1281px) {
 
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 25%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11084,7 +11084,7 @@ input[type='number'] {
 
 @media screen and (max-width: 1025px) {
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11098,6 +11098,14 @@ input[type='number'] {
     display: flex;
     align-items: center;
     padding: 2px 10px;
+  }
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 130%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 30%;}
   }
   .form {
     height: 5rem;
@@ -11675,7 +11683,7 @@ input[type='number'] {
     text-align: center;
   }
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -12536,7 +12544,7 @@ input[type='number'] {
     font-size: 10px;
   }
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 50%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

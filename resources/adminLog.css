@@ -74,7 +74,7 @@ body {
 /* TODO ...........SIDE NAV BAR MENU................................................................ */
 
 #navBarDivision {
-  position: fixed;
+  position: absolute;
   display: none;
   width: 17%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -270,7 +270,7 @@ tbody tr:hover {
 /* !...........................Media query Responsive Style....................... */
 @media screen and (max-width: 1280px) {
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 25%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -281,18 +281,18 @@ tbody tr:hover {
     animation-name: side_bar;
     animation-duration: 0.7s;
   }
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 130%;}
+  }
   @keyframes side_bar {
-    0% {
-      width: 0%;
-    }
-    50% {
-      width: 25%;
-    }
+    0%{width: 0%;}
+    50%{width: 25%;}
   }
 }
 @media screen and (max-width: 1024px) {
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -307,6 +307,14 @@ tbody tr:hover {
     display: flex;
     align-items: center;
     padding: 2px 10px;
+  }
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 130%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 30%;}
   }
 }
 @media screen and (max-width: 780px) {
@@ -339,7 +347,7 @@ tbody tr:hover {
   }
 
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -462,7 +470,7 @@ tbody tr:hover {
     font-size: 11px;
   }
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 50%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

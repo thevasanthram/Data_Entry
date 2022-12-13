@@ -57,7 +57,7 @@ body {
 /* TODO ...........SIDE NAV BAR MENU................................... */
 
 #navBarDivision {
-  position: fixed;
+  position: absolute;
   display: none;
   width: 17%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

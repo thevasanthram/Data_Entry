@@ -13,8 +13,7 @@ body {
   background-repeat: no-repeat;
   margin-bottom: 2%;
   background-size: 100%;
-  /* b
-  ackdrop-filter: blur(1px); */
+  /* backdrop-filter: blur(1px); */
   background-position: center;
   background-position-y: 165px;
 }
@@ -81,7 +80,7 @@ input[type='number'] {
 /* TODO ...........SIDE NAV BAR MENU................................................................ */
 
 #navBarDivision {
-  position: fixed;
+  position: absolute;
   display: none;
   width: 17%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -297,7 +296,7 @@ select {
 
 @media screen and (max-width:1280px) {
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 25%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -316,7 +315,7 @@ select {
 
 @media screen and (max-width: 1024px) {
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -363,7 +362,7 @@ select {
     text-align: center;
   }
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -531,7 +530,7 @@ select {
     font-size: 11px;
   }
   #navBarDivision {
-    position: fixed;
+    position: absolute;
     display: none;
     width: 50%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
