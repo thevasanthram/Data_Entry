@@ -624,14 +624,25 @@
 
         const employeeChartAccessCheckBox = document.getElementsByClassName('employeeChartAccessCheckBox')
         let checkboxCheckedCounter = 0
-        Object.values(employeeChartAccessCheckBox).map( (singleInput) => {
-          if(empChartAccessArray.includes(singleInput.value)){
+
+        if(empChartAccessArray[0] == 'All Reports'){
+          Object.values(employeeChartAccessCheckBox).map( (singleInput) => {
             singleInput.checked = true
-          }
-          if(singleInput.checked == true){
-            checkboxCheckedCounter += 1
-          }
-        })
+            if(singleInput.checked == true){
+              checkboxCheckedCounter += 1
+            }
+          })
+        }else{
+          Object.values(employeeChartAccessCheckBox).map( (singleInput) => {
+            if(empChartAccessArray.includes(singleInput.value)){
+              singleInput.checked = true
+            }
+            if(singleInput.checked == true){
+              checkboxCheckedCounter += 1
+            }
+          })
+        }
+        
 
         if( checkboxCheckedCounter == employeeChartAccessCheckBox.length){
           document.getElementById('selectAllCheckBox').checked = true
