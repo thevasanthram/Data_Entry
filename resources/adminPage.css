@@ -695,16 +695,36 @@ td {
     justify-content: center;
   }
   .removeUserEnsureModalContent {
-    background-color: #faf7f0;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
     width: 35%;
     min-height: 26%;
     display: flex;
     text-align: center;
     justify-content: center;
     border-radius: 10px;
+  }
+  /* !Remove user popup */
+  .removeUserModalContent {
+    background-color: #84A9AC;
+    margin: auto;
+    padding: 2%;
+    border: 1px solid #888;
+    width: 50%;
+    min-height: 25%;
+    border-radius: 10px;
+  }
+  #removeUserInput {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    justify-content: space-evenly;
+    width: 80%;
+  }
+  #removeUserButton {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 20px;
   }
 }
 
@@ -782,7 +802,6 @@ td {
   /* ! ..........................Update Report Access Edit Button............................... */
 
   .editEmployeeChartAccessDivisionModalContent {
-    background-color: #faf7f0;
     margin: auto;
     padding: 1%;
     border: 1px solid #888;
@@ -807,7 +826,6 @@ td {
     margin-top: 10%;
   }
   .editEmployeeChartAccessSuccessModalContent {
-    background-color: #faf7f0;
     margin: auto;
     padding: 1%;
     display: flex;
@@ -822,9 +840,8 @@ td {
     text-align: center;
   }
   .removeUserModalContent {
-    background-color: #faf7f0;
     margin: auto;
-    padding: 2%;
+    padding: 1%;
     border: 1px solid #888;
     width: 60%;
     min-height: 25%;
@@ -836,11 +853,9 @@ td {
     gap: 3px;
   }
   .removeUserEnsureModalContent {
-    background-color: #faf7f0;
     margin: auto;
     display: flex;
     padding: 20px;
-    border: 1px solid #888;
     width: 60%;
     align-items: center;
     min-height: 33%;
@@ -878,4 +893,33 @@ td {
     gap: 1.25rem;
     justify-content: center;
   }
+  /* ! Remove user popup */
+  .removeUserModalContent {
+    margin: auto;
+    padding: 1%;
+    border: 1px solid #888;
+    width: 65%;
+    min-height: 25%;
+    border-radius: 10px;
+  }
+  #removeUserInput {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-evenly;
+  width: 85%;
+  }
+  /* ! Emp status update popup */
+  .editEmployeeStatusDivisionSuccessModalContent {
+    background-color: #00ab41;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    padding: 0px;
+    align-items: center;
+    /* border: 1px solid #888; */
+    width: 45%;
+    min-height: 25%;
+    border-radius: 10px;
+}
 }

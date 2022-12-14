@@ -12602,24 +12602,22 @@ input[type='number'] {
     }
   }
   .adminAccessDeniedDivisionModalContent {
-    background-color: #fefefe;
-    color: black;
     margin: auto;
     text-align: center;
     padding: 5px;
-    border: 1px solid #888;
     width: 60%;
-    height: 2%;
+    height: 20%;
   }
   #adminAccessDeniedDivisionHolder {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
     position: relative;
-    top: 20%;
+    top: 0%;
     gap: 1.25rem;
     justify-content: center;
-  }
+}
   #from-date-condition-input-card,
   #to-date-condition-input-card {
     background-color: #eeeeee;
