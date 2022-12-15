@@ -84,7 +84,7 @@ pool.query(
             );
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS company_table(id SERIAL, name varchar(50), root_user varchar(30), root_user_password varchar(10), body_number int, date varchar(10), time varchar(8));`,
+              `CREATE TABLE IF NOT EXISTS company_table(id SERIAL, name varchar(50), root_user varchar(30), root_user_password varchar(10), body_number int, used int, remaining int, date varchar(10), time varchar(8));`,
               (err, result) => {
                 if (err) {
                   throw err;
