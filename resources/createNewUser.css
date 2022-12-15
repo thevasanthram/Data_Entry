@@ -286,7 +286,7 @@ select {
 
   .contact-info label {
     display: inline-block;
-    /* width: 40%; */
+    width: 42%;
   }
 
   .contact-info input,
