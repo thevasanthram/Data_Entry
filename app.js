@@ -2960,6 +2960,8 @@ app.post('/profile', (req, res) => {
       password: 'admin',
       port: 5432,
     });
+
+    res.render(path.join(__dirname, '/views/userProfile.ejs'));
   } catch (err) {
     console.log(err);
   }
