@@ -84,7 +84,13 @@
                       >
                         Log in
                       </button>
-                      <a class="text-gray-300" href="#!">Forgot password?</a>
+                      <p
+                        class="text-gray-300"
+                        style="cursor: pointer"
+                        onclick="(() => document.getElementById('forgetPasswordForm').submit())()"
+                      >
+                        Forgot password?
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -117,6 +123,11 @@
         <input type="hidden" id="currentUser" name="currentUser" value="" />
         <input type="hidden" id="currentEmpID" name="currentEmpID" value="" />
       </form>
+      <form
+        action="/forgotPassword"
+        id="forgetPasswordForm"
+        method="get"
+      ></form>
       <form action="/addUser" id="firstUserForm" method="post">
         <input type="hidden" name="firstUser" value="true" />
       </form>

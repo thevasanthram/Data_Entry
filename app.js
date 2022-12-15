@@ -1032,6 +1032,14 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.get('/forgotPassword', (req, res) => {
+  try {
+    res.render(path.join(__dirname, '/views/forgetPassword.ejs'));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.post('/addUser', (req, res) => {
   try {
     const firstUser = req.body.firstUser;
