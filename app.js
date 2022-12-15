@@ -2961,7 +2961,10 @@ app.post('/profile', (req, res) => {
       port: 5432,
     });
 
-    res.render(path.join(__dirname, '/views/userProfile.ejs'));
+    res.render(path.join(__dirname, '/views/userProfile.ejs'), {
+      currentUser,
+      currentEmpID,
+    });
   } catch (err) {
     console.log(err);
   }

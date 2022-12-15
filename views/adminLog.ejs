@@ -51,10 +51,13 @@
             &times;
           </button>
         </div> -->
-        <div id="UserProfileDiv"
-            onmouseover="onmouseoverBGColor(event)"
-            onmouseout="onmouseoutBGColor(event)">
-            <div id="user_Profile" class="category">User Profile</div>
+        <div
+          id="UserProfileDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="user_Profile" class="category">User Profile</div>
         </div>
         <div
           id="DataEntryDiv"
@@ -98,6 +101,20 @@
         </div>
       </div>
 
+      <form action="/profile" method="post" id="userProfileForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
       <form action="/follower" id="followerForm" method="post">
         <input
           type="hidden"
@@ -156,8 +173,9 @@
       </form>
 
       <div class="title_container flex justify-center px-16 py-4 mt-2">
-        <h1 class=" text-2xl  leading-tight font-medium mb-2"
-        style="color: #e2b842;"
+        <h1
+          class="text-2xl leading-tight font-medium mb-2"
+          style="color: #e2b842"
         >
           Admin Activity Logs
         </h1>
@@ -250,6 +268,8 @@
             'adminAccessDeniedDivision'
           ).style.visibility = 'visible';
         }
+      } else if (event.target.id == 'user_Profile') {
+        document.getElementById('userProfileForm').submit();
       }
     }
 

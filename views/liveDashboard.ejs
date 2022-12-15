@@ -44,6 +44,7 @@
           id="UserProfileDiv"
           onmouseover="onmouseoverBGColor(event)"
           onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
         >
           <div id="user_Profile" class="category">User Profile</div>
         </div>
@@ -87,6 +88,21 @@
           <div id="activityLog" class="category">Dashboard</div>
         </div>
       </div>
+
+      <form action="/profile" method="post" id="userProfileForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+      </form>
       <form action="/follower" id="followerForm" method="post">
         <input
           type="hidden"
@@ -429,6 +445,8 @@
             'adminAccessDeniedDivision'
           ).style.visibility = 'visible';
         }
+      } else if (event.target.id == 'user_Profile') {
+        document.getElementById('userProfileForm').submit();
       }
     }
 
