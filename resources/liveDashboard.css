@@ -103,30 +103,12 @@ body {
   }
 }
 
-#DataEntryDiv {
+#ReportGenerationDiv,#AdministrationDiv,
+#AdminLogDiv ,#DataEntryDiv,#UserProfileDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;
 }
-
-#ReportGenerationDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
-
-#AdministrationDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
-
-#AdminLogDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
-
 #DashboardDiv {
   display: inline-block;
   width: 100%;

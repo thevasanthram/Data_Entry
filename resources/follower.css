@@ -119,29 +119,13 @@ input[type='number'] {
   background-color: #075154;
 }
 
-#ReportGenerationDiv {
+#ReportGenerationDiv,#AdministrationDiv,
+#AdminLogDiv ,#DashboardDiv,#UserProfileDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;
 }
 
-#AdministrationDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
-
-#AdminLogDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
-
-#DashboardDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
 /* ! End of Nav Side Bar Menu */
 
 .form-content {

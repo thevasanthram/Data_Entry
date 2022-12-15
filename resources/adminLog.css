@@ -130,19 +130,8 @@ body {
   color: black;
 }
 
-#DataEntryDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
-
-#ReportGenerationDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
-
-#AdministrationDiv {
+#ReportGenerationDiv, #DataEntryDiv,
+ #AdministrationDiv,#DashboardDiv,#UserProfileDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;
@@ -155,11 +144,7 @@ body {
   background-color: #075154;
 }
 
-#DashboardDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
+
 
 .title_container {
   animation-name: shift;

@@ -83,17 +83,6 @@ body {
   0%{width: 0%;}
   50%{width: 17%;}
 }
-#DataEntryDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
-
-#ReportGenerationDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
 
 #AdministrationDiv {
   display: inline-block;
@@ -102,13 +91,8 @@ body {
   background-color: #075154;
 }
 
-#AdminLogDiv {
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
-
-#DashboardDiv {
+#ReportGenerationDiv, #DataEntryDiv,
+#AdminLogDiv ,#DashboardDiv,#UserProfileDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;
