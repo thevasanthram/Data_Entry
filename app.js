@@ -84,7 +84,7 @@ pool.query(
             );
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS company_table(id SERIAL, name varchar(50), root_user varchar(30), root_user_password varchar(10), body_number int, date varchar(10), time varchar(8));`,
+              `CREATE TABLE IF NOT EXISTS company_table(id SERIAL, name varchar(50), root_user varchar(30), root_user_password varchar(10), body_number int, used int, remaining int, date varchar(10), time varchar(8));`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -1798,475 +1798,6 @@ app.post('/filter', async (req, res) => {
   }
 });
 
-app.post('/updateEmpStatus', async (req, res) => {
-  try {
-    const changeEmpID = req.body.changeEmpID;
-    const changeEmpName = req.body.changeEmpName;
-    const changeEmpStatus = req.body.changeEmpStatus;
-
-    const currentUser = req.body.currentUser;
-    const currentEmpID = req.body.current_Emp_ID;
-
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
-
-    let currentDate = new Date();
-    const date =
-      String(currentDate.getFullYear()) +
-      '-' +
-      (currentDate.getMonth() + 1 <= 9
-        ? '0' + Number(currentDate.getMonth() + 1)
-        : Number(currentDate.getMonth() + 1)) +
-      '-' +
-      (currentDate.getDate() <= 9
-        ? '0' + Number(currentDate.getDate())
-        : Number(currentDate.getDate()));
-
-    const time =
-      String(currentDate.getHours()) +
-      ':' +
-      String(currentDate.getMinutes()) +
-      ':' +
-      String(currentDate.getSeconds());
-
-    const response = dbConnectedPool.query(
-      `UPDATE employee_table SET status='${changeEmpStatus}' WHERE id=${changeEmpID}`
-    );
-
-    await dbConnectedPool.query(
-      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${currentEmpID},'${currentUser}','updated status to ${changeEmpStatus}',${changeEmpID},'${changeEmpName}','${date}','${time}')`
-    );
-
-    res.sendStatus(200);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(400);
-  }
-});
-
-app.post('/updateEmpChartAccess', async (req, res) => {
-  try {
-    const changeEmpID = req.body.changeEmpID;
-    const changeEmpName = req.body.changeEmpName;
-    const selectedChartAccess = req.body.selectedChartAccess;
-
-    const currentUser = req.body.currentUser;
-    const currentEmpID = req.body.currentEmpID;
-
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
-
-    let currentDate = new Date();
-    const date =
-      String(currentDate.getFullYear()) +
-      '-' +
-      (currentDate.getMonth() + 1 <= 9
-        ? '0' + Number(currentDate.getMonth() + 1)
-        : Number(currentDate.getMonth() + 1)) +
-      '-' +
-      (currentDate.getDate() <= 9
-        ? '0' + Number(currentDate.getDate())
-        : Number(currentDate.getDate()));
-
-    const time =
-      String(currentDate.getHours()) +
-      ':' +
-      String(currentDate.getMinutes()) +
-      ':' +
-      String(currentDate.getSeconds());
-
-    const response = dbConnectedPool.query(
-      `UPDATE employee_table SET accessible_charts= ARRAY['${selectedChartAccess.join(
-        `','`
-      )}'] WHERE id=${changeEmpID}`
-    );
-
-    await dbConnectedPool.query(
-      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${currentEmpID},'${currentUser}','updated report access',${changeEmpID},'${changeEmpName}','${date}','${time}')`
-    );
-
-    res.sendStatus(200);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(400);
-  }
-});
-
-app.post('/admin', async (req, res) => {
-  try {
-    const currentUser = req.body.currentUser;
-    const currentEmpID = req.body.currentEmpID;
-
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
-
-    let response = await dbConnectedPool.query('SELECT * FROM employee_table');
-
-    const employeeRecords = response.rows.sort((r1, r2) =>
-      r1.id > r2.id ? 1 : r1.id < r2.id ? -1 : 0
-    );
-
-    const response2 = await dbConnectedPool.query(
-      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
-    );
-
-    const emp_ChartAccess = response2.rows[0].accessible_charts;
-    const emp_Status = response2.rows[0].status;
-
-    res.render(path.join(__dirname, '/views/adminPage.ejs'), {
-      currentUser,
-      currentEmpID,
-      employeeRecords,
-      emp_ChartAccess,
-      emp_Status,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.post('/adminLog', async (req, res) => {
-  try {
-    const currentUser = req.body.currentUser;
-    const currentEmpID = req.body.currentEmpID;
-
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
-
-    const response2 = await dbConnectedPool.query(
-      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
-    );
-
-    const emp_ChartAccess = response2.rows[0].accessible_charts;
-    const emp_Status = response2.rows[0].status;
-
-    const adminActivityRecords = await dbConnectedPool.query(
-      'SELECT * FROM admin_activity_table;'
-    );
-
-    res.render(path.join(__dirname, '/views/adminLog.ejs'), {
-      currentUser,
-      currentEmpID,
-      emp_ChartAccess,
-      emp_Status,
-      adminActivityRecords: adminActivityRecords.rows.reverse(),
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.post('/dashboard', async (req, res) => {
-  try {
-    const currentUser = req.body.currentUser;
-    const currentEmpID = req.body.currentEmpID;
-
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
-
-    const response2 = await dbConnectedPool.query(
-      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
-    );
-
-    const emp_ChartAccess = response2.rows[0].accessible_charts;
-    const emp_Status = response2.rows[0].status;
-
-    res.render(path.join(__dirname, '/views/liveDashboard.ejs'), {
-      currentUser,
-      currentEmpID,
-      emp_ChartAccess,
-      emp_Status,
-    });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-app.post('/liveData', async (req, res) => {
-  try {
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
-
-    let currentDate = new Date();
-    const date =
-      String(currentDate.getFullYear()) +
-      '-' +
-      (currentDate.getMonth() + 1 <= 9
-        ? '0' + Number(currentDate.getMonth() + 1)
-        : Number(currentDate.getMonth() + 1)) +
-      '-' +
-      (currentDate.getDate() <= 9
-        ? '0' + Number(currentDate.getDate())
-        : Number(currentDate.getDate()));
-
-    const time =
-      String(currentDate.getHours()) +
-      ':' +
-      String(currentDate.getMinutes()) +
-      ':' +
-      String(currentDate.getSeconds());
-
-    // things which are needed
-    // total no of cars, defects, individual defect count
-    const defectResponse = await dbConnectedPool.query(
-      `SELECT * FROM defect_table WHERE date='${date}'`
-    );
-
-    // console.log('defectResponse: ', defectResponse);
-
-    // online
-    let bodyNumberArrayOnline = [];
-    let defectCountOnline = 0;
-    let individualDefectCountOnline = {
-      Surface: 0,
-      'Body Fitting': 0,
-      'Missing & Wrong Part': 0,
-      Welding: 0,
-      'Water Leak': 0,
-    };
-
-    // offline
-    let bodyNumberArrayOffline = [];
-    let defectCountOffline = 0;
-    let individualDefectCountOffline = {
-      Surface: 0,
-      'Body Fitting': 0,
-      'Missing & Wrong Part': 0,
-      Welding: 0,
-      'Water Leak': 0,
-    };
-
-    let employeeDefectResponseData = [];
-
-    let recordDataTemp = {
-      empid: defectResponse.rows[0].empid,
-      username: defectResponse.rows[0].username,
-      body_number: defectResponse.rows[0].body_number,
-      defectcount: defectResponse.rows[0].defectcount,
-      time: defectResponse.rows[0].time,
-    };
-
-    defectResponse.rows.map((record, index) => {
-      if (record.mode == 'online') {
-        // for unique bodyNumber
-        bodyNumberArrayOnline.push(record.body_number);
-        // for total defect count
-        defectCountOnline += record.defectcount;
-        // for individual defect count
-        individualDefectCountOnline[record.defect] += record.defectcount;
-      } else {
-        // for unique bodyNumber
-        bodyNumberArrayOffline.push(record.body_number);
-        // for total defect count
-        defectCountOffline += record.defectcount;
-        // for individual defect count
-        individualDefectCountOffline[record.defect] += record.defectcount;
-      }
-
-      // for employee defect log table
-      if (index != 0) {
-        if (
-          record.empid == recordDataTemp.empid &&
-          record.body_number == recordDataTemp.body_number &&
-          record.time == recordDataTemp.time
-        ) {
-          recordDataTemp.defectcount += record.defectcount;
-        } else {
-          employeeDefectResponseData.push(
-            JSON.parse(JSON.stringify(recordDataTemp))
-          );
-
-          recordDataTemp.empid = record.empid;
-          recordDataTemp.username = record.username;
-          recordDataTemp.body_number = record.body_number;
-          recordDataTemp.defectcount = record.defectcount;
-          recordDataTemp.time = record.time;
-        }
-      }
-
-      if (index == defectResponse.rows.length - 1) {
-        employeeDefectResponseData.push(recordDataTemp);
-      }
-    });
-
-    // console.log('data: ', employeeDefectResponseData);
-
-    const uniqueBodyNumberOnline = [...new Set(bodyNumberArrayOnline)];
-    const uniqueBodyNumberOffline = [...new Set(bodyNumberArrayOffline)];
-
-    res.send(
-      JSON.stringify({
-        uniqueBodyNumberOnline,
-        defectCountOnline,
-        individualDefectCountOnline,
-        uniqueBodyNumberOffline,
-        defectCountOffline,
-        individualDefectCountOffline,
-        employeeDefectResponse: employeeDefectResponseData.reverse(),
-      })
-    );
-  } catch (err) {
-    res.send(
-      JSON.stringify({
-        uniqueBodyNumber: [],
-        defectCount: 0,
-        individualDefectCount: {
-          Surface: 0,
-          'Body Fitting': 0,
-          'Missing & Wrong Part': 0,
-          Welding: 0,
-          'Water Leak': 0,
-        },
-        employeeDefectResponse: [],
-      })
-    );
-  }
-});
-
-app.post('/liveNotification', async (req, res) => {
-  try {
-    let dbConnectedPool = new Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'data_entry_systems',
-      password: 'admin',
-      port: 5432,
-    });
-
-    // console.log('----------------- liveNotification ----------------');
-
-    let currentDate = new Date();
-    const date =
-      String(currentDate.getFullYear()) +
-      '-' +
-      (currentDate.getMonth() + 1 <= 9
-        ? '0' + Number(currentDate.getMonth() + 1)
-        : Number(currentDate.getMonth() + 1)) +
-      '-' +
-      (currentDate.getDate() <= 9
-        ? '0' + Number(currentDate.getDate())
-        : Number(currentDate.getDate()));
-
-    const codedTiming = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-      currentDate.getDate(),
-      currentDate.getHours(),
-      currentDate.getMinutes(),
-      currentDate.getSeconds(),
-      0
-    );
-
-    const subbedTime = new Date(codedTiming - 5000);
-
-    const defectResponse = await dbConnectedPool.query(
-      `SELECT * FROM defect_table WHERE date='${date}'`
-    );
-
-    let recordDataTemp = {
-      empid: 0,
-      username: '',
-      body_number: 0,
-      defectcount: 0,
-      time: '',
-    };
-
-    let liveNotificationData = [];
-
-    let flag = false;
-    defectResponse.rows.map((record, index) => {
-      const recordDate = record.date.split('-');
-      const recordTime = record.time.split(':');
-
-      const recordTiming = new Date(
-        recordDate[0],
-        recordDate[1],
-        recordDate[2],
-        recordTime[0],
-        recordTime[1],
-        recordTime[2]
-      );
-
-      if (recordTiming >= subbedTime) {
-        if (flag) {
-          if (
-            record.empid == recordDataTemp.empid &&
-            record.body_number == recordDataTemp.body_number &&
-            record.time == recordDataTemp.time
-          ) {
-            recordDataTemp.defectcount += record.defectcount;
-          } else {
-            liveNotificationData.push(
-              JSON.parse(JSON.stringify(recordDataTemp))
-            );
-
-            recordDataTemp.empid = record.empid;
-            recordDataTemp.username = record.username;
-            recordDataTemp.body_number = record.body_number;
-            recordDataTemp.defectcount = record.defectcount;
-            recordDataTemp.time = record.time;
-          }
-        } else {
-          recordDataTemp.empid = record.empid;
-          recordDataTemp.username = record.username;
-          recordDataTemp.body_number = record.body_number;
-          recordDataTemp.defectcount = record.defectcount;
-          recordDataTemp.time = record.time;
-          flag = true;
-        }
-
-        if (index == defectResponse.rows.length - 1) {
-          liveNotificationData.push(recordDataTemp);
-        }
-      }
-    });
-
-    // console.log('liveNotificationData: ', liveNotificationData);
-
-    res.send(
-      JSON.stringify({
-        liveNotificationData,
-      })
-    );
-  } catch (err) {
-    res.send(
-      JSON.stringify({
-        liveNotificationData: [],
-      })
-    );
-  }
-});
-
 app.post('/reportDataProvider', async (req, res) => {
   try {
     const queryReceiver = req.body.querySender;
@@ -2943,6 +2474,492 @@ app.post('/individualSummaryReport', async (req, res) => {
         data: dataFetcher,
       })
     );
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/admin', async (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let response = await dbConnectedPool.query('SELECT * FROM employee_table');
+
+    const employeeRecords = response.rows.sort((r1, r2) =>
+      r1.id > r2.id ? 1 : r1.id < r2.id ? -1 : 0
+    );
+
+    const response2 = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
+    );
+
+    const emp_ChartAccess = response2.rows[0].accessible_charts;
+    const emp_Status = response2.rows[0].status;
+
+    res.render(path.join(__dirname, '/views/adminPage.ejs'), {
+      currentUser,
+      currentEmpID,
+      employeeRecords,
+      emp_ChartAccess,
+      emp_Status,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/updateEmpStatus', async (req, res) => {
+  try {
+    const changeEmpID = req.body.changeEmpID;
+    const changeEmpName = req.body.changeEmpName;
+    const changeEmpStatus = req.body.changeEmpStatus;
+
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.current_Emp_ID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
+    const response = dbConnectedPool.query(
+      `UPDATE employee_table SET status='${changeEmpStatus}' WHERE id=${changeEmpID}`
+    );
+
+    await dbConnectedPool.query(
+      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${currentEmpID},'${currentUser}','updated status to ${changeEmpStatus}',${changeEmpID},'${changeEmpName}','${date}','${time}')`
+    );
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
+app.post('/updateEmpChartAccess', async (req, res) => {
+  try {
+    const changeEmpID = req.body.changeEmpID;
+    const changeEmpName = req.body.changeEmpName;
+    const selectedChartAccess = req.body.selectedChartAccess;
+
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
+    const response = dbConnectedPool.query(
+      `UPDATE employee_table SET accessible_charts= ARRAY['${selectedChartAccess.join(
+        `','`
+      )}'] WHERE id=${changeEmpID}`
+    );
+
+    await dbConnectedPool.query(
+      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${currentEmpID},'${currentUser}','updated report access',${changeEmpID},'${changeEmpName}','${date}','${time}')`
+    );
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
+app.post('/adminLog', async (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response2 = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
+    );
+
+    const emp_ChartAccess = response2.rows[0].accessible_charts;
+    const emp_Status = response2.rows[0].status;
+
+    const adminActivityRecords = await dbConnectedPool.query(
+      'SELECT * FROM admin_activity_table;'
+    );
+
+    res.render(path.join(__dirname, '/views/adminLog.ejs'), {
+      currentUser,
+      currentEmpID,
+      emp_ChartAccess,
+      emp_Status,
+      adminActivityRecords: adminActivityRecords.rows.reverse(),
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/dashboard', async (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response2 = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
+    );
+
+    const emp_ChartAccess = response2.rows[0].accessible_charts;
+    const emp_Status = response2.rows[0].status;
+
+    res.render(path.join(__dirname, '/views/liveDashboard.ejs'), {
+      currentUser,
+      currentEmpID,
+      emp_ChartAccess,
+      emp_Status,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/liveData', async (req, res) => {
+  try {
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
+    // things which are needed
+    // total no of cars, defects, individual defect count
+    const defectResponse = await dbConnectedPool.query(
+      `SELECT * FROM defect_table WHERE date='${date}'`
+    );
+
+    // console.log('defectResponse: ', defectResponse);
+
+    // online
+    let bodyNumberArrayOnline = [];
+    let defectCountOnline = 0;
+    let individualDefectCountOnline = {
+      Surface: 0,
+      'Body Fitting': 0,
+      'Missing & Wrong Part': 0,
+      Welding: 0,
+      'Water Leak': 0,
+    };
+
+    // offline
+    let bodyNumberArrayOffline = [];
+    let defectCountOffline = 0;
+    let individualDefectCountOffline = {
+      Surface: 0,
+      'Body Fitting': 0,
+      'Missing & Wrong Part': 0,
+      Welding: 0,
+      'Water Leak': 0,
+    };
+
+    let employeeDefectResponseData = [];
+
+    let recordDataTemp = {
+      empid: defectResponse.rows[0].empid,
+      username: defectResponse.rows[0].username,
+      body_number: defectResponse.rows[0].body_number,
+      defectcount: defectResponse.rows[0].defectcount,
+      time: defectResponse.rows[0].time,
+    };
+
+    defectResponse.rows.map((record, index) => {
+      if (record.mode == 'online') {
+        // for unique bodyNumber
+        bodyNumberArrayOnline.push(record.body_number);
+        // for total defect count
+        defectCountOnline += record.defectcount;
+        // for individual defect count
+        individualDefectCountOnline[record.defect] += record.defectcount;
+      } else {
+        // for unique bodyNumber
+        bodyNumberArrayOffline.push(record.body_number);
+        // for total defect count
+        defectCountOffline += record.defectcount;
+        // for individual defect count
+        individualDefectCountOffline[record.defect] += record.defectcount;
+      }
+
+      // for employee defect log table
+      if (index != 0) {
+        if (
+          record.empid == recordDataTemp.empid &&
+          record.body_number == recordDataTemp.body_number &&
+          record.time == recordDataTemp.time
+        ) {
+          recordDataTemp.defectcount += record.defectcount;
+        } else {
+          employeeDefectResponseData.push(
+            JSON.parse(JSON.stringify(recordDataTemp))
+          );
+
+          recordDataTemp.empid = record.empid;
+          recordDataTemp.username = record.username;
+          recordDataTemp.body_number = record.body_number;
+          recordDataTemp.defectcount = record.defectcount;
+          recordDataTemp.time = record.time;
+        }
+      }
+
+      if (index == defectResponse.rows.length - 1) {
+        employeeDefectResponseData.push(recordDataTemp);
+      }
+    });
+
+    // console.log('data: ', employeeDefectResponseData);
+
+    const uniqueBodyNumberOnline = [...new Set(bodyNumberArrayOnline)];
+    const uniqueBodyNumberOffline = [...new Set(bodyNumberArrayOffline)];
+
+    res.send(
+      JSON.stringify({
+        uniqueBodyNumberOnline,
+        defectCountOnline,
+        individualDefectCountOnline,
+        uniqueBodyNumberOffline,
+        defectCountOffline,
+        individualDefectCountOffline,
+        employeeDefectResponse: employeeDefectResponseData.reverse(),
+      })
+    );
+  } catch (err) {
+    res.send(
+      JSON.stringify({
+        uniqueBodyNumber: [],
+        defectCount: 0,
+        individualDefectCount: {
+          Surface: 0,
+          'Body Fitting': 0,
+          'Missing & Wrong Part': 0,
+          Welding: 0,
+          'Water Leak': 0,
+        },
+        employeeDefectResponse: [],
+      })
+    );
+  }
+});
+
+app.post('/liveNotification', async (req, res) => {
+  try {
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    // console.log('----------------- liveNotification ----------------');
+
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const codedTiming = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      currentDate.getDate(),
+      currentDate.getHours(),
+      currentDate.getMinutes(),
+      currentDate.getSeconds(),
+      0
+    );
+
+    const subbedTime = new Date(codedTiming - 5000);
+
+    const defectResponse = await dbConnectedPool.query(
+      `SELECT * FROM defect_table WHERE date='${date}'`
+    );
+
+    let recordDataTemp = {
+      empid: 0,
+      username: '',
+      body_number: 0,
+      defectcount: 0,
+      time: '',
+    };
+
+    let liveNotificationData = [];
+
+    let flag = false;
+    defectResponse.rows.map((record, index) => {
+      const recordDate = record.date.split('-');
+      const recordTime = record.time.split(':');
+
+      const recordTiming = new Date(
+        recordDate[0],
+        recordDate[1],
+        recordDate[2],
+        recordTime[0],
+        recordTime[1],
+        recordTime[2]
+      );
+
+      if (recordTiming >= subbedTime) {
+        if (flag) {
+          if (
+            record.empid == recordDataTemp.empid &&
+            record.body_number == recordDataTemp.body_number &&
+            record.time == recordDataTemp.time
+          ) {
+            recordDataTemp.defectcount += record.defectcount;
+          } else {
+            liveNotificationData.push(
+              JSON.parse(JSON.stringify(recordDataTemp))
+            );
+
+            recordDataTemp.empid = record.empid;
+            recordDataTemp.username = record.username;
+            recordDataTemp.body_number = record.body_number;
+            recordDataTemp.defectcount = record.defectcount;
+            recordDataTemp.time = record.time;
+          }
+        } else {
+          recordDataTemp.empid = record.empid;
+          recordDataTemp.username = record.username;
+          recordDataTemp.body_number = record.body_number;
+          recordDataTemp.defectcount = record.defectcount;
+          recordDataTemp.time = record.time;
+          flag = true;
+        }
+
+        if (index == defectResponse.rows.length - 1) {
+          liveNotificationData.push(recordDataTemp);
+        }
+      }
+    });
+
+    // console.log('liveNotificationData: ', liveNotificationData);
+
+    res.send(
+      JSON.stringify({
+        liveNotificationData,
+      })
+    );
+  } catch (err) {
+    res.send(
+      JSON.stringify({
+        liveNotificationData: [],
+      })
+    );
+  }
+});
+
+app.post('/profile', (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
   } catch (err) {
     console.log(err);
   }
