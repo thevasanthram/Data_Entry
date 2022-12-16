@@ -1051,7 +1051,6 @@ app.get('/forgotPassword', (req, res) => {
 
 app.post('/adminPortal', (req, res) => {
   try {
-    console.log('entering into portal');
     res.render(path.join(__dirname, '/views/adminPortal.ejs'));
   } catch (err) {
     console.log(err);
@@ -1064,6 +1063,10 @@ app.post('/createCompany', async (req, res) => {
     const companyName = req.body.companyName;
     const rootUserName = req.body.rootUserName;
     const rootUserPassword = req.body.rootUserPassword;
+
+    console.log('companyName: ', companyName);
+    console.log('rootUserName: ', rootUserName);
+    console.log('rootUserPassword: ', rootUserPassword);
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -1092,19 +1095,26 @@ app.post('/createCompany', async (req, res) => {
       ':' +
       String(currentDate.getSeconds());
 
+    console.log(
+      `INSERT INTO company_table (name,root_user,root_user_password,body_number,used,remaining,date,time) VALUES ('${companyName}','${rootUserName}','${rootUserPassword}',0,0,0,'${date}','${time}')`
+    );
     // insert into company_table
     await dbConnectedPool.query(
       `INSERT INTO company_table (name,root_user,root_user_password,body_number,used,remaining,date,time) VALUES ('${companyName}','${rootUserName}','${rootUserPassword}',0,0,0,'${date}','${time}')`
     );
 
+    console.log(
+      `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES ('${rootUserName}','${rootUserPassword}','${companyName}','admin',Array['DPV (Defects Per Vehicle) Report','Master Report','Main Pareto Report','Pareto Report','Surface Summary','Body Fitting Summary','Missing & Wrong Part Summary','Welding Summary','Water Leak Summary','Color Map'],'Root User')`
+    );
     // insert into employee_table
     await dbConnectedPool.query(
       `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES ('${rootUserName}','${rootUserPassword}','${companyName}','admin',Array['DPV (Defects Per Vehicle) Report','Master Report','Main Pareto Report','Pareto Report','Surface Summary','Body Fitting Summary','Missing & Wrong Part Summary','Welding Summary','Water Leak Summary','Color Map'],'Root User')`
     );
 
-    res.status(200);
+    res.sendStatus(200);
   } catch (err) {
     console.log(err);
+    res.sendStatus(400);
   }
 });
 

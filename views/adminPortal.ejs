@@ -41,18 +41,77 @@
 
       <div class="bodyContainer">
         <div class="createCompany">
-          <button class="companyButton">Create New Company</button>
+          <button class="companyButton" onclick="(() => document.getElementById('createCompanyDivision').style.visibility = 'visible')()">Create New Company</button>
         </div>
         <div class="companyTable">
 
         </div>
       </div>
 
-      
+      <div id="createCompanyDivision" >
+        <div class="createCompanyModalContent">
+          <div id="createCompanyContentHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+            <p>Create Company</p>
+            <form id="createCompanyForm">
+              <p>Company Name: </p>
+              <input type="text" id="companyName" name="companyName" placeholder="Enter company name" required>
+              <p>Username: </p>
+              <input type="text" id="rootUserName" name="rootUserName" placeholder="Enter Root User name" required>
+              <p>Enter Password: </p>
+              <input type="password" id="rootPassword" name="rootPassword" placeholder="Enter password" required>
+              <p>Confirm Password: </p>
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" required>
+              <button onclick="validate(event)">Create</button>
+              <button>Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
 
     <script>
-      console.log('showing')
+      function validate(){
+        event.preventDefault();
+        var createCompanyForm = document.getElementById('createCompanyForm')
+        if (!createCompanyForm.checkValidity()) {
+          if (createCompanyForm.reportValidity) {
+            createCompanyForm.reportValidity();
+          } else {
+            alert(msg.ieErrorForm);
+          }
+        } else {
+          if(document.getElementById('rootPassword').value == document.getElementById('confirmPassword').value){
+            createCompany()
+          }else{
+            // display passwords do not match
+            console.log('passwords are not matching')
+          }
+        }
+      }
+
+      async function createCompany(){
+        const companyName = document.getElementById('companyName').value
+        const rootUserName = document.getElementById('rootUserName').value
+        const rootPassword = document.getElementById('rootPassword').value
+        
+        const response = await fetch('/createCompany',{
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            companyName: companyName,
+            rootUserName: rootUserName,
+            rootUserPassword: rootPassword
+          })
+        })
+
+        if(response.status == 200){
+          console.log('company created')
+        }else{
+          console.log('error in creation')
+        }
+      }
     </script>
   </body>
 </html>
