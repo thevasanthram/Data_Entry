@@ -62,12 +62,22 @@
               <p>Confirm Password: </p>
               <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" required>
               <button onclick="validate(event)">Create</button>
-              <button>Cancel</button>
+              <button onclick="(()=> document.getElementById('adminPortalForm').submit())()">Cancel</button>
             </form>
           </div>
         </div>
       </div>
 
+      <div id="createCompanySuccessDivision" >
+        <div class="createCompanySuccessModalContent">
+          <div id="createCompanySuccessContentHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+            <p id="createCompanySuccessMessage"></p>
+            <button onclick="(()=> document.getElementById('adminPortalForm').submit())()">OK</button>
+          </div>
+        </div>
+      </div>
+
+      <form action="/adminPortal" id="adminPortalForm" method="post"></form>
 
     <script>
       function validate(){
@@ -107,9 +117,11 @@
         })
 
         if(response.status == 200){
-          console.log('company created')
+          document.getElementById('createCompanySuccessMessage').innerHTML = 'Company created!'
+          document.getElementById('createCompanySuccessDivision').style.visibility = 'visible'
         }else{
-          console.log('error in creation')
+          document.getElementById('createCompanySuccessMessage').innerHTML = 'Error creating company. Try Again!'
+          document.getElementById('createCompanySuccessDivision').style.visibility = 'visible'
         }
       }
     </script>
