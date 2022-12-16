@@ -2533,14 +2533,16 @@ app.post('/admin', async (req, res) => {
       port: 5432,
     });
 
-    let response = await dbConnectedPool.query('SELECT * FROM employee_table');
+    let response = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE company='${companyName}'`
+    );
 
     const employeeRecords = response.rows.sort((r1, r2) =>
       r1.id > r2.id ? 1 : r1.id < r2.id ? -1 : 0
     );
 
     const response2 = await dbConnectedPool.query(
-      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
+      `SELECT * FROM employee_table WHERE id=${currentEmpID} AND company='${companyName}'`
     );
 
     const emp_ChartAccess = response2.rows[0].accessible_charts;
