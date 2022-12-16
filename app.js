@@ -3048,11 +3048,11 @@ app.post('/profile', async (req, res) => {
 });
 
 app.post('/checkout', async (req, res) => {
-  let fname = req.body.first_name;
-  let lname = req.body.last_name;
-  let amount = req.body.tree;
-  let tname = req.body.tname;
-  let email = req.body.email;
+  // let fname = req.body.first_name;
+  // let lname = req.body.last_name;
+  // let amount = req.body.tree;
+  // let tname = req.body.tname;
+  // let email = req.body.email;
   let tid = uniqId();
 
   var instance = new Razorpay({
@@ -3064,7 +3064,7 @@ app.post('/checkout', async (req, res) => {
   const date = new Date();
 
   let options = await instance.orders.create({
-    amount: amount * 100,
+    amount: 500 * 100,
     currency: 'INR',
     receipt: uniqId(),
     function(err, ordre) {
@@ -3075,25 +3075,10 @@ app.post('/checkout', async (req, res) => {
 
   console.log(options);
 
-  const fullName = fname + ' ' + lname;
-
-  const tree_id = await Register.updateOne(
-    { email: email },
-    {
-      $push: {
-        tdata: {
-          tname: tname,
-          tid: tid,
-          date: date.toLocaleDateString('en-US', format),
-          location: 'Not Yet Planted',
-        },
-      },
-    }
-  );
   const requests = new Request({
     name: fullName,
     tid: tid,
-    tname: tname,
+    tname: Deevia,
     date: date.toLocaleDateString('en-US', format),
   });
   const generated = await requests.save();
