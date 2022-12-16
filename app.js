@@ -3017,7 +3017,7 @@ app.post('/liveNotification', async (req, res) => {
   }
 });
 
-app.post('/profile', (req, res) => {
+app.post('/profile', async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
@@ -3030,6 +3030,7 @@ app.post('/profile', (req, res) => {
       port: 5432,
     });
 
+    const companyDetail = await dbConnectedPool.query(`SELECT * FROM company_table WHERE `);
     res.render(path.join(__dirname, '/views/userProfile.ejs'), {
       currentUser,
       currentEmpID,
