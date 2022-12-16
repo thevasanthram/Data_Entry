@@ -28,6 +28,7 @@
     "pg": "^8.8.0",
     "pgtools": "^0.1.1",
     "pkg": "^5.8.0",
+    "razorpay": "^2.8.4",
     "tailwind-config": "^0.1.2",
     "two-step-auth": "^1.1.2"
   },
