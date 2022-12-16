@@ -964,7 +964,7 @@ app.get('/', (req, res) => {
 
 app.post('/login', async (req, res) => {
   try {
-    username = req.body.username;
+    const username = req.body.username;
     const password = req.body.password;
 
     let dbConnectedPool = new Pool({
@@ -976,59 +976,64 @@ app.post('/login', async (req, res) => {
     });
 
     if (username == 'Administrator' && password == 'admin@123') {
-      res.redirect('/adminPortal');
-    }
-
-    const response = await dbConnectedPool.query(
-      `SELECT * FROM employee_table`
-    );
-
-    if (response.rows.length > 0) {
-      const employeeResponse = await dbConnectedPool.query(
-        `SELECT * FROM employee_table WHERE name='${username}' AND password='${password}'`
+      res.send(
+        JSON.stringify({
+          userStatus: 'Administrator',
+          validation: 'success',
+        })
       );
-      if (employeeResponse.rows.length > 0) {
-        emp_ID = employeeResponse.rows[0].id;
-        res.send(
-          JSON.stringify({
-            userStatus: 'Employee',
-            validation: 'success',
-            username: req.body.username,
-            emp_ID: employeeResponse.rows[0].id,
-          })
+    } else {
+      const response = await dbConnectedPool.query(
+        `SELECT * FROM employee_table`
+      );
+
+      if (response.rows.length > 0) {
+        const employeeResponse = await dbConnectedPool.query(
+          `SELECT * FROM employee_table WHERE name='${username}' AND password='${password}'`
         );
+        if (employeeResponse.rows.length > 0) {
+          emp_ID = employeeResponse.rows[0].id;
+          res.send(
+            JSON.stringify({
+              userStatus: 'Employee',
+              validation: 'success',
+              username: req.body.username,
+              emp_ID: employeeResponse.rows[0].id,
+            })
+          );
+        } else {
+          if (username == 'Administrator' && password == 'admin@123') {
+            res.send(
+              JSON.stringify({
+                userStatus: 'Breacher',
+                validation: 'success',
+              })
+            );
+          } else {
+            res.send(
+              JSON.stringify({
+                userStatus: 'Employee',
+                validation: 'failure',
+              })
+            );
+          }
+        }
       } else {
         if (username == 'Administrator' && password == 'admin@123') {
           res.send(
             JSON.stringify({
-              userStatus: 'Breacher',
+              userStatus: 'First User',
               validation: 'success',
             })
           );
         } else {
           res.send(
             JSON.stringify({
-              userStatus: 'Employee',
+              userStatus: 'First User',
               validation: 'failure',
             })
           );
         }
-      }
-    } else {
-      if (username == 'Administrator' && password == 'admin@123') {
-        res.send(
-          JSON.stringify({
-            userStatus: 'First User',
-            validation: 'success',
-          })
-        );
-      } else {
-        res.send(
-          JSON.stringify({
-            userStatus: 'First User',
-            validation: 'failure',
-          })
-        );
       }
     }
   } catch (err) {
@@ -1044,8 +1049,9 @@ app.get('/forgotPassword', (req, res) => {
   }
 });
 
-app.get('/adminPortal', (req, res) => {
+app.post('/adminPortal', (req, res) => {
   try {
+    console.log('entering into portal');
     res.render(path.join(__dirname, '/views/adminPortal.ejs'));
   } catch (err) {
     console.log(err);
