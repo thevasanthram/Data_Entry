@@ -1114,7 +1114,7 @@ app.post('/addUser', (req, res) => {
 
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
-    const currentCompany = req.body.emp_Company;
+    const currentCompany = req.body.empCompany;
 
     res.render(path.join(__dirname, '/views/createNewUser.ejs'), {
       currentUser,
@@ -1216,28 +1216,15 @@ app.post('/newUser', async (req, res) => {
       ':' +
       String(currentDate.getSeconds());
 
-    // root user creation will be done by adminPortal
-    if (creator == 'Root User') {
-      const response = await dbConnectedPool.query(
-        `INSERT INTO employee_table (name,password,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empStatus}',ARRAY['${accessibleCharts.join(
-          `','`
-        )}'],'Root User') RETURNING id;`
-      );
+    const response = await dbConnectedPool.query(
+      `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
+        `','`
+      )}'],'${creator}') RETURNING id;`
+    );
 
-      await dbConnectedPool.query(
-        `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (0,'${creator}','created',1,'${empName}','${date}','${time}')`
-      );
-    } else {
-      const response = await dbConnectedPool.query(
-        `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
-          `','`
-        )}'],'${creator}') RETURNING id;`
-      );
-
-      await dbConnectedPool.query(
-        `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${creatorID},'${creator}','created',${response.rows[0].id},'${empName}','${date}','${time}')`
-      );
-    }
+    await dbConnectedPool.query(
+      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${creatorID},'${creator}','created',${response.rows[0].id},'${empName}','${date}','${time}')`
+    );
 
     res.sendStatus(200);
   } catch (err) {
