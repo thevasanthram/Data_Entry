@@ -5,9 +5,146 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="userProfile.css">
+    <link
+    href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <h1><%= currentUser %></h1>
-    <h1><%= currentEmpID %></h1>
+    <div class="main">
+      <!-- Header part  which contain user_name,  App_Name and LOGOUT btn  -->
+      <div class="header">
+        <div style="display: flex">
+          <img
+            src="./navBarIcon.png"
+            title="Switch Mode"
+            id="navBarIcon"
+            alt="Switch Mode"
+            style="cursor: pointer; width: 8%; margin: 0.5% 3%"
+          />
+          <div class="heading">Data Entry System</div>
+        </div>
+
+        <form id="btn" action="/logout" method="get">
+          <div class="admin" id="user-mode-name"><%= currentUser %></div>
+          <button
+            type="submit"
+            style="
+              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            "
+            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          >
+            LOGOUT
+          </button>
+        </form>
+      </div>
+      <!-- ! ........Side Nav Bar Menu......... -->
+      <div id="navBarDivision">
+        <div id="UserProfileDiv"
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)">
+            <div id="user_Profile" class="category">User Profile</div>
+        </div>
+        <div id="DataEntryDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)">
+          <div id="dataEntry" class="category"> Data Entry</div>
+        </div>
+        <div id="ReportGenerationDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)">
+          <div id="reportGeneration" class="category">Report Generation </div>
+        </div>
+        <div id="AdministrationDiv"
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)" 
+            >
+            <div id="administration" class="category">Administration</div>
+        </div>
+        <div id="AdminLogDiv"
+        onmouseover="onmouseoverBGColor(event)"
+        onmouseout="onmouseoutBGColor(event)"
+        onclick="handleFormSubmit(event)"
+        >
+          <div id="adminLog" class="category">Admin Logs</div>
+        </div>
+        <div id="DashboardDiv"
+          onmouseover="onmouseoverBGColor(event)"
+          onmouseout="onmouseoutBGColor(event)"
+          onclick="handleFormSubmit(event)"
+        >
+          <div id="activityLog" class="category">Dashboard</div>
+        </div>
+      </div>
+      <!-- ! -->
+      <div class="card_container">
+        <div class="center">
+          <div class="container" style="width: 95%; height: 90%;">
+            <div class="left">
+              <div class="photo">
+                <div class="circle"></div>   
+                <div class="circle2"></div> 
+                <img alt="user photo" src="user-picture.png">
+              </div>     
+              <div class="title__contain">
+                <div class="username text-gray-800 font-bold"><%= currentUser %></div>
+                <div class="title text-gray-600" style="text-align: center;">
+                  Employee
+                </div>
+              </div>
+              <div class="user_access_section">
+                <div class="user_details">
+                  <div style="display: flex; width: 100%;">
+                    <div class=" user_details_title text-gray-800  font-bold">
+                      User Details :
+                    </div>
+                  </div>
+                  <div class="details_container">
+                    <div class="text-gray-600">Emp ID : <b><%= currentEmpID %></b></div>
+                    <div class="text-gray-600"> Email : <b>user@gmail.com</b></div>
+                    <div class="text-gray-600">Added By : <b><%= currentEmpID %></b></div>
+                    <a href="http://" target="_blank" rel="noopener noreferrer"
+                    class="text-blue-800"><i>change your password</i></a>
+                  </div>
+                </div>
+                <div class="payment_container">
+                  <h1 class="btn_title">Click on <b>Buy now</b> to add More Body No</h1>
+                  <div class="btn_container">
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
+                      Buy now
+                    </button>
+                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Choose plan
+                        <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button> 
+                  </div> 
+                </div>
+              </div>          
+            </div>
+            <div class="right">
+              <div class="rightbox">
+                <span class="large  font-bold text-white">512</span>
+                <span class="small  text-gray-100 vehicle_count">Vehicles Entered by <%= currentUser %></span>
+              </div>
+              <div class="rightbox">
+                <span class="large  font-bold text-white">1234</span>
+                <span class="small vehicle_count  text-gray-100">Vehicles Used</span>
+              </div>
+              <div class="rightbox">
+                <span class="large  font-bold text-white">241</span>
+                <span class="small vehicle_count text-gray-100">Vehicles Left</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
