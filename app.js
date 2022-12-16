@@ -983,57 +983,26 @@ app.post('/login', async (req, res) => {
         })
       );
     } else {
-      const response = await dbConnectedPool.query(
-        `SELECT * FROM employee_table`
+      const employeeResponse = await dbConnectedPool.query(
+        `SELECT * FROM employee_table WHERE name='${username}' AND password='${password}'`
       );
-
-      if (response.rows.length > 0) {
-        const employeeResponse = await dbConnectedPool.query(
-          `SELECT * FROM employee_table WHERE name='${username}' AND password='${password}'`
+      if (employeeResponse.rows.length > 0) {
+        res.send(
+          JSON.stringify({
+            userStatus: 'Employee',
+            validation: 'success',
+            username: req.body.username,
+            emp_ID: employeeResponse.rows[0].id,
+            companyName: employeeResponse.rows[0].company,
+          })
         );
-        if (employeeResponse.rows.length > 0) {
-          emp_ID = employeeResponse.rows[0].id;
-          res.send(
-            JSON.stringify({
-              userStatus: 'Employee',
-              validation: 'success',
-              username: req.body.username,
-              emp_ID: employeeResponse.rows[0].id,
-            })
-          );
-        } else {
-          if (username == 'Administrator' && password == 'admin@123') {
-            res.send(
-              JSON.stringify({
-                userStatus: 'Breacher',
-                validation: 'success',
-              })
-            );
-          } else {
-            res.send(
-              JSON.stringify({
-                userStatus: 'Employee',
-                validation: 'failure',
-              })
-            );
-          }
-        }
       } else {
-        if (username == 'Administrator' && password == 'admin@123') {
-          res.send(
-            JSON.stringify({
-              userStatus: 'First User',
-              validation: 'success',
-            })
-          );
-        } else {
-          res.send(
-            JSON.stringify({
-              userStatus: 'First User',
-              validation: 'failure',
-            })
-          );
-        }
+        res.send(
+          JSON.stringify({
+            userStatus: 'Employee',
+            validation: 'failure',
+          })
+        );
       }
     }
   } catch (err) {
@@ -1064,10 +1033,6 @@ app.post('/createCompany', async (req, res) => {
     const rootUserName = req.body.rootUserName;
     const rootUserPassword = req.body.rootUserPassword;
 
-    console.log('companyName: ', companyName);
-    console.log('rootUserName: ', rootUserName);
-    console.log('rootUserPassword: ', rootUserPassword);
-
     let dbConnectedPool = new Pool({
       user: 'postgres',
       host: 'localhost',
@@ -1095,17 +1060,11 @@ app.post('/createCompany', async (req, res) => {
       ':' +
       String(currentDate.getSeconds());
 
-    console.log(
-      `INSERT INTO company_table (name,root_user,root_user_password,body_number,used,remaining,date,time) VALUES ('${companyName}','${rootUserName}','${rootUserPassword}',0,0,0,'${date}','${time}')`
-    );
     // insert into company_table
     await dbConnectedPool.query(
       `INSERT INTO company_table (name,root_user,root_user_password,body_number,used,remaining,date,time) VALUES ('${companyName}','${rootUserName}','${rootUserPassword}',0,0,0,'${date}','${time}')`
     );
 
-    console.log(
-      `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES ('${rootUserName}','${rootUserPassword}','${companyName}','admin',Array['DPV (Defects Per Vehicle) Report','Master Report','Main Pareto Report','Pareto Report','Surface Summary','Body Fitting Summary','Missing & Wrong Part Summary','Welding Summary','Water Leak Summary','Color Map'],'Root User')`
-    );
     // insert into employee_table
     await dbConnectedPool.query(
       `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES ('${rootUserName}','${rootUserPassword}','${companyName}','admin',Array['DPV (Defects Per Vehicle) Report','Master Report','Main Pareto Report','Pareto Report','Surface Summary','Body Fitting Summary','Missing & Wrong Part Summary','Welding Summary','Water Leak Summary','Color Map'],'Root User')`
@@ -1249,6 +1208,7 @@ app.post('/follower', async (req, res) => {
 
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
 
     console.log('currentUser: ', currentUser);
     console.log('currentEmpID: ', currentEmpID);
@@ -1273,6 +1233,7 @@ app.post('/follower', async (req, res) => {
       currentEmpID,
       emp_Status,
       emp_ChartAccess,
+      companyName,
     });
   } catch (err) {
     console.log(err);
@@ -1848,6 +1809,7 @@ app.post('/filter', async (req, res) => {
     console.log('filter');
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -1869,6 +1831,7 @@ app.post('/filter', async (req, res) => {
       currentEmpID,
       accessibleReport,
       emp_Status,
+      companyName,
     });
   } catch (err) {
     console.log(err);
@@ -2560,6 +2523,7 @@ app.post('/admin', async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -2589,7 +2553,7 @@ app.post('/admin', async (req, res) => {
       employeeRecords,
       emp_ChartAccess,
       emp_Status,
-      emp_Company,
+      companyName,
     });
   } catch (err) {
     console.log(err);
@@ -2704,6 +2668,7 @@ app.post('/adminLog', async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -2729,6 +2694,7 @@ app.post('/adminLog', async (req, res) => {
       currentEmpID,
       emp_ChartAccess,
       emp_Status,
+      companyName,
       adminActivityRecords: adminActivityRecords.rows.reverse(),
     });
   } catch (err) {
@@ -2740,6 +2706,7 @@ app.post('/dashboard', async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -2761,6 +2728,7 @@ app.post('/dashboard', async (req, res) => {
       currentEmpID,
       emp_ChartAccess,
       emp_Status,
+      companyName,
     });
   } catch (err) {
     console.log(err);
@@ -3027,10 +2995,13 @@ app.post('/liveNotification', async (req, res) => {
   }
 });
 
-app.post('/profile', (req, res) => {
+app.post('/profile', async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
+
+    /// have to pass companyName along with user and id
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -3040,9 +3011,34 @@ app.post('/profile', (req, res) => {
       port: 5432,
     });
 
+    const companyResponse = await dbConnectedPool.query(
+      `SELECT * FROM company_table WHERE name='${companyName}'`
+    );
+
+    const employeeResponse = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${currentEmpID} AND company='${companyName};`
+    );
+
+    const employeeDetail = {
+      name: employeeResponse.rows[0].name,
+      id: employeeResponse.rows[0].id,
+      company: employeeResponse.rows[0].company,
+      status: employeeResponse.rows[0].status,
+      created_by: employeeResponse.rows[0].created_by,
+    };
+
+    const companyDetail = {
+      name: companyResponse.rows[0].name,
+      body_number: companyResponse.rows[0].body_number,
+      used: companyResponse.rows[0].used,
+      remaining: companyResponse.rows[0].remaining,
+    };
+
     res.render(path.join(__dirname, '/views/userProfile.ejs'), {
       currentUser,
       currentEmpID,
+      companyDetail,
+      employeeDetail,
     });
   } catch (err) {
     console.log(err);

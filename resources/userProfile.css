@@ -1,0 +1,481 @@
+* {
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #222831;
+  color: #eeeeee;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  margin-bottom: 2%;
+}
+.main{
+  width: 100%;
+  height: auto;
+}
+/* Styling for header part which contain user_name App_Name and LOGOUT btn  */
+.header {
+  width: 100%;
+  display: flex;
+  min-height: 4.5rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #393e46;
+  color: #f0e3e3;
+  position: relative;
+}
+#btn {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.admin {
+  color: #00adb5;
+  margin-right: 8%;
+  text-align: center;
+  line-height: initial;
+  font-weight: 500;
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+}
+.heading {
+  padding-left: 1%;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+}
+
+.button-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2%;
+  margin: 5%;
+  width: 8rem;
+  font-weight: 600;
+  font-size: medium;
+  height: 2.5rem;
+  border-radius: 5px;
+  color: #eeeeee;
+  border-color: rgb(91, 97, 166);
+}
+.button-logout:hover {
+  border-right-color: rgb(45, 56, 184);
+}
+
+/* TODO ...........SIDE NAV BAR MENU................................................................ */
+
+#navBarDivision {
+  position: absolute;
+  display: none;
+  width: 17%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 90%;
+  z-index: 5;
+  color: #EEEEEE;
+  background-color: #4ca1af;
+  animation-name: side_bar;
+  animation-duration: 0.7s;
+}
+.category {
+  font-size: 140%;
+  font-weight: 500;
+  min-height: 8vh;
+  display: flex;
+  align-items: center;
+  padding: 2px 10px;
+  transition: background 0.25s ease;
+  animation-name: show;
+  animation-duration: 1s;
+}
+#ReportGenerationDiv,#AdministrationDiv,
+#AdminLogDiv ,#DashboardDiv,#DataEntryDiv{
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+#UserProfileDiv{
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+  background-color: #075154;
+}
+
+/*!.....................Animation for Nav Side Bar.................. */
+
+@keyframes show {
+  0%{font-size: 1%;}
+  50%{font-size: 140%;}
+}
+@keyframes side_bar {
+  0%{width: 0%;}
+  50%{width: 17%;}
+}
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+ * {
+	 --webkit-box-sizing: border-box;
+	 --moz-box-sizing: border-box;
+	 --webkit-box-sizing: border-box;
+}
+
+ .center {
+	 position: absolute;
+	 top: 55%;
+	 left: 50%;
+	 -webkit-transform: translate(-50%, -50%);
+	 transform: translate(-50%, -50%);
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 justify-content: center;
+	 background: #105469;
+	 height: 70vh;
+	 width: 80%;
+}
+ .container {
+	 width: 90%;
+	 background: #d4d5e0;
+	 display: flex;
+	 box-shadow: 3px 5px 20px 2px rgba(0, 0, 0, 0.4);
+}
+ .left {
+	 width: 65%;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 padding: 10px;
+}
+ .photo {
+	 position: relative;
+	 cursor: pointer;
+   margin: 2%;
+}
+ .photo img {
+	 border-radius: 50%;
+	 overflow: hidden;
+	 width: 100px;
+	 height: 100px;
+}
+ .photo:hover .circle, .photo:hover .circle2 {
+	 animation: circlespin 1s ease-in-out;
+}
+ .photo:hover .circle2 {
+	 animation: circlespin 1s ease-in-out;
+}
+ .circle, .circle2 {
+	 position: absolute;
+	 top: -4px;
+	 left: -4px;
+	 width: 108px;
+	 height: 108px;
+	 border-radius: 50%;
+	 border-width: 1px;
+	 border-style: solid;
+	 border-color: black transparent black black;
+	 animation: circlespinout 1s ease-in-out;
+}
+ .circle2 {
+	 top: -10px;
+	 left: -10px;
+	 width: 120px;
+	 height: 120px;
+	 border-color: black black black transparent;
+}
+ .title__contain {
+	 display: flex;
+	 flex-wrap: wrap;
+   flex-direction: column;
+	 justify-content: center;
+	 font-size: 1.3em;
+	 font-weight: 500;
+   gap: 0.5em;
+	 margin: 20px auto 20px;
+}
+.vehicle_count{
+  text-align: center;
+}
+.user_access_section {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+.user_details{
+  width: 45%;
+  border-radius: 10px;
+  padding: 1%;
+  background-color: #9c9db4;
+}
+.user_details_title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1%;
+}
+.details_container {
+  display: flex;
+  flex-direction: column;
+  margin: 1%;
+  gap: 5px;
+}
+.payment_container {
+  width: 45%;
+  border-radius: 10px;
+  padding: 1%;
+  background-color: #9c9db4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+.btn_title{
+  color: #987618;
+
+  font-weight: 500;
+}
+.btn_container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 5px;
+ }
+ .title {
+	 font-size: 0.9em;
+	 font-weight: 400;
+}
+.right {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  gap: 5px;
+  margin: 1%;
+}
+ .rightbox {
+	 background: #7479ac;
+	 color: white;
+	 width: 100%;
+	 display: flex;
+	 flex-direction: column;
+	 align-items: center;
+	 justify-content: center;
+	 cursor: pointer;
+   border-radius: 10px;
+	 transition: all 0.5s ease-in-out;
+}
+ .rightbox:nth-child(2) {
+	 margin: 1px 0;
+}
+ .rightbox:hover {
+	 background: #5b6093;
+}
+ @keyframes circlespin {
+	 0% {
+		 transform: rotate(0deg);
+	}
+	 100% {
+		 transform: rotate(360deg);
+	}
+}
+ @keyframes circlespinout {
+	 0% {
+		 transform: rotate(360deg);
+	}
+	 100% {
+		 transform: rotate(0deg);
+	}
+}
+ 
+/*! CSS for Responsive Design  */
+
+@media screen and (max-width:1280px) {
+  #navBarDivision {
+    position: absolute;
+    display: none;
+    width: 25%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 90%;
+    z-index: 5;
+    color: #EEEEEE;
+    background-color: #4ca1af;
+    animation-name: side_bar;
+    animation-duration: 0.7s;
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 25%;}
+  }
+}
+@media screen and (max-width: 1024px) {
+  #navBarDivision {
+    position: absolute;
+    display: none;
+    width: 30%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 90%;
+    background-color: #4ca1af;
+  }
+  .category {
+    font-size: 130%;
+    font-weight: 500;
+    min-height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+  }
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 130%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 30%;}
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  .admin {
+    color: #00adb5;
+    margin-right: 5%;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    text-align: center;
+  }
+  #navBarDivision {
+    position: absolute;
+    display: none;
+    width: 35%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 90%;
+    background-color: #4ca1af;
+    animation-name: side_bar;
+    animation-duration: 0.7s;
+  }
+  .category {
+    font-size: 120%;
+    font-weight: 500;
+    min-height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+    transition: background 0.25s ease;
+    animation-name: show;
+    animation-duration: 1s;
+  }
+  /* !........................Animation Style for Side Menu Bar.................... */
+
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 120%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 35%;}
+  }
+}
+@media screen and (max-width: 480px) {
+
+  .header {
+    width: 100%;
+    display: flex;
+    min-height: 4.5rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #393e46;
+    color: #f0e3e3;
+    position: relative;
+  }
+
+  .heading {
+    padding-left: 1%;
+    font-weight: 700;
+    font-size: clamp(20px, 0.8vw, 1.5rem);
+    /* width: 26px; */
+  }
+
+  #btn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    line-height: 28px;
+    right: 2%;
+  }
+  .admin {
+    color: #00adb5;
+    margin-right: 0%;
+    font-weight: 500;
+    font-size: clamp(1rem, 2vw, 1.6rem);
+    text-align: center;
+  }
+
+  .button-logout {
+    background: linear-gradient(to right, #0f0c29, #302b63, #0f0c29);
+    width: 70px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+  }
+  #navBarDivision {
+    position: absolute;
+    display: none;
+    width: 50%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 90%;
+    background-color: #4ca1af;
+  }
+  .category {
+    font-size: 120%;
+    font-weight: 500;
+    min-height: 7vh;
+    display: flex;
+    align-items: center;
+    padding: 2px 10px;
+  }
+  /* !........................Animation Style for Side Menu Bar.................... */
+
+  @keyframes show {
+    0%{font-size: 1%;}
+    50%{font-size: 120%;}
+  }
+  @keyframes side_bar {
+    0%{width: 0%;}
+    50%{width: 50%;}
+  }
+  .center {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #105469;
+    height: 500px;
+    width: 380px;
+ }
+ .btn_container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 5px;
+  top: 20px;
+ }
+}
