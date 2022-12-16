@@ -15,14 +15,7 @@
   <body>
     <div>
       <div class="header">
-        <div style="display: flex">
-          <img
-            src="./navBarIcon.png"
-            title="Switch Mode"
-            id="navBarIcon"
-            alt="Switch Mode"
-            style="cursor: pointer; width: 8%; margin: 0.5% 3%"
-          />
+        <div style="display: flex; width: 50%;">
           <div class="heading">Data Entry System</div>
         </div>
         <form id="btn" action="/logout" method="get">
@@ -40,29 +33,42 @@
       </div>
 
       <div class="bodyContainer">
-        <div class="createCompany">
-          <button class="companyButton" onclick="(() => document.getElementById('createCompanyDivision').style.visibility = 'visible')()">Create New Company</button>
+        <div class="createCompany" onclick="(() => document.getElementById('createCompanyDivision').style.visibility = 'visible')()">
+          <img src="./White CAdd Btn.png" alt="Add Company" class="createCompanyImg">
+          <button class="companyButton" >Create New Company</button>
         </div>
         <div class="companyTable">
-
+          <h2>Company Table</h2>
         </div>
       </div>
 
       <div id="createCompanyDivision" >
         <div class="createCompanyModalContent">
           <div id="createCompanyContentHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-            <p>Create Company</p>
-            <form id="createCompanyForm">
-              <p>Company Name: </p>
-              <input type="text" id="companyName" name="companyName" placeholder="Enter company name" required>
-              <p>Username: </p>
-              <input type="text" id="rootUserName" name="rootUserName" placeholder="Enter Root User name" required>
-              <p>Enter Password: </p>
-              <input type="password" id="rootPassword" name="rootPassword" placeholder="Enter password" required>
-              <p>Confirm Password: </p>
-              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" required>
-              <button onclick="validate(event)">Create</button>
-              <button onclick="(()=> document.getElementById('adminPortalForm').submit())()">Cancel</button>
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-10" style="color: black; ">
+              Create Company Account
+            </h1>
+            <form class="space-y-4 md:space-y-6" id="companyCreateForm">
+                <div >
+                  <label f style="color: black;"or="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Company Name:</label>
+                  <input type="text" required name="companyName" id="companyName" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Company Name" >
+                </div>
+                <div >
+                    <label style="color: black;" for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Create Username:</label>
+                    <input type="email" required name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter Username" >
+                </div>
+                <div >
+                    <label style="color: black;" for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password:</label>
+                    <input type="password" required name="rootUserName" id="rootUserName" placeholder="Password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                </div>
+                <div >
+                    <label style="color: black;" for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password:</label>
+                    <input type="password" required name="rootPassword" id="rootPassword" placeholder="Confirm Password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
+                </div>
+                <div class="buttonStyle grid grid-cols-2 grid-rows-1 gap-4">
+                  <button type="submit" class="w-50 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" style="background-color: #2461e5;">Create an account</button>
+                  <button type="submit" class="w-50 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" style="background-color: #2461e5;"> Cancel</button>
+                </div>
             </form>
           </div>
         </div>
