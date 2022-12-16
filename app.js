@@ -3016,7 +3016,7 @@ app.post('/profile', async (req, res) => {
     );
 
     const employeeResponse = await dbConnectedPool.query(
-      `SELECT * FROM employee_table WHERE id=${currentEmpID} AND company='${companyName};`
+      `SELECT * FROM employee_table WHERE id=${currentEmpID} AND company='${companyName}';`
     );
 
     const employeeDetail = {
