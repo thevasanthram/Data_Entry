@@ -30,7 +30,8 @@
     "pkg": "^5.8.0",
     "razorpay": "^2.8.4",
     "tailwind-config": "^0.1.2",
-    "two-step-auth": "^1.1.2"
+    "two-step-auth": "^1.1.2",
+    "uniqid": "^5.4.0"
   },
   "devDependencies": {
     "tailwindcss": "^3.2.1"
