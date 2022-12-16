@@ -3045,6 +3045,61 @@ app.post('/profile', async (req, res) => {
   }
 });
 
+app.post('/checkout', async (req, res) => {
+  let fname = req.body.first_name;
+  let lname = req.body.last_name;
+  let amount = req.body.tree;
+  let tname = req.body.tname;
+  let email = req.body.email;
+  let tid = uniqId();
+
+  var instance = new Razorpay({
+    key_id: process.env.KEY_ID,
+    key_secret: process.env.SECRET_KEY,
+  });
+
+  const format = { year: 'numeric', month: 'long', day: 'numeric' };
+  const date = new Date();
+
+  let options = await instance.orders.create({
+    amount: amount * 100,
+    currency: 'INR',
+    receipt: uniqId(),
+    function(err, ordre) {
+      console.log(order);
+      res.send({ orderId: options.id });
+    },
+  });
+
+  console.log(options);
+
+  const fullName = fname + ' ' + lname;
+
+  const tree_id = await Register.updateOne(
+    { email: email },
+    {
+      $push: {
+        tdata: {
+          tname: tname,
+          tid: tid,
+          date: date.toLocaleDateString('en-US', format),
+          location: 'Not Yet Planted',
+        },
+      },
+    }
+  );
+  const requests = new Request({
+    name: fullName,
+    tid: tid,
+    tname: tname,
+    date: date.toLocaleDateString('en-US', format),
+  });
+  const generated = await requests.save();
+  console.log('Added data');
+  console.log('Request Generated');
+  res.render('final_checkout');
+});
+
 app.get('/logout', (req, res) => {
   try {
     res.redirect('/');
