@@ -40,7 +40,7 @@ pool.query(
             });
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS employee_table(id SERIAL,name varchar(30), password varchar(30), status varchar(8), accessible_charts varchar[],created_by varchar);`,
+              `CREATE TABLE IF NOT EXISTS employee_table(id SERIAL,name varchar(30), password varchar(30), company varchar(50) ,status varchar(8), accessible_charts varchar[],created_by varchar);`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -964,7 +964,7 @@ app.get('/', (req, res) => {
 
 app.post('/login', async (req, res) => {
   try {
-    username = req.body.username;
+    const username = req.body.username;
     const password = req.body.password;
 
     let dbConnectedPool = new Pool({
@@ -975,56 +975,65 @@ app.post('/login', async (req, res) => {
       port: 5432,
     });
 
-    const response = await dbConnectedPool.query(
-      `SELECT * FROM employee_table`
-    );
-
-    if (response.rows.length > 0) {
-      const employeeResponse = await dbConnectedPool.query(
-        `SELECT * FROM employee_table WHERE name='${username}' AND password='${password}'`
+    if (username == 'Administrator' && password == 'admin@123') {
+      res.send(
+        JSON.stringify({
+          userStatus: 'Administrator',
+          validation: 'success',
+        })
       );
-      if (employeeResponse.rows.length > 0) {
-        emp_ID = employeeResponse.rows[0].id;
-        res.send(
-          JSON.stringify({
-            userStatus: 'Employee',
-            validation: 'success',
-            username: req.body.username,
-            emp_ID: employeeResponse.rows[0].id,
-          })
+    } else {
+      const response = await dbConnectedPool.query(
+        `SELECT * FROM employee_table`
+      );
+
+      if (response.rows.length > 0) {
+        const employeeResponse = await dbConnectedPool.query(
+          `SELECT * FROM employee_table WHERE name='${username}' AND password='${password}'`
         );
+        if (employeeResponse.rows.length > 0) {
+          emp_ID = employeeResponse.rows[0].id;
+          res.send(
+            JSON.stringify({
+              userStatus: 'Employee',
+              validation: 'success',
+              username: req.body.username,
+              emp_ID: employeeResponse.rows[0].id,
+            })
+          );
+        } else {
+          if (username == 'Administrator' && password == 'admin@123') {
+            res.send(
+              JSON.stringify({
+                userStatus: 'Breacher',
+                validation: 'success',
+              })
+            );
+          } else {
+            res.send(
+              JSON.stringify({
+                userStatus: 'Employee',
+                validation: 'failure',
+              })
+            );
+          }
+        }
       } else {
         if (username == 'Administrator' && password == 'admin@123') {
           res.send(
             JSON.stringify({
-              userStatus: 'Breacher',
+              userStatus: 'First User',
               validation: 'success',
             })
           );
         } else {
           res.send(
             JSON.stringify({
-              userStatus: 'Employee',
+              userStatus: 'First User',
               validation: 'failure',
             })
           );
         }
-      }
-    } else {
-      if (username == 'Administrator' && password == 'admin@123') {
-        res.send(
-          JSON.stringify({
-            userStatus: 'First User',
-            validation: 'success',
-          })
-        );
-      } else {
-        res.send(
-          JSON.stringify({
-            userStatus: 'First User',
-            validation: 'failure',
-          })
-        );
       }
     }
   } catch (err) {
@@ -1040,16 +1049,77 @@ app.get('/forgotPassword', (req, res) => {
   }
 });
 
+app.post('/adminPortal', (req, res) => {
+  try {
+    res.render(path.join(__dirname, '/views/adminPortal.ejs'));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/createCompany', async (req, res) => {
+  try {
+    // name(50), root user(30), root_user_password(10),
+    const companyName = req.body.companyName;
+    const rootUserName = req.body.rootUserName;
+    const rootUserPassword = req.body.rootUserPassword;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    let currentDate = new Date();
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
+    // insert into company_table
+    await dbConnectedPool.query(
+      `INSERT INTO company_table (name,root_user,root_user_password,body_number,used,remaining,date,time) VALUES ('${companyName}','${rootUserName}','${rootUserPassword}',0,0,0,'${date}','${time}')`
+    );
+
+    // insert into employee_table
+    await dbConnectedPool.query(
+      `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES ('${rootUserName}','${rootUserPassword}','${companyName}','admin',Array['DPV (Defects Per Vehicle) Report','Master Report','Main Pareto Report','Pareto Report','Surface Summary','Body Fitting Summary','Missing & Wrong Part Summary','Welding Summary','Water Leak Summary','Color Map'],'Root User')`
+    );
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
 app.post('/addUser', (req, res) => {
   try {
     const firstUser = req.body.firstUser;
 
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const currentCompany = req.body.empCompany;
 
     res.render(path.join(__dirname, '/views/createNewUser.ejs'), {
       currentUser,
       currentEmpID,
+      currentCompany,
       firstUser,
     });
   } catch (err) {
@@ -1111,6 +1181,7 @@ app.post('/newUser', async (req, res) => {
     const empName = req.body.empName;
     const empPassword = req.body.empPassword;
     const empStatus = req.body.empStatus;
+    const empCompany = req.body.currentCompany;
     const accessibleCharts = req.body.accessibleCharts;
     const creator = req.body.creator;
     const creatorID = req.body.creatorID;
@@ -1145,27 +1216,15 @@ app.post('/newUser', async (req, res) => {
       ':' +
       String(currentDate.getSeconds());
 
-    if (creator == 'Root User') {
-      const response = await dbConnectedPool.query(
-        `INSERT INTO employee_table (name,password,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empStatus}',ARRAY['${accessibleCharts.join(
-          `','`
-        )}'],'Root User') RETURNING id;`
-      );
+    const response = await dbConnectedPool.query(
+      `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
+        `','`
+      )}'],'${creator}') RETURNING id;`
+    );
 
-      await dbConnectedPool.query(
-        `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (0,'${creator}','created',1,'${empName}','${date}','${time}')`
-      );
-    } else {
-      const response = await dbConnectedPool.query(
-        `INSERT INTO employee_table (name,password,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empStatus}',ARRAY['${accessibleCharts.join(
-          `','`
-        )}'],'${creator}') RETURNING id;`
-      );
-
-      await dbConnectedPool.query(
-        `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${creatorID},'${creator}','created',${response.rows[0].id},'${empName}','${date}','${time}')`
-      );
-    }
+    await dbConnectedPool.query(
+      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${creatorID},'${creator}','created',${response.rows[0].id},'${empName}','${date}','${time}')`
+    );
 
     res.sendStatus(200);
   } catch (err) {
@@ -2512,6 +2571,7 @@ app.post('/admin', async (req, res) => {
 
     const emp_ChartAccess = response2.rows[0].accessible_charts;
     const emp_Status = response2.rows[0].status;
+    const emp_Company = response2.rows[0].company;
 
     res.render(path.join(__dirname, '/views/adminPage.ejs'), {
       currentUser,
@@ -2519,6 +2579,7 @@ app.post('/admin', async (req, res) => {
       employeeRecords,
       emp_ChartAccess,
       emp_Status,
+      emp_Company,
     });
   } catch (err) {
     console.log(err);
@@ -2956,7 +3017,7 @@ app.post('/liveNotification', async (req, res) => {
   }
 });
 
-app.post('/profile', (req, res) => {
+app.post('/profile', async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
@@ -2969,6 +3030,7 @@ app.post('/profile', (req, res) => {
       port: 5432,
     });
 
+    const companyDetail = await dbConnectedPool.query(`SELECT * FROM company_table WHERE `);
     res.render(path.join(__dirname, '/views/userProfile.ejs'), {
       currentUser,
       currentEmpID,

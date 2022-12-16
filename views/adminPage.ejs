@@ -138,6 +138,7 @@
             name="currentUser"
             value="<%= currentUser %>"
           />
+          <input type="hidden" name="empCompany" value="<%= emp_Company %>">
           <input
             type="hidden"
             id="currentEmpID"
@@ -161,8 +162,8 @@
           <%for(let i=0; i<employeeRecords.length; i++){%>
             <tr class="table_row">
               <%for(let j=0; j<Object.keys(employeeRecords[i]).length; j++){
-                if(j != 2){
-                  if(j == 4){
+                if(j != 2 && j != 3 ){
+                  if(j == 5){
                     if(employeeRecords[i][Object.keys(employeeRecords[i])[j]].length > 0 && employeeRecords[i][Object.keys(employeeRecords[i])[j]][0] != ''){%>
                       <td class="charts_list" >
                         <%= employeeRecords[i][Object.keys(employeeRecords[i])[j]].length == 10 ? 'All Reports' : employeeRecords[i][Object.keys(employeeRecords[i])[j]] %>
@@ -179,7 +180,7 @@
                   <%}%>
                 <%}%>
               <%}
-              if(i != 0){%>
+              if(employeeRecords[i].created_by != 'Root User'){%>
                 <td class="switch_btn">
                   <button onclick="editEmployeeStatus(event)" type="button" data-mdb-ripple="true" data-mdb-ripple-color="light"
                   class="inline-block px-6 py-2.5 bg-gray-800 text-white font-medium text-xs leading-tight uppercase rounded shadow-md 

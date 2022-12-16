@@ -254,26 +254,9 @@
   <script>
     const firstUserValue = '<%= firstUser %>';
     const reportCheckbox = document.getElementsByClassName('reportCheckbox');
-    let creator = '';
+    const creator = '<%= currentUser %>';
 
     document.getElementById('selectAllInput').click();
-
-    if (firstUserValue === 'true') {
-      document.getElementById('go-back-icon').style.display = 'none';
-      document.getElementsByClassName('selectAll')[0].style.display = 'none';
-      Object.values(reportCheckbox).map((inputTag) => {
-        inputTag.checked = true;
-        inputTag.style.display = 'none';
-      });
-
-      const statusSelectTag = document.getElementById('employeeStatus');
-      const employeeOptionTag = document.getElementById('employee');
-      statusSelectTag.remove(1);
-
-      creator = 'Root User';
-    } else {
-      creator = '<%= currentUser %>';
-    }
 
     function validate() {
       const filterForm = document.getElementById('createNewUserForm');
@@ -378,33 +361,21 @@
           empStatus,
           accessibleCharts,
           creator,
+          currentCompany: '<%= currentCompany %>',
           creatorID: '<%= currentEmpID %>',
         }),
       });
 
       if (response.status == 200) {
-        if (firstUserValue == 'true') {
-          alert(
-            `${
-              empStatus.charAt(0).toUpperCase() + empStatus.slice(1)
-            } creation successfull. Proceed further by logging again`
-          );
-          document.getElementById('homeForm').submit();
-        } else {
-          alert(
-            `${
-              empStatus.charAt(0).toUpperCase() + empStatus.slice(1)
-            } creation successfull`
-          );
-          document.getElementById('adminForm').submit();
-        }
+        alert(
+          `${
+            empStatus.charAt(0).toUpperCase() + empStatus.slice(1)
+          } creation successfull`
+        );
+        document.getElementById('adminForm').submit();
       } else {
         alert(`There's an issue while creating Admin. Please try again`);
-        if (firstUserValue == 'true') {
-          document.getElementById('homeForm').submit();
-        } else {
-          document.getElementById('adminForm').submit();
-        }
+        document.getElementById('adminForm').submit();
       }
     }
   </script>

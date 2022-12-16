@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="adminPortal.css" />
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Data Entry System</title>
+  </head>
+  <body>
+    <div>
+      <div class="header">
+        <div style="display: flex">
+          <img
+            src="./navBarIcon.png"
+            title="Switch Mode"
+            id="navBarIcon"
+            alt="Switch Mode"
+            style="cursor: pointer; width: 8%; margin: 0.5% 3%"
+          />
+          <div class="heading">Data Entry System</div>
+        </div>
+        <form id="btn" action="/logout" method="get">
+          <div class="admin" id="user-mode-name">Administrator</div>
+          <button
+            type="submit"
+            style="
+              background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            "
+            class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          >
+            LOGOUT
+          </button>
+        </form>
+      </div>
+
+      <div class="bodyContainer">
+        <div class="createCompany">
+          <button class="companyButton" onclick="(() => document.getElementById('createCompanyDivision').style.visibility = 'visible')()">Create New Company</button>
+        </div>
+        <div class="companyTable">
+
+        </div>
+      </div>
+
+      <div id="createCompanyDivision" >
+        <div class="createCompanyModalContent">
+          <div id="createCompanyContentHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+            <p>Create Company</p>
+            <form id="createCompanyForm">
+              <p>Company Name: </p>
+              <input type="text" id="companyName" name="companyName" placeholder="Enter company name" required>
+              <p>Username: </p>
+              <input type="text" id="rootUserName" name="rootUserName" placeholder="Enter Root User name" required>
+              <p>Enter Password: </p>
+              <input type="password" id="rootPassword" name="rootPassword" placeholder="Enter password" required>
+              <p>Confirm Password: </p>
+              <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" required>
+              <button onclick="validate(event)">Create</button>
+              <button onclick="(()=> document.getElementById('adminPortalForm').submit())()">Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div id="createCompanySuccessDivision" >
+        <div class="createCompanySuccessModalContent">
+          <div id="createCompanySuccessContentHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+            <p id="createCompanySuccessMessage"></p>
+            <button onclick="(()=> document.getElementById('adminPortalForm').submit())()">OK</button>
+          </div>
+        </div>
+      </div>
+
+      <form action="/adminPortal" id="adminPortalForm" method="post"></form>
+
+    <script>
+      function validate(){
+        event.preventDefault();
+        var createCompanyForm = document.getElementById('createCompanyForm')
+        if (!createCompanyForm.checkValidity()) {
+          if (createCompanyForm.reportValidity) {
+            createCompanyForm.reportValidity();
+          } else {
+            alert(msg.ieErrorForm);
+          }
+        } else {
+          if(document.getElementById('rootPassword').value == document.getElementById('confirmPassword').value){
+            createCompany()
+          }else{
+            // display passwords do not match
+            console.log('passwords are not matching')
+          }
+        }
+      }
+
+      async function createCompany(){
+        const companyName = document.getElementById('companyName').value
+        const rootUserName = document.getElementById('rootUserName').value
+        const rootPassword = document.getElementById('rootPassword').value
+        
+        const response = await fetch('/createCompany',{
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            companyName: companyName,
+            rootUserName: rootUserName,
+            rootUserPassword: rootPassword
+          })
+        })
+
+        if(response.status == 200){
+          document.getElementById('createCompanySuccessMessage').innerHTML = 'Company created!'
+          document.getElementById('createCompanySuccessDivision').style.visibility = 'visible'
+        }else{
+          document.getElementById('createCompanySuccessMessage').innerHTML = 'Error creating company. Try Again!'
+          document.getElementById('createCompanySuccessDivision').style.visibility = 'visible'
+        }
+      }
+    </script>
+  </body>
+</html>
