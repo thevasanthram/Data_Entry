@@ -250,8 +250,8 @@ input:checked ~ .dot {
 }
 
 input[type='number'] {
-  width: 42px !important;
-  height: 23px !important;
+  width: 40px !important;
+  height: 20px !important;
   position: absolute;
   z-index: 0;
   border: 1px solid #000000;
