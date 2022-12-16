@@ -138,7 +138,7 @@
             name="currentUser"
             value="<%= currentUser %>"
           />
-          <input type="hidden" name="empCompany" value="<%= emp_Company %>">
+          <input type="hidden" name="empCompany" value="<%= companyName %>">
           <input
             type="hidden"
             id="currentEmpID"
@@ -396,6 +396,12 @@
           name="currentEmpID"
           value="<%= currentEmpID %>"
         />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
       </form>
       <form action="/filter" id="filterForm" method="post">
         <input
@@ -409,6 +415,12 @@
           id="currentEmpID"
           name="currentEmpID"
           value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
         />
       </form>
       <form action="/follower" id="followerForm" method="post">
@@ -424,6 +436,12 @@
           name="currentEmpID"
           value="<%= currentEmpID %>"
         />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
       </form>
       <form action="/admin" id="adminForm" method="post">
         <input
@@ -437,6 +455,12 @@
           id="currentEmpID"
           name="currentEmpID"
           value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
         />
       </form>
       <form action="/adminLog" method="post" id="adminLogForm">
@@ -452,6 +476,12 @@
           name="currentEmpID"
           value="<%= currentEmpID %>"
         />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
       </form>
       <form action="/dashboard" method="post" id="dashboardForm">
         <input
@@ -465,6 +495,12 @@
           id="currentEmpID"
           name="currentEmpID"
           value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
         />
       </form>
     </div>

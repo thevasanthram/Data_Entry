@@ -122,6 +122,7 @@
       <form action="/follower" id="followerForm" method="post">
         <input type="hidden" id="currentUser" name="currentUser" value="" />
         <input type="hidden" id="currentEmpID" name="currentEmpID" value="" />
+        <input type="hidden" id="companyName" name="companyName" value="" />
       </form>
       <form action="/adminPortal" id="adminPortalForm" method="post"></form>
       <form
@@ -129,9 +130,6 @@
         id="forgetPasswordForm"
         method="get"
       ></form>
-      <form action="/addUser" id="firstUserForm" method="post">
-        <input type="hidden" name="firstUser" value="true" />
-      </form>
     </section>
 
     <script>
@@ -169,21 +167,11 @@
         } else if (data.validation == 'success') {
           if (data.userStatus == 'Administrator') {
             document.getElementById('adminPortalForm').submit();
-          } else if (data.userStatus == 'Breacher') {
-            document.getElementById('errorMessage').innerHTML =
-              '⚠ Credentials Expired!';
-            document.getElementById('errorMessage').style.display = 'block';
-            setTimeout(() => {
-              document.getElementById('errorMessage').style.display = 'none';
-            }, 2000);
           } else {
-            if (data.userStatus == 'First User') {
-              document.getElementById('firstUserForm').submit();
-            } else {
-              document.getElementById('currentUser').value = data.username;
-              document.getElementById('currentEmpID').value = data.emp_ID;
-              document.getElementById('followerForm').submit();
-            }
+            document.getElementById('currentUser').value = data.username;
+            document.getElementById('currentEmpID').value = data.emp_ID;
+            document.getElementById('companyName').value = data.companyName;
+            document.getElementById('followerForm').submit();
           }
         }
       }
