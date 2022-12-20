@@ -160,6 +160,14 @@ body {
   height: 25%;
 }
 
+.table-heading-container {
+  position: sticky;
+  top: -1px;
+  z-index: 2;
+  color: #e2b842;
+  background-color: #221d51;
+}
+
 #employeeTableDivision {
   display: block;
   position: absolute;
