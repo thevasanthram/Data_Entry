@@ -358,7 +358,7 @@ select {
     color: #eeeeee;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    background-image: url('hyrider.jpg');
+    background-image: url('./icons/hyrider.jpg');
     background-repeat: no-repeat;
     /* margin-bottom: 2%; */
     background-size: 130%;
@@ -490,7 +490,7 @@ select {
     color: #eeeeee;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    background-image: url('hyrider.jpg');
+    background-image: url('./icons/hyrider.jpg');
     background-repeat: no-repeat;
     /* margin-bottom: 2%; */
     background-size: 130%;
