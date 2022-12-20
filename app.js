@@ -42,7 +42,7 @@ pool.query(
             });
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS employee_table(id SERIAL,name varchar(30), password varchar(30), company varchar(50) ,status varchar(8), accessible_charts varchar[],created_by varchar);`,
+              `CREATE TABLE IF NOT EXISTS employee_table(id SERIAL,name varchar(30), email varchar(50),password varchar(30), company varchar(50) ,status varchar(8), accessible_charts varchar[],created_by varchar);`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -1060,6 +1060,7 @@ app.post('/createCompany', async (req, res) => {
     // name(50), root user(30), root_user_password(10),
     const companyName = req.body.companyName;
     const rootUserName = req.body.rootUserName;
+    const rootUserEmail = req.body.rootUserEmail;
     const rootUserPassword = req.body.rootUserPassword;
 
     let dbConnectedPool = new Pool({
@@ -1096,7 +1097,7 @@ app.post('/createCompany', async (req, res) => {
 
     // insert into employee_table
     await dbConnectedPool.query(
-      `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES ('${rootUserName}','${rootUserPassword}','${companyName}','admin',Array['DPV (Defects Per Vehicle) Report','Master Report','Main Pareto Report','Pareto Report','Surface Summary','Body Fitting Summary','Missing & Wrong Part Summary','Welding Summary','Water Leak Summary','Color Map'],'Root User')`
+      `INSERT INTO employee_table (name,email,password,company,status,accessible_charts,created_by) VALUES ('${rootUserName}','${rootUserEmail}','${rootUserPassword}','${companyName}','admin',Array['DPV (Defects Per Vehicle) Report','Master Report','Main Pareto Report','Pareto Report','Surface Summary','Body Fitting Summary','Missing & Wrong Part Summary','Welding Summary','Water Leak Summary','Color Map'],'Root User')`
     );
 
     res.sendStatus(200);
@@ -1179,6 +1180,7 @@ app.post('/removeUser', async (req, res) => {
 app.post('/newUser', async (req, res) => {
   try {
     const empName = req.body.empName;
+    const empEmail = req.body.empEmail;
     const empPassword = req.body.empPassword;
     const empStatus = req.body.empStatus;
     const empCompany = req.body.currentCompany;
@@ -1217,7 +1219,7 @@ app.post('/newUser', async (req, res) => {
       String(currentDate.getSeconds());
 
     const response = await dbConnectedPool.query(
-      `INSERT INTO employee_table (name,password,company,status,accessible_charts,created_by) VALUES('${empName}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
+      `INSERT INTO employee_table (name,email,password,company,status,accessible_charts,created_by) VALUES('${empName}','${empEmail}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
         `','`
       )}'],'${creator}') RETURNING id;`
     );

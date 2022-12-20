@@ -359,6 +359,7 @@
 
     async function createUser() {
       const empName = document.getElementById('employeeName').value;
+      const empEmail = document.getElementById('employeeEmail').value;
       const empPassword = document.getElementById('employeePassword').value;
       const empStatus = document.getElementById('employeeStatus').value;
       const accessibleCharts = [];
@@ -374,6 +375,7 @@
         },
         body: JSON.stringify({
           empName,
+          empEmail,
           empPassword,
           empStatus,
           accessibleCharts,
