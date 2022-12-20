@@ -45,12 +45,22 @@
               <tr class="uppercase  table-heading-container lg:text-base md:text-base sm:text-sm" >
                 <th>Company ID</th>
                 <th >Company Name</th>
-                <th>Total No. of Body No.</th>
-                <th>Body No. Used</th>
-                <th>Avilable Body No.</th>
+                <th>Root User</th>
+                <th>TOTAL BODIES</th>
+                <th>USED BODIES</th>
+                <th>AVAILABLE BODIES</th>
                 <th>Date</th>
                 <th>Time</th>
               </tr>
+              <%for(let i=0; i < companyDetail.length; i++){
+                const company = companyDetail[i];%>
+                <tr>
+                  <%for(let j=0; j< Object.keys(company).length; j++){
+                    const property = Object.keys(company)[j]%>
+                    <td><%= company[property] %></td>
+                  <%}%>
+                </tr>
+              <%}%>
             </table>
           </div>
         </div>

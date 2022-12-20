@@ -1020,9 +1020,36 @@ app.get('/forgotPassword', (req, res) => {
   }
 });
 
-app.post('/adminPortal', (req, res) => {
+app.post('/adminPortal', async (req, res) => {
   try {
-    res.render(path.join(__dirname, '/views/adminPortal.ejs'));
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const companyResponse = await dbConnectedPool.query(
+      `SELECT * FROM company_table`
+    );
+
+    let companyDetail = [];
+    companyResponse.rows.map((company) => {
+      companyDetail.push({
+        id: company.id,
+        name: company.name,
+        root_user: company.root_user,
+        body_number: company.body_number,
+        used: company.used,
+        remaining: company.remaining,
+        date: company.date,
+        time: company.time,
+      });
+    });
+    res.render(path.join(__dirname, '/views/adminPortal.ejs'), {
+      companyDetail,
+    });
   } catch (err) {
     console.log(err);
   }
@@ -3005,9 +3032,9 @@ app.post('/profile', async (req, res) => {
     const currentEmpID = req.body.currentEmpID;
     const companyName = req.body.companyName;
 
-    console.log('currentUser: ',currentUser)
-    console.log('currentEmpID: ',currentEmpID)
-    console.log('companyName: ', companyName)
+    console.log('currentUser: ', currentUser);
+    console.log('currentEmpID: ', currentEmpID);
+    console.log('companyName: ', companyName);
 
     /// have to pass companyName along with user and id
 
@@ -3027,7 +3054,7 @@ app.post('/profile', async (req, res) => {
       `SELECT * FROM employee_table WHERE id=${currentEmpID} AND company='${companyName}';`
     );
 
-    console.log(employeeResponse)
+    console.log(employeeResponse);
 
     const employeeDetail = {
       name: employeeResponse.rows[0].name,
