@@ -13,7 +13,6 @@ body {
   /* background-color: #222831; */
 }
 .header {
-  height: 10vh;
   width: 100%;
   display: flex;
   min-height: 4.5rem;
@@ -45,7 +44,6 @@ body {
   justify-content: end;
   align-items: center;
 }
-
 .button-logout {
   display: flex;
   align-items: center;
@@ -216,6 +214,44 @@ th,
 tr,
 td {
   padding: 0.65em 1em;
+}
+
+@media screen and (max-width: 780px) {
+  .header {
+    min-width: 100%;
+    display: flex;
+    min-height: 4.5rem;
+    flex-direction: row;
+    align-items: center;
+    padding: 1%;
+    justify-content: space-between;
+    background-color: #393e46;
+    color: #f0e3e3;
+    position: relative;
+  }
+
+  .heading {
+    padding-left: 1%;
+    font-weight: 700;
+    font-size: clamp(19px, 0.8vw, 1.5rem);
+  }
+
+  .admin {
+    color: #00adb5;
+    margin-right: 5%;
+    text-align: center;
+    font-weight: 500;
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+  }
+
+  #navBarDivision {
+    position: absolute;
+    display: none;
+    width: 35%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    background-color: #4ca1af;
+  }
 }
 
 
