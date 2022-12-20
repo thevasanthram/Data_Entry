@@ -37,15 +37,27 @@
           <img src="./White CAdd Btn.png" alt="Add Company" class="createCompanyImg">
           <button class="companyButton" >Create New Company</button>
         </div>
-        <div class="companyTable">
-          <h2>Company Table</h2>
+        <div class="companyTable lg:text-2xl md:text-xl sm:text-base">
+          <div id="employeeTableDivision" class="overflow-x-auto   ">
+            <table class=" table_content ">
+              <tr class="uppercase  table-heading-container" >
+                <th >Emp ID</th>
+                <th >Emp Name</th>
+                <th >Emp Status</th>
+                <th >Accessible Reports</th>
+                <th >Created By</th>
+                <th >Update Emp Status</th>
+                <th >Update Report Access</th>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
 
       <div id="createCompanyDivision" >
         <div class="createCompanyModalContent">
           <div id="createCompanyContentHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white mb-10" style="color: black; ">
+            <h1 class="md:text-xl font-bold leading-tight tracking-tight text-gray-900 lg:text-2xl sm:text-xs dark:text-white mb-10" style="color: black; ">
               Create Company Account
             </h1>
             <form class="space-y-4 md:space-y-6" id="companyCreateForm">
@@ -65,9 +77,9 @@
                     <label style="color: black;" for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password:</label>
                     <input type="password" required name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" >
                 </div>
-                <div class="buttonStyle grid grid-cols-2 grid-rows-1 gap-4">
-                  <button onclick="validate(event)" class="w-50 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" style="background-color: #2461e5;">Create an account</button>
-                  <button onclick="(() => document.getElementById('adminPortalForm').submit())()" class="w-50 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" style="background-color: #2461e5;"> Cancel</button>
+                <div class="buttonStyle lg:grid lg:grid-cols-2 lg:grid-rows-1 lg:gap-4 md:grid-rows-2 md:grid-cols-1 md:gap-3 sm:flex sm:grid-cols-2 sm:grid-rows-2 sm:row-gap-6 sm:justify-center sm:items-center ">
+                  <button id="submitButton" onclick="validate(event)" class="2xl:h-20 lg:w-50 lg:h-20 sm:w-full md:h-20  text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" style="background-color: #2461e5;">Create an account</button>
+                  <button id="submitButton" onclick="(() => document.getElementById('adminPortalForm').submit())()" class="2xl:h-20 lg:w-50 lg:h-20 sm:w-full md:h-20  text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" style="background-color: #2461e5;"> Cancel</button>
                 </div>
             </form>
           </div>
