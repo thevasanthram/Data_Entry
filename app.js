@@ -1113,11 +1113,13 @@ app.post('/addUser', (req, res) => {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
     const currentCompany = req.body.empCompany;
+    const companyName = req.body.companyName;
 
     res.render(path.join(__dirname, '/views/createNewUser.ejs'), {
       currentUser,
       currentEmpID,
       currentCompany,
+      companyName,
       firstUser,
     });
   } catch (err) {
