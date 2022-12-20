@@ -20,7 +20,7 @@
       <div class="header">
         <div style="display: flex; align-items: center; padding: 1%">
           <img
-            src="./home.png"
+            src="./icons/home.png"
             title="Home"
             id="home-icon"
             alt="Home"
@@ -45,7 +45,7 @@
       <div id="title-name-content">
         <div class="sub_container">
           <img
-            src="./arrow.png"
+            src="./icons/arrow.png"
             title="Back"
             id="go-back-icon"
             alt="Go Back"
@@ -96,7 +96,7 @@
         </button>
         <%}%>
       </div>
-      <form action="/follower" method="post" id="followerForm">
+      <form action="/follower" id="followerForm" method="post">
         <input
           type="hidden"
           id="currentUser"
@@ -108,6 +108,12 @@
           id="currentEmpID"
           name="currentEmpID"
           value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
         />
       </form>
       <form action="/secondlayer" method="post" id="firstLayerForm">
@@ -128,6 +134,12 @@
           id="currentEmpID"
           name="currentEmpID"
           value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
         />
         <input
           type="hidden"

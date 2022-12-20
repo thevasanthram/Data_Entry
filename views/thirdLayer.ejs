@@ -20,7 +20,7 @@
       <div class="header">
         <div style="display: flex; align-items: center">
           <img
-            src="./home.png"
+            src="./icons/home.png"
             title="Home"
             id="home-icon"
             alt="Home"
@@ -48,7 +48,7 @@
       <div id="title-name-content">
         <div class="sub_container">
           <img
-            src="./arrow.png"
+            src="./icons/arrow.png"
             title="Back"
             id="go-back-icon"
             alt="Go Back"
@@ -196,7 +196,7 @@
         </form>
       </div>
       <div>
-        <form action="/follower" method="post" id="followerForm">
+        <form action="/follower" id="followerForm" method="post">
           <input
             type="hidden"
             id="currentUser"
@@ -208,6 +208,12 @@
             id="currentEmpID"
             name="currentEmpID"
             value="<%= currentEmpID %>"
+          />
+          <input
+            type="hidden"
+            id="companyName"
+            name="companyName"
+            value="<%= companyName %>"
           />
         </form>
         <form action="/firstlayer" method="post" id="firstLayerform">
@@ -222,6 +228,12 @@
             id="currentEmpID"
             name="currentEmpID"
             value="<%= currentEmpID %>"
+          />
+          <input
+            type="hidden"
+            id="companyName"
+            name="companyName"
+            value="<%= companyName %>"
           />
           <input
             type="hidden"
@@ -248,6 +260,12 @@
             id="currentEmpID"
             name="currentEmpID"
             value="<%= currentEmpID %>"
+          />
+          <input
+            type="hidden"
+            id="companyName"
+            name="companyName"
+            value="<%= companyName %>"
           />
           <input
             type="hidden"
@@ -337,13 +355,15 @@
         )[0].style.color = '#000000';
       }
 
-      console.log(`url(<%= categoryId %>_<%= subcategoryId %>.jpg)`);
+      console.log(
+        `url(./bodyParts/<%= categoryId %>_<%= subcategoryId %>.jpg)`
+      );
 
       // code to set corresponding background image for zone-divisions
       for (let i = 1; i <= mainDefectId.length; i++) {
         // console.log(`<%= categoryId %>_<%= subcategoryId %>`);
         document.getElementById('zone-division' + i).style.backgroundImage =
-          'url(<%= categoryId %>_<%= subcategoryId %>.jpg)';
+          'url(./bodyParts/<%= categoryId %>_<%= subcategoryId %>.jpg)';
       }
 
       function defectCategorySwitch(clickedDefect) {

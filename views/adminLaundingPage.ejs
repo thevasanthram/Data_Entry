@@ -43,7 +43,7 @@
         <div class="header" style="position: sticky;top: 0px;z-index: 2;">
           <div style="display: flex">
             <img
-              src="./navBarIcon.png"
+              src="./icons/navBarIcon.png"
               title="Switch Mode"
               id="navBarIcon"
               alt="Switch Mode"
@@ -3157,8 +3157,8 @@
             visualPresentation.className = 'zone_division'
             subDefectDivision.appendChild(visualPresentation)
 
-            visualPresentation.style.backgroundImage = `url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`
-            console.log(`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
+            visualPresentation.style.backgroundImage = `url(./bodyParts/${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`
+            // console.log(`url(${sideCode}${categoryCode}${subCategory.replaceAll(' ','')}.jpg)`)
             visualPresentation.style.backgroundRepeat = 'no-repeat'
             visualPresentation.style.backgroundImage = 'contain'
             visualPresentation.style.backgroundPosition = 'center'

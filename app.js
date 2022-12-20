@@ -1396,6 +1396,7 @@ app.post('/firstlayer', (req, res) => {
     console.log('first layer');
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
     const currentBodyNumber = req.body.currentBodyNumber;
     const defectBodyNumberStatus = req.body.bodyNumberStatus;
 
@@ -1408,6 +1409,7 @@ app.post('/firstlayer', (req, res) => {
     res.render(path.join(__dirname, '/views/firstLayer.ejs'), {
       currentUser,
       currentEmpID,
+      companyName,
       currentBodyNumber,
       bodyNumberOptions,
       defectBodyNumberStatus,
@@ -1423,6 +1425,7 @@ app.post('/secondlayer', (req, res) => {
 
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
     const currentBodyNumber = req.body.currentBodyNumber;
     const defectBodyNumberStatus = req.body.defectBodyNumberStatus;
     const selectedCategory = req.body.selectedCategory;
@@ -1440,6 +1443,7 @@ app.post('/secondlayer', (req, res) => {
     res.render(path.join(__dirname, '/views/secondLayer.ejs'), {
       currentUser,
       currentEmpID,
+      companyName,
       currentBodyNumber,
       defectBodyNumberStatus,
       selectedCategory,
@@ -1457,6 +1461,7 @@ app.post('/thirdlayer', (req, res) => {
 
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
     const currentBodyNumber = req.body.currentBodyNumber;
     const defectBodyNumberStatus = req.body.defectBodyNumberStatus;
     const selectedCategory = req.body.selectedCategory;
@@ -1528,6 +1533,7 @@ app.post('/thirdlayer', (req, res) => {
     res.render(path.join(__dirname, '/views/thirdLayer.ejs'), {
       currentUser,
       currentEmpID,
+      companyName,
       currentBodyNumber,
       defectBodyNumberStatus,
       selectedCategory,

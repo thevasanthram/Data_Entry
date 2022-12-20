@@ -19,7 +19,7 @@
       <div class="header">
         <div style="display: flex">
           <img
-            src="./navBarIcon.png"
+            src="./icons/navBarIcon.png"
             title="Switch Mode"
             id="navBarIcon"
             alt="Switch Mode"
@@ -176,6 +176,12 @@
           name="currentEmpID"
           value="<%= currentEmpID %>"
         />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
       </form>
       <form action="/dashboard" method="post" id="dashboardForm">
         <input
@@ -189,6 +195,12 @@
           id="currentEmpID"
           name="currentEmpID"
           value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
         />
       </form>
 

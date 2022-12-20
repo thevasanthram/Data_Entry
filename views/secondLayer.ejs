@@ -17,7 +17,7 @@
       <div class="header ">
         <div style="display: flex; align-items: center;">
           <img
-          src="./home.png" title="Home"
+          src="./icons/home.png" title="Home"
           id="home-icon"
           alt="Home"
           onclick="document.getElementById('followerForm').submit();"
@@ -41,7 +41,7 @@
       <div id="title-name-content">
         <div class="sub_container">
           <img
-            src="./arrow.png"
+            src="./icons/arrow.png"
             title="Back"
             id="go-back-icon"
             alt="Go Back"
@@ -83,22 +83,28 @@
         </form>
         <%}%>
       </div>
-      <form action="/follower" method="post" id="followerForm">
+      <form action="/follower" id="followerForm" method="post">
         <input
-            type="hidden"
-            id="currentUser"
-            name="currentUser"
-            value="<%= currentUser %>"
-          />
-          <input
-            type="hidden"
-            id="currentEmpID"
-            name="currentEmpID"
-            value="<%= currentEmpID %>"
-          />
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
       </form>
       <form action="/firstlayer" method="post" id="firstLayerForm">
-        <input
+          <input
             type="hidden"
             id="currentUser"
             name="currentUser"
@@ -109,6 +115,12 @@
             id="currentEmpID"
             name="currentEmpID"
             value="<%= currentEmpID %>"
+          />
+          <input
+            type="hidden"
+            id="companyName"
+            name="companyName"
+            value="<%= companyName %>"
           />
           <input
             type="hidden"
@@ -132,6 +144,12 @@
         />
         <input type="hidden" id="currentUser" name="currentUser" value="<%= currentUser %>" />
         <input type="hidden" id="currentEmpID" name="currentEmpID" value="<%= currentEmpID %>" />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
         <input type="hidden" id="currentBodyNumber" name="currentBodyNumber" value="<%= currentBodyNumber %>" />
         <input
           type="hidden"
