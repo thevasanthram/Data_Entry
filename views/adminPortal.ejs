@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="adminPortal.css" />
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
+
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
       rel="stylesheet"
@@ -40,14 +42,14 @@
         <div class="companyTable lg:text-2xl md:text-xl sm:text-base">
           <div id="employeeTableDivision" class="overflow-x-auto   ">
             <table class=" table_content ">
-              <tr class="uppercase  table-heading-container" >
-                <th >Emp ID</th>
-                <th >Emp Name</th>
-                <th >Emp Status</th>
-                <th >Accessible Reports</th>
-                <th >Created By</th>
-                <th >Update Emp Status</th>
-                <th >Update Report Access</th>
+              <tr class="uppercase  table-heading-container lg:text-base md:text-base sm:text-sm" >
+                <th>Company ID</th>
+                <th >Company Name</th>
+                <th>Total No. of Body No.</th>
+                <th>Body No. Used</th>
+                <th>Avilable Body No.</th>
+                <th>Date</th>
+                <th>Time</th>
               </tr>
             </table>
           </div>
@@ -86,11 +88,12 @@
         </div>
       </div>
 
-      <div id="createCompanySuccessDivision" >
-        <div class="createCompanySuccessModalContent">
+      <div id="createCompanySuccessDivision" style="border-radius: 12px;" >
+        <div class="createCompanySuccessModalContent" style="display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 15px;">
           <div id="createCompanySuccessContentHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
             <p id="createCompanySuccessMessage"></p>
-            <button onclick="(()=> document.getElementById('adminPortalForm').submit())()">OK</button>
+            <button class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg 
+            text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2" onclick="(()=> document.getElementById('adminPortalForm').submit())()">OK</button>
           </div>
         </div>
       </div>
