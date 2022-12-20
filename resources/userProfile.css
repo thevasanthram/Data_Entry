@@ -72,7 +72,7 @@ body {
   display: none;
   width: 17%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  height: 90%;
+  height: 89.90%;
   z-index: 5;
   color: #EEEEEE;
   background-color: #4ca1af;
@@ -90,18 +90,19 @@ body {
   animation-name: show;
   animation-duration: 1s;
 }
-#ReportGenerationDiv,#AdministrationDiv,
-#AdminLogDiv ,#DashboardDiv,#DataEntryDiv{
-  display: inline-block;
-  width: 100%;
-  cursor: pointer;
-}
 #UserProfileDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;
   background-color: #075154;
 }
+#ReportGenerationDiv,#AdministrationDiv,
+#AdminLogDiv ,#DashboardDiv,#DataEntryDiv{
+  display: inline-block;
+  width: 100%;
+  cursor: pointer;
+}
+
 
 /*!.....................Animation for Nav Side Bar.................. */
 

@@ -3005,6 +3005,10 @@ app.post('/profile', async (req, res) => {
     const currentEmpID = req.body.currentEmpID;
     const companyName = req.body.companyName;
 
+    console.log('currentUser: ',currentUser)
+    console.log('currentEmpID: ',currentEmpID)
+    console.log('companyName: ', companyName)
+
     /// have to pass companyName along with user and id
 
     let dbConnectedPool = new Pool({
@@ -3023,6 +3027,8 @@ app.post('/profile', async (req, res) => {
       `SELECT * FROM employee_table WHERE id=${currentEmpID} AND company='${companyName}';`
     );
 
+    console.log(employeeResponse)
+
     const employeeDetail = {
       name: employeeResponse.rows[0].name,
       id: employeeResponse.rows[0].id,
@@ -3037,6 +3043,9 @@ app.post('/profile', async (req, res) => {
       used: companyResponse.rows[0].used,
       remaining: companyResponse.rows[0].remaining,
     };
+
+    // console.log("employeeDetail: ", employeeDetail)
+    // console.log("companyDetail: ", companyDetail)
 
     res.render(path.join(__dirname, '/views/userProfile.ejs'), {
       currentUser,

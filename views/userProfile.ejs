@@ -205,6 +205,79 @@
         </div>
       </div>
     </div>
+    <form action="/follower" id="followerForm" method="post">
+      <input
+        type="hidden"
+        id="currentUser"
+        name="currentUser"
+        value="<%= currentUser %>"
+      />
+      <input
+        type="hidden"
+        id="currentEmpID"
+        name="currentEmpID"
+        value="<%= currentEmpID %>"
+      />
+      
+    </form>
+    </form>
+    <form action="/filter" method="post" id="filterFrom">
+      <input
+        type="hidden"
+        id="currentUser"
+        name="currentUser"
+        value="<%= currentUser %>"
+      />
+      <input
+        type="hidden"
+        id="currentEmpID"
+        name="currentEmpID"
+        value="<%= currentEmpID %>"
+      />
+      
+    </form>
+    <form action="/admin" method="post" id="adminForm">
+      <input type="hidden" id="currentUser"
+        name="currentUser" value="<%= currentUser %>" />
+      <input
+        type="hidden"
+        id="currentEmpID"
+        name="currentEmpID"
+        value="<%= currentEmpID %>"
+      />
+      
+    </form>
+    <form action="/adminLog" method="post" id="adminLogForm">
+      <input
+        type="hidden"
+        id="currentUser"
+        name="currentUser"
+        value="<%= currentUser %>"
+      />
+      <input
+        type="hidden"
+        id="currentEmpID"
+        name="currentEmpID"
+        value="<%= currentEmpID %>"
+      />
+      
+    </form>
+    <form action="/dashboard" method="post" id="dashboardForm">
+      <input
+        type="hidden"
+        id="currentUser"
+        name="currentUser"
+        value="<%= currentUser %>"
+      />
+      <input
+        type="hidden"
+        id="currentEmpID"
+        name="currentEmpID"
+        value="<%= currentEmpID %>"
+      />
+      
+    </form>
+
     <form action="/checkout" id="checkoutForm" method="post"></form>
 
     <script>
@@ -237,8 +310,8 @@
       }
 
       function handleFormSubmit(event) {
-        var empStatus = '<%= emp_Status %>';
-        var empChartAccess = '<%= emp_ChartAccess %>';
+        var empStatus = '<%= employeeDetail.status %>';
+        var empChartAccess = '<%= employeeDetail.accessible_charts %>';
 
         if (event.target.id == 'reportGeneration') {
           if (empChartAccess.length > 0) {
