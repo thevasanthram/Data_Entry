@@ -3,6 +3,7 @@ var mod = require('nested-property');
 const path = require('path');
 const Pool = require('pg').Pool;
 const uniqId = require('uniqid');
+const Razorpay = require('razorpay');
 
 const app = express();
 app.use(express.json());
@@ -15,9 +16,11 @@ const pool = new Pool({
   password: 'admin',
   port: 5432,
 });
+
 console.log(
   'Please, wait for Database confirmation message. Start, once you receive'
 );
+
 // creating database and tables if not exists
 pool.query(
   `SELECT FROM pg_database WHERE datname = 'data_entry_systems'`,
@@ -3056,8 +3059,8 @@ app.post('/checkout', async (req, res) => {
     let tid = uniqId();
 
     var instance = new Razorpay({
-      key_id: process.env.KEY_ID,
-      key_secret: process.env.SECRET_KEY,
+      key_id: 'rzp_test_Ba9dKThqzF925j',
+      key_secret: 'vnkPGoKUQeOWalRtqOmTjCSk',
     });
 
     const format = { year: 'numeric', month: 'long', day: 'numeric' };
