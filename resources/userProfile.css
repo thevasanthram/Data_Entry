@@ -246,6 +246,9 @@ body {
   margin: 1%;
   gap: 5px;
 }
+.password_section:hover {
+  color: rgb(3, 3, 69);
+}
 .payment_container {
   width: 48%;
   border-radius: 10px;
