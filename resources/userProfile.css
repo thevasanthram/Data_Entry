@@ -12,7 +12,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   margin-bottom: 2%;
 }
-.main{
+.main {
   width: 100%;
   height: auto;
 }
@@ -72,9 +72,9 @@ body {
   display: none;
   width: 17%;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  height: 89.90%;
+  height: 89.9%;
   z-index: 5;
-  color: #EEEEEE;
+  color: #eeeeee;
   background-color: #4ca1af;
   animation-name: side_bar;
   animation-duration: 0.7s;
@@ -90,122 +90,130 @@ body {
   animation-name: show;
   animation-duration: 1s;
 }
-#UserProfileDiv{
+#UserProfileDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
   background-color: #075154;
 }
-#ReportGenerationDiv,#AdministrationDiv,
-#AdminLogDiv ,#DashboardDiv,#DataEntryDiv{
+#ReportGenerationDiv,
+#AdministrationDiv,
+#AdminLogDiv,
+#DashboardDiv,
+#DataEntryDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;
 }
 
-
 /*!.....................Animation for Nav Side Bar.................. */
 
 @keyframes show {
-  0%{font-size: 1%;}
-  50%{font-size: 140%;}
+  0% {
+    font-size: 1%;
+  }
+  50% {
+    font-size: 140%;
+  }
 }
 @keyframes side_bar {
-  0%{width: 0%;}
-  50%{width: 17%;}
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 17%;
+  }
 }
-
-
-
-
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
- * {
-	 --webkit-box-sizing: border-box;
-	 --moz-box-sizing: border-box;
-	 --webkit-box-sizing: border-box;
+* {
+  --webkit-box-sizing: border-box;
+  --moz-box-sizing: border-box;
+  --webkit-box-sizing: border-box;
 }
-.card_container{
+.card_container {
   min-height: 100%;
   max-width: 100%;
 }
- .center {
-	 position: absolute;
-	 top: 55%;
-	 left: 50%;
-	 -webkit-transform: translate(-50%, -50%);
-	 transform: translate(-50%, -50%);
-	 display: flex;
-	 flex-direction: column;
-	 align-items: center;
-	 justify-content: center;
-	 background: #105469;
-	 height: 70vh;
-	 width: 90%;
-   border-radius: 10px;
-}
- .container {
+.center {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #105469;
+  height: 70vh;
+  width: 90%;
   border-radius: 10px;
-	 width: 90%;
-	 background: #d4d5e0;
-	 display: flex;
-	 box-shadow: 3px 5px 20px 2px rgba(0, 0, 0, 0.4);
 }
- .left {
-	 width: 70%;
-	 display: flex;
-	 flex-direction: column;
-	 align-items: center;
-	 padding: 5px;
-   transition: all 0.5s ease-in-out;
+.container {
+  border-radius: 10px;
+  width: 90%;
+  background: #d4d5e0;
+  display: flex;
+  box-shadow: 3px 5px 20px 2px rgba(0, 0, 0, 0.4);
 }
- .photo {
-	 position: relative;
-	 cursor: pointer;
-   margin: 2%;
+.left {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  transition: all 0.5s ease-in-out;
 }
- .photo img {
-	 border-radius: 50%;
-	 overflow: hidden;
-	 width: 100px;
-	 height: 100px;
+.photo {
+  position: relative;
+  cursor: pointer;
+  margin: 2%;
 }
- .photo:hover .circle, .photo:hover .circle2 {
-	 animation: circlespin 1s ease-in-out;
+.photo img {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
 }
- .photo:hover .circle2 {
-	 animation: circlespin 1s ease-in-out;
+.photo:hover .circle,
+.photo:hover .circle2 {
+  animation: circlespin 1s ease-in-out;
 }
- .circle, .circle2 {
-	 position: absolute;
-	 top: -4px;
-	 left: -4px;
-	 width: 108px;
-	 height: 108px;
-	 border-radius: 50%;
-	 border-width: 2px;
-	 border-style: solid;
-	 border-color: black transparent black black;
-	 animation: circlespinout 1s ease-in-out;
+.photo:hover .circle2 {
+  animation: circlespin 1s ease-in-out;
 }
- .circle2 {
-	 top: -10px;
-	 left: -10px;
-	 width: 120px;
-	 height: 120px;
-	 border-color: black black black transparent;
+.circle,
+.circle2 {
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  border-width: 2px;
+  border-style: solid;
+  border-color: black transparent black black;
+  animation: circlespinout 1s ease-in-out;
 }
- .title__contain {
-	 display: flex;
-	 flex-wrap: wrap;
-   flex-direction: column;
-	 justify-content: center;
-	 font-size: 1.3em;
-	 font-weight: 500;
-   gap: 0.5em;
-	 margin: 20px auto 20px;
+.circle2 {
+  top: -10px;
+  left: -10px;
+  width: 120px;
+  height: 120px;
+  border-color: black black black transparent;
 }
-.vehicle_count{
+.title__contain {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.3em;
+  font-weight: 500;
+  gap: 0.5em;
+  margin: 20px auto 20px;
+}
+.vehicle_count {
   text-align: center;
 }
 .user_access_section {
@@ -250,21 +258,21 @@ body {
   justify-content: center;
   gap: 1em;
 }
-.btn_title{
+.btn_title {
   color: #987618;
 
   font-weight: 500;
 }
-.btn_container{
+.btn_container {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   top: 5px;
- }
- .title {
-	 font-size: 0.9em;
-	 font-weight: 400;
+}
+.title {
+  font-size: 0.9em;
+  font-weight: 400;
 }
 .right {
   display: flex;
@@ -273,50 +281,130 @@ body {
   gap: 5px;
   margin: 1%;
 }
- .rightbox {
-	 background: #7479ac;
-	 color: white;
-	 width: 100%;
-	 display: flex;
-	 flex-direction: column;
-	 align-items: center;
-	 justify-content: center;
-	 cursor: pointer;
-   border-radius: 10px;
-	 transition: all 0.5s ease-in-out;
+.rightbox {
+  background: #7479ac;
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.5s ease-in-out;
 }
- .rightbox:nth-child(2) {
-	 margin: 1px 0;
+.rightbox:nth-child(2) {
+  margin: 1px 0;
 }
- .rightbox:hover {
-	 background: #5b6093;
+.rightbox:hover {
+  background: #5b6093;
 }
-.user_details:hover{
+.user_details:hover {
   background: #7479ac;
 }
 .payment_container:hover {
   background: #7479ac;
 }
- @keyframes circlespin {
-	 0% {
-		 transform: rotate(0deg);
-	}
-	 100% {
-		 transform: rotate(360deg);
-	}
+@keyframes circlespin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
- @keyframes circlespinout {
-	 0% {
-		 transform: rotate(360deg);
-	}
-	 100% {
-		 transform: rotate(0deg);
-	}
+@keyframes circlespinout {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
- 
+
+/* ! report Access Denied popup */
+#reportGenerationDeniedDivision {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+.reportGenerationDeniedDivisionModalContent {
+  background-color: #84a9ac;
+  color: black;
+  margin: auto;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 40%;
+  height: 24%;
+}
+
+#reportGenerationDeniedDivisionHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  top: 25%;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+/* ! admin Access Denied popup */
+#adminAccessDeniedDivision {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.adminAccessDeniedDivisionModalContent {
+  align-items: center;
+  background-color: #ca0b00;
+  color: #eeeeee;
+  margin: auto;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+  width: 40%;
+  height: 24%;
+}
+#adminAccessDeniedDivisionHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  /* top: 10%; */
+  gap: 1rem;
+  justify-content: center;
+}
+
 /*! CSS for Responsive Design  */
 
-@media screen and (max-width:1280px) {
+@media screen and (max-width: 1280px) {
   #navBarDivision {
     position: absolute;
     display: none;
@@ -324,14 +412,18 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 90%;
     z-index: 5;
-    color: #EEEEEE;
+    color: #eeeeee;
     background-color: #4ca1af;
     animation-name: side_bar;
     animation-duration: 0.7s;
   }
   @keyframes side_bar {
-    0%{width: 0%;}
-    50%{width: 25%;}
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 25%;
+    }
   }
 }
 @media screen and (max-width: 1024px) {
@@ -352,12 +444,20 @@ body {
     padding: 2px 10px;
   }
   @keyframes show {
-    0%{font-size: 1%;}
-    50%{font-size: 130%;}
+    0% {
+      font-size: 1%;
+    }
+    50% {
+      font-size: 130%;
+    }
   }
   @keyframes side_bar {
-    0%{width: 0%;}
-    50%{width: 30%;}
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 30%;
+    }
   }
   .center {
     position: absolute;
@@ -414,7 +514,7 @@ body {
     justify-content: center;
     align-items: center;
     gap: 2.25em;
-}
+  }
   .user_details {
     width: 95%;
     height: 49%;
@@ -459,7 +559,6 @@ body {
 }
 
 @media screen and (max-width: 780px) {
-
   .admin {
     color: #00adb5;
     margin-right: 5%;
@@ -491,12 +590,20 @@ body {
   /* !........................Animation Style for Side Menu Bar.................... */
 
   @keyframes show {
-    0%{font-size: 1%;}
-    50%{font-size: 120%;}
+    0% {
+      font-size: 1%;
+    }
+    50% {
+      font-size: 120%;
+    }
   }
   @keyframes side_bar {
-    0%{width: 0%;}
-    50%{width: 35%;}
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 35%;
+    }
   }
   .center {
     height: 84vh;
@@ -565,9 +672,45 @@ body {
     gap: 0.5em;
     top: 5px;
   }
+
+  .reportGenerationDeniedDivisionModalContent {
+    /* background-color: #fefefe; */
+    color: black;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 60%;
+    height: 20%;
+  }
+
+  #reportGenerationDeniedDivisionHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 20%;
+    gap: 1.25rem;
+    justify-content: center;
+  }
+
+  .adminAccessDeniedDivisionModalContent {
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    width: 60%;
+    height: 20%;
+  }
+
+  #adminAccessDeniedDivisionHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+  }
 }
 @media screen and (max-width: 500px) {
-
   .header {
     width: 100%;
     display: flex;
@@ -632,12 +775,20 @@ body {
   /* !........................Animation Style for Side Menu Bar.................... */
 
   @keyframes show {
-    0%{font-size: 1%;}
-    50%{font-size: 120%;}
+    0% {
+      font-size: 1%;
+    }
+    50% {
+      font-size: 120%;
+    }
   }
   @keyframes side_bar {
-    0%{width: 0%;}
-    50%{width: 50%;}
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 50%;
+    }
   }
   .center {
     position: absolute;
@@ -730,5 +881,43 @@ body {
     margin: 1%;
     gap: 0.5em;
     top: 5px;
+  }
+
+  .reportGenerationDeniedDivisionModalContent {
+    /* background-color: #fefefe; */
+    color: black;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 60%;
+    height: 20%;
+  }
+
+  #reportGenerationDeniedDivisionHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 20%;
+    gap: 1.25rem;
+    justify-content: center;
+  }
+
+  .adminAccessDeniedDivisionModalContent {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    width: 60%;
+    height: 26%;
+  }
+  #adminAccessDeniedDivisionHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    justify-content: center;
   }
 }

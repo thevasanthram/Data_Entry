@@ -1241,6 +1241,7 @@ app.post('/follower', async (req, res) => {
 
     console.log('currentUser: ', currentUser);
     console.log('currentEmpID: ', currentEmpID);
+    console.log('companyName: ', companyName);
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -2553,6 +2554,7 @@ app.post('/admin', async (req, res) => {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
     const companyName = req.body.companyName;
+    console.log('companyName: ', companyName);
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -2738,6 +2740,9 @@ app.post('/dashboard', async (req, res) => {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
     const companyName = req.body.companyName;
+
+    console.log('dashboard');
+    console.log('companyName: ', companyName);
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -3032,6 +3037,8 @@ app.post('/profile', async (req, res) => {
     const currentEmpID = req.body.currentEmpID;
     const companyName = req.body.companyName;
 
+    console.log('userProfile');
+
     console.log('currentUser: ', currentUser);
     console.log('currentEmpID: ', currentEmpID);
     console.log('companyName: ', companyName);
@@ -3054,12 +3061,11 @@ app.post('/profile', async (req, res) => {
       `SELECT * FROM employee_table WHERE id=${currentEmpID} AND company='${companyName}';`
     );
 
-    console.log(employeeResponse);
-
     const employeeDetail = {
       name: employeeResponse.rows[0].name,
       id: employeeResponse.rows[0].id,
       company: employeeResponse.rows[0].company,
+      accessible_charts: employeeResponse.rows[0].accessible_charts,
       status: employeeResponse.rows[0].status,
       created_by: employeeResponse.rows[0].created_by,
     };
@@ -3071,12 +3077,10 @@ app.post('/profile', async (req, res) => {
       remaining: companyResponse.rows[0].remaining,
     };
 
-    // console.log("employeeDetail: ", employeeDetail)
-    // console.log("companyDetail: ", companyDetail)
-
     res.render(path.join(__dirname, '/views/userProfile.ejs'), {
       currentUser,
       currentEmpID,
+      companyName,
       companyDetail,
       employeeDetail,
     });
