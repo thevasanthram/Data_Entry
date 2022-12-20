@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 * {
   box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 body {
   width: 100%;
@@ -107,7 +107,7 @@ body {
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
-  height: 70%;
+  height: 90%;
   border-radius: 15px;
   display: flex;
   justify-content: center;
@@ -118,7 +118,7 @@ body {
 .companyTable {
   text-align: left;
   margin: 5px;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 200;
   text-align: center;
 }
@@ -177,7 +177,7 @@ body {
   left: 5%;
 }
 
-#createCompanySuccessContentHolder{
+#createCompanySuccessContentHolder {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -252,8 +252,22 @@ td {
     height: 100%;
     background-color: #4ca1af;
   }
-}
 
+  .createCompanyModalContent {
+    background-color: #84a9ac;
+    color: black;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%;
+    height: 60%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
 
 @media screen and (max-width: 425px) {
   .createCompanyModalContent {
@@ -263,15 +277,15 @@ td {
     padding: 20px;
     border: 1px solid #888;
     width: 100%;
-    height: 70%;
+    height: 95%;
     border-radius: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
   }
-   #submitButton{
+  #submitButton {
     width: 100%;
     margin-top: 2%;
-   } 
+  }
 }
