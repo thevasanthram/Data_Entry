@@ -12,9 +12,43 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+      tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          primary: {"50":"#eff6ff","100":"#dbeafe","200":"#bfdbfe","300":"#93c5fd","400":"#60a5fa","500":"#3b82f6","600":"#2563eb","700":"#1d4ed8","800":"#1e40af","900":"#1e3a8a"}
+        }
+      },
+      fontFamily: {
+        'body': [
+      'Inter',
+      'ui-sans-serif',
+      'system-ui',
+      '-apple-system',
+      'system-ui',
+      'Segoe UI',
+      'Roboto',
+      'Helvetica Neue',
+      'Arial',
+      'Noto Sans',
+      'sans-serif',
+      'Apple Color Emoji',
+      'Segoe UI Emoji',
+      'Segoe UI Symbol',
+      'Noto Color Emoji'
+    ],
+      'sans': [ 'Inter','ui-sans-serif', 'system-ui','-apple-system','system-ui',
+      'Segoe UI','Roboto', 'Helvetica Neue','Arial', 'Noto Sans', 'sans-serif',
+      'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol', 'Noto Color Emoji']
+      }
+    }
+  }
+</script>
   </head>
   <body>
-    <div class="main">
+    <div class="main_container">
       <!-- Header part  which contain user_name,  App_Name and LOGOUT btn  -->
       <div class="header">
         <div style="display: flex">
@@ -127,7 +161,7 @@
                     <div class="text-gray-600">
                       Added By : <b><%= employeeDetail.created_by %></b>
                     </div>
-                    <i>
+                    <i onclick="(() => document.getElementById('password_container').style.visibility = 'visible')()">
                       <b class="password_section text-blue-800 cursor-pointer">change your password</b>
                     </i>
                   </div>
@@ -199,6 +233,89 @@
             </div>
           </div>
         </div>
+      </div>
+      <!-- Todo - Update password Popup  -->
+      <div id="password_container" >
+        <!-- <div class="main"> -->
+          <section class=" main bg-gray-300 dark:bg-gray-900">
+            <div
+              class=" password_content  flex flex-col items-center justify-center px-3 py-3 mx-auto md:h-screen lg:py-0"
+            >
+              <div style="background: linear-gradient(to right,#374f66, #358a97)"
+                class="bg-blue-600 w-full p-2  rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-3"
+              >
+                <h2
+                  class="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-100 md:text-2xl dark:text-white"
+                >
+                  Change Password
+                </h2>
+                <div class="mb-1  leading-tight tracking-tight text-gray-200  dark:text-white">
+                    Your new password must be different from previous used passwords.
+                </div>
+                <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
+                  <div>
+                    <label
+                      for="old_password"
+                      class="block mb-2 text-sm font-medium text-gray-300 dark:text-white"
+                      >Old Password</label
+                    >
+                    <input
+                      type="password"
+                      name="old_password"
+                      id="old_password"
+                      class="bg-gray-50 border border-gray-300 text-gray-300 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="Enter your old password"
+                      required=""
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="new_password"
+                      class="block mb-2 text-sm font-medium text-gray-300 dark:text-white"
+                      >New Password</label
+                    >
+                    <input
+                      type="password"
+                      name="new_password"
+                      id="new_password"
+                      placeholder="••••••••"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      required=""
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="confirm-password"
+                      class="block mb-2 text-sm font-medium text-gray-300 dark:text-white"
+                      >Confirm New Password</label
+                    >
+                    <input
+                      type="confirm-password"
+                      name="confirm-password"
+                      id="confirm-password"
+                      placeholder="••••••••"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      required=""
+                    />
+                  </div>
+                  <p class="message_title"></p>
+                  <button type="submit"
+                  onclick="(() => {document.getElementById('password_container').style.visibility = 'hidden'})()"
+                    style=" background: linear-gradient(
+                        to right,
+                        #0f0c29,
+                        #302b63,
+                        #24243e
+                      );"
+                    class="w-full text-white  hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  ><i class="fa fa-fw fa-refresh"></i>
+                    Reset Password
+                  </button>
+                </form>
+              </div>
+            </div>
+          </section>
+        <!-- </div> -->
       </div>
     </div>
     <form action="/follower" id="followerForm" method="post">
