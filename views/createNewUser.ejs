@@ -289,10 +289,6 @@
           const confirmPassword = document.getElementById('employeePassword1');
 
           if (password.value == confirmPassword.value) {
-            // deleting onclick attribute of button
-            document
-              .getElementById('createUserButton')
-              .removeAttribute('onclick');
             createUser();
           } else {
             const errorSpanTag = document.getElementById('error');
@@ -368,7 +364,7 @@
           accessibleCharts.push(singleInput.value);
         }
       });
-      const response = await fetch(`/newUser`, {
+      const data = await fetch(`/newUser`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -385,7 +381,9 @@
         }),
       });
 
-      if (response.status == 200) {
+      const response = await data.json();
+
+      if (response.status == 'success') {
         alert(
           `${
             empStatus.charAt(0).toUpperCase() + empStatus.slice(1)
@@ -393,8 +391,19 @@
         );
         document.getElementById('adminForm').submit();
       } else {
-        alert(`There's an issue while creating Admin. Please try again`);
-        document.getElementById('adminForm').submit();
+        if (response.reason == 'existing email address') {
+          document.getElementById('error').innerHTML =
+            'E-mail address already existing, Use Different';
+
+          document.getElementById('error').style.display = 'block';
+
+          setTimeout(() => {
+            document.getElementById('error').style.display = 'none';
+          }, 3000);
+        } else {
+          alert(`There's an issue while creating Admin. Please try again`);
+          document.getElementById('adminForm').submit();
+        }
       }
     }
   </script>

@@ -1283,20 +1283,42 @@ app.post('/newUser', async (req, res) => {
       ':' +
       String(currentDate.getSeconds());
 
-    const response = await dbConnectedPool.query(
-      `INSERT INTO employee_table (name,email,password,company,status,accessible_charts,created_by) VALUES('${empName}','${empEmail}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
-        `','`
-      )}'],'${creator}') RETURNING id;`
+    const emailChecker = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE email='${empEmail}' AND company='${empCompany}'`
     );
 
-    await dbConnectedPool.query(
-      `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${creatorID},'${creator}','created',${response.rows[0].id},'${empName}','${date}','${time}')`
-    );
+    if (emailChecker.rows.length == 0) {
+      const response = await dbConnectedPool.query(
+        `INSERT INTO employee_table (name,email,password,company,status,accessible_charts,created_by) VALUES('${empName}','${empEmail}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
+          `','`
+        )}'],'${creator}') RETURNING id;`
+      );
 
-    res.sendStatus(200);
+      await dbConnectedPool.query(
+        `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${creatorID},'${creator}','created',${response.rows[0].id},'${empName}','${date}','${time}')`
+      );
+
+      res.send(
+        JSON.stringify({
+          status: 'success',
+        })
+      );
+    } else {
+      res.send(
+        JSON.stringify({
+          status: 'failure',
+          reason: 'existing email address',
+        })
+      );
+    }
   } catch (err) {
     console.log(err);
-    res.sendStatus(400);
+    res.send(
+      JSON.stringify({
+        status: 'failure',
+        reason: 'backend error',
+      })
+    );
   }
 });
 
@@ -1334,6 +1356,56 @@ app.post('/follower', async (req, res) => {
       emp_ChartAccess,
       companyName,
     });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/bodyNumberBalanceChecker', async (req, res) => {
+  try {
+    const currentBodyNumber = req.body.currentBodyNumber;
+    const companyName = req.body.companyName;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const bodyNumberResponse = await dbConnectedPool.query(
+      `SELECT * FROM defect_table WHERE body_number=${currentBodyNumber}`
+    );
+
+    const companyResponse = await dbConnectedPool.query(
+      `SELECT * FROM company_table WHERE name='${companyName}'`
+    );
+
+    if (companyResponse.rows[0].remaining == 0) {
+      if (bodyNumberResponse.rows.length == 0) {
+        res.send(
+          JSON.stringify({
+            status: 'failure',
+            balance: 'zero',
+          })
+        );
+      } else {
+        res.send(
+          JSON.stringify({
+            status: 'success',
+            balance: 'oldBodyNumber',
+          })
+        );
+      }
+    } else {
+      res.send(
+        JSON.stringify({
+          status: 'success',
+          balance: 'non_zero',
+        })
+      );
+    }
   } catch (err) {
     console.log(err);
   }
@@ -1625,6 +1697,7 @@ app.post('/zonechecker', async (req, res) => {
     const defectObj = req.body.defectObj;
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
     const currentBodyNumber = req.body.currentBodyNumber;
     const defectBodyNumberStatus = req.body.defectBodyNumberStatus;
     const selectedCategory = req.body.selectedCategory;
@@ -1736,6 +1809,7 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
     const defectObj = req.body.defectObj;
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
     const currentBodyNumber = req.body.currentBodyNumber;
     let defectBodyNumberStatus = req.body.defectBodyNumberStatus;
     const selectedCategory = req.body.selectedCategory;
@@ -1785,6 +1859,24 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
       password: 'admin',
       port: 5432,
     });
+
+    const bodyNumberResponse = await dbConnectedPool.query(
+      `SELECT * FROM defect_table WHERE body_number=${currentBodyNumber}`
+    );
+
+    if (bodyNumberResponse.rows.length == 0) {
+      const companyResponse = await dbConnectedPool.query(
+        `SELECT * FROM company_table WHERE name='${companyName}'`
+      );
+
+      await dbConnectedPool.query(
+        `UPDATE company_table SET used=${
+          companyResponse.rows[0].used + 1
+        } , remaining = ${
+          companyResponse.rows[0].remaining - 1
+        } WHERE name = '${companyName}'`
+      );
+    }
 
     let messageObject = {};
 
