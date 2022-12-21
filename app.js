@@ -3106,14 +3106,17 @@ app.post('/liveNotification', async (req, res) => {
   }
 });
 
-app.get('/selectPack', (req, res) => {
-  console.log('Running Select Pack');
+app.post('/selectPack', (req, res) => {
   try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
+
     res.render(path.join(__dirname, '/views/selectPack.ejs'));
   } catch (err) {
     console.log(err);
   }
-})
+});
 
 app.post('/profile', async (req, res) => {
   try {
