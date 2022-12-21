@@ -1020,6 +1020,70 @@ app.get('/forgotPassword', (req, res) => {
   }
 });
 
+app.post('/emailVerification', async (req, res) => {
+  try {
+    const enteredEmail = req.body.email;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE email='${enteredEmail}'`
+    );
+
+    if (response.rows.length > 0) {
+      // send otp to mail
+      res.send(
+        JSON.stringify({
+          status: 'success',
+          otp: 1234,
+        })
+      );
+    } else {
+      res.send(
+        JSON.stringify({
+          status: 'failure',
+        })
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/resetPassword', async (req, res) => {
+  try {
+    console.log('resetPassword');
+    const email = req.body.email;
+    const newPassword = req.body.password;
+
+    console.log('email: ', email);
+    console.log('newPassword: ', newPassword);
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = await dbConnectedPool.query(
+      `UPDATE employee_table SET password='${newPassword}' WHERE email='${email}'`
+    );
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
 app.post('/adminPortal', async (req, res) => {
   try {
     let dbConnectedPool = new Pool({
