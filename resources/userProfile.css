@@ -16,7 +16,7 @@ body {
   width: 100%;
   height: auto;
 }
-/* Styling for header part which contain user_name App_Name and LOGOUT btn  */
+/* Style for header part which contain user_name App_Name and LOGOUT btn  */
 .header {
   width: 100%;
   display: flex;
@@ -65,7 +65,7 @@ body {
   border-right-color: rgb(45, 56, 184);
 }
 
-/* TODO ...........SIDE NAV BAR MENU................................................................ */
+/* ! ...........SIDE NAV BAR MENU............... */
 
 #navBarDivision {
   position: absolute;
@@ -436,6 +436,12 @@ body {
 .password_content {
   background-color: transparent;
 }
+.message_title {
+  color: #000000;
+  background-color: #f87b7b;
+  text-align: center;
+  font-weight: 500;
+}
 
 /* ! update Password Final Division popup */
 #updatePasswordFinalDivision {
@@ -490,8 +496,8 @@ body {
     }
   }
   .main {
-    width: 47%;
-    min-height: 60%;
+    width: 45%;
+    height: 60%;
   }
 }
 @media screen and (max-width: 1024px) {
@@ -567,7 +573,7 @@ body {
   /* !.............. Update Password Popup ...............*/
   .main {
     width: 60%;
-    min-height: 60%;
+    height: 60%;
   }
 }
 
@@ -764,7 +770,7 @@ body {
   /* !.............. Update Password Popup ...............*/
   .main {
     width: 70%;
-    min-height: 50%;
+    height: 50%;
   }
   #reportGenerationDeniedDivisionHolder {
     display: flex;
@@ -1009,5 +1015,31 @@ body {
   .main {
     width: 90%;
     height: 60%;
+  }
+}
+@media (max-height: 1400px) {
+  .main {
+    height:45% ;
+  }
+}
+@media (max-height: 1050px) {
+  .main {
+    height: 60%;
+  }
+}
+@media (max-height: 750px) {
+  .main {
+    height: 75%;
+  }
+}
+@media (max-height: 601px) {
+  .main {
+    height: 85%;
+  }
+}
+@media screen and (max-width:390px) {
+  .main {
+    width: 90%;
+    height: 70%;
   }
 }
