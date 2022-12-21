@@ -380,6 +380,32 @@
             alert(msg.ieErrorForm);
           }
         } else {
+          bodyNumberBalChecker();
+        }
+      }
+
+      async function bodyNumberBalChecker() {
+        const response = await fetch('/bodyNumberBalanceChecker', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            currentBodyNumber: document.getElementById('bodyNumberfield').value,
+            companyName: '<%= companyName %>',
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.status == 'failure') {
+          document.getElementById('message').innerHTML =
+            'Insufficient body number. Add more!';
+
+          setTimeout(() => {
+            document.getElementById('message').innerHTML = '';
+          }, 3000);
+        } else {
           submitBodyNumber();
         }
       }
