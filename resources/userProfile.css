@@ -16,7 +16,7 @@ body {
   width: 100%;
   height: auto;
 }
-/* Styling for header part which contain user_name App_Name and LOGOUT btn  */
+/* Style for header part which contain user_name App_Name and LOGOUT btn  */
 .header {
   width: 100%;
   display: flex;
@@ -65,7 +65,7 @@ body {
   border-right-color: rgb(45, 56, 184);
 }
 
-/* TODO ...........SIDE NAV BAR MENU................................................................ */
+/* ! ...........SIDE NAV BAR MENU............... */
 
 #navBarDivision {
   position: absolute;
