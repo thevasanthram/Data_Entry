@@ -3041,6 +3041,15 @@ app.post('/liveNotification', async (req, res) => {
   }
 });
 
+app.get('/selectPack', (req, res) => {
+  console.log('Running Select Pack');
+  try {
+    res.render(path.join(__dirname, '/views/selectPack.ejs'));
+  } catch (err) {
+    console.log(err);
+  }
+})
+
 app.post('/profile', async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
