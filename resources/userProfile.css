@@ -733,7 +733,7 @@ body {
   /* !.............. Update Password Popup ...............*/
   .main {
     width: 70%;
-    height: 50%;
+    min-height: 50%;
   }
   #reportGenerationDeniedDivisionHolder {
     display: flex;
