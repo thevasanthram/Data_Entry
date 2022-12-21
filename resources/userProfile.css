@@ -409,7 +409,7 @@ body {
 #password_container {
   visibility: hidden; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 2; /* Sit on top */
+  z-index: 0; /* Sit on top */
   left: 0;
   top: 5px;
   width: 100%; /* Full width */
@@ -420,8 +420,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease-in-out;
 }
-.main {
+.main{
   width: 40%;
   height: 70%;
   position: absolute;
@@ -430,6 +431,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  transition: all 0.3s ease-in-out;
 }
 .password_content {
   background-color: transparent;
@@ -762,7 +764,7 @@ body {
   /* !.............. Update Password Popup ...............*/
   .main {
     width: 70%;
-    height: 50%;
+    min-height: 50%;
   }
   #reportGenerationDeniedDivisionHolder {
     display: flex;
