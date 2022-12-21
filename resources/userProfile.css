@@ -12,7 +12,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   margin-bottom: 2%;
 }
-.main {
+.main_container {
   width: 100%;
   height: auto;
 }
@@ -405,6 +405,67 @@ body {
   justify-content: center;
 }
 
+/* ! Change Password Popup */
+#password_container {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 0; /* Sit on top */
+  left: 0;
+  top: 5px;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+.main{
+  width: 40%;
+  height: 70%;
+  position: absolute;
+  display: flex;
+  background-color: transparent;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+.password_content {
+  background-color: transparent;
+}
+
+/* ! update Password Final Division popup */
+#updatePasswordFinalDivision {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+.updatePasswordFinalModalContent {
+  background-color: #84a9ac;
+  color: black;
+  margin: auto;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 40%;
+  height: 24%;
+}
+
 /*! CSS for Responsive Design  */
 
 @media screen and (max-width: 1280px) {
@@ -427,6 +488,10 @@ body {
     50% {
       width: 25%;
     }
+  }
+  .main {
+    width: 47%;
+    min-height: 60%;
   }
 }
 @media screen and (max-width: 1024px) {
@@ -499,6 +564,11 @@ body {
     gap: 0.5em;
     top: 5px;
   }
+  /* !.............. Update Password Popup ...............*/
+  .main {
+    width: 60%;
+    min-height: 60%;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -558,6 +628,11 @@ body {
     margin: 1%;
     gap: 0.5em;
     top: 5px;
+  }
+  /* !.............. Update Password Popup ...............*/
+  .main {
+    width: 60%;
+    height: 65%;
   }
 }
 
@@ -686,7 +761,11 @@ body {
     width: 60%;
     height: 20%;
   }
-
+  /* !.............. Update Password Popup ...............*/
+  .main {
+    width: 70%;
+    min-height: 50%;
+  }
   #reportGenerationDeniedDivisionHolder {
     display: flex;
     flex-direction: column;
@@ -922,5 +1001,13 @@ body {
     align-items: center;
     gap: 1.25rem;
     justify-content: center;
+  }
+  /* !.............. Update Password Popup ...............*/
+  #password_container {
+    padding-top: 5%;
+  }
+  .main {
+    width: 90%;
+    height: 60%;
   }
 }

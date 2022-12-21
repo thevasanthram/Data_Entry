@@ -4,6 +4,7 @@ const path = require('path');
 const Pool = require('pg').Pool;
 const uniqId = require('uniqid');
 const Razorpay = require('razorpay');
+const { json } = require('body-parser');
 
 const app = express();
 app.use(express.json());
@@ -1017,6 +1018,70 @@ app.get('/forgotPassword', (req, res) => {
     res.render(path.join(__dirname, '/views/forgetPassword.ejs'));
   } catch (err) {
     console.log(err);
+  }
+});
+
+app.post('/emailVerification', async (req, res) => {
+  try {
+    const enteredEmail = req.body.email;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE email='${enteredEmail}'`
+    );
+
+    if (response.rows.length > 0) {
+      // send otp to mail
+      res.send(
+        JSON.stringify({
+          status: 'success',
+          otp: 1234,
+        })
+      );
+    } else {
+      res.send(
+        JSON.stringify({
+          status: 'failure',
+        })
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/resetPassword', async (req, res) => {
+  try {
+    console.log('resetPassword');
+    const email = req.body.email;
+    const newPassword = req.body.password;
+
+    console.log('email: ', email);
+    console.log('newPassword: ', newPassword);
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = await dbConnectedPool.query(
+      `UPDATE employee_table SET password='${newPassword}' WHERE email='${email}'`
+    );
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
   }
 });
 
@@ -3106,6 +3171,66 @@ app.post('/profile', async (req, res) => {
     });
   } catch (err) {
     console.log(err);
+  }
+});
+
+app.post('/updatePassword', async (req, res) => {
+  try {
+    const currentPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
+    const empCompany = req.body.empCompany;
+    const empID = req.body.empID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const userResponse = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${empID} AND company='${empCompany}'`
+    );
+
+    const userData = userResponse.rows[0];
+
+    if (currentPassword == userData.password) {
+      if (currentPassword == newPassword) {
+        res.send(
+          JSON.stringify({
+            status: 'failure',
+            type: 'same password',
+          })
+        );
+      } else {
+        await dbConnectedPool.query(
+          `UPDATE employee_table SET password='${newPassword}' WHERE id=${empID} AND company='${empCompany}'`
+        );
+
+        res.send(
+          JSON.stringify({
+            status: 'success',
+            type: 'password updated',
+          })
+        );
+      }
+    } else {
+      res.send(
+        JSON.stringify({
+          status: 'failure',
+          type: 'Invalid current password',
+        })
+      );
+    }
+  } catch (err) {
+    console.log(err);
+    res.send(
+      JSON.stringify({
+        status: 'failure',
+        type: 'backend error',
+      })
+    );
   }
 });
 
