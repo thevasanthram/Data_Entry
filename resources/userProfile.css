@@ -409,7 +409,7 @@ body {
 #password_container{
   visibility: hidden; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 2; /* Sit on top */
+  z-index: 0; /* Sit on top */
   left: 0;
   top: 5px;
   width: 100%; /* Full width */
@@ -420,9 +420,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease-in-out;
 }
 .main{
-  width: 40%;
+  z-index: 1;
+  width: 36%;
   height: 70%;
   position: absolute;
   display: flex;
@@ -430,6 +432,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  transition: all 0.3s ease-in-out;
 }
 .password_content{
   background-color: transparent;
