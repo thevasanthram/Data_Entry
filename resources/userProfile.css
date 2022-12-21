@@ -401,7 +401,7 @@ body {
   align-items: center;
   position: relative;
   /* top: 10%; */
-  gap: 1rem;
+  gap: 2rem;
   justify-content: center;
 }
 
@@ -461,15 +461,23 @@ body {
   z-index: 3;
 }
 .updatePasswordFinalModalContent {
-  background-color: #84a9ac;
+  background-color: #00ab41;
   color: black;
   margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px;
   text-align: center;
   border: 1px solid #888;
   border-radius: 10px;
-  width: 40%;
+  width: 30%;
   height: 24%;
+}
+#updatePasswordFinalContentHolder{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 /*! CSS for Responsive Design  */
@@ -797,6 +805,10 @@ body {
     gap: 1rem;
     justify-content: center;
   }
+  .updatePasswordFinalModalContent {
+    width: 40%;
+    height: 25%;
+  }
 }
 @media screen and (max-width: 500px) {
   .header {
@@ -1008,6 +1020,13 @@ body {
     gap: 1.25rem;
     justify-content: center;
   }
+  .updatePasswordFinalModalContent {
+    width: 50%;
+    height: 25%;
+  }
+  #updatePasswordFinalContentHolder{
+    gap: 1rem;
+  }
   /* !.............. Update Password Popup ...............*/
   #password_container {
     padding-top: 5%;
@@ -1024,7 +1043,7 @@ body {
 }
 @media (max-height: 1050px) {
   .main {
-    height: 60%;
+    height: 62%;
   }
 }
 @media (max-height: 750px) {

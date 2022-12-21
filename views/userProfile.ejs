@@ -439,11 +439,12 @@
             id="adminAccessDeniedDivisionMessage"
             style="font-weight: 600; font-size: large"
           >
-            Unauthorized Access. Only Admin has privilege
+          ⚠ Unauthorized Access. Only Admin has privilege
           </p>
           <div id="editEmployeeChartAccessEnsureButton">
-            <button
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+            <button style="display: block;"
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
               onclick="(() => {document.getElementById('adminAccessDeniedDivision').style.visibility = 'hidden'})()"
             >
               OK
@@ -458,8 +459,11 @@
     <div id="updatePasswordFinalDivision">
       <div class="updatePasswordFinalModalContent">
         <div id="updatePasswordFinalContentHolder">
-          <p id="updatePasswordFinalMsg"></p>
-          <button onclick="(() => document.getElementById('userProfileForm').submit())()">OK</button>
+          <p id="updatePasswordFinalMsg" style="font-size: larger; font-weight:600;"></p>
+          <button  style="display: block;"
+          class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+          onclick="(() => document.getElementById('userProfileForm').submit())()">OK</button>
         </div>
       </div>
     </div>
@@ -551,11 +555,15 @@
           if(newPassword == confirmPassword){
             updatePassword()
           }else{
-            document.getElementsByClassName('message_title')[0].innerHTML = 'Passwords do not match'
+            document.getElementsByClassName('message_title')[0].innerHTML = '⚠ Password do not match';
+            setTimeout(() => {
+              getElementsByClassName('message_title').innerHTML = '';
+          }, 3000);
           }
         }
+        
       }
-
+    
       async function updatePassword(){
         const oldPassword = document.getElementById('old_password').value
         const newPassword = document.getElementById('new_password').value
@@ -586,7 +594,7 @@
           if(data.type == 'same password'){
             document.getElementsByClassName('message_title')[0].innerHTML = 'Enter new password'
           } else if (data.type == 'Invalid current password'){
-            document.getElementsByClassName('message_title')[0].innerHTML = 'Invalid current password'
+            document.getElementsByClassName('message_title')[0].innerHTML = '⚠ Invalid current password'
           } else if (data.type == 'backend error'){
             document.getElementById('updatePasswordFinalMsg').innerHTML = 'Problem while updating password. Try Again!'
             document.getElementById('updatePasswordFinalDivision').style.visibility = 'visible'
