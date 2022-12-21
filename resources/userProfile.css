@@ -406,7 +406,7 @@ body {
 }
 
 /* ! Change Password Popup */
-#password_container{
+#password_container {
   visibility: hidden; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 0; /* Sit on top */
@@ -423,8 +423,7 @@ body {
   transition: all 0.3s ease-in-out;
 }
 .main{
-  z-index: 1;
-  width: 36%;
+  width: 40%;
   height: 70%;
   position: absolute;
   display: flex;
@@ -434,8 +433,37 @@ body {
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
 }
-.password_content{
+.password_content {
   background-color: transparent;
+}
+
+/* ! update Password Final Division popup */
+#updatePasswordFinalDivision {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+}
+.updatePasswordFinalModalContent {
+  background-color: #84a9ac;
+  color: black;
+  margin: auto;
+  padding: 5px;
+  text-align: center;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 40%;
+  height: 24%;
 }
 
 /*! CSS for Responsive Design  */

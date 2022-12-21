@@ -173,6 +173,7 @@
                   <div class="btn_container">
                     <button
                       type="button"
+                      onclick="(() => document.getElementById('selectPackForm').submit())()"
                       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                       <svg
@@ -187,25 +188,6 @@
                         ></path>
                       </svg>
                       Buy now
-                    </button>
-                    <button
-                      type="button"
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      Choose plan
-                      <svg
-                        aria-hidden="true"
-                        class="ml-2 -mr-1 w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                          clip-rule="evenodd"
-                        ></path>
-                      </svg>
                     </button>
                   </div>
                 </div>
@@ -252,7 +234,7 @@
                 <div class="mb-1  leading-tight tracking-tight text-gray-200  dark:text-white">
                     Your new password must be different from previous used passwords.
                 </div>
-                <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
+                <form class="mt-4 space-y-4 lg:mt-5 md:space-y-5" id="udpatePasswordForm">
                   <div>
                     <label
                       for="old_password"
@@ -299,8 +281,8 @@
                     />
                   </div>
                   <p class="message_title"></p>
-                  <button type="submit"
-                  onclick="(() => {document.getElementById('password_container').style.visibility = 'hidden'})()"
+                  <button type="button"
+                  onclick="validate()"
                     style=" background: linear-gradient(
                         to right,
                         #0f0c29,
@@ -311,6 +293,7 @@
                   ><i class="fa fa-fw fa-refresh"></i>
                     Update Password
                   </button>
+                  <button type="button" onclick="(() => document.getElementById('userProfileForm').submit())()">Cancel</button>
                 </form>
               </div>
             </div>
@@ -337,6 +320,7 @@
         name="companyName"
         value="<%= companyName %>"
       />
+    </form>
     </form>
     <form action="/filter" method="post" id="filterFrom">
       <input
@@ -461,6 +445,17 @@
       </div>
     </div>
 
+
+    <!-- Denial of Access for AdminPage -->
+    <div id="updatePasswordFinalDivision">
+      <div class="updatePasswordFinalModalContent">
+        <div id="updatePasswordFinalContentHolder">
+          <p id="updatePasswordFinalMsg"></p>
+          <button onclick="(() => document.getElementById('userProfileForm').submit())()">OK</button>
+        </div>
+      </div>
+    </div>
+
     <script>
       document.addEventListener('click', hideAndSeek);
 
@@ -530,6 +525,64 @@
           document.getElementById('userProfileForm').submit();
         } else if (event.target.id == 'dataEntry') {
           document.getElementById('followerForm').submit();
+        }
+      }
+
+      function validate() {
+        var udpatePasswordForm = document.getElementById('udpatePasswordForm');
+        const oldPassword = document.getElementById('old_password').value
+        const newPassword = document.getElementById('new_password').value
+        const confirmPassword = document.getElementById('confirm-password').value
+        if (!udpatePasswordForm.checkValidity()) {
+          if (udpatePasswordForm.reportValidity) {
+            udpatePasswordForm.reportValidity();
+          } else {
+            alert(msg.ieErrorForm);
+          }
+        } else {
+          if(newPassword == confirmPassword){
+            updatePassword()
+          }else{
+            document.getElementsByClassName('message_title')[0].innerHTML = 'Passwords do not match'
+          }
+        }
+      }
+
+      async function updatePassword(){
+        const oldPassword = document.getElementById('old_password').value
+        const newPassword = document.getElementById('new_password').value
+        const confirmPassword = document.getElementById('confirm-password').value
+
+        const response = await fetch('updatePassword',{
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            oldPassword,
+            newPassword,
+            empID: '<%= currentEmpID %>',
+            empName: '<%= currentUser %>',
+            empCompany: '<%= companyName %>',
+          })
+        })
+
+        const data = await response.json()
+
+        console.log('response: ', data)
+
+        if(data.status == 'success'){
+          document.getElementById('updatePasswordFinalMsg').innerHTML = 'Password updated!'
+          document.getElementById('updatePasswordFinalDivision').style.visibility = 'visible'
+        }else{
+          if(data.type == 'same password'){
+            document.getElementsByClassName('message_title')[0].innerHTML = 'Enter new password'
+          } else if (data.type == 'Invalid current password'){
+            document.getElementsByClassName('message_title')[0].innerHTML = 'Invalid current password'
+          } else if (data.type == 'backend error'){
+            document.getElementById('updatePasswordFinalMsg').innerHTML = 'Problem updating password. Try Again!'
+            document.getElementById('updatePasswordFinalDivision').style.visibility = 'visible'
+          }
         }
       }
 
