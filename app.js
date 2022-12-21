@@ -1092,7 +1092,7 @@ app.post('/createCompany', async (req, res) => {
 
     // insert into company_table
     await dbConnectedPool.query(
-      `INSERT INTO company_table (name,root_user,root_user_password,body_number,used,remaining,date,time) VALUES ('${companyName}','${rootUserName}','${rootUserPassword}',0,0,0,'${date}','${time}')`
+      `INSERT INTO company_table (name,root_user,root_user_password,body_number,used,remaining,date,time) VALUES ('${companyName}','${rootUserName}','${rootUserPassword}',100,0,100,'${date}','${time}')`
     );
 
     // insert into employee_table
@@ -3074,6 +3074,7 @@ app.post('/profile', async (req, res) => {
     const employeeDetail = {
       name: employeeResponse.rows[0].name,
       id: employeeResponse.rows[0].id,
+      email: employeeResponse.rows[0].email,
       company: employeeResponse.rows[0].company,
       accessible_charts: employeeResponse.rows[0].accessible_charts,
       status: employeeResponse.rows[0].status,
