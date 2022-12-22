@@ -126,6 +126,49 @@
           <div id="activityLog" class="category">Dashboard</div>
         </div>
       </div>
+
+      <form action="/profile" method="post" id="userProfileForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
+      </form>
+
+      <form action="/selectPack" method="post" id="selectPackForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
+      </form>
+
       <!-- ! -->
       <div class="card_container">
         <div class="center">
@@ -557,8 +600,8 @@
           }else{
             document.getElementsByClassName('message_title')[0].innerHTML = '⚠ Password do not match';
             setTimeout(() => {
-              getElementsByClassName('message_title').innerHTML = '';
-          }, 3000);
+              document.getElementsByClassName('message_title')[0].innerHTML = '';
+            }, 3000);
           }
         }
         
@@ -593,8 +636,14 @@
         }else{
           if(data.type == 'same password'){
             document.getElementsByClassName('message_title')[0].innerHTML = 'Enter new password'
+            setTimeout(() => {
+              document.getElementsByClassName('message_title')[0].innerHTML = ''
+            }, 3000);
           } else if (data.type == 'Invalid current password'){
             document.getElementsByClassName('message_title')[0].innerHTML = '⚠ Invalid current password'
+            setTimeout(() => {
+              document.getElementsByClassName('message_title')[0].innerHTML = ''
+            }, 3000);
           } else if (data.type == 'backend error'){
             document.getElementById('updatePasswordFinalMsg').innerHTML = 'Problem while updating password. Try Again!'
             document.getElementById('updatePasswordFinalDivision').style.visibility = 'visible'
