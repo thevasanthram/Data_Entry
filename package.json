@@ -20,6 +20,7 @@
     "canvasjs": "^1.8.3",
     "chart.js": "^3.9.1",
     "chrome-launcher": "^0.15.1",
+    "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",

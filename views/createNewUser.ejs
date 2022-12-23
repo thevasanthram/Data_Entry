@@ -15,10 +15,11 @@
     <div>
       <div class="header" style="position: sticky; top: 0px; z-index: 2">
         <div class="heading">Data Entry System</div>
-        <form id="btn" action="/logout" method="get">
+        <form id="btn" action="/logout" method="get" class="logoutButton">
           <div class="admin" id="user-mode-name"><%= currentUser %></div>
           <button
-            type="submit"
+            type="button"
+            onclick="logout()"
             style="
               background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
             "
@@ -243,7 +244,6 @@
             </button>
             <!-- <p></p> -->
           </div>
-          <form action="/" id="homeForm" method="get"></form>
           <form action="/admin" id="adminForm" method="post">
             <input
               type="hidden"
@@ -263,12 +263,17 @@
               name="companyName"
               value="<%= companyName %>"
             />
+            <input type="hidden" id="token" name="token" value="" />
           </form>
         </main>
       </div>
     </div>
   </body>
   <script>
+    console.log('token: ', localStorage.getItem('token'));
+
+    document.getElementById('token').value = localStorage.getItem('token');
+
     const firstUserValue = '<%= firstUser %>';
     const reportCheckbox = document.getElementsByClassName('reportCheckbox');
     const creator = '<%= currentUser %>';
@@ -405,6 +410,14 @@
           document.getElementById('adminForm').submit();
         }
       }
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      Object.values(tokenElements).map((tokenElement) => {
+        tokenElement.value = '';
+      });
+      document.getElementsByClassName('logoutButton')[0].submit();
     }
   </script>
 </html>

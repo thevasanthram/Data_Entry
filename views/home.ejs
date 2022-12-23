@@ -31,7 +31,11 @@
                 <div class="lg:w-6/12 px-4 md:px-0">
                   <div class="md:p-12 md:mx-6">
                     <div class="text-center">
-                      <img class="mx-auto w-48" src="./icons/logo.png" alt="Deevia" />
+                      <img
+                        class="mx-auto w-48"
+                        src="./icons/logo.png"
+                        alt="Deevia"
+                      />
                     </div>
                     <p class="mb-4 mt-10">Please login to your account</p>
                     <div class="mb-4">
@@ -123,8 +127,11 @@
         <input type="hidden" id="currentUser" name="currentUser" value="" />
         <input type="hidden" id="currentEmpID" name="currentEmpID" value="" />
         <input type="hidden" id="companyName" name="companyName" value="" />
+        <input type="hidden" name="token" id="token" />
       </form>
-      <form action="/adminPortal" id="adminPortalForm" method="post"></form>
+      <form action="/adminPortal" id="adminPortalForm" method="post">
+        <input type="hidden" name="token" id="token" />
+      </form>
       <form
         action="/forgotPassword"
         id="forgetPasswordForm"
@@ -165,12 +172,18 @@
             document.getElementById('errorMessage').style.display = 'none';
           }, 2000);
         } else if (data.validation == 'success') {
+          localStorage.setItem('token', data.token);
+
           if (data.userStatus == 'Administrator') {
+            document.getElementById('token').value =
+              localStorage.getItem('token');
             document.getElementById('adminPortalForm').submit();
           } else {
             document.getElementById('currentUser').value = data.username;
             document.getElementById('currentEmpID').value = data.emp_ID;
             document.getElementById('companyName').value = data.companyName;
+            document.getElementById('token').value =
+              localStorage.getItem('token');
             document.getElementById('followerForm').submit();
           }
         }

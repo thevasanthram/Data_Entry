@@ -51,15 +51,18 @@
             />
             <div class="heading">Data Entry System</div>
           </div>
-            <form id="btn" action="/logout" method="get">
-                <div class="admin" id="user-mode-name"><%= currentUser %></div>
-                <button type="submit"
-                style="background: linear-gradient(
-                  to right, #0f0c29, #302b63, #24243e
-                );"
-                class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                    LOGOUT
-                </button>
+            <form id="btn" action="/logout" method="get" class="logoutButton">
+              <div class="admin" id="user-mode-name"><%= currentUser %></div>
+              <button
+                type="button"
+                onclick="logout()"
+                style="
+                  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+                "
+                class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+              >
+                LOGOUT
+              </button>
             </form>
         </div>
 
@@ -155,6 +158,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/follower" id="followerForm" method="post">
         <input
@@ -175,6 +179,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/admin" id="adminForm" method="post">
         <input
@@ -195,6 +200,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/adminLog" method="post" id="adminLogForm">
         <input
@@ -215,6 +221,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/dashboard" method="post" id="dashboardForm">
         <input
@@ -235,6 +242,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
         <div id="container" style="display: none; position: sticky; top: 70px; z-index: 2;" >
           <div class="filtering-condition-content" >
@@ -364,6 +372,14 @@
   </body>
 
     <script>
+
+      console.log('token: ', localStorage.getItem('token'));
+
+      const tokenElements = document.getElementsByClassName('token');
+
+      Object.values(tokenElements).map((tokenElement) => {
+        tokenElement.value = localStorage.getItem('token');
+      });
 
       // by default, mode will be online
       document.getElementById('toggle_switch_outside').checked = true
@@ -3253,5 +3269,12 @@
         console.log("PDF generated")
    }
 
+      function logout() {
+        localStorage.removeItem('token');
+        Object.values(tokenElements).map((tokenElement) => {
+          tokenElement.value = '';
+        });
+        document.getElementsByClassName('logoutButton')[0].submit();
+      }
     </script>
 </html>
