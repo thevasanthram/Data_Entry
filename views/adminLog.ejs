@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./adminLog.css" />
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
+    <form action="/" method="get" id="homeForm"></form>
+    <script>
+      (function tokenValidate() {
+        console.log('tokenValidating');
+        if (localStorage.getItem('token') == null) {
+          console.log('invalid');
+          document.getElementById('homeForm').submit();
+        } else {
+          console.log('valid');
+        }
+      })();
+    </script>
 
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
@@ -321,7 +333,7 @@
 
     function handleSideBar() {
       const navBarDivision = document.getElementById('navBarDivision');
-    } 
+    }
 
     function logout() {
       localStorage.removeItem('token');

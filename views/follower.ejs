@@ -14,14 +14,21 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../resources/tailwind.config.js"></script>
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+    <form action="/" method="get" id="homeForm"></form>
+    <script>
+      (function tokenValidate() {
+        console.log('tokenValidating');
+        if (localStorage.getItem('token') == null) {
+          console.log('invalid');
+          document.getElementById('homeForm').submit();
+        } else {
+          console.log('valid');
+        }
+      })();
+    </script>
   </head>
   <body>
+    <script></script>
     <div>
       <!-- Header part  which contain user_name,  App_Name and LOGOUT btn  -->
       <div class="header">
@@ -207,6 +214,7 @@
         />
         <input type="hidden" class="token" name="token" value="" />
       </form>
+      <!-- <form action="/" method="get" id="homeForm"></form> -->
 
       <div class="form-content">
         <form action="/firstlayer" method="post" id="bodyNumberForm">
