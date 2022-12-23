@@ -1,0 +1,13 @@
+services:
+  db: 
+    image: postgres
+    ports:
+        - 8000:5432
+    volumes:
+        - pgdata:/var/lib/postgresql/data
+    environment:
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=admin
+     - POSTGRES_DB=data-entry-systems
+volumes:
+    pgdata:

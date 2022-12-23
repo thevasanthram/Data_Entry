@@ -969,6 +969,14 @@ app.get('/', (req, res) => {
   }
 });
 
+app.get("/checkout", (req, res) => {
+  try {
+    res.render(path.join(__dirname, '/views/checkout.ejs'));
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 app.post('/login', async (req, res) => {
   try {
     const username = req.body.username;
