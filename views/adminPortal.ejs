@@ -176,10 +176,8 @@
       }
 
       function logout() {
+        console.log('logging out')
         localStorage.removeItem('token');
-        Object.values(tokenElements).map((tokenElement) => {
-          tokenElement.value = '';
-        });
         document.getElementsByClassName('logoutButton')[0].submit();
       }
     </script>

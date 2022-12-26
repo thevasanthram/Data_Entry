@@ -3415,16 +3415,33 @@ app.post('/checkout', async (req, res) => {
   }
 });
 
-app.post('/updateSection', (req, res) => {
+app.post('/updateSection', async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
     const companyName = req.body.companyName;
 
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
+    );
+
+    const accessibleReport = response.rows[0].accessible_charts;
+    const emp_Status = response.rows[0].status;
+
     res.render(path.join(__dirname, '/views/updateSection.ejs'), {
       currentUser,
       currentEmpID,
       companyName,
+      accessibleReport,
+      emp_Status,
     });
   } catch (err) {
     console.log(err);
