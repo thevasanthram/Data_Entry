@@ -3440,7 +3440,7 @@ app.post('/updateSection', async (req, res) => {
       currentUser,
       currentEmpID,
       companyName,
-      accessibleReport,
+      emp_ChartAccess: accessibleReport,
       emp_Status,
     });
   } catch (err) {
