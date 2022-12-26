@@ -97,7 +97,7 @@ body {
   background-color: #075154;
 }
 #AdminLogDiv, #DataEntryDiv,#AdministrationDiv,
-#DashboardDiv,#UserProfileDiv{
+#DashboardDiv,#UserProfileDiv ,#UpdateSectionDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;

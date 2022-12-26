@@ -100,7 +100,8 @@ body {
 #AdministrationDiv,
 #AdminLogDiv,
 #DashboardDiv,
-#DataEntryDiv {
+#DataEntryDiv,
+#UpdateSectionDiv {
   display: inline-block;
   width: 100%;
   cursor: pointer;

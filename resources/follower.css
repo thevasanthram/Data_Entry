@@ -126,7 +126,7 @@ input[type='number'] {
   cursor: pointer;
   background-color: #075154;
 }
-
+#UpdateSectionDiv,
 #ReportGenerationDiv,
 #AdministrationDiv,
 #AdminLogDiv,
