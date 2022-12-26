@@ -63,16 +63,16 @@
             <div id="user_Profile" class="category">User Profile</div>
         </div>
         <div id="DataEntryDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)">
-          <div id="dataEntry" class="category"> Data Entry</div>
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)">
+            <div id="dataEntry" class="category"> Data Entry</div>
         </div>
         <div id="ReportGenerationDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)">
-          <div id="reportGeneration" class="category">Report Generation </div>
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)">
+            <div id="reportGeneration" class="category">Report Generation </div>
         </div>
         <div id="AdministrationDiv"
             onmouseover="onmouseoverBGColor(event)"
@@ -82,24 +82,24 @@
             <div id="administration" class="category">Administration</div>
         </div>
         <div id="AdminLogDiv"
-        onmouseover="onmouseoverBGColor(event)"
-        onmouseout="onmouseoutBGColor(event)"
-        onclick="handleFormSubmit(event)"
-        >
-          <div id="adminLog" class="category">Admin Logs</div>
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)"
+          >
+            <div id="adminLog" class="category">Admin Logs</div>
         </div>
         <div id="DashboardDiv"
-          onmouseover="onmouseoverBGColor(event)"
-          onmouseout="onmouseoutBGColor(event)"
-          onclick="handleFormSubmit(event)"
-        >
-          <div id="activityLog" class="category">Dashboard</div>
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)"
+          >
+            <div id="activityLog" class="category">Dashboard</div>
         </div>
         <div id="UpdateSectionDiv"
             onmouseover="onmouseoverBGColor(event)"
             onmouseout="onmouseoutBGColor(event)"
             onclick="handleFormSubmit(event)"
-        >
+          >
             <div id="update" class="category">Update Section</div>
         </div>
       </div>
@@ -540,6 +540,27 @@
         />
         <input type="hidden" class="token" name="token" value="" />
       </form>
+      <form action="/updateSection" method="post" id="update_Section">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
+        <input type="hidden" class="token" name="token" value="" />
+      </form>
     </div>
     <script>
 
@@ -589,6 +610,14 @@
           } else {
             document.getElementById(
               'reportGenerationDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'update') {
+          if (empStatus == 'admin') {
+            document.getElementById('update_Section').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
             ).style.visibility = 'visible';
           }
         } else if (event.target.id == 'dataEntry') {
