@@ -130,7 +130,7 @@
         <input type="hidden" name="token" id="token" />
       </form>
       <form action="/adminPortal" id="adminPortalForm" method="post">
-        <input type="hidden" name="token" id="token" />
+        <input type="hidden" name="token" id="Admintoken" />
       </form>
       <form
         action="/forgotPassword"
@@ -176,6 +176,8 @@
 
           if (data.userStatus == 'Administrator') {
             document.getElementById('token').value =
+              localStorage.getItem('token');
+            document.getElementById('Admintoken').value =
               localStorage.getItem('token');
             document.getElementById('adminPortalForm').submit();
           } else {

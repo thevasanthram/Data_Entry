@@ -1002,6 +1002,7 @@ app.post('/login', async (req, res) => {
         JSON.stringify({
           userStatus: 'Administrator',
           validation: 'success',
+          token: token,
         })
       );
     } else {
