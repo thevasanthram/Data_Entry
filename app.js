@@ -3415,7 +3415,7 @@ app.post('/checkout', async (req, res) => {
   }
 });
 
-app.post('/updateSection', async (req, res) => {
+app.post('/updateSection', authenticateToken, async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
