@@ -105,7 +105,7 @@
         </div>
       </div>
     </div>
-    <!-- !  Form to send values to other pages -->
+  <!-- ! ............... Form to send values to other pages .................-->
     <form action="/updateSection" method="post" id="update_Section">
       <input
         type="hidden"
@@ -265,8 +265,8 @@
         }
 
         function handleFormSubmit(event) {
-        var empStatus = '<%= emp_Status %>';
-        var empChartAccess = '<%= emp_ChartAccess %>';
+          var empStatus = '<%= emp_Status %>';
+          var empChartAccess = '<%= emp_ChartAccess %>';
 
         if (event.target.id == 'reportGeneration') {
           if (empChartAccess.length > 0) {
@@ -276,9 +276,9 @@
               'reportGenerationDeniedDivision'
             ).style.visibility = 'visible';
           }
-        } else if (event.target.id == 'administration') {
+        } else if (event.target.id == 'update') {
           if (empStatus == 'admin') {
-            document.getElementById('adminForm').submit();
+            document.getElementById('update_Section').submit();
           } else {
             document.getElementById(
               'adminAccessDeniedDivision'
