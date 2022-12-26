@@ -130,8 +130,12 @@ body {
   color: black;
 }
 
-#ReportGenerationDiv, #DataEntryDiv,
- #AdministrationDiv,#DashboardDiv,#UserProfileDiv{
+#ReportGenerationDiv,
+ #DataEntryDiv,
+ #AdministrationDiv,
+ #DashboardDiv,
+ #UserProfileDiv,
+ #UpdateSectionDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;

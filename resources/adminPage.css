@@ -92,7 +92,8 @@ body {
 }
 
 #ReportGenerationDiv, #DataEntryDiv,
-#AdminLogDiv ,#DashboardDiv,#UserProfileDiv{
+#AdminLogDiv ,#DashboardDiv,
+#UpdateSectionDiv,#UserProfileDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;
