@@ -3415,6 +3415,22 @@ app.post('/checkout', async (req, res) => {
   }
 });
 
+app.post('/updateSection', (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
+
+    res.render(path.join(__dirname, '/views/updateSection.ejs'), {
+      currentUser,
+      currentEmpID,
+      companyName,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.get('/logout', (req, res) => {
   try {
     res.redirect('/');
