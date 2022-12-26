@@ -264,6 +264,27 @@
         />
         <input type="hidden" class="token" name="token" value="" />
       </form>
+      <form action="/updateSection" method="post" id="update_Section">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
+        <input type="hidden" class="token" name="token" value="" />
+      </form>
         <div id="container" style="display: none; position: sticky; top: 70px; z-index: 2;" >
           <div class="filtering-condition-content" >
             <div class="filtering-condition-form" >

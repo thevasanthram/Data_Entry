@@ -221,6 +221,27 @@
         />
         <input type="hidden" class="token" name="token" value="" />
       </form>
+      <form action="/updateSection" method="post" id="update_Section">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
+        <input type="hidden" class="token" name="token" value="" />
+      </form>
       <!-- <form action="/" method="get" id="homeForm"></form> -->
 
       <div class="form-content">
@@ -376,6 +397,15 @@
           } else {
             document.getElementById(
               'reportGenerationDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        }
+        else if (event.target.id == 'update') {
+          if (empStatus == 'admin') {
+            document.getElementById('update_Section').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
             ).style.visibility = 'visible';
           }
         } else if (event.target.id == 'administration') {

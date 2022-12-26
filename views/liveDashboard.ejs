@@ -216,6 +216,27 @@
         />
         <input type="hidden" class="token" name="token" value="" />
       </form>
+      <form action="/updateSection" method="post" id="update_Section">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
+        <input type="hidden" class="token" name="token" value="" />
+      </form>
     </div>
     <div class="mainBody">
       <div class="liveIcon">
@@ -486,7 +507,15 @@
 
       if (event.target.id == 'dataEntry') {
         document.getElementById('followerForm').submit();
-      } else if (event.target.id == 'administration') {
+      } else if (event.target.id == 'update') {
+          if (empStatus == 'admin') {
+            document.getElementById('update_Section').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'administration') {
         if (empStatus == 'admin') {
           document.getElementById('adminForm').submit();
         } else {
