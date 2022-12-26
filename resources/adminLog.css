@@ -45,7 +45,7 @@ body {
   line-height: initial;
   text-align: center;
   font-weight: 500;
-  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
 }
 .heading {
   padding-left: 1%;
@@ -259,7 +259,7 @@ tbody tr:hover {
 /* !...........................Media query Responsive Style....................... */
 @media screen and (max-width: 1280px) {
   #navBarDivision {
-    position: absolute;
+    position: fixed;
     display: none;
     width: 25%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -281,7 +281,7 @@ tbody tr:hover {
 }
 @media screen and (max-width: 1024px) {
   #navBarDivision {
-    position: absolute;
+    position: fixed;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -331,12 +331,12 @@ tbody tr:hover {
     margin-right: 5%;
     line-height: initial;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
     text-align: center;
   }
 
   #navBarDivision {
-    position: absolute;
+    position: fixed;
     display: none;
     width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -437,7 +437,7 @@ tbody tr:hover {
     color: #00adb5;
     margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
   }
   #btn {
     width: auto;
@@ -459,7 +459,6 @@ tbody tr:hover {
     font-size: 11px;
   }
   #navBarDivision {
-    position: absolute;
     display: none;
     width: 50%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

@@ -10476,6 +10476,7 @@ input[type='number'] {
     animation-name: side_bar;
     animation-duration: 0.7s;
   }
+
   @keyframes side_bar {
     0% {
       width: 0%;
@@ -10541,13 +10542,13 @@ input[type='number'] {
 
 /* !....................... Media Screen (1024)............................*/
 
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1024px) {
   #navBarDivision {
     position: absolute;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 100%;
+    height: 90%;
     /* background-color: #00adb5; */
   }
   .category {
@@ -10717,19 +10718,11 @@ input[type='number'] {
     position: absolute;
   }
 
-  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM855:hover {
-    /* background-color: rgba(135, 207, 235, 0.563); */
-  }
-
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM856 {
     margin-top: 20%;
     margin-left: 72%;
     padding: 1rem 2rem 1rem 2rem;
     position: absolute;
-  }
-
-  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM856:hover {
-    /* background-color: rgba(135, 207, 235, 0.563); */
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM857 {
@@ -10740,20 +10733,12 @@ input[type='number'] {
     position: absolute;
   }
 
-  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM857:hover {
-    /* background-color: rgba(135, 207, 235, 0.563); */
-  }
-
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM858 {
     margin-top: 13%;
     width: 15%;
     margin-left: 66%;
     padding: 1rem 3rem 1rem 2rem;
     position: absolute;
-  }
-
-  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM858:hover {
-    /* background-color: rgba(135, 207, 235, 0.563); */
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM859 {
@@ -10764,19 +10749,11 @@ input[type='number'] {
     position: absolute;
   }
 
-  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM859:hover {
-    /* background-color: rgba(135, 207, 235, 0.563); */
-  }
-
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM860 {
     margin-top: 5.5%;
     margin-left: 72%;
     padding: 1rem 3rem 1rem 2rem;
     position: absolute;
-  }
-
-  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM860:hover {
-    /* background-color: rgba(135, 207, 235, 0.563); */
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM861 {
@@ -10787,10 +10764,6 @@ input[type='number'] {
     position: absolute;
   }
 
-  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM861:hover {
-    /* background-color: rgba(135, 207, 235, 0.563); */
-  }
-
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM862 {
     margin-top: -0.5%;
     width: 15%;
@@ -10799,19 +10772,11 @@ input[type='number'] {
     position: absolute;
   }
 
-  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM862:hover {
-    /* background-color: rgba(135, 207, 235, 0.563); */
-  }
-
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM863 {
     margin-top: -1%;
     margin-left: 61%;
     padding: 1rem 3rem 1rem 1rem;
     position: absolute;
-  }
-
-  .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM863:hover {
-    /* background-color: rgba(135, 207, 235, 0.563); */
   }
 
   .RH_SIDE_MEMBER_BACKDOOROPENING-RHSM864 {
@@ -11145,12 +11110,10 @@ input[type='number'] {
     color: #00adb5;
     margin-right: 5%;
     line-height: initial;
-    font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
-    text-align: center;
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
   }
   #navBarDivision {
-    position: absolute;
+    position: fixed;
     display: none;
     width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -11904,11 +11867,9 @@ input[type='number'] {
     width: 100%;
   }
   .admin {
-    color: #00adb5;
     margin-right: 4%;
     padding: 3%;
-    font-weight: 500;
-    font-size: clamp(1.1rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
   }
   .card-title-name {
     position: relative;
@@ -11992,11 +11953,8 @@ input[type='number'] {
     line-height: 28px;
   }
   .admin {
-    color: #00adb5;
     margin-right: 0%;
-    font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
-    text-align: center;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
   }
 
   .colorMapSubDefects {
@@ -12019,7 +11977,7 @@ input[type='number'] {
     font-size: 10px;
   }
   #navBarDivision {
-    position: absolute;
+    position: fixed;
     display: none;
     width: 50%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

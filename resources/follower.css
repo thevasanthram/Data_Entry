@@ -51,7 +51,7 @@ input[type='number'] {
   text-align: center;
   line-height: initial;
   font-weight: 500;
-  font-size: clamp(1.2rem, 2vw, 1.4rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
 }
 .heading {
   padding-left: 1%;
@@ -294,7 +294,7 @@ select {
 
 @media screen and (max-width: 1280px) {
   #navBarDivision {
-    position: absolute;
+    position: fixed;
     display: none;
     width: 25%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -368,7 +368,7 @@ select {
     color: #00adb5;
     margin-right: 5%;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
     text-align: center;
   }
   #navBarDivision {
@@ -529,7 +529,7 @@ select {
     color: #00adb5;
     margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     text-align: center;
   }
 

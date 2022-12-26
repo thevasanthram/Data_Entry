@@ -181,7 +181,7 @@
 
 @media screen and (max-width: 1280px) {
     #navBarDivision {
-      position: absolute;
+      position: fixed;
       display: none;
       width: 25%;
       animation-name: side_bar;
@@ -204,7 +204,7 @@
 /* !..............Media Query for 1024px width.............. */
 @media screen and (max-width: 1024px) {
     #navBarDivision {
-      position: absolute;
+      position: fixed;
       display: none;
       width: 30%;
     }
@@ -243,7 +243,7 @@
       text-align: center;
     }
     #navBarDivision {
-      position: absolute;
+      position: fixed;
       display: none;
       width: 35%;
       animation-name: side_bar;
@@ -315,7 +315,7 @@
     .heading {
       padding-left: 1%;
       font-weight: 700;
-      font-size: clamp(18px, 1vw, 1.5rem);
+      font-size: clamp(19px, 1vw, 1.5rem);
       /* width: 26px; */
     }
   
@@ -331,7 +331,7 @@
     .admin {
       margin-right: 0%;
       font-weight: 500;
-      font-size: clamp(0.8rem, 1vw, 1.3rem);
+      font-size: clamp(1rem, 1vw, 1.2rem);
     }
   
     .button-logout {
@@ -340,7 +340,6 @@
       font-size: 11px;
     }
     #navBarDivision {
-      position: absolute;
       display: none;
       width: 50%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

@@ -42,7 +42,7 @@ body {
   text-align: center;
   line-height: initial;
   font-weight: 500;
-  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
 }
 .heading {
   padding-left: 1%;
@@ -136,6 +136,25 @@ input:checked ~ .dot {
 }
 /* !CSS for REsponsive Design */
 
+@media screen and (max-width: 768px) {
+  .admin {
+    margin-right: 5%;
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  #home-icon {
+    margin-left: 1%;
+    min-width: 30px;
+    min-height: 30px;
+    margin-right: 2%;
+    min-height: 3%;
+  }
+  #go-back-icon {
+    max-width: 9.5%;
+  }
+}
 @media screen and (max-width: 480px) {
   * {
     box-sizing: border-box;
@@ -175,11 +194,8 @@ input:checked ~ .dot {
     line-height: 28px;
   }
   .admin {
-    color: #00adb5;
     margin-right: 0%;
-    font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
-    text-align: center;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
   }
 
   .button-logout {
@@ -243,29 +259,6 @@ input:checked ~ .dot {
   }
   .form-conten:hover {
     transform: scale(0.98);
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .admin {
-    color: #00adb5;
-    margin-right: 5%;
-    font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
-    text-align: center;
-  }
-}
-
-@media screen and (max-width: 1025px) {
-  #home-icon {
-    margin-left: 1%;
-    min-width: 30px;
-    min-height: 30px;
-    margin-right: 2%;
-    min-height: 3%;
-  }
-  #go-back-icon {
-    max-width: 9.5%;
   }
 }
 

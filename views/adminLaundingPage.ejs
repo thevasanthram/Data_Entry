@@ -467,6 +467,14 @@
               'adminAccessDeniedDivision'
             ).style.visibility = 'visible';
           }
+        }else if (event.target.id == 'update') {
+          if (empStatus == 'admin') {
+            document.getElementById('update_Section').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
         } else if (event.target.id == 'adminLog') {
           if (empStatus == 'admin') {
             document.getElementById('adminLogForm').submit();

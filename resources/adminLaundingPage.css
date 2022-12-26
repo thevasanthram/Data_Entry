@@ -174,7 +174,7 @@ input:checked ~ .dot {
   line-height: initial;
   text-align: center;
   font-weight: 500;
-  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
 }
 
 .heading {
