@@ -255,9 +255,9 @@ td {
 #removeUserInput {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   justify-content: space-evenly;
-  width: 60%;
+  width: 85%;
 }
 #selectUserID {
   padding: 1%;
