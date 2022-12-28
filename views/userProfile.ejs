@@ -202,33 +202,35 @@
                 <img alt="user photo" src="./icons/user-picture.png" />
               </div>
               <div class="title__contain">
-                <div class="username text-gray-800 font-bold">
+                <div class="username text-gray-900 font-bold">
                   <%= currentUser %>
                 </div>
-                <div class="title text-gray-600" style="text-align: center">
+                <div class="title text-gray-800" style="text-align: center">
                   <%= employeeDetail.status %>
                 </div>
               </div>
               <div class="user_access_section">
                 <div class="user_details">
                   <div style="display: flex; width: 100%">
-                    <div class="user_details_title text-gray-800 font-bold">
+                    <div class="user_details_title text-gray-900 font-bold">
                       User Details :
                     </div>
                   </div>
                   <div class="details_container">
-                    <div class="text-gray-600">
+                    <div class="text-gray-800">
                       Emp ID : <b><%= employeeDetail.id %></b>
                     </div>
-                    <div class="text-gray-600">
+                    <div class="text-gray-800">
                       Email : <b><%= employeeDetail.email %></b>
                     </div>
-                    <div class="text-gray-600">
+                    <div class="text-gray-800">
                       Added By : <b><%= employeeDetail.created_by %></b>
                     </div>
-                    <i onclick="(() => document.getElementById('password_container').style.visibility = 'visible')()">
-                      <b class="password_section text-blue-800 cursor-pointer">change your password</b>
-                    </i>
+                    <span>
+                      <i onclick="(() => document.getElementById('password_container').style.visibility = 'visible')()">
+                        <b class="password_section text-blue-800 cursor-pointer">change your password</b>
+                     </i>
+                    </span>
                   </div>
                 </div>
                 <div class="payment_container">
@@ -284,12 +286,12 @@
       <!-- ! ............ Update password Popup  .............-->
       <div id="password_container" >
         <!-- <div class="main"> -->
-          <section class=" main bg-gray-300 dark:bg-gray-900">
+          <section class=" main bg-gray-600 dark:bg-gray-900">
             <div
               class=" password_content h-90  flex flex-col items-center justify-center px-3 py-3 mx-auto md:h-screen lg:py-0"
             >
-              <div style="background: linear-gradient(to right,#374f66, #358a97)"
-                class="bg-blue-600 w-full p-2  rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-3"
+              <div 
+                class="bg-blue-900 w-full p-2  rounded-lg shadow dark:border md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700 sm:p-3"
               >
                 <h2
                   class="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-100 md:text-2xl dark:text-white"

@@ -41,7 +41,7 @@ body {
 .heading {
   padding-left: 1%;
   font-weight: 700;
-  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-size: clamp(20px, 2.5vw, 2rem);
 }
 .button-logout {
   display: flex;

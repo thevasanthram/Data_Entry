@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:16-alpine
 
 WORKDIR /app
 
@@ -11,6 +11,6 @@ RUN npm i -g nodemon
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 2000
 
-RUN node app.js
+CMD nodemon app.js
