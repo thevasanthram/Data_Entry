@@ -67,7 +67,7 @@
           <p id="title-name">Select Category :</p>
         </div>
         <!-- Toggle Switch for online / offline -->
-        <div id="toggle" class="mt-10 ml-24">
+        <div id="toggle" class="mt-10 ml-8">
           <div class="flex w-full mb-12">
             <label
               id="label_switch"
@@ -108,6 +108,24 @@
           <%= bodyNumberOptions[i]%>
         </button>
         <%}%>
+      </div>
+      <div class="update_container">
+        <div class="card">
+          <h2 class="update_title">UPDATE SECTION</h2>
+          <div class="update_options_container">
+            <div class="select">
+              <select name="category" id="category" > 
+                <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
+                  <option class="category_options"
+                    id="category_option_<%= i+1 %>"
+                    value="<%= bodyNumberOptions[i]%>">
+                    <%= bodyNumberOptions[i]%>
+                  </option>
+                  <%}%>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
       <form action="/follower" id="followerForm" method="post">
         <input
