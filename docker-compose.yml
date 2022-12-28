@@ -1,13 +1,20 @@
+version: '3.7'
+
 services:
-  db: 
-    image: postgres
+  node_app:
+    image: data-entry-system:latest
     ports:
-        - 8000:5432
-    volumes:
-        - pgdata:/var/lib/postgresql/data
+      - "2000:2000"
+    depends_on:
+      - postgres_sql
+    
+  postgres_sql:
+    image: postgres:11.2-alpine
+    restart: always
+    container_name: postgres_sql
+    ports:
+      - "5432:5432"
     environment:
-     - POSTGRES_USER=postgres
-     - POSTGRES_PASSWORD=admin
-     - POSTGRES_DB=data-entry-systems
-volumes:
-    pgdata:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=data_entry_systems

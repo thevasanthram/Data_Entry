@@ -36,7 +36,7 @@ pool.query(
           } else {
             let dbConnectedPool = new Pool({
               user: 'postgres',
-              host: 'localhost',
+              host: 'postgres',
               database: 'data_entry_systems',
               password: 'admin',
               port: 5432,
@@ -3389,7 +3389,7 @@ app.get('/logout', (req, res) => {
   }
 });
 
-app.listen(8000, () => {
+app.listen(2000, () => {
   console.log(
     'Data Entry tool running on port 8000. Go to Browser and search for localhost:8000 to open.'
   );
