@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <form action="/" method="get" id="homeForm"></form>
+    <script>
+      (function tokenValidate() {
+        console.log('tokenValidating');
+        if (localStorage.getItem('token') == null) {
+          console.log('invalid');
+          document.getElementById('homeForm').submit();
+        } else {
+          console.log('valid');
+        }
+      })();
+    </script>
 
     <link rel="stylesheet" href="./adminLaundingPage.css">
     <link rel="stylesheet" href="./adminLandingPage2.css">
@@ -37,6 +49,7 @@
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js" > </script>
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js" > </script>
 
+
   </head>
   <body >
       <div id="data_entry" >
@@ -51,15 +64,18 @@
             />
             <div class="heading">Data Entry System</div>
           </div>
-            <form id="btn" action="/logout" method="get">
-                <div class="admin" id="user-mode-name"><%= currentUser %></div>
-                <button type="submit"
-                style="background: linear-gradient(
-                  to right, #0f0c29, #302b63, #24243e
-                );"
-                class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
-                    LOGOUT
-                </button>
+            <form id="btn" action="/logout" method="get" class="logoutButton">
+              <div class="admin" id="user-mode-name"><%= currentUser %></div>
+              <button
+                type="button"
+                onclick="logout()"
+                style="
+                  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+                "
+                class="button-logout bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+              >
+                LOGOUT
+              </button>
             </form>
         </div>
 
@@ -108,6 +124,13 @@
           >
             <div id="activityLog" class="category">Dashboard</div>
           </div>
+          <div id="UpdateSectionDiv"
+                onmouseover="onmouseoverBGColor(event)"
+                onmouseout="onmouseoutBGColor(event)"
+                onclick="handleFormSubmit(event)"
+            >
+                <div id="update" class="category">Update Section</div>
+            </div>
         </div>
 
       <div id="adminAccessDeniedDivision">
@@ -155,6 +178,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/follower" id="followerForm" method="post">
         <input
@@ -175,6 +199,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/admin" id="adminForm" method="post">
         <input
@@ -195,6 +220,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/adminLog" method="post" id="adminLogForm">
         <input
@@ -215,6 +241,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/dashboard" method="post" id="dashboardForm">
         <input
@@ -235,6 +262,28 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
+      </form>
+      <form action="/updateSection" method="post" id="update_Section">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
         <div id="container" style="display: none; position: sticky; top: 70px; z-index: 2;" >
           <div class="filtering-condition-content" >
@@ -365,6 +414,14 @@
 
     <script>
 
+      console.log('token: ', localStorage.getItem('token'));
+
+      const tokenElements = document.getElementsByClassName('token');
+
+      Object.values(tokenElements).map((tokenElement) => {
+        tokenElement.value = localStorage.getItem('token');
+      });
+
       // by default, mode will be online
       document.getElementById('toggle_switch_outside').checked = true
       document.getElementById('toggle_switch').checked = true
@@ -405,6 +462,14 @@
         } else if (event.target.id == 'administration') {
           if (empStatus == 'admin') {
             document.getElementById('adminForm').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        }else if (event.target.id == 'update') {
+          if (empStatus == 'admin') {
+            document.getElementById('update_Section').submit();
           } else {
             document.getElementById(
               'adminAccessDeniedDivision'
@@ -3253,5 +3318,12 @@
         console.log("PDF generated")
    }
 
+      function logout() {
+        localStorage.removeItem('token');
+        Object.values(tokenElements).map((tokenElement) => {
+          tokenElement.value = '';
+        });
+        document.getElementsByClassName('logoutButton')[0].submit();
+      }
     </script>
 </html>

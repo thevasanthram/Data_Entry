@@ -31,7 +31,7 @@ body {
   text-align: center;
   line-height: initial;
   font-weight: 500;
-  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
 }
 
 .heading {
@@ -241,7 +241,7 @@ td {
     margin-right: 5%;
     text-align: center;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
   }
 
   #navBarDivision {
@@ -287,5 +287,27 @@ td {
   #submitButton {
     width: 100%;
     margin-top: 2%;
+  }
+  #btn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    line-height: 28px;
+    right: 2%;
+  }
+  .admin {
+    color: #00adb5;
+    margin-right: 0%;
+    font-weight: 500;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    text-align: center;
+  }
+
+  .button-logout {
+    width: 70px;
+    height: 30px;
+    font-size: 11px;
   }
 }

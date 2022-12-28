@@ -4,7 +4,10 @@ const path = require('path');
 const Pool = require('pg').Pool;
 const uniqId = require('uniqid');
 const Razorpay = require('razorpay');
-const { json } = require('body-parser');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
@@ -959,19 +962,20 @@ const Options = {
 
 app.get('/', (req, res) => {
   try {
+    console.log('home ');
     res.render(path.join(__dirname, '/views/home.ejs'));
   } catch (err) {
     console.log(err);
   }
 });
 
-app.get("/checkout", (req, res) => {
+app.get('/checkout', (req, res) => {
   try {
     res.render(path.join(__dirname, '/views/checkout.ejs'));
   } catch (error) {
     console.log(error);
   }
-})
+});
 
 app.post('/login', async (req, res) => {
   try {
@@ -987,10 +991,18 @@ app.post('/login', async (req, res) => {
     });
 
     if (username == 'Administrator' && password == 'admin@123') {
+      const token = jwt.sign(
+        { id: 'Administrator' },
+        process.env.TOKEN_SECRET,
+        {
+          expiresIn: '1d',
+        }
+      );
       res.send(
         JSON.stringify({
           userStatus: 'Administrator',
           validation: 'success',
+          token: token,
         })
       );
     } else {
@@ -998,6 +1010,13 @@ app.post('/login', async (req, res) => {
         `SELECT * FROM employee_table WHERE name='${username}' AND password='${password}'`
       );
       if (employeeResponse.rows.length > 0) {
+        const token = jwt.sign(
+          { id: employeeResponse.rows[0].id },
+          process.env.TOKEN_SECRET,
+          {
+            expiresIn: '1d',
+          }
+        );
         res.send(
           JSON.stringify({
             userStatus: 'Employee',
@@ -1005,6 +1024,7 @@ app.post('/login', async (req, res) => {
             username: req.body.username,
             emp_ID: employeeResponse.rows[0].id,
             companyName: employeeResponse.rows[0].company,
+            token: token,
           })
         );
       } else {
@@ -1020,6 +1040,20 @@ app.post('/login', async (req, res) => {
     console.log(err);
   }
 });
+
+function authenticateToken(req, res, next) {
+  const token = req.body.token;
+
+  console.log('token: ', req.body);
+
+  if (token == '' || token == null) {
+    console.log('un authenticated');
+    res.redirect('/');
+  } else {
+    console.log('authenticated');
+    next();
+  }
+}
 
 app.get('/forgotPassword', (req, res) => {
   try {
@@ -1093,7 +1127,7 @@ app.post('/resetPassword', async (req, res) => {
   }
 });
 
-app.post('/adminPortal', async (req, res) => {
+app.post('/adminPortal', authenticateToken, async (req, res) => {
   try {
     let dbConnectedPool = new Pool({
       user: 'postgres',
@@ -1180,7 +1214,7 @@ app.post('/createCompany', async (req, res) => {
   }
 });
 
-app.post('/addUser', (req, res) => {
+app.post('/addUser', authenticateToken, (req, res) => {
   try {
     const firstUser = req.body.firstUser;
 
@@ -1330,7 +1364,7 @@ app.post('/newUser', async (req, res) => {
   }
 });
 
-app.post('/follower', async (req, res) => {
+app.post('/follower', authenticateToken, async (req, res) => {
   try {
     console.log('follower');
 
@@ -1540,7 +1574,7 @@ app.post('/passcar', (req, res) => {
   }
 });
 
-app.post('/firstlayer', (req, res) => {
+app.post('/firstlayer', authenticateToken, (req, res) => {
   try {
     console.log('first layer');
     const currentUser = req.body.currentUser;
@@ -1568,7 +1602,7 @@ app.post('/firstlayer', (req, res) => {
   }
 });
 
-app.post('/secondlayer', (req, res) => {
+app.post('/secondlayer', authenticateToken, (req, res) => {
   try {
     console.log('second layer');
 
@@ -1604,7 +1638,7 @@ app.post('/secondlayer', (req, res) => {
   }
 });
 
-app.post('/thirdlayer', (req, res) => {
+app.post('/thirdlayer', authenticateToken, (req, res) => {
   try {
     console.log('third layer');
 
@@ -2724,7 +2758,7 @@ app.post('/individualSummaryReport', async (req, res) => {
   }
 });
 
-app.post('/admin', async (req, res) => {
+app.post('/admin', authenticateToken, async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
@@ -2872,7 +2906,7 @@ app.post('/updateEmpChartAccess', async (req, res) => {
   }
 });
 
-app.post('/adminLog', async (req, res) => {
+app.post('/adminLog', authenticateToken, async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
@@ -2910,7 +2944,7 @@ app.post('/adminLog', async (req, res) => {
   }
 });
 
-app.post('/dashboard', async (req, res) => {
+app.post('/dashboard', authenticateToken, async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
@@ -3218,7 +3252,7 @@ app.post('/selectPack', (req, res) => {
   }
 });
 
-app.post('/profile', async (req, res) => {
+app.post('/profile', authenticateToken, async (req, res) => {
   try {
     const currentUser = req.body.currentUser;
     const currentEmpID = req.body.currentEmpID;
@@ -3376,6 +3410,39 @@ app.post('/checkout', async (req, res) => {
     console.log('Added data');
     console.log('Request Generated');
     res.render('final_checkout');
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/updateSection', authenticateToken, async (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const response = await dbConnectedPool.query(
+      `SELECT * FROM employee_table WHERE id=${currentEmpID};`
+    );
+
+    const accessibleReport = response.rows[0].accessible_charts;
+    const emp_Status = response.rows[0].status;
+
+    res.render(path.join(__dirname, '/views/updateSection.ejs'), {
+      currentUser,
+      currentEmpID,
+      companyName,
+      emp_ChartAccess: accessibleReport,
+      emp_Status,
+    });
   } catch (err) {
     console.log(err);
   }

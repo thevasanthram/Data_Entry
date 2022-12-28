@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="adminPortal.css" />
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
+    <form action="/" method="get" id="homeForm"></form>
+    <script>
+      (function tokenValidate() {
+        console.log('tokenValidating');
+        if (localStorage.getItem('token') == null) {
+          console.log('invalid');
+          document.getElementById('homeForm').submit();
+        } else {
+          console.log('valid');
+        }
+      })();
+    </script>
 
     <link
       href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
@@ -20,10 +32,11 @@
         <div style="display: flex; width: 50%;">
           <div class="heading">Data Entry System</div>
         </div>
-        <form id="btn" action="/logout" method="get">
+        <form id="btn" action="/logout" method="get" class="logoutButton">
           <div class="admin" id="user-mode-name">Administrator</div>
           <button
-            type="submit"
+            type="button"
+            onclick="logout()"
             style="
               background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
             "
@@ -102,10 +115,10 @@
         </div>
       </div>
 
-      <div id="createCompanySuccessDivision" style="border-radius: 12px;" >
-        <div class="createCompanySuccessModalContent" style="display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 15px;">
-          <div id="createCompanySuccessContentHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-            <p id="createCompanySuccessMessage"></p>
+      <div id="createCompanySuccessDivision" style="border-radius: 10px;" >
+        <div class="createCompanySuccessModalContent" style="display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 10px;">
+          <div id="createCompanySuccessContentHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;">
+            <p id="createCompanySuccessMessage" style="font-size: larger; font-weight: 500;" ></p>
             <button class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg 
             text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2" onclick="(()=> document.getElementById('adminPortalForm').submit())()">OK</button>
           </div>
@@ -160,6 +173,12 @@
           document.getElementById('createCompanySuccessMessage').innerHTML = 'Error creating company. Try Again!'
           document.getElementById('createCompanySuccessDivision').style.visibility = 'visible'
         }
+      }
+
+      function logout() {
+        console.log('logging out')
+        localStorage.removeItem('token');
+        document.getElementsByClassName('logoutButton')[0].submit();
       }
     </script>
   </body>

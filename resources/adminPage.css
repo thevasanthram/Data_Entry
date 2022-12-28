@@ -28,7 +28,7 @@ body {
   text-align: center;
   line-height: initial;
   font-weight: 500;
-  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
 }
 
 .heading {
@@ -92,7 +92,8 @@ body {
 }
 
 #ReportGenerationDiv, #DataEntryDiv,
-#AdminLogDiv ,#DashboardDiv,#UserProfileDiv{
+#AdminLogDiv ,#DashboardDiv,
+#UpdateSectionDiv,#UserProfileDiv{
   display: inline-block;
   width: 100%;
   cursor: pointer;
@@ -254,9 +255,9 @@ td {
 #removeUserInput {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1rem;
   justify-content: space-evenly;
-  width: 60%;
+  width: 85%;
 }
 #selectUserID {
   padding: 1%;
@@ -551,7 +552,7 @@ td {
 }
 @media screen and (max-width: 1024px) {
   #navBarDivision {
-    position: absolute;
+    position: fixed;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -611,11 +612,11 @@ td {
     margin-right: 5%;
     text-align: center;
     font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
   }
 
   #navBarDivision {
-    position: absolute;
+    position: fixed;
     display: none;
     width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -717,7 +718,7 @@ td {
     color: #00adb5;
     margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     text-align: center;
   }
   #btn {
@@ -740,7 +741,6 @@ td {
     font-size: 11px;
   }
   #navBarDivision {
-    position: absolute;
     display: none;
     width: 50%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

@@ -254,7 +254,7 @@ body {
   }
 
   #navBarDivision {
-    position: absolute;
+    position: fixed;
     display: none;
     width: 30%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -305,14 +305,10 @@ body {
 
 @media screen and (max-width: 780px) {
   .admin {
-    color: #00adb5;
     margin-right: 5%;
-    font-weight: 500;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
-    text-align: center;
+    font-size: clamp(1.2rem, 2vw, 1.4rem);
   }
   #navBarDivision {
-    position: absolute;
     display: none;
     width: 35%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -416,11 +412,8 @@ body {
     right: 2%;
   }
   .admin {
-    color: #00adb5;
     margin-right: 0%;
-    font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
-    text-align: center;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
   }
 
   .button-logout {
@@ -433,10 +426,8 @@ body {
     font-size: 11px;
   }
   #navBarDivision {
-    position: absolute;
     display: none;
     width: 50%;
-    min-height: 138vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #4ca1af;
   }

@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <form action="/" method="get" id="homeForm"></form>
+    <script>
+      (function tokenValidate() {
+        console.log('tokenValidating');
+        if (localStorage.getItem('token') == null) {
+          console.log('invalid');
+          document.getElementById('homeForm').submit();
+        } else {
+          console.log('valid');
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="./liveDashboard.css" />
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
 
@@ -27,10 +39,11 @@
           />
           <div class="heading">Data Entry System</div>
         </div>
-        <form id="btn" action="/logout" method="get">
+        <form id="btn" action="/logout" method="get" class="logoutButton">
           <div class="admin" id="user-mode-name"><%= currentUser %></div>
           <button
-            type="submit"
+            type="button"
+            onclick="logout()"
             style="
               background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
             "
@@ -89,6 +102,13 @@
         >
           <div id="activityLog" class="category">Dashboard</div>
         </div>
+        <div id="UpdateSectionDiv"
+            onmouseover="onmouseoverBGColor(event)"
+            onmouseout="onmouseoutBGColor(event)"
+            onclick="handleFormSubmit(event)"
+        >
+            <div id="update" class="category">Update Section</div>
+        </div>
       </div>
 
       <form action="/profile" method="post" id="userProfileForm">
@@ -110,6 +130,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/follower" id="followerForm" method="post">
         <input
@@ -130,6 +151,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/filter" method="post" id="filterFrom">
         <input
@@ -150,6 +172,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/admin" method="post" id="adminForm">
         <input
@@ -170,6 +193,7 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
       <form action="/adminLog" method="post" id="adminLogForm">
         <input
@@ -190,6 +214,28 @@
           name="companyName"
           value="<%= companyName %>"
         />
+        <input type="hidden" class="token" name="token" value="" />
+      </form>
+      <form action="/updateSection" method="post" id="update_Section">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
+        <input type="hidden" class="token" name="token" value="" />
       </form>
     </div>
     <div class="mainBody">
@@ -419,6 +465,14 @@
     <div id="notificationContainer"></div>
   </body>
   <script>
+    console.log('token: ', localStorage.getItem('token'));
+
+    const tokenElements = document.getElementsByClassName('token');
+
+    Object.values(tokenElements).map((tokenElement) => {
+      tokenElement.value = localStorage.getItem('token');
+    });
+
     document.addEventListener('click', hideAndSeek);
 
     function hideAndSeek(event) {
@@ -453,7 +507,15 @@
 
       if (event.target.id == 'dataEntry') {
         document.getElementById('followerForm').submit();
-      } else if (event.target.id == 'administration') {
+      } else if (event.target.id == 'update') {
+          if (empStatus == 'admin') {
+            document.getElementById('update_Section').submit();
+          } else {
+            document.getElementById(
+              'adminAccessDeniedDivision'
+            ).style.visibility = 'visible';
+          }
+        } else if (event.target.id == 'administration') {
         if (empStatus == 'admin') {
           document.getElementById('adminForm').submit();
         } else {
@@ -695,6 +757,14 @@
         notificationContent.innerHTML = `${notification['username']} saved ${notification['defectcount']} defects in ${notification['body_number']}`;
         notificationDiv.appendChild(notificationContent);
       });
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      Object.values(tokenElements).map((tokenElement) => {
+        tokenElement.value = '';
+      });
+      document.getElementsByClassName('logoutButton')[0].submit();
     }
   </script>
 </html>

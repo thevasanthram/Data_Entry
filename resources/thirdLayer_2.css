@@ -299,16 +299,16 @@
   }
 }
 
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 768px) {
   .admin {
     color: #00adb5;
     margin-right: 3%;
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 2vw, 1.4rem);
     text-align: center;
   }
   #home-icon {
-    margin-left: 10%;
+    margin-left: 2%;
     min-width: 30px;
     min-height: 30px;
     margin-right: 2%;
@@ -606,7 +606,7 @@
     color: #00adb5;
     margin-right: 0%;
     font-weight: 500;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
     text-align: center;
   }
   .button-logout {

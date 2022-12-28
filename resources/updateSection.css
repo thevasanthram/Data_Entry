@@ -135,12 +135,53 @@
       width: 17%;
     }
   }
+/*  !  Admin acces popup */
+
+#adminAccessDeniedDivision {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.adminAccessDeniedDivisionModalContent {
+  align-items: center;
+  background-color: #ca0b00;
+  color: #eeeeee;
+  margin: auto;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border-radius: 10px;
+  width: 40%;
+  height: 24%;
+}
+#adminAccessDeniedDivisionHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  /* top: 10%; */
+  gap: 1rem;
+  justify-content: center;
+}
 
   /*!......... CSS for Responsive Design ............ */
 
 @media screen and (max-width: 1280px) {
     #navBarDivision {
-      position: absolute;
+      position: fixed;
       display: none;
       width: 25%;
       animation-name: side_bar;
@@ -163,7 +204,7 @@
 /* !..............Media Query for 1024px width.............. */
 @media screen and (max-width: 1024px) {
     #navBarDivision {
-      position: absolute;
+      position: fixed;
       display: none;
       width: 30%;
     }
@@ -202,7 +243,7 @@
       text-align: center;
     }
     #navBarDivision {
-      position: absolute;
+      position: fixed;
       display: none;
       width: 35%;
       animation-name: side_bar;
@@ -244,6 +285,21 @@
     .photo {
       margin: 1%;
     }
+    .adminAccessDeniedDivisionModalContent {
+      margin: auto;
+      text-align: center;
+      padding: 5px;
+      width: 60%;
+      height: 20%;
+    }
+  
+    #adminAccessDeniedDivisionHolder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+    }
   }
   @media screen and (max-width: 500px) {
     .header {
@@ -259,7 +315,7 @@
     .heading {
       padding-left: 1%;
       font-weight: 700;
-      font-size: clamp(18px, 1vw, 1.5rem);
+      font-size: clamp(19px, 1vw, 1.5rem);
       /* width: 26px; */
     }
   
@@ -275,7 +331,7 @@
     .admin {
       margin-right: 0%;
       font-weight: 500;
-      font-size: clamp(0.8rem, 1vw, 1.3rem);
+      font-size: clamp(1rem, 1vw, 1.2rem);
     }
   
     .button-logout {
@@ -284,7 +340,6 @@
       font-size: 11px;
     }
     #navBarDivision {
-      position: absolute;
       display: none;
       width: 50%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -315,6 +370,22 @@
       50% {
         width: 50%;
       }
+    }
+    .adminAccessDeniedDivisionModalContent {
+      margin: auto;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding: 5px;
+      width: 60%;
+      height: 26%;
+    }
+    #adminAccessDeniedDivisionHolder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      justify-content: center;
     }
   }
   

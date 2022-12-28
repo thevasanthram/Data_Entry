@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <form action="/" method="get" id="homeForm"></form>
+    <script>
+      (function tokenValidate() {
+        console.log('tokenValidating');
+        if (localStorage.getItem('token') == null) {
+          console.log('invalid');
+          document.getElementById('homeForm').submit();
+        } else {
+          console.log('valid');
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="./thirdLayer.css" />
     <link rel="stylesheet" href="./thirdLayer_2.css" />
     <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
@@ -32,10 +44,11 @@
             selectedCategory %> | Sub-Category : <%= selectedSubCategory %>
           </p>
         </div>
-        <form id="btn" action="/logout" method="get">
+        <form id="btn" action="/logout" method="get" class="logoutButton">
           <div class="admin" id="user-mode-name"><%= currentUser %></div>
           <button
-            type="submit"
+            type="button"
+            onclick="logout()"
             style="
               background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
             "
@@ -215,6 +228,7 @@
             name="companyName"
             value="<%= companyName %>"
           />
+          <input type="hidden" class="token" name="token" value="" />
         </form>
         <form action="/firstlayer" method="post" id="firstLayerform">
           <input
@@ -247,6 +261,7 @@
             name="defectBodyNumberStatus"
             value="<%= defectBodyNumberStatus %>"
           />
+          <input type="hidden" class="token" name="token" value="" />
         </form>
         <form action="/secondlayer" method="post" id="secondLayerForm">
           <input
@@ -286,11 +301,20 @@
             value="<%= selectedCategory %>"
           />
           <input type="hidden" name="mode" id="mode" value="" />
+          <input type="hidden" class="token" name="token" value="" />
         </form>
       </div>
     </div>
 
     <script>
+      console.log('token: ', localStorage.getItem('token'));
+
+      const tokenElements = document.getElementsByClassName('token');
+
+      Object.values(tokenElements).map((tokenElement) => {
+        tokenElement.value = localStorage.getItem('token');
+      });
+
       modeDOM = document.getElementsByClassName('mode')[0];
       var mode = '<%= mode %>';
       if (mode == 'online') {
@@ -577,6 +601,14 @@
 
       function handleReset() {
         document.getElementById('defectLayerForm').reset();
+      }
+
+      function logout() {
+        localStorage.removeItem('token');
+        Object.values(tokenElements).map((tokenElement) => {
+          tokenElement.value = '';
+        });
+        document.getElementsByClassName('logoutButton')[0].submit();
       }
     </script>
   </body>
