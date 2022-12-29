@@ -7,6 +7,7 @@ const Razorpay = require('razorpay');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
+const { cachedDataVersionTag } = require('v8');
 
 dotenv.config();
 
@@ -1201,6 +1202,35 @@ app.post('/adminPortal', authenticateToken, async (req, res) => {
   }
 });
 
+app.get('verifyUser', (req, res) => {
+  try {
+    res.render(path.join(__dirname, '/views/verifyUser.ejs'));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/approveUser', async (req, res) => {
+  try {
+    const userID = req.body.userID;
+    const password = req.body.userID;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    // check the password with approvalPending table for userid and password
+    // if same-- save it in database
+    // else send response as invalid credentials
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.post('/createCompany', async (req, res) => {
   try {
     // name(50), root user(30), root_user_password(10),
@@ -1246,7 +1276,24 @@ app.post('/createCompany', async (req, res) => {
       `INSERT INTO employee_table (name,email,password,company,status,accessible_charts,created_by) VALUES ('${rootUserName}','${rootUserEmail}','${rootUserPassword}','${companyName}','admin',Array['DPV (Defects Per Vehicle) Report','Master Report','Main Pareto Report','Pareto Report','Surface Summary','Body Fitting Summary','Missing & Wrong Part Summary','Welding Summary','Water Leak Summary','Color Map'],'Root User')`
     );
 
-    res.sendStatus(200);
+    let mailDetails = {
+      from: 'vasanthram227@gmail.com',
+      to: `${rootUserEmail}`,
+      subject: 'Verification for new company',
+      text: ``,
+      s,
+    };
+
+    mailTransporter.sendMail(mailDetails, function (err, data) {
+      if (err) {
+        console.log('Error Occurs');
+        console.log(err);
+        res.sendStatus(400);
+      } else {
+        console.log('Reset Password: OTP sent successfully');
+        res.sendStatus(200);
+      }
+    });
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
@@ -3497,6 +3544,6 @@ app.get('/logout', (req, res) => {
 
 app.listen(8000, () => {
   console.log(
-    'Data Entry tool running on port 2000. Go to Browser and search for localhost:8000 to open.'
+    'Data Entry tool running on port 8000. Go to Browser and search for localhost:8000 to open.'
   );
 });

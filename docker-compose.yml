@@ -15,7 +15,7 @@ services:
   postgres:
     image: postgres:14.0
     ports:
-      - "35000:5432"
+      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
