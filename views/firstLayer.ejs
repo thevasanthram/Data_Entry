@@ -67,7 +67,7 @@
           <p id="title-name">Select Category :</p>
         </div>
         <!-- Toggle Switch for online / offline -->
-        <div id="toggle" class="mt-10 ml-24">
+        <div id="toggle" class="mt-10 ml-8">
           <div class="flex w-full mb-12">
             <label
               id="label_switch"
@@ -97,7 +97,25 @@
           </div>
         </div>
       </div>
-
+      <div class="update_container">
+        <div class="update_subContainer">
+          <h1 class="update_title ">UPDATE CATEGORY SECTION</h1>
+          <div class="update_btn_container">
+            <button type="button" class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-xs leading-tight
+              uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg 
+              focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
+              onclick="handleUpdate()">UPDATE CATEGORY</button>
+            <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs 
+              leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg
+              focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+              onclick="handleAdd()">ADD  CATEGORY</button>
+            <button type="button" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs 
+              leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg
+              focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+              onclick="(() => {document.getElementById('removeCategoryDivision').style.visibility = 'visible'})()">DELETE CATEGORY</button>
+          </div>
+        </div>
+      </div>
       <div class="main-content">
         <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
         <button
@@ -109,6 +127,73 @@
         </button>
         <%}%>
       </div>
+  <!-- !........... Popups for Deletion of category........... -->
+      <div id="removeCategoryDivision">
+        <div class="removeCategoryModalContent">
+          <div id="removeCategoryDivisionHolder"  >
+            <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Remove Category</p>
+            <div id="removeCategoryInput"  >
+              <p style="font-weight: 500;" >Select Category -></p>
+              <select name="category" id="category" > 
+                <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
+                  <option class="category_options"
+                    id="category_option_<%= i+1 %>"
+                    value="<%= bodyNumberOptions[i]%>">
+                    <%= bodyNumberOptions[i]%>
+                  </option>
+                  <%}%>
+              </select>
+            </div>
+            <!-- <div  id="selectUserIDErrorMsg" style="visibility: hidden;color: #FF0000;">Select an user ID</div> -->
+            <div id="removeCategoryButton">
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 
+              font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="removeUser()">Remove</button>
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="(() => {document.getElementById('removeCategoryDivision').style.visibility = 'hidden'})()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="removeCategoryDivisionEnsure" >
+        <div class="removeCategoryEnsureModalContent">
+          <div id="removeCategoryDivisionEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
+            <p style="font-size: large; font-weight:600;">Are you sure want to remove user? </p>
+            <div id="removeCategoryEnsureButton"  >
+              <button  style="display: block;"
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="removeUserFinal()">Remove</button>
+              <button  style="display: block;" 
+              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+              onclick="(() => {document.getElementById('removeUserDivisionEnsure').style.visibility = 'hidden'})()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="update_container">
+        <div class="card">
+          <h2 class="update_title">UPDATE SECTION</h2>
+          <div class="update_options_container">
+            <div class="select">
+              <select name="category" id="category" > 
+                <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
+                  <option class="category_options"
+                    id="category_option_<%= i+1 %>"
+                    value="<%= bodyNumberOptions[i]%>">
+                    <%= bodyNumberOptions[i]%>
+                  </option>
+                  <%}%>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div> -->
       <form action="/follower" id="followerForm" method="post">
         <input
           type="hidden"

@@ -6,8 +6,18 @@ const uniqId = require('uniqid');
 const Razorpay = require('razorpay');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
 
 dotenv.config();
+
+// node mailing
+let mailTransporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'vasanthram227@gmail.com',
+    pass: 'qpmexclhxkaricjo',
+  },
+});
 
 const app = express();
 app.use(express.json());
@@ -1081,12 +1091,41 @@ app.post('/emailVerification', async (req, res) => {
 
     if (response.rows.length > 0) {
       // send otp to mail
-      res.send(
-        JSON.stringify({
-          status: 'success',
-          otp: 1234,
-        })
-      );
+
+      var digits = '0123456789';
+      let OTP = '';
+
+      for (let i = 0; i < 6; i++) {
+        OTP += digits[Math.floor(Math.random() * 10)];
+      }
+
+      let mailDetails = {
+        from: 'vasanthram227@gmail.com',
+        to: `${enteredEmail}`,
+        subject: 'Reset Password from Data Entry Application',
+        text: `Hi, OTP to reset your password: ${OTP}`,
+      };
+
+      mailTransporter.sendMail(mailDetails, function (err, data) {
+        if (err) {
+          console.log('Error Occurs');
+          console.log(err);
+          res.send(
+            JSON.stringify({
+              status: 'failure',
+              message: 'error sending OTP',
+            })
+          );
+        } else {
+          console.log('Reset Password: OTP sent successfully');
+          res.send(
+            JSON.stringify({
+              status: 'success',
+              otp: OTP,
+            })
+          );
+        }
+      });
     } else {
       res.send(
         JSON.stringify({
@@ -3458,6 +3497,6 @@ app.get('/logout', (req, res) => {
 
 app.listen(8000, () => {
   console.log(
-    'Data Entry tool running on port 8000. Go to Browser and search for localhost:8000 to open.'
+    'Data Entry tool running on port 2000. Go to Browser and search for localhost:8000 to open.'
   );
 });
