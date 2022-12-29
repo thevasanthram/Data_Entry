@@ -3456,7 +3456,7 @@ app.get('/logout', (req, res) => {
   }
 });
 
-app.listen(2000, () => {
+app.listen(8000, () => {
   console.log(
     'Data Entry tool running on port 8000. Go to Browser and search for localhost:8000 to open.'
   );

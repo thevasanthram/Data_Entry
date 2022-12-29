@@ -7,10 +7,8 @@ COPY ./package-lock.json .
 
 RUN npm install
 
-RUN npm i -g nodemon
-
 COPY . .
 
-EXPOSE 2000
+EXPOSE 8000
 
-CMD nodemon app.js
+CMD node app.js
