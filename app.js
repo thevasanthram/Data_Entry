@@ -14,8 +14,8 @@ dotenv.config();
 let mailTransporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'vasanthram227@gmail.com',
-    pass: 'qpmexclhxkaricjo',
+    user: 'sanjeevmajhi036@gmail.com',
+    pass: 'upjpcoxdyacutmxf',
   },
 });
 
@@ -1111,7 +1111,7 @@ app.post('/emailVerification', async (req, res) => {
       }
 
       let mailDetails = {
-        from: 'vasanthram227@gmail.com',
+        from: 'sanjeevmajhi036@gmail.com',
         to: `${enteredEmail}`,
         subject: 'Reset Password from Data Entry Application',
         text: `Hi, OTP to reset your password: ${OTP}`,
@@ -1387,7 +1387,7 @@ app.post('/newUser', async (req, res) => {
     if (dummyEmpIDResponse.rows.length == 0) {
       if (emailChecker.rows.length == 0) {
         let mailDetails = {
-          from: 'vasanthram227@gmail.com',
+          from: 'sanjeevmajhi036@gmail.com',
           to: empEmail,
           subject: 'Invitation to create new user',
           text: `Check this link and fill the form \n Credentials \n ID: ${empID} \n Password: ${empPassword}`,
