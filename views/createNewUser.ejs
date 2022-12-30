@@ -67,6 +67,17 @@
                   />
                 </p>
                 <p>
+                  <label for="name">Dummy ID</label>
+                  <input
+                    required
+                    type="number"
+                    name="dummyEmpID"
+                    id="dummyEmpID"
+                    placeholder="Required"
+                    title="Please fill out this field"
+                  />
+                </p>
+                <p>
                   <label for="name">User Email</label>
                   <input
                     required
@@ -360,6 +371,7 @@
 
     async function createUser() {
       const empName = document.getElementById('employeeName').value;
+      const dummyEmpID = document.getElementById('dummyEmpID').value;
       const empEmail = document.getElementById('employeeEmail').value;
       const empPassword = document.getElementById('employeePassword').value;
       const empStatus = document.getElementById('employeeStatus').value;
@@ -376,6 +388,7 @@
         },
         body: JSON.stringify({
           empName,
+          dummyEmpID,
           empEmail,
           empPassword,
           empStatus,
@@ -389,11 +402,7 @@
       const response = await data.json();
 
       if (response.status == 'success') {
-        alert(
-          `${
-            empStatus.charAt(0).toUpperCase() + empStatus.slice(1)
-          } creation successfull`
-        );
+        alert('Invitation link sent to user email addresss');
         document.getElementById('adminForm').submit();
       } else {
         if (response.reason == 'existing email address') {
@@ -405,18 +414,25 @@
           setTimeout(() => {
             document.getElementById('error').style.display = 'none';
           }, 3000);
+        } else if (response.reason == 'dummy ID already existing') {
+          document.getElementById('error').innerHTML =
+            'ID already existing, Use Different';
+
+          document.getElementById('error').style.display = 'block';
+
+          setTimeout(() => {
+            document.getElementById('error').style.display = 'none';
+          }, 3000);
         } else {
-          alert(`There's an issue while creating Admin. Please try again`);
-          document.getElementById('adminForm').submit();
+          alert(`There's an issue while creating user. Please try again`);
+          document.getElementById(' ').submit();
         }
       }
     }
 
     function logout() {
       localStorage.removeItem('token');
-      Object.values(tokenElements).map((tokenElement) => {
-        tokenElement.value = '';
-      });
+      document.getElementById('token').value = '';
       document.getElementsByClassName('logoutButton')[0].submit();
     }
   </script>

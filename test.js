@@ -12,7 +12,7 @@ let mailTransporter = nodemailer.createTransport({
 
 let mailDetails = {
   from: 'vasanthram227@gmail.com',
-  to: 'manvendrasrmcem.1996@gmail.com',
+  to: 'sanjeevmajhi036@gmail.com',
   subject: 'Test mail',
   text: 'testing mail from NodeJS',
 };

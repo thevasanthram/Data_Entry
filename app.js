@@ -49,7 +49,7 @@ pool.query(
           } else {
             let dbConnectedPool = new Pool({
               user: 'postgres',
-              host: 'postgres',
+              host: 'localhost',
               database: 'data_entry_systems',
               password: 'admin',
               port: 5432,
@@ -106,6 +106,17 @@ pool.query(
                   throw err;
                 } else {
                   console.log('company table created');
+                }
+              }
+            );
+
+            dbConnectedPool.query(
+              `CREATE TABLE IF NOT EXISTS approval_pending_table (id int, name varchar(50), email varchar(50), password varchar(30), company varchar(50), status varchar(8), accessible_charts varchar[], created_by varchar);`,
+              (err, result) => {
+                if (err) {
+                  throw err;
+                } else {
+                  console.log('appoval pending table created');
                 }
               }
             );
@@ -1333,6 +1344,7 @@ app.post('/newUser', async (req, res) => {
     const accessibleCharts = req.body.accessibleCharts;
     const creator = req.body.creator;
     const creatorID = req.body.creatorID;
+    const empID = req.body.dummyEmpID;
 
     console.log('New User Created: ', empName);
     console.log('status: ', empStatus);
@@ -1364,34 +1376,141 @@ app.post('/newUser', async (req, res) => {
       ':' +
       String(currentDate.getSeconds());
 
+    const dummyEmpIDResponse = await dbConnectedPool.query(
+      `SELECT * FROM approval_pending_table WHERE id=${empID}`
+    );
+
     const emailChecker = await dbConnectedPool.query(
       `SELECT * FROM employee_table WHERE email='${empEmail}' AND company='${empCompany}'`
     );
 
-    if (emailChecker.rows.length == 0) {
-      const response = await dbConnectedPool.query(
-        `INSERT INTO employee_table (name,email,password,company,status,accessible_charts,created_by) VALUES('${empName}','${empEmail}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
+    if (dummyEmpIDResponse.rows.length == 0) {
+      if (emailChecker.rows.length == 0) {
+        let mailDetails = {
+          from: 'vasanthram227@gmail.com',
+          to: empEmail,
+          subject: 'Invitation to create new user',
+          text: `Check this link and fill the form \n Credentials \n ID: ${empID} \n Password: ${empPassword}`,
+        };
+
+        mailTransporter.sendMail(mailDetails, async function (err, data) {
+          if (err) {
+            console.log('Error occured while sending email');
+            console.log(err);
+            res.send(
+              JSON.stringify({
+                status: 'failure',
+                reason: 'error in sending mail',
+              })
+            );
+          } else {
+            console.log('Email sent successfully');
+            // name,email,password,company,status,accessible_charts,created_by
+            // id int, name varchar(50), email varchar(50), password varchar(30), company varchar(50), status varchar(8), accessible_charts varchar[], created_by varchar
+
+            // invitation sent and stored in database
+
+            await dbConnectedPool.query(
+              `INSERT INTO approval_pending_table(id,name,email,password,company,status,accessible_charts,created_by) VALUES (${empID},'${empName}','${empEmail}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
+                `','`
+              )}'],'${creator}')`
+            );
+            res.send(
+              JSON.stringify({
+                status: 'success',
+              })
+            );
+          }
+        });
+      } else {
+        res.send(
+          JSON.stringify({
+            status: 'failure',
+            reason: 'existing email address',
+          })
+        );
+      }
+    } else {
+      res.send(
+        JSON.stringify({
+          status: 'failure',
+          reason: 'dummy ID already existing',
+        })
+      );
+    }
+  } catch (err) {
+    console.log(err);
+    res.send(
+      JSON.stringify({
+        status: 'failure',
+        reason: 'backend error',
+      })
+    );
+  }
+});
+
+app.get('/verifyUser', (req, res) => {
+  try {
+    res.render(path.join(__dirname, '/views/verifyUser.ejs'));
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/approveUser', async (req, res) => {
+  try {
+    const userID = req.body.userID;
+    const password = req.body.password;
+
+    let dbConnectedPool = new Pool({
+      user: 'postgres',
+      host: 'localhost',
+      database: 'data_entry_systems',
+      password: 'admin',
+      port: 5432,
+    });
+
+    const CheckUserResponse = await dbConnectedPool.query(
+      `SELECT * FROM approval_pending_table WHERE id=${userID}`
+    );
+
+    if (
+      CheckUserResponse.rows.length != 0 &&
+      password == CheckUserResponse.rows[0].password
+    ) {
+      await dbConnectedPool.query(
+        `INSERT INTO employee_table (name,email,password,company,status,accessible_charts,created_by) VALUES ('${
+          CheckUserResponse.rows[0].name
+        }','${CheckUserResponse.rows[0].email}','${
+          CheckUserResponse.rows[0].password
+        }','${CheckUserResponse.rows[0].company}','${
+          CheckUserResponse.rows[0].status
+        }',ARRAY['${CheckUserResponse.rows[0].accessible_charts.join(
           `','`
-        )}'],'${creator}') RETURNING id;`
+        )}'],'${CheckUserResponse.rows[0].created_by}')`
       );
 
       await dbConnectedPool.query(
-        `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${creatorID},'${creator}','created',${response.rows[0].id},'${empName}','${date}','${time}')`
+        `DELETE FROM approval_pending_table WHERE id=${userID}`
       );
-
       res.send(
         JSON.stringify({
           status: 'success',
+          reason: 'activated',
         })
       );
     } else {
       res.send(
         JSON.stringify({
           status: 'failure',
-          reason: 'existing email address',
+          reason: 'invalid credentials',
         })
       );
     }
+
+    // check the password with approvalPending table for userid and password
+    // if same-- save it in database
+    // else send response as invalid credentials
   } catch (err) {
     console.log(err);
     res.send(
@@ -3497,6 +3616,6 @@ app.get('/logout', (req, res) => {
 
 app.listen(2000, () => {
   console.log(
-    'Data Entry tool running on port 8000. Go to Browser and search for localhost:8000 to open.'
+    'Data Entry tool running on port 2000. Go to Browser and search for localhost:8000 to open.'
   );
 });
