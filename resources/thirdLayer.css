@@ -93,7 +93,7 @@ input:checked ~ .dot {
 .sub_container {
   display: flex;
   justify-content: start;
-  margin: 2%;
+  margin: 1%;
   gap: 2rem;
   align-items: center;
 }
@@ -130,9 +130,10 @@ input:checked ~ .dot {
 .defect-category-content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  padding: 10px;
-  max-width: 60%;
-  margin: 0% 15% 0 15%;
+  padding: 5px;
+  max-width: 80%;
+  position: relative;
+  left: 10%;
 }
 .defect-category {
   align-items: center;
@@ -159,9 +160,10 @@ input:checked ~ .dot {
 .sub-defects-category-content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  padding: 10px;
-  max-width: 60%;
-  margin: 0% 15% 0 15%;
+  padding: 5px;
+  max-width: 80%;
+  position: relative;
+  left: 10%;
 }
 
 .sub-defect-category {
@@ -193,8 +195,8 @@ input:checked ~ .dot {
 .save_reset_container {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  justify-content: center;
   margin-left: 3%;
+  margin-bottom: 3%;
 }
 .zones-title-name {
   font-size: clamp(1.3rem, 2.2vw, 2rem);
@@ -225,9 +227,9 @@ input:checked ~ .dot {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 285px;
+  height: 350px;
   width: 100%;
-  margin: 40px auto;
+  margin: 5px auto;
 }
 
 .zone-number {

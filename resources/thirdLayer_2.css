@@ -318,11 +318,11 @@
     max-width: 7.5%;
   }
   .defect-category-content {
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px;
-    margin: 0% 15% 0 15%;
-  }
+    max-width: 80%;
+    position: relative;
+    left: 10%;
+}
   .defect-category {
     align-items: center;
     justify-content: center;
@@ -333,10 +333,10 @@
     border-radius: 5px;
   }
   .sub-defects-category-content {
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px;
-    margin: 0% 15% 0 15%;
+    max-width: 80%;
+    position: relative;
+    left: 10%;
   }
 
   .sub-defect-category {
@@ -400,7 +400,7 @@
     border: 1px solid #000000;
   }
   .zone-number {
-    margin-top: 18px;
+    margin-top: 14px;
   }
   /*TODO:..............RH SIDE MEMBER (Media Query 768px)................ */
 
@@ -557,7 +557,21 @@
     background-color: rgba(135, 207, 235, 0.563);
   }
 }
-
+@media screen and (max-width : 560px) {
+  #zone-division1, #zone-division2, #zone-division3, #zone-division4, #zone-division5 {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 525px;
+    height: 215px;
+    position: absolute;
+  }
+  .zone-number {
+    margin-top: 10px;
+    font-size: 0.6rem;
+    font-weight: 500;
+  }
+}
 /* *.......................Media Query for width 30rem..................... */
 @media screen and (max-width: 500px) {
   * {
@@ -652,11 +666,11 @@
     color: #f0e3e3;
   }
   .defect-category-content {
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px;
-    margin: 0% 15% 0 15%;
-  }
+    max-width: 90%;
+    position: relative;
+    left: 5%;
+}
   .defect-category {
     align-items: center;
     justify-content: center;
@@ -668,10 +682,10 @@
     border-radius: 5px;
   }
   .sub-defects-category-content {
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 10px;
-    margin: 0% 15% 0 15%;
+    max-width: 90%;
+    position: relative;
+    left: 5%;
   }
 
   .sub-defect-category {
@@ -718,7 +732,7 @@
   }
 
   .zone-number {
-    margin-top: 12px;
+    margin-top: 10px;
     font-size: 0.6rem;
     font-weight: 500;
   }
