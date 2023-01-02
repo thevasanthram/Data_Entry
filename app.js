@@ -1784,6 +1784,51 @@ app.post('/firstlayer', authenticateToken, (req, res) => {
   }
 });
 
+app.post('/addCategory', async (req, res) => {
+  try {
+    const addingCategory = req.body.newCategory;
+
+    Options[addingCategory] = {};
+
+    res.send(
+      JSON.stringify({
+        status: 'success',
+      })
+    );
+  } catch (err) {
+    console.log(err);
+    res.send(
+      JSON.stringify({
+        status: 'failure',
+        reason: 'backend error',
+      })
+    );
+  }
+});
+
+app.post('removeCategory', async (req, res) => {
+  try {
+    const removingCategory = req.body.removingCategory;
+
+    delete Options[removingCategory];
+
+    res.send(
+      JSON.stringify({
+        status: 'success',
+      })
+    );
+  } catch (err) {
+    console.log(err);
+
+    res.send(
+      JSON.stringify({
+        status: 'failure',
+        reason: 'backend error',
+      })
+    );
+  }
+});
+
 app.post('/secondlayer', authenticateToken, (req, res) => {
   try {
     console.log('second layer');
