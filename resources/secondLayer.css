@@ -159,6 +159,8 @@ input:checked ~ .dot {
   text-align: center;
   margin: 1%;
   padding: 1%;
+  font-size: large;
+  font-weight: 600;
 }
 .update_btn_container{
   display: grid;
@@ -281,7 +283,7 @@ input:checked ~ .dot {
   transition: all 0.5s ease-in-out;
 }
 
-.removeSubCategoryrDivisionSuccessModalContent {
+.removeSubCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;
@@ -412,7 +414,7 @@ input:checked ~ .dot {
   transition: all 0.5s ease-in-out;
 }
 
-.UpdateSubCategoryrDivisionSuccessModalContent {
+.UpdateSubCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;
@@ -536,7 +538,7 @@ input:checked ~ .dot {
   transition: all 0.5s ease-in-out;
 }
 
-.addSubCategoryrDivisionSuccessModalContent {
+.addSubCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;
@@ -598,12 +600,8 @@ input:checked ~ .dot {
     font-size: clamp(1.2rem, 2vw, 1.4rem);
   }
   .update_subContainer {
-    position: relative;
-    margin: auto;
     width: 80%;
     min-height: 20vh;
-    background-color: #070a1d;
-    border-radius: 10px;
   }
 
 /* !..........Remove Sub Category Popup........... */
@@ -656,26 +654,6 @@ input:checked ~ .dot {
   #remove_sub_category {
     width: 90%;
   }
-  /* ! ............Update Section........... */
-
-  /* .update_subContainer{
-    width: 85%;
-  }
-  .update_btn_container {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 5px;
-    margin: 2%;
-    gap: 0.5rem;
-  }
-  .main-content {
-    grid-template-columns: 1fr 1fr;
-    padding: 10px;
-    width: 90%;
-    position: relative;
-    left: 5%;
-    margin: 2% 0% 2% 0%;
-  } */
 
   /* !......... Update ..........*/
   #update_sub_category {
@@ -883,6 +861,20 @@ input:checked ~ .dot {
   }
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-height: 1280px) {
+  .update_subContainer {
+    min-height: 14vh;
+  }
+}
 
+@media screen and (max-height: 1000px) {
+  .update_subContainer {
+    min-height: 18vh;
+  }
+}
+
+@media screen and (max-height: 680px) {
+  .update_subContainer {
+    min-height: 22vh;
+  }
 }
