@@ -295,8 +295,8 @@
         </div>
       </div>
 
-      <div id="addCategoryDivisionFinal">
-        <div class="addCategoryFinalModalContent">
+      <div id="addCategoryDivisionSuccess">
+        <div class="addCategoryrDivisionSuccessModalContent">
           <div id="addCategoryFinalDivisionHolder">
             <p
               style="
@@ -493,6 +493,8 @@
     <script>
       console.log('token: ', localStorage.getItem('token'));
 
+      const bodyNumberOptions = '<%= bodyNumberOptions %>';
+
       const tokenElements = document.getElementsByClassName('token');
 
       Object.values(tokenElements).map((tokenElement) => {
@@ -531,9 +533,22 @@
             alert(msg.ieErrorForm);
           }
         } else {
-          document.getElementById(
-            'addCategoryDivisionEnsure'
-          ).style.visibility = 'visible';
+          if (
+            bodyNumberOptions.includes(
+              document.getElementById('add_category').value
+            )
+          ) {
+            document.getElementById('addCategoryErrorMsg').innerHTML =
+              'Category already exists';
+
+            setTimeout(() => {
+              document.getElementById('addCategoryErrorMsg').innerHTML = '';
+            }, 3000);
+          } else {
+            document.getElementById(
+              'addCategoryDivisionEnsure'
+            ).style.visibility = 'visible';
+          }
         }
       }
 
@@ -556,24 +571,16 @@
           document.getElementById('addCategoryFinalMessage').innerHTML =
             'Category successfully added';
 
-          document.getElementById('addCategoryDivisionFinal').style.visibility =
-            'visible';
+          document.getElementById(
+            'addCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
         } else {
-          if (data.reason == 'already exists') {
-            document.getElementById('addCategoryErrorMsg').innerHTML =
-              'Category already exists';
+          document.getElementById('addCategoryFinalMessage').innerHTML =
+            'Error adding category. Try Again!';
 
-            setTimeout(() => {
-              document.getElementById('addCategoryErrorMsg').innerHTML = '';
-            }, 3000);
-          } else {
-            document.getElementById('addCategoryFinalMessage').innerHTML =
-              'Error adding category. Try Again!';
-
-            document.getElementById(
-              'addCategoryDivisionFinal'
-            ).style.visibility = 'visible';
-          }
+          document.getElementById(
+            'addCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
         }
       }
 

@@ -1788,21 +1788,13 @@ app.post('/addCategory', async (req, res) => {
   try {
     const addingCategory = req.body.newCategory;
 
-    if (Object.keys(Options).includes(addingCategory)) {
-      res.send(
-        JSON.stringify({
-          status: 'failure',
-          reason: 'already exists',
-        })
-      );
-    } else {
-      Options[addingCategory] = {};
-      res.send(
-        JSON.stringify({
-          status: 'success',
-        })
-      );
-    }
+    Options[addingCategory] = {};
+
+    res.send(
+      JSON.stringify({
+        status: 'success',
+      })
+    );
   } catch (err) {
     console.log(err);
     res.send(
