@@ -1,4 +1,21 @@
 /* !CSS for REsponsive Design */
+@media screen and (max-height: 1280px) {
+  .update_subContainer {
+    min-height: 14vh;
+  }
+}
+
+@media screen and (max-height: 1000px) {
+  .update_subContainer {
+    min-height: 18vh;
+  }
+}
+
+@media screen and (max-height: 680px) {
+  .update_subContainer {
+    min-height: 22vh;
+  }
+}
 
 @media screen and (max-width: 1281px) {
   .save_reset_container {
@@ -316,6 +333,11 @@
   }
   #go-back-icon {
     max-width: 7.5%;
+  }
+  /* ! Update Section */
+  .update_subContainer {
+    width: 80%;
+    min-height: 20vh;
   }
   .defect-category-content {
     grid-template-columns: 1fr 1fr 1fr;
@@ -664,6 +686,18 @@
     line-height: 1;
     font-size: clamp(16px, 1.2vw, 1.5rem);
     color: #f0e3e3;
+  }
+  /* ! ............Update Section........... */
+
+  .update_subContainer{
+    width: 85%;
+  }
+  .update_btn_container {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 5px;
+    margin: 2%;
+    gap: 0.5rem;
   }
   .defect-category-content {
     grid-template-columns: 1fr 1fr 1fr;

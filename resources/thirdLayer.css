@@ -115,6 +115,420 @@ input:checked ~ .dot {
   margin-right: 2rem;
   padding: 5px;
 }
+/* !................... Style for Update Section................. */
+
+.update_container{
+  margin: 2px;
+  padding: 5px;
+  transition: all 0.5s ease-in-out;
+}
+.update_subContainer{
+  position: relative;
+  margin: auto;
+  width: 70%;
+  min-height: 20vh;
+  background-color: #070a1d;
+  border-radius: 10px;
+  transition: all 0.5s ease-in-out;
+}
+.update_title{
+  color: goldenrod;
+  text-align: center;
+  margin: 1%;
+  padding: 1%;
+  font-size: large;
+  font-weight: 600;
+}
+.update_btn_container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  padding: 5px;
+  margin: 2% ;
+  gap: 1rem;
+}
+
+/* !.............. Popup for delete Sub-category............ */
+#removeDefectsDivision {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.removeDefectsModalContent {
+  background-color: #84A9AC;
+  margin: auto;
+  padding: 2%;
+  border: 1px solid #888;
+  width: 35%;
+  min-height: 25%;
+  border-radius: 10px;
+}
+
+#removeDefectsButton {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+/* !................. Remove .................... */
+
+#removeDefectsDivisionHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+#removeDefectsInput {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-evenly;
+  width: 85%;
+}
+#remove_sub_Defects{
+  text-align: center;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  color: rgb(70, 69, 69);
+}
+
+#removeDefectsDivisionEnsure {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  transition: all 0.5s ease-in-out;
+}
+
+.removeDefectsEnsureModalContent {
+  background-color: #84A9AC;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 35%;
+  min-height: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+#removeDefectsDivisionEnsureHolder {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+#removeDefectsEnsureButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#removeDefectsDivisionSuccess {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  transition: all 0.5s ease-in-out;
+}
+
+.removeDefectsDivisionSuccessModalContent {
+  background-color: #00ab41;
+  margin: auto;
+  padding: 0px;
+  width: 35%;
+  height: 33%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+/* !.......... Popup for Updating / Edit Sub-category......... */
+
+#UpdateDefectsDivision {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.UpdateDefectsModalContent {
+  background-color: #84A9AC;
+  margin: auto;
+  padding: 2%;
+  border: 1px solid #888;
+  width: 35%;
+  min-height: 25%;
+  border-radius: 10px;
+}
+#update_sub_Defects{
+  text-align: center;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  color: rgb(70, 69, 69);
+}
+#UpdateDefectsButton {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+/* !................. Update .................... */
+
+#UpdateDefectsDivisionHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+#UpdateDefectsInput {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-evenly;
+  width: 85%;
+}
+#Update_sub_Defects{
+  text-align: center;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  color: rgb(70, 69, 69);
+}
+
+#UpdateDefectsDivisionEnsure {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  transition: all 0.5s ease-in-out;
+}
+
+.UpdateDefectsEnsureModalContent {
+  background-color: #84A9AC;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 35%;
+  min-height: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+#UpdateDefectsDivisionEnsureHolder {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+#UpdateDefectsEnsureButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#UpdateDefectsDivisionSuccess {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  transition: all 0.5s ease-in-out;
+}
+
+.UpdateDefectsDivisionSuccessModalContent {
+  background-color: #00ab41;
+  margin: auto;
+  padding: 0px;
+  width: 35%;
+  height: 33%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+/* !.......... Popup for  Adding Sub-category......... */
+
+#addDefectsDivision {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.addDefectsModalContent {
+  background-color: #84A9AC;
+  margin: auto;
+  padding: 2%;
+  border: 1px solid #888;
+  width: 35%;
+  min-height: 25%;
+  border-radius: 10px;
+}
+#add_sub_Defects{
+  text-align: center;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  color: rgb(70, 69, 69);
+}
+#addDefectsButton {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+/* !................. ADD .................... */
+
+#addDefectsDivisionHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+#addDefectsInput {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-evenly;
+  width: 85%;
+}
+
+#addDefectsDivisionEnsure {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  transition: all 0.5s ease-in-out;
+}
+
+.addDefectsEnsureModalContent {
+  background-color: #84A9AC;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 35%;
+  min-height: 33%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
+#addDefectsDivisionEnsureHolder {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+}
+#addDefectsEnsureButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#addDefectsDivisionSuccess {
+  visibility: hidden; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3;
+  transition: all 0.5s ease-in-out;
+}
+
+.addDefectsDivisionSuccessModalContent {
+  background-color: #00ab41;
+  margin: auto;
+  padding: 0px;
+  width: 35%;
+  height: 33%;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+/* ! ................................. */
 .main-content {
   width: auto;
   margin: 2px;
@@ -131,9 +545,9 @@ input:checked ~ .dot {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   padding: 5px;
-  max-width: 80%;
+  max-width: 70%;
   position: relative;
-  left: 10%;
+  left: 15%;
 }
 .defect-category {
   align-items: center;
@@ -141,7 +555,7 @@ input:checked ~ .dot {
   font-size: 100%;
   padding: 2%;
   margin: 3%;
-  margin-left: 10%;
+  margin-left: 3%;
   border-radius: 5px;
 }
 
@@ -161,9 +575,9 @@ input:checked ~ .dot {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   padding: 5px;
-  max-width: 80%;
+  max-width: 70%;
   position: relative;
-  left: 10%;
+  left: 15%;
 }
 
 .sub-defect-category {
@@ -172,9 +586,9 @@ input:checked ~ .dot {
   font-size: 100%;
   background-color: black;
   color: #eeeeee;
-  padding: 3%;
+  padding: 2%;
   margin: 3%;
-  margin-left: 10%;
+  margin-left: 3%;
   border-radius: 5px;
 }
 
