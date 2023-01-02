@@ -1786,9 +1786,9 @@ app.post('/firstlayer', authenticateToken, (req, res) => {
 
 app.post('/addCategory', async (req, res) => {
   try {
-    const addingCategory = req.body.addingCategory;
+    const addingCategory = req.body.newCategory;
 
-    if (Array.includes(Object.keys(Options))) {
+    if (Object.keys(Options).includes(addingCategory)) {
       res.send(
         JSON.stringify({
           status: 'failure',
@@ -1803,8 +1803,6 @@ app.post('/addCategory', async (req, res) => {
         })
       );
     }
-
-    res.sendStatus(200);
   } catch (err) {
     console.log(err);
     res.send(

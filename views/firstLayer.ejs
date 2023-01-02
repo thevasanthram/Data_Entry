@@ -67,8 +67,8 @@
           <p id="title-name">Select Category :</p>
         </div>
         <!-- Toggle Switch for online / offline -->
-        <div id="toggle" class="mt-8 ml-6">
-          <div class="flex w-full mb-6">
+        <div id="toggle" class="mt-10 ml-8">
+          <div class="flex w-full mb-8">
             <label
               id="label_switch"
               for="toggle_switch"
@@ -99,20 +99,29 @@
       </div>
       <div class="update_container">
         <div class="update_subContainer">
-          <h1 class="update_title ">UPDATE CATEGORY SECTION</h1>
+          <h1 class="update_title">UPDATE CATEGORY SECTION</h1>
           <div class="update_btn_container">
-            <button type="button" class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-xs leading-tight
-              uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg 
-              focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
-              onclick="(() => {document.getElementById('UpdateCategoryDivision').style.visibility = 'visible'})()">EDIT CATEGORY</button>
-            <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs 
-              leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg
-              focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-              onclick="(() => {document.getElementById('addCategoryDivision').style.visibility = 'visible'})()">ADD  CATEGORY</button>
-            <button type="button" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs 
-              leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg
-              focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-              onclick="(() => {document.getElementById('removeCategoryDivision').style.visibility = 'visible'})()">DELETE CATEGORY</button>
+            <button
+              type="button"
+              class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
+              onclick="(() => {document.getElementById('UpdateCategoryDivision').style.visibility = 'visible'})()"
+            >
+              EDIT CATEGORY
+            </button>
+            <button
+              type="button"
+              class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
+              onclick="(() => {document.getElementById('addCategoryDivision').style.visibility = 'visible'})()"
+            >
+              ADD CATEGORY
+            </button>
+            <button
+              type="button"
+              class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+              onclick="(() => {document.getElementById('removeCategoryDivision').style.visibility = 'visible'})()"
+            >
+              DELETE CATEGORY
+            </button>
           </div>
         </div>
       </div>
@@ -127,51 +136,84 @@
         </button>
         <%}%>
       </div>
-  <!-- !........... Popups for Deletion of category........... -->
+      <!-- !........... Popups for Deletion of category........... -->
       <div id="removeCategoryDivision">
         <div class="removeCategoryModalContent">
-          <div id="removeCategoryDivisionHolder"  >
-            <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Remove Category</p>
-            <div id="removeCategoryInput"  >
-              <p style="font-weight: 500;" >Select Category -></p>
-              <select name="category" id="category" > 
+          <div id="removeCategoryDivisionHolder">
+            <p
+              style="
+                font-weight: 700;
+                margin: 1%;
+                padding: 1%;
+                font-size: large;
+              "
+            >
+              Remove Category
+            </p>
+            <div id="removeCategoryInput">
+              <p style="font-weight: 500">Select Category -></p>
+              <select name="category" id="category">
                 <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
-                  <option class="category_options"
-                    id="remove_category_option_<%= i+1 %>"
-                    value="<%= bodyNumberOptions[i]%>">
-                    <%= bodyNumberOptions[i]%>
-                  </option>
-                  <%}%>
+                <option
+                  class="category_options"
+                  id="remove_category_option_<%= i+1 %>"
+                  value="<%= bodyNumberOptions[i]%>"
+                >
+                  <%= bodyNumberOptions[i]%>
+                </option>
+                <%}%>
               </select>
             </div>
             <!-- <div  id="selectUserIDErrorMsg" style="visibility: hidden;color: #FF0000;">Select an user ID</div> -->
             <div id="removeCategoryButton">
-              <button  style="display: block;" 
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 
-              font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="removeUser()">Remove</button>
-              <button  style="display: block;" 
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
-              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="(() => {document.getElementById('removeCategoryDivision').style.visibility = 'hidden'})()">Cancel</button>
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="removeUser()"
+              >
+                Remove
+              </button>
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="(() => {document.getElementById('removeCategoryDivision').style.visibility = 'hidden'})()"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="removeCategoryDivisionEnsure" >
+      <div id="removeCategoryDivisionEnsure">
         <div class="removeCategoryEnsureModalContent">
-          <div id="removeCategoryDivisionEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-            <p style="font-size: large; font-weight:600;">Are you sure want to remove ? </p>
-            <div id="removeCategoryEnsureButton"  >
-              <button  style="display: block;"
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
-              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="removeUserFinal()">Remove</button>
-              <button  style="display: block;" 
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
-              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="(() => {document.getElementById('removeCategoryDivisionEnsure').style.visibility = 'hidden'})()">Cancel</button>
+          <div
+            id="removeCategoryDivisionEnsureHolder"
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <p style="font-size: large; font-weight: 600">
+              Are you sure want to remove ?
+            </p>
+            <div id="removeCategoryEnsureButton">
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="removeUserFinal()"
+              >
+                Remove
+              </button>
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="(() => {document.getElementById('removeCategoryDivisionEnsure').style.visibility = 'hidden'})()"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
@@ -179,87 +221,180 @@
       <!-- !........... Popups for Adding of category........... -->
       <div id="addCategoryDivision">
         <div class="addCategoryModalContent">
-          <div id="addCategoryDivisionHolder"  >
-            <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Add Category</p>
-            <div id="addCategoryInput"  >
-              <p style="font-weight: 500;" >Add Category-></p>
-              <input type="text" value="" id="add_category">
+          <div id="addCategoryDivisionHolder">
+            <p
+              style="
+                font-weight: 700;
+                margin: 1%;
+                padding: 1%;
+                font-size: large;
+              "
+            >
+              Add Category
+            </p>
+            <div id="addCategoryInput">
+              <p style="font-weight: 500">Add Category-></p>
+              <form id="addCategoryForm">
+                <input type="text" value="" id="add_category" required />
+              </form>
+            </div>
+            <div>
+              <p id="addCategoryErrorMsg"></p>
             </div>
             <div id="addCategoryButton">
-              <button  style="display: block;" 
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 
-              font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="removeUser()">Add</button>
-              <button  style="display: block;" 
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
-              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="(() => {document.getElementById('addCategoryDivision').style.visibility = 'hidden'})()">Cancel</button>
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="validateCategory()"
+              >
+                Add
+              </button>
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="(() => {document.getElementById('addCategoryDivision').style.visibility = 'hidden'})()"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="addCategoryDivisionEnsure" >
+      <div id="addCategoryDivisionEnsure">
         <div class="addCategoryEnsureModalContent">
-          <div id="addCategoryDivisionEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-            <p style="font-size: large; font-weight:600;">Are you sure want to Add ? </p>
-            <div id="addCategoryEnsureButton"  >
-              <button  style="display: block;"
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
-              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="removeSubCategoryFinal()">Add</button>
-              <button  style="display: block;" 
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
-              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="(() => {document.getElementById('addCategoryDivisionEnsure').style.visibility = 'hidden'})()">Cancel</button>
+          <div
+            id="addCategoryDivisionEnsureHolder"
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <p style="font-size: large; font-weight: 600">
+              Are you sure want to Add ?
+            </p>
+            <div id="addCategoryEnsureButton">
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="addCategory()"
+              >
+                Add
+              </button>
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="(() => {document.getElementById('addCategoryDivisionEnsure').style.visibility = 'hidden'})()"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
       </div>
+
+      <div id="addCategoryDivisionFinal">
+        <div class="addCategoryFinalModalContent">
+          <div id="addCategoryFinalDivisionHolder">
+            <p
+              style="
+                font-weight: 700;
+                margin: 1%;
+                padding: 1%;
+                font-size: large;
+              "
+              id="addCategoryFinalMessage"
+            ></p>
+            <div>
+              <button
+                onclick="(() => document.getElementById('firstLayerForm').submit())()"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- !........... Popups for Updating Category........... -->
       <div id="UpdateCategoryDivision">
         <div class="UpdateCategoryModalContent">
-          <div id="UpdateCategoryDivisionHolder"  >
-            <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Edit Category</p>
-            <div id="UpdateCategoryInput"  >
-              <p style="font-weight: 500;" >Select Category -></p>
-              <select name="update_category" id="update_category" > 
+          <div id="UpdateCategoryDivisionHolder">
+            <p
+              style="
+                font-weight: 700;
+                margin: 1%;
+                padding: 1%;
+                font-size: large;
+              "
+            >
+              Edit Category
+            </p>
+            <div id="UpdateCategoryInput">
+              <p style="font-weight: 500">Select Category -></p>
+              <select name="update_category" id="update_category">
                 <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
-                  <option class="category_options"
-                    id="update_category_option_<%= i+1 %>"
-                    value="<%= bodyNumberOptions[i]%>">
-                    <%= bodyNumberOptions[i]%>
-                  </option>
-                  <%}%>
+                <option
+                  class="category_options"
+                  id="update_category_option_<%= i+1 %>"
+                  value="<%= bodyNumberOptions[i]%>"
+                >
+                  <%= bodyNumberOptions[i]%>
+                </option>
+                <%}%>
               </select>
             </div>
             <div id="UpdateCategoryButton">
-              <button  style="display: block;" 
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 
-              font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="removeUser()">Update</button>
-              <button  style="display: block;" 
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
-              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="(() => {document.getElementById('UpdateCategoryDivision').style.visibility = 'hidden'})()">Cancel</button>
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="removeUser()"
+              >
+                Update
+              </button>
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="(() => {document.getElementById('UpdateCategoryDivision').style.visibility = 'hidden'})()"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div id="UpdateCategoryDivisionEnsure" >
+      <div id="UpdateCategoryDivisionEnsure">
         <div class="UpdateCategoryEnsureModalContent">
-          <div id="UpdateCategoryDivisionEnsureHolder" style="display:flex; flex-direction: column; align-items: center; justify-content: center;">
-            <p style="font-size: large; font-weight:600;">Are you sure want to remove user? </p>
-            <div id="UpdateCategoryEnsureButton"  >
-              <button  style="display: block;"
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
-              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="removeUserFinal()">Remove</button>
-              <button  style="display: block;" 
-              class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
-              rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="(() => {document.getElementById('UpdateCategoryDivisionEnsure').style.visibility = 'hidden'})()">Cancel</button>
+          <div
+            id="UpdateCategoryDivisionEnsureHolder"
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+            "
+          >
+            <p style="font-size: large; font-weight: 600">
+              Are you sure want to remove user?
+            </p>
+            <div id="UpdateCategoryEnsureButton">
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="removeUserFinal()"
+              >
+                Remove
+              </button>
+              <button
+                style="display: block"
+                class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="(() => {document.getElementById('UpdateCategoryDivisionEnsure').style.visibility = 'hidden'})()"
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </div>
@@ -286,7 +421,34 @@
         />
         <input type="hidden" class="token" name="token" value="" />
       </form>
-      <form action="/secondlayer" method="post" id="firstLayerForm">
+      <form action="/firstlayer" method="post" id="firstLayerForm">
+        <input
+          type="hidden"
+          id="currentUser"
+          name="currentUser"
+          value="<%= currentUser %>"
+        />
+        <input
+          type="hidden"
+          id="currentEmpID"
+          name="currentEmpID"
+          value="<%= currentEmpID %>"
+        />
+        <input
+          type="hidden"
+          id="companyName"
+          name="companyName"
+          value="<%= companyName %>"
+        />
+        <input
+          type="hidden"
+          id="currentBodyNumber"
+          name="currentBodyNumber"
+          value="<%= currentBodyNumber %>"
+        />
+        <input type="hidden" class="token" name="token" value="" />
+      </form>
+      <form action="/secondlayer" method="post" id="secondLayerForm">
         <input
           type="hidden"
           name="selectedCategory"
@@ -354,10 +516,65 @@
         if (!modeDOM.checked) {
           mode = 'offline';
         }
-        const firstLayerForm = document.getElementById('firstLayerForm');
+        const secondLayerForm = document.getElementById('secondLayerForm');
         document.getElementById('selectedCategory').value = selectedGroup;
         document.getElementById('mode').value = mode;
-        firstLayerForm.submit();
+        secondLayerForm.submit();
+      }
+
+      function validateCategory() {
+        const addCategoryForm = document.getElementById('addCategoryForm');
+        if (!addCategoryForm.checkValidity()) {
+          if (addCategoryForm.reportValidity) {
+            addCategoryForm.reportValidity();
+          } else {
+            alert(msg.ieErrorForm);
+          }
+        } else {
+          document.getElementById(
+            'addCategoryDivisionEnsure'
+          ).style.visibility = 'visible';
+        }
+      }
+
+      async function addCategory() {
+        const newCategory = document.getElementById('add_category').value;
+
+        const response = await fetch('/addCategory', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            newCategory: newCategory,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (data.status == 'success') {
+          document.getElementById('addCategoryFinalMessage').innerHTML =
+            'Category successfully added';
+
+          document.getElementById('addCategoryDivisionFinal').style.visibility =
+            'visible';
+        } else {
+          if (data.reason == 'already exists') {
+            document.getElementById('addCategoryErrorMsg').innerHTML =
+              'Category already exists';
+
+            setTimeout(() => {
+              document.getElementById('addCategoryErrorMsg').innerHTML = '';
+            }, 3000);
+          } else {
+            document.getElementById('addCategoryFinalMessage').innerHTML =
+              'Error adding category. Try Again!';
+
+            document.getElementById(
+              'addCategoryDivisionFinal'
+            ).style.visibility = 'visible';
+          }
+        }
       }
 
       function logout() {
