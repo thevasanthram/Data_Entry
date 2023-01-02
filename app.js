@@ -1829,6 +1829,29 @@ app.post('removeCategory', async (req, res) => {
   }
 });
 
+app.post('/addSubCategory', async (req, res) => {
+  try {
+    const addingSubCategory = req.body.addingSubCategory;
+    const addingCategory = req.body.addingCategory;
+
+    Options[addingCategory][addingSubCategory] = {};
+
+    res.send(
+      JSON.stringify({
+        status: 'success',
+      })
+    );
+  } catch (err) {
+    console.log(err);
+    res.send(
+      JSON.stringify({
+        status: 'failure',
+        reason: 'backend error',
+      })
+    );
+  }
+});
+
 app.post('/secondlayer', authenticateToken, (req, res) => {
   try {
     console.log('second layer');
