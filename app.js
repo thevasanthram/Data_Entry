@@ -111,7 +111,7 @@ pool.query(
             );
 
             dbConnectedPool.query(
-              `CREATE TABLE IF NOT EXISTS approval_pending_table (id int, name varchar(50), email varchar(50), password varchar(30), company varchar(50), status varchar(8), accessible_charts varchar[], created_by varchar);`,
+              `CREATE TABLE IF NOT EXISTS approval_pending_table (id int, name varchar(50), email varchar(50), password varchar(30), company varchar(50), status varchar(8), accessible_charts varchar[], creator_id int,created_by varchar);`,
               (err, result) => {
                 if (err) {
                   throw err;
@@ -1390,7 +1390,7 @@ app.post('/newUser', async (req, res) => {
           from: 'sanjeevmajhi036@gmail.com',
           to: empEmail,
           subject: 'Invitation to create new user',
-          text: `Check this link and fill the form \n Credentials \n ID: ${empID} \n Password: ${empPassword}`,
+          text: `Check this link and fill the form \n http://13.231.146.190:2000/verifyUser \n Credentials \n ID: ${empID} \n Password: ${empPassword}`,
         };
 
         mailTransporter.sendMail(mailDetails, async function (err, data) {
@@ -1411,9 +1411,9 @@ app.post('/newUser', async (req, res) => {
             // invitation sent and stored in database
 
             await dbConnectedPool.query(
-              `INSERT INTO approval_pending_table(id,name,email,password,company,status,accessible_charts,created_by) VALUES (${empID},'${empName}','${empEmail}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
+              `INSERT INTO approval_pending_table(id,name,email,password,company,status,accessible_charts,creator_id,created_by) VALUES (${empID},'${empName}','${empEmail}','${empPassword}','${empCompany}','${empStatus}',ARRAY['${accessibleCharts.join(
                 `','`
-              )}'],'${creator}')`
+              )}'],${creatorID},'${creator}')`
             );
             res.send(
               JSON.stringify({
@@ -1470,6 +1470,26 @@ app.post('/approveUser', async (req, res) => {
       port: 5432,
     });
 
+    let currentDate = new Date();
+
+    const date =
+      String(currentDate.getFullYear()) +
+      '-' +
+      (currentDate.getMonth() + 1 <= 9
+        ? '0' + Number(currentDate.getMonth() + 1)
+        : Number(currentDate.getMonth() + 1)) +
+      '-' +
+      (currentDate.getDate() <= 9
+        ? '0' + Number(currentDate.getDate())
+        : Number(currentDate.getDate()));
+
+    const time =
+      String(currentDate.getHours()) +
+      ':' +
+      String(currentDate.getMinutes()) +
+      ':' +
+      String(currentDate.getSeconds());
+
     const CheckUserResponse = await dbConnectedPool.query(
       `SELECT * FROM approval_pending_table WHERE id=${userID}`
     );
@@ -1478,7 +1498,7 @@ app.post('/approveUser', async (req, res) => {
       CheckUserResponse.rows.length != 0 &&
       password == CheckUserResponse.rows[0].password
     ) {
-      await dbConnectedPool.query(
+      const userReponse = await dbConnectedPool.query(
         `INSERT INTO employee_table (name,email,password,company,status,accessible_charts,created_by) VALUES ('${
           CheckUserResponse.rows[0].name
         }','${CheckUserResponse.rows[0].email}','${
@@ -1487,7 +1507,11 @@ app.post('/approveUser', async (req, res) => {
           CheckUserResponse.rows[0].status
         }',ARRAY['${CheckUserResponse.rows[0].accessible_charts.join(
           `','`
-        )}'],'${CheckUserResponse.rows[0].created_by}')`
+        )}'],'${CheckUserResponse.rows[0].created_by}') RETURNING id`
+      );
+
+      await dbConnectedPool.query(
+        `INSERT INTO admin_activity_table (doneByID,doneByName,activity,doneToID,doneToName,date,time) VALUES (${CheckUserResponse.rows[0].creator_id},'${CheckUserResponse.rows[0].created_by}','created',${userReponse.rows[0].id},'${CheckUserResponse.rows[0].name}','${date}','${time}')`
       );
 
       await dbConnectedPool.query(
@@ -1757,6 +1781,79 @@ app.post('/firstlayer', authenticateToken, (req, res) => {
     });
   } catch (err) {
     console.log(err);
+  }
+});
+
+app.post('/addCategory', async (req, res) => {
+  try {
+    const addingCategory = req.body.newCategory;
+
+    Options[addingCategory] = {};
+
+    res.send(
+      JSON.stringify({
+        status: 'success',
+      })
+    );
+  } catch (err) {
+    console.log(err);
+    res.send(
+      JSON.stringify({
+        status: 'failure',
+        reason: 'backend error',
+      })
+    );
+  }
+});
+
+app.post('/removeCategory', async (req, res) => {
+  try {
+    const removingCategory = req.body.category;
+
+    delete Options[removingCategory];
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+
+    res.sendStatus(400);
+  }
+});
+
+app.post('/addSubCategory', async (req, res) => {
+  try {
+    const addingSubCategory = req.body.addingSubCategory;
+    const addingCategory = req.body.addingCategory;
+
+    Options[addingCategory][addingSubCategory] = {};
+
+    res.send(
+      JSON.stringify({
+        status: 'success',
+      })
+    );
+  } catch (err) {
+    console.log(err);
+    res.send(
+      JSON.stringify({
+        status: 'failure',
+        reason: 'backend error',
+      })
+    );
+  }
+});
+
+app.post('/removeSubCategory', (req, res) => {
+  try {
+    const removeSubCategory = req.body.removeSubCategory;
+    const Category = req.body.Category;
+
+    delete Options[Category][removeSubCategory];
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
   }
 });
 

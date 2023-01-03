@@ -95,7 +95,7 @@ input:checked ~ .dot {
 .sub_container {
   display: flex;
   justify-content: start;
-  margin: 2%;
+  margin: 1%;
   gap: 2rem;
   align-items: center;
 }
@@ -117,18 +117,20 @@ input:checked ~ .dot {
   padding: 5px;
 }
 .main-content {
-  transition: all 0.5s ease-in-out;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 10px;
-  margin: 0 10% 0 10%;
+  width: 72%;
+  position: relative;
+  left: 14%;
+  transition: all 0.5s ease-in-out;
 }
 
 .form-content {
   cursor: pointer;
   font-size: 110%;
-  padding: 2%;
-  margin: 5%;
+  padding: 3%;
+  margin: 3%;
   border: 1px solid #64666a;
   border-radius: 4px;
   background-color: black;
@@ -139,8 +141,8 @@ input:checked ~ .dot {
 /* !................... Style for Update Section................. */
 
 .update_container{
-  margin: 1%;
-  padding: 1%;
+  margin: 2px;
+  padding: 5px;
   transition: all 0.5s ease-in-out;
 }
 .update_subContainer{
@@ -157,6 +159,8 @@ input:checked ~ .dot {
   text-align: center;
   margin: 1%;
   padding: 1%;
+  font-size: large;
+  font-weight: 600;
 }
 .update_btn_container{
   display: grid;
@@ -279,7 +283,7 @@ input:checked ~ .dot {
   transition: all 0.5s ease-in-out;
 }
 
-.removeSubCategoryrDivisionSuccessModalContent {
+.removeSubCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;
@@ -410,7 +414,7 @@ input:checked ~ .dot {
   transition: all 0.5s ease-in-out;
 }
 
-.UpdateSubCategoryrDivisionSuccessModalContent {
+.UpdateSubCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;
@@ -534,7 +538,7 @@ input:checked ~ .dot {
   transition: all 0.5s ease-in-out;
 }
 
-.addSubCategoryrDivisionSuccessModalContent {
+.addSubCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;
@@ -557,9 +561,7 @@ input:checked ~ .dot {
     margin-right: 2%;
     min-height: 3%;
   }
-  #go-back-icon {
-    max-width: 9.5%;
-  }
+
   /* !.........Remove Sub-Category Popup.......... */
   .removeSubCategoryModalContent {
     width: 45%;
@@ -598,12 +600,7 @@ input:checked ~ .dot {
     font-size: clamp(1.2rem, 2vw, 1.4rem);
   }
   .update_subContainer {
-    position: relative;
-    margin: auto;
     width: 80%;
-    min-height: 20vh;
-    background-color: #070a1d;
-    border-radius: 10px;
   }
 
 /* !..........Remove Sub Category Popup........... */
@@ -656,26 +653,6 @@ input:checked ~ .dot {
   #remove_sub_category {
     width: 90%;
   }
-  /* ! ............Update Section........... */
-
-  /* .update_subContainer{
-    width: 85%;
-  }
-  .update_btn_container {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 5px;
-    margin: 2%;
-    gap: 0.5rem;
-  }
-  .main-content {
-    grid-template-columns: 1fr 1fr;
-    padding: 10px;
-    width: 90%;
-    position: relative;
-    left: 5%;
-    margin: 2% 0% 2% 0%;
-  } */
 
   /* !......... Update ..........*/
   #update_sub_category {
@@ -883,6 +860,20 @@ input:checked ~ .dot {
   }
 }
 
-@media screen and (max-width: 1280px) {
+@media screen and (max-height: 1280px) {
+  .update_subContainer {
+    min-height: 14vh;
+  }
+}
 
+@media screen and (max-height: 1000px) {
+  .update_subContainer {
+    min-height: 18vh;
+  }
+}
+
+@media screen and (max-height: 680px) {
+  .update_subContainer {
+    min-height: 22vh;
+  }
 }

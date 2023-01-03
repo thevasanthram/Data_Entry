@@ -98,7 +98,7 @@ input:checked ~ .dot {
 .sub_container {
   display: flex;
   justify-content: start;
-  margin: 2%;
+  margin: 1%;
   gap: 2rem;
   align-items: center;
 }
@@ -124,13 +124,16 @@ input:checked ~ .dot {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 10px;
-  margin: 2% 15% 0 15%;
+  width: 72%;
+  position: relative;
+  left: 14%;
+  transition: all 0.5s ease-in-out;
 }
 .form-content {
   cursor: pointer;
   font-size: 110%;
-  padding: 2%;
-  margin: 5%;
+  padding: 3%;
+  margin: 3%;
   border: 1px solid #64666a;
   border-radius: 4px;
   background-color: black;
@@ -141,8 +144,8 @@ input:checked ~ .dot {
 /* !................... Style for Update Section................. */
 
 .update_container{
-  margin: 1%;
-  padding: 1%;
+  margin: 2px;
+  padding: 5px;
   transition: all 0.5s ease-in-out;
 }
 .update_subContainer{
@@ -159,6 +162,8 @@ input:checked ~ .dot {
   text-align: center;
   margin: 1%;
   padding: 1%;
+  font-size: large;
+  font-weight: 600;
 }
 .update_btn_container{
   display: grid;
@@ -279,11 +284,11 @@ input:checked ~ .dot {
   z-index: 3;
 }
 
-.removeCategoryrDivisionSuccessModalContent {
+.removeCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;
-  width: 35%;
+  width: 35%;  
   height: 33%;
   border-radius: 10px;
   display: flex;
@@ -410,7 +415,7 @@ input:checked ~ .dot {
   transition: all 0.5s ease-in-out;
 }
 
-.UpdateCategoryrDivisionSuccessModalContent {
+.UpdateCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;
@@ -534,7 +539,7 @@ input:checked ~ .dot {
   transition: all 0.5s ease-in-out;
 }
 
-.addCategoryrDivisionSuccessModalContent {
+.addCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;
@@ -548,6 +553,24 @@ input:checked ~ .dot {
 }
 /* !............CSS for REsponsive Design........... */
 
+@media screen and (max-height: 1280px) {
+  .update_subContainer {
+    min-height: 14vh;
+  }
+}
+
+@media screen and (max-height: 1000px) {
+  .update_subContainer {
+    min-height: 18vh;
+  }
+}
+
+@media screen and (max-height: 680px) {
+  .update_subContainer {
+    min-height: 22vh;
+  }
+}
+
 @media screen and (max-width: 1025px) {
   #home-icon {
     margin-left: 1%;
@@ -555,9 +578,6 @@ input:checked ~ .dot {
     min-height: 30px;
     margin-right: 2%;
     min-height: 3%;
-  }
-  #go-back-icon {
-    max-width: 6.5%;
   }
   /* !.........Remove Category Popup.......... */
   .removeCategoryModalContent {
