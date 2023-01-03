@@ -656,12 +656,7 @@ input:checked ~ .dot {
   }
 
   .update_subContainer {
-    position: relative;
-    margin: auto;
     width: 80%;
-    min-height: 20vh;
-    background-color: #070a1d;
-    border-radius: 10px;
   }
   /* !..........Remove Category Popup........... */
 
@@ -709,7 +704,7 @@ input:checked ~ .dot {
     align-items: center;
     gap: 1rem;
     justify-content: space-evenly;
-    width: 85%;
+    width: 95%;
   }
   /* !......... Update ..........*/
   #update_category {
