@@ -108,15 +108,15 @@
             <button type="button" class="inline-block px-6 py-2.5 bg-blue-400 text-white font-medium text-xs leading-tight
               uppercase rounded shadow-md hover:bg-blue-500 hover:shadow-lg focus:bg-blue-500 focus:shadow-lg 
               focus:outline-none focus:ring-0 active:bg-blue-600 active:shadow-lg transition duration-150 ease-in-out"
-              onclick="(() => {document.getElementById('UpdateCategoryDivision').style.visibility = 'visible'})()">EDIT DEFECT/SUB-DEFECT</button>
+              onclick="(() => {document.getElementById('UpdateDefectsDivision').style.visibility = 'visible'})()">EDIT DEFECT/SUB-DEFECT</button>
             <button type="button" class="inline-block px-6 py-2.5 bg-green-500 text-white font-medium text-xs 
               leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg
               focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out"
-              onclick="(() => {document.getElementById('addCategoryDivision').style.visibility = 'visible'})()">ADD DEFECT/SUB-DEFECT</button>
+              onclick="(() => {document.getElementById('addDefectsDivision').style.visibility = 'visible'})()">ADD DEFECT/SUB-DEFECT</button>
             <button type="button" class="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs 
               leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg
               focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
-              onclick="(() => {document.getElementById('removeCategoryDivision').style.visibility = 'visible'})()">DELETE DEFECT/SUB-DEFECT</button>
+              onclick="(() => {document.getElementById('removeDefectsDivision').style.visibility = 'visible'})()">DELETE DEFECT/SUB-DEFECT</button>
           </div>
         </div>
       </div>
@@ -126,16 +126,58 @@
             <div id="removeDefectsDivisionHolder"  >
               <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Remove Category</p>
               <div id="removeDefectsInput"  >
-                <p style="font-weight: 500;" >Select Category -></p>
-                <select name="Defects" id="Defects" > 
-                  <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
-                    <option class="category_options"
-                      id="remove_category_option_<%= i+1 %>"
-                      value="<%= bodyNumberOptions[i]%>">
-                      <%= bodyNumberOptions[i]%>
+                <div class="select_updateDefect_container">
+                  <p style="font-weight: 500;" >Select Category :</p>
+                  <select name="removeDefect_category" id="removeDefect_category">
+                    <option value="" style="background-color: black;color: white; "
+                     id="defect_option">DEFECT</option>
+                    <option value="" style="background-color: black; color: white;"
+                     id="SubDefect_option">SUB-DEFECT</option>
+                  </select>
+                </div>
+                <div class="select_removeOptions_container">
+                  <p style="font-weight: 500;" >Select Defect/Sub-Defect :</p>
+                  <select class="remove_defect_content" style="border-radius: 5px;">
+                    <% const removeDefectListId = Object.keys(defectObject); let
+                    removeSubDefectListId = []; let removeSubDefectListName = []; %> <% for (let
+                    i=0; i < removeDefectListId.length; i++){%>
+                    <option
+                      type="button"
+                      class="Defects_options"
+                      style="background-color: black; color: #eeeeee; border-radius: 5px;"
+                      id="<%= removeDefectListId[i] %>-main-defect-button"
+                      onclick="defectCategorySwitch('<%= removeDefectListId[i] %>')"
+                    >
+                      <%= defectObject[removeDefectListId[i]].name%>
                     </option>
                     <%}%>
-                </select>
+                  </select>
+                </div>
+                <!-- <select class="removeSubDefect_content">
+                  <%for ( let i=0; i < removeSubDefectListId.length; i++){ removeSubDefectListId =
+                  Object.keys(defectObject[removeSubDefectListId[i]]['subdefects']);
+                  subDefectListName =
+                  Object.values(defectObject[removeSubDefectListId[i]]['subdefects']); %>
+                  <div
+                    id=""
+                    class="defectName"
+                    style="display: none"
+                  >
+                    <div class="sub-defects-category-content">
+                      <%for (let j = 0; j < removeSubDefectListId.length; j++){%>
+                      <option
+                        type="button"
+                        class="sub-defect-category <%= removeSubDefectListId[i] %>-buttons"
+                        style="background-color: black; color: white"
+                        onclick="subdefectCategorySwitch(event , '<%= removeSubDefectListId[i] %>-<%= subDefectListId[j] %>')"
+                      >
+                        <%= subDefectListName[j] %>
+                      </option>
+                      <%}%>
+                    </div>
+                  </div>
+                  <%}%>
+                </select> -->
               </div>
               <div  id="removeDefectsErrorMsg" style="visibility: hidden;color: #FF0000;">Select Category</div>
               <div id="removeDefectsButton">
@@ -174,6 +216,13 @@
           <div class="addDefectsModalContent">
             <div id="addDefectsDivisionHolder"  >
               <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Add Category</p>
+              <p style="font-weight: 500;" >Select Category -></p>
+                <select name="defect_catogery" id="defect_catogery" style="border-radius: 5px;">
+                  <option value="" style="background-color: black; color: white ;"
+                   id="defect_option">DEFECT</option>
+                  <option value="" style="background-color: black; color: white ;"
+                   id="SubDefect_option">SUB-DEFECT</option>
+                </select>
               <div id="addDefectsInput"  >
                 <p style="font-weight: 500;" >Add Defects/Sub-Defects-></p>
                 <input type="text" value="" id="add_Defects">
@@ -216,16 +265,33 @@
             <div id="UpdateDefectsDivisionHolder"  >
               <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Edit Category</p>
               <div id="UpdateDefectsInput"  >
-                <p style="font-weight: 500;" >Select Category -></p>
-                <select name="update_category" id="update_category" > 
-                  <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
-                    <option class="category_options"
-                      id="update_category_option_<%= i+1 %>"
-                      value="<%= bodyNumberOptions[i]%>">
-                      <%= bodyNumberOptions[i]%>
+                <div class="select_updateDefect_container">
+                  <p style="font-weight: 500;" >Select Category :</p>
+                  <select name="updateDefect_category" id="updateDefect_category">
+                    <option value="" style="background-color: black; color: white ;border-radius: 5px;"
+                     id="defect_option">DEFECT</option>
+                    <option value="" style="background-color: black; color: white;border-radius: 5px;"
+                     id="SubDefect_option">SUB-DEFECT</option>
+                  </select>
+                </div>
+                <div class="select_updateOptions_container">
+                  <p style="font-weight: 500;" >Select Defects/Sub-Defects :</p>
+                  <select class="update_defect_content" style="border-radius: 5px;">
+                    <% const updateDefectListId = Object.keys(defectObject); let
+                    updateSubDefectListId = []; let updateSubDefectListName = []; %> <% for (let
+                    i=0; i < updateDefectListId.length; i++){%>
+                    <option
+                      type="button"
+                      class="Defects_options"
+                      style="background-color: black; color: #eeeeee;border-radius: 5px;"
+                      id="<%= updateDefectListId[i] %>-main-defect-button"
+                      onclick="defectCategorySwitch('<%= updateDefectListId[i] %>')"
+                    >
+                      <%= defectObject[updateDefectListId[i]].name%>
                     </option>
                     <%}%>
-                </select>
+                  </select>
+                </div>
               </div>
               <div  id="removeDefectsErrorMsg" style="visibility: hidden;color: #FF0000;">Name cannot be identical</div>
               <div id="UpdateDefectsButton">

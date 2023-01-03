@@ -601,7 +601,6 @@ input:checked ~ .dot {
   }
   .update_subContainer {
     width: 80%;
-    min-height: 20vh;
   }
 
 /* !..........Remove Sub Category Popup........... */
