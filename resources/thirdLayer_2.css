@@ -98,7 +98,7 @@
   }
   /* !.........Add Defect-Category Popup.......... */
   .addDefectsModalContent {
-    width: 45%;
+    width: 50%;
     min-height: 24%;
     border-radius: 10px;
   }
@@ -652,6 +652,25 @@
     margin-top: 10px;
     font-size: 0.6rem;
     font-weight: 500;
+  }
+/* !..........edit/remove/update............. */
+  #UpdateDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  #UpdateDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  #removeDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
   }
 }
 @media screen and (max-width:540px) {
