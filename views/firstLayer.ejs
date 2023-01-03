@@ -169,7 +169,7 @@
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="removeUser()"
+                onclick="(() => document.getElementById('removeCategoryDivisionEnsure').style.visibility = 'visible')()"
               >
                 Remove
               </button>
@@ -203,7 +203,7 @@
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="removeUserFinal()"
+                onclick="removeCategory()"
               >
                 Remove
               </button>
@@ -213,6 +213,29 @@
                 onclick="(() => {document.getElementById('removeCategoryDivisionEnsure').style.visibility = 'hidden'})()"
               >
                 Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="removeCategoryDivisionSuccess">
+        <div class="removeCategoryrDivisionSuccessModalContent">
+          <div id="removeCategoryFinalDivisionHolder">
+            <p
+              style="
+                font-weight: 700;
+                margin: 1%;
+                padding: 1%;
+                font-size: large;
+              "
+              id="removeCategoryFinalMessage"
+            ></p>
+            <div>
+              <button
+                onclick="(() => document.getElementById('firstLayerForm').submit())()"
+              >
+                OK
               </button>
             </div>
           </div>
@@ -239,7 +262,10 @@
               </form>
             </div>
             <div>
-              <p id="addCategoryErrorMsg" style="font-weight: 500; color: #F00000;"></p>
+              <p
+                id="addCategoryErrorMsg"
+                style="font-weight: 500; color: #f00000"
+              ></p>
             </div>
             <div id="addCategoryButton">
               <button
@@ -586,6 +612,35 @@
 
           document.getElementById(
             'addCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
+        }
+      }
+
+      async function removeCategory() {
+        const category = document.getElementById('category').value;
+        console.log('category: ', category);
+
+        const response = await fetch('/removeCategory', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            category,
+          }),
+        });
+
+        if (response.status == 200) {
+          document.getElementById('removeCategoryFinalMessage').innerHTML =
+            'Category removed successfully';
+          document.getElementById(
+            'removeCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
+        } else {
+          document.getElementById('removeCategoryFinalMessage').innerHTML =
+            'Error removing Category. Try Again!';
+          document.getElementById(
+            'removeCategoryDivisionSuccess'
           ).style.visibility = 'visible';
         }
       }
