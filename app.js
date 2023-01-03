@@ -26,7 +26,7 @@ app.use(express.static('./resources'));
 
 const pool = new Pool({
   user: 'postgres',
-  host: 'postgres',
+  host: 'localhost',
   password: 'admin',
   port: 5432,
 });
@@ -49,7 +49,7 @@ pool.query(
           } else {
             let dbConnectedPool = new Pool({
               user: 'postgres',
-              host: 'postgres',
+              host: 'localhost',
               database: 'data_entry_systems',
               password: 'admin',
               port: 5432,
@@ -1005,7 +1005,7 @@ app.post('/login', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1090,7 +1090,7 @@ app.post('/emailVerification', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1160,7 +1160,7 @@ app.post('/resetPassword', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1181,7 +1181,7 @@ app.post('/adminPortal', authenticateToken, async (req, res) => {
   try {
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1222,7 +1222,7 @@ app.post('/createCompany', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1294,7 +1294,7 @@ app.post('/removeUser', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1351,7 +1351,7 @@ app.post('/newUser', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1464,7 +1464,7 @@ app.post('/approveUser', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1560,7 +1560,7 @@ app.post('/follower', authenticateToken, async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1592,7 +1592,7 @@ app.post('/bodyNumberBalanceChecker', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1641,7 +1641,7 @@ app.post('/bodyNumber', (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -1701,7 +1701,7 @@ app.post('/passcar', (req, res) => {
   try {
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -2039,7 +2039,7 @@ app.post('/zonechecker', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -2151,7 +2151,7 @@ app.post('/receive-thirdLayer-temp', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -2307,7 +2307,7 @@ app.post('/filter', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -2341,7 +2341,7 @@ app.post('/reportDataProvider', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -2445,7 +2445,7 @@ app.post('/majorDefectDetail', async (req, res) => {
     async function dataFetcher(groupCode) {
       let dbConnectedPool = new Pool({
         user: 'postgres',
-        host: 'postgres',
+        host: 'localhost',
         database: 'data_entry_systems',
         password: 'admin',
         port: 5432,
@@ -2538,7 +2538,7 @@ app.post('/majorSubDefectDetail', async (req, res) => {
     async function dataFetcher(groupCode, subDefectName) {
       let dbConnectedPool = new Pool({
         user: 'postgres',
-        host: 'postgres',
+        host: 'localhost',
         database: 'data_entry_systems',
         password: 'admin',
         port: 5432,
@@ -2627,7 +2627,7 @@ app.post('/pareto', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -2816,7 +2816,7 @@ app.post('/colorMap', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -2905,7 +2905,7 @@ app.post('/individualSummaryReport', async (req, res) => {
     const subDefectList = req.body.subDefectList;
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3022,7 +3022,7 @@ app.post('/admin', authenticateToken, async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3068,7 +3068,7 @@ app.post('/updateEmpStatus', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3119,7 +3119,7 @@ app.post('/updateEmpChartAccess', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3169,7 +3169,7 @@ app.post('/adminLog', authenticateToken, async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3210,7 +3210,7 @@ app.post('/dashboard', authenticateToken, async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3239,7 +3239,7 @@ app.post('/liveData', async (req, res) => {
   try {
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3385,7 +3385,7 @@ app.post('/liveNotification', async (req, res) => {
   try {
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3523,7 +3523,7 @@ app.post('/profile', authenticateToken, async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3575,7 +3575,7 @@ app.post('/updatePassword', async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,
@@ -3678,7 +3678,7 @@ app.post('/updateSection', authenticateToken, async (req, res) => {
 
     let dbConnectedPool = new Pool({
       user: 'postgres',
-      host: 'postgres',
+      host: 'localhost',
       database: 'data_entry_systems',
       password: 'admin',
       port: 5432,

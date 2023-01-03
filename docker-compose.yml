@@ -3,9 +3,11 @@ version: '3.7'
 services:
   node_app:
     build: ./
-    command: sh -c "sleep 20s"; npm start
+    #May or may not be needed
+    # command: sh -c "sleep 10s"; npm start
     ports:
       - "2000:2000"
+    tty: true
     depends_on:
       - postgres_sql
 
@@ -20,5 +22,3 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=data_entry_systems
-
-      
