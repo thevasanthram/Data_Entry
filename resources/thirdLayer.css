@@ -437,7 +437,7 @@ input:checked ~ .dot {
   margin: auto;
   padding: 2%;
   border: 1px solid #888;
-  width: 35%;
+  width: 45%;
   min-height: 25%;
   border-radius: 10px;
 }
