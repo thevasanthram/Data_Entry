@@ -202,6 +202,12 @@ input:checked ~ .dot {
 #removeDefect_category{
   border-radius: 5px;
 }
+.inputDefect_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
 #remove_sub_Defects{
   text-align: center;
   border-radius: 5px;
@@ -413,7 +419,7 @@ input:checked ~ .dot {
   justify-content: center;
   transition: all 0.5s ease-in-out;
 }
-/* !.......... Popup for  Adding Sub-category......... */
+/* !.......... Popup for  Adding Defect-category......... */
 
 #addDefectsDivision {
   visibility: hidden; /* Hidden by default */
@@ -544,6 +550,7 @@ input:checked ~ .dot {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   transition: all 0.5s ease-in-out;
 }
 
@@ -567,6 +574,7 @@ input:checked ~ .dot {
   max-width: 70%;
   position: relative;
   left: 15%;
+  transition: all 0.5s ease-in-out;
 }
 .defect-category {
   align-items: center;
@@ -597,6 +605,7 @@ input:checked ~ .dot {
   max-width: 70%;
   position: relative;
   left: 15%;
+  transition: all 0.5s ease-in-out;
 }
 
 .sub-defect-category {

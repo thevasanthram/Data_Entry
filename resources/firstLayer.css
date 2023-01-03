@@ -199,6 +199,7 @@ input:checked ~ .dot {
   width: 35%;
   min-height: 25%;
   border-radius: 10px;
+  transition: all 0.5s ease-in-out;
 }
 
 #removeCategoryButton {
@@ -220,7 +221,7 @@ input:checked ~ .dot {
   align-items: center;
   gap: 1rem;
   justify-content: space-evenly;
-  width: 85%;
+  width: 95%;
 }
 #category{
   text-align: center;
@@ -256,7 +257,9 @@ input:checked ~ .dot {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   border-radius: 10px;
+  transition: all 0.5s ease-in-out;
 }
 #removeCategoryDivisionEnsureHolder {
   display: flex;
@@ -294,7 +297,14 @@ input:checked ~ .dot {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   transition: all 0.5s ease-in-out;
+}
+#removeCategoryFinalDivisionHolder {
+  width: 80%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 }
 
 /* !.......... Popup for Updating / Edit Sub-category......... */
@@ -324,6 +334,7 @@ input:checked ~ .dot {
   width: 35%;
   min-height: 25%;
   border-radius: 10px;
+  transition: all 0.5s ease-in-out;
 }
 #update_category{
   text-align: center;
@@ -350,7 +361,14 @@ input:checked ~ .dot {
   align-items: center;
   gap: 1rem;
   justify-content: space-evenly;
-  width: 85%;
+  width: 95%;
+}
+.updateInput_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1rem;
 }
 #Update_category{
   text-align: center;
@@ -379,6 +397,7 @@ input:checked ~ .dot {
 .UpdateCategoryEnsureModalContent {
   background-color: #84A9AC;
   margin: auto;
+  text-align: center;
   padding: 20px;
   border: 1px solid #888;
   width: 35%;
@@ -387,6 +406,7 @@ input:checked ~ .dot {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  transition: all 0.5s ease-in-out;
 }
 #UpdateCategoryDivisionEnsureHolder {
   display: flex;
@@ -427,6 +447,12 @@ input:checked ~ .dot {
   justify-content: center;
   transition: all 0.5s ease-in-out;
 }
+#UpdateCategoryFinalDivisionHolder {
+  width: 80%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
 /* !.......... Popup for  Adding Sub-category......... */
 
 #addCategoryDivision {
@@ -454,6 +480,7 @@ input:checked ~ .dot {
   width: 35%;
   min-height: 25%;
   border-radius: 10px;
+  transition: all 0.5s ease-in-out;
 }
 #add_category{
   text-align: center;
@@ -502,6 +529,7 @@ input:checked ~ .dot {
 
 .addCategoryEnsureModalContent {
   background-color: #84A9AC;
+  text-align: center;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -511,6 +539,7 @@ input:checked ~ .dot {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  transition: all 0.5s ease-in-out;
 }
 #addCategoryDivisionEnsureHolder {
   display: flex;
@@ -541,16 +570,22 @@ input:checked ~ .dot {
 
 .addCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
-  margin: auto;
-  padding: 0px;
   width: 35%;
   height: 33%;
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   transition: all 0.5s ease-in-out;
 }
+#addCategoryFinalDivisionHolder {
+  width: 80%;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
 /* !............CSS for REsponsive Design........... */
 
 @media screen and (max-height: 1280px) {
@@ -597,7 +632,7 @@ input:checked ~ .dot {
   }
   #UpdateCategoryInput {
     gap: 0.75rem;
-    width: 95%;
+    width: 100%;
   }
   /* !.........Add Sub-Category Popup.......... */
   .addCategoryModalContent {
@@ -800,7 +835,7 @@ input:checked ~ .dot {
   }
   #mode_status {
     margin-right: 0.5rem;
-    padding: 5px;
+    padding: 2px;
   }
   /* ! ............Update Section........... */
 
@@ -833,6 +868,18 @@ input:checked ~ .dot {
     justify-content: space-evenly;
     gap: 5px;
   }
+  .removeCategoryModalContent {
+    width: 70%;
+  }
+  .removeCategoryEnsureModalContent {
+    width: 65%;
+  }
+  .removeCategoryDivisionSuccessModalContent {
+    width: 65%;
+  }
+  #removeCategoryFinalDivisionHolder {
+    width: 95%;
+  }
   .form-content {
     cursor: pointer;
     font-size: 100%;
@@ -859,6 +906,20 @@ input:checked ~ .dot {
     justify-content: space-evenly;
     gap: 5px;
   }
+  .updateInput_container {
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+  }
+  #UpdateCategoryFinalDivisionHolder {
+    width: 95%;
+  }
+  .UpdateCategoryEnsureModalContent {
+    width: 65%;
+  }
+  .updateCategoryDivisionSuccessModalContent {
+    width: 65%;
+  }
 
 /* !.............Popup for Adding  category.............. */
  
@@ -875,6 +936,19 @@ input:checked ~ .dot {
     display: flex;
     justify-content: space-evenly;
     gap: 5px;
+  }
+  .addCategoryEnsureModalContent {
+    width: 65%;
+    text-align: center;
+  }
+  #addCategoryFinalDivisionHolder {
+    width: 95%;
+  }
+  .addCategoryDivisionSuccessModalContent {
+    width: 65%;
+  }
+  #addCategoryButton {
+    gap: 15px;
   }
 }
 

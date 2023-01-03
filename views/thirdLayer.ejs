@@ -135,7 +135,7 @@
               <div id="removeDefectsInput"  >
                 <div class="select_updateDefect_container">
                   <div class="select_removeOptions_container">
-                    <p style="font-weight: 500;" >Select Defect/Sub-Defect :</p>
+                    <p style="font-weight: 500;" >Select Defect/Sub-Defect:</p>
                     <select name="removeDefect_category" id="removeDefect_category">
                       <option value="" style="background-color: black;color: white; "
                         id="defect_option">DEFECT</option>
@@ -145,7 +145,7 @@
                   </div>
                 </div>
                 <div class="select_removeOptions_container">
-                  <p style="font-weight: 500;" >Select Defect/Sub-Defect :</p>
+                  <p style="font-weight: 500;" >Select Defect/Sub-Defect:</p>
                   <select class="remove_defect_content" style="border-radius: 5px;">
                     <% const removeDefectListId = Object.keys(defectObject); let
                     removeSubDefectListId = []; let removeSubDefectListName = []; %> <% for (let
@@ -225,7 +225,7 @@
           <div class="addDefectsModalContent">
             <div id="addDefectsDivisionHolder"  >
               <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Add Category</p>
-              <p style="font-weight: 500;" >Select Category -></p>
+              <p style="font-weight: 500;" >Select Category:</p>
                 <select name="defect_catogery" id="defect_catogery" style="border-radius: 5px;">
                   <option value="" style="background-color: black; color: white ;"
                    id="defect_option">DEFECT</option>
@@ -302,7 +302,7 @@
               </select>
               <div id="UpdateDefectsInput"  >
                 <div class="select_updateDefect_container">
-                  <p style="font-weight: 500;" >Select Category :</p>
+                  <p style="font-weight: 500;" >Select Category:</p>
                   <select name="updateDefect_category" id="updateDefect_category">
                     <option value="" style="background-color: black; color: white ;border-radius: 5px;"
                      id="defect_option">DEFECT</option>
@@ -311,7 +311,7 @@
                   </select>
                 </div>
                 <div class="select_updateOptions_container">
-                  <p style="font-weight: 500;" >Select Defects/Sub-Defects :</p>
+                  <p style="font-weight: 500;" >Select Defects/Sub-Defects:</p>
                   <select class="update_defect_content" style="border-radius: 5px;">
                     <% const updateDefectListId = Object.keys(defectObject); let
                     updateSubDefectListId = []; let updateSubDefectListName = []; %> <% for (let
@@ -329,7 +329,11 @@
                   </select>
                 </div>
               </div>
-              <div  id="removeDefectsErrorMsg" style="visibility: hidden;color: #FF0000;">Name cannot be identical</div>
+              <div class="inputDefect_container" >
+                <p style="font-weight: 500;" >RENAME :</p>
+                <input type="text" id="update_input_Defect" style="border-radius: 5px; text-align: center; background-color: beige;">
+              </div>
+              <div  id="updateDefectsErrorMsg" style="visibility: hidden;color: #FF0000;">Name cannot be identical</div>
               <div id="UpdateDefectsButton">
                 <button  style="display: block;" 
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 

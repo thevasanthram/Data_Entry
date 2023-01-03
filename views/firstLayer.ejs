@@ -64,7 +64,7 @@
             alt="Go Back"
             onclick="document.getElementById('followerForm').submit();"
           />
-          <p id="title-name">Select Category :</p>
+          <p id="title-name">Select Category:</p>
         </div>
         <!-- Toggle Switch for online / offline -->
         <div id="toggle" class="mt-10 ml-8">
@@ -151,7 +151,7 @@
               Remove Category
             </p>
             <div id="removeCategoryInput">
-              <p style="font-weight: 500">Select Category -></p>
+              <p style="font-weight: 500">Select Category:</p>
               <select name="category" id="category">
                 <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
                 <option
@@ -220,10 +220,9 @@
       </div>
 
       <div id="removeCategoryDivisionSuccess">
-        <div class="removeCategoryrDivisionSuccessModalContent">
-          <div id="removeCategoryFinalDivisionHolder">
-            <p
-              style="
+        <div class="removeCategoryDivisionSuccessModalContent">
+          <div id="removeCategoryFinalDivisionHolder" >
+            <p style="
                 font-weight: 700;
                 margin: 1%;
                 padding: 1%;
@@ -232,7 +231,8 @@
               id="removeCategoryFinalMessage"
             ></p>
             <div>
-              <button
+              <button class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+                rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
                 onclick="(() => document.getElementById('firstLayerForm').submit())()"
               >
                 OK
@@ -256,8 +256,8 @@
               Add Category
             </p>
             <div id="addCategoryInput">
-              <p style="font-weight: 500">Add Category-></p>
-              <form id="addCategoryForm">
+              <p style="font-weight: 500">Add Category:</p>
+              <form id="addCategoryForm" style="text-align: center;">
                 <input type="text" value="" id="add_category" required />
               </form>
             </div>
@@ -322,8 +322,8 @@
       </div>
 
       <div id="addCategoryDivisionSuccess">
-        <div class="addCategoryDivisionSuccessModalContent">
-          <div id="addCategoryFinalDivisionHolder">
+        <div class="addCategoryDivisionSuccessModalContent" >
+          <div id="addCategoryFinalDivisionHolder" >
             <p
               style="
                 font-weight: 700;
@@ -334,7 +334,8 @@
               id="addCategoryFinalMessage"
             ></p>
             <div>
-              <button
+              <button class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+                rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
                 onclick="(() => document.getElementById('firstLayerForm').submit())()"
               >
                 OK
@@ -359,7 +360,7 @@
               Edit Category
             </p>
             <div id="UpdateCategoryInput">
-              <p style="font-weight: 500">Select Category -></p>
+              <p style="font-weight: 500">Select Category:</p>
               <select name="update_category" id="update_category">
                 <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
                 <option
@@ -371,6 +372,10 @@
                 </option>
                 <%}%>
               </select>
+            </div>
+            <div class="updateInput_container" >
+              <p style="font-weight: 500;" >RENAME :</p>
+              <input type="text" id="update_input_Category" style="border-radius: 5px; text-align: center; background-color: beige;">
             </div>
             <div id="UpdateCategoryButton">
               <button
@@ -404,7 +409,7 @@
             "
           >
             <p style="font-size: large; font-weight: 600">
-              Are you sure want to remove user?
+              Are you sure want to update category?
             </p>
             <div id="UpdateCategoryEnsureButton">
               <button
@@ -412,7 +417,7 @@
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
                 onclick="removeUserFinal()"
               >
-                Remove
+                Update
               </button>
               <button
                 style="display: block"
