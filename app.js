@@ -1806,26 +1806,17 @@ app.post('/addCategory', async (req, res) => {
   }
 });
 
-app.post('removeCategory', async (req, res) => {
+app.post('/removeCategory', async (req, res) => {
   try {
-    const removingCategory = req.body.removingCategory;
+    const removingCategory = req.body.category;
 
     delete Options[removingCategory];
 
-    res.send(
-      JSON.stringify({
-        status: 'success',
-      })
-    );
+    res.sendStatus(200);
   } catch (err) {
     console.log(err);
 
-    res.send(
-      JSON.stringify({
-        status: 'failure',
-        reason: 'backend error',
-      })
-    );
+    res.sendStatus(400);
   }
 });
 
@@ -1849,6 +1840,20 @@ app.post('/addSubCategory', async (req, res) => {
         reason: 'backend error',
       })
     );
+  }
+});
+
+app.post('/removeSubCategory', (req, res) => {
+  try {
+    const removeSubCategory = req.body.removeSubCategory;
+    const Category = req.body.Category;
+
+    delete Options[Category][removeSubCategory];
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
   }
 });
 
