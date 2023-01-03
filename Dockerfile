@@ -1,6 +1,6 @@
 FROM node:16-alpine
 
-WORKDIR /app
+WORKDIR . /app
 
 COPY ./package.json .
 COPY ./package-lock.json .
@@ -9,6 +9,7 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 2000
 
-CMD node app.js
+RUN chmod +x wait-for-it.sh
+
