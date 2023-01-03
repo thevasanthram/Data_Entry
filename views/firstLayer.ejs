@@ -349,6 +349,7 @@
       <div id="UpdateCategoryDivision">
         <div class="UpdateCategoryModalContent">
           <div id="UpdateCategoryDivisionHolder">
+            <form id="updateCategoryForm"></form>
             <p
               style="
                 font-weight: 700;
@@ -360,7 +361,7 @@
               Edit Category
             </p>
             <div id="UpdateCategoryInput">
-              <p style="font-weight: 500">Select Category:</p>
+              <p style="font-weight: 500">Select Category -></p>
               <select name="update_category" id="update_category">
                 <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
                 <option
@@ -373,22 +374,18 @@
                 <%}%>
               </select>
             </div>
-            <div class="updateInput_container" >
-              <p style="font-weight: 500;" >RENAME :</p>
-              <input type="text" id="update_input_Category" style="border-radius: 5px; text-align: center; background-color: beige;">
-            </div>
             <div id="UpdateCategoryButton">
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="removeUser()"
+                onclick="validateCategoryUpdation()"
               >
                 Update
               </button>
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="(() => {document.getElementById('UpdateCategoryDivision').style.visibility = 'hidden'})()"
+                onclick="(() => document.getElementById('UpdateCategoryDivision').style.visibility = 'hidden')()"
               >
                 Cancel
               </button>
@@ -409,15 +406,15 @@
             "
           >
             <p style="font-size: large; font-weight: 600">
-              Are you sure want to update category?
+              Are you sure want to remove user?
             </p>
             <div id="UpdateCategoryEnsureButton">
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="removeUserFinal()"
+                onclick="updateCategory()"
               >
-                Update
+                Remove
               </button>
               <button
                 style="display: block"
@@ -425,6 +422,29 @@
                 onclick="(() => {document.getElementById('UpdateCategoryDivisionEnsure').style.visibility = 'hidden'})()"
               >
                 Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="updateCategoryDivisionSuccess">
+        <div class="updateCategoryDivisionSuccessModalContent">
+          <div id="updateCategoryFinalDivisionHolder">
+            <p
+              style="
+                font-weight: 700;
+                margin: 1%;
+                padding: 1%;
+                font-size: large;
+              "
+              id="updateCategoryFinalMessage"
+            ></p>
+            <div>
+              <button
+                onclick="(() => document.getElementById('firstLayerForm').submit())()"
+              >
+                OK
               </button>
             </div>
           </div>
@@ -586,6 +606,66 @@
               'addCategoryDivisionEnsure'
             ).style.visibility = 'visible';
           }
+        }
+      }
+
+      function validateCategoryUpdation() {
+        const updateCategoryForm = document.getElementById('updateCategoryForm');
+        if (!updateCategoryForm.checkValidity()) {
+          if (updateCategoryForm.reportValidity) {
+            updateCategoryForm.reportValidity();
+          } else {
+            alert(msg.ieErrorForm);
+          }
+        } else {
+          if (
+            bodyNumberOptions.includes(
+              document.getElementById('categoryName').value
+            )
+          ) {
+            document.getElementById('updateCategoryErrorMsg').innerHTML =
+              'Category already exists';
+
+            setTimeout(() => {
+              document.getElementById('updateCategoryErrorMsg').innerHTML = '';
+            }, 3000);
+          } else {
+            document.getElementById(
+              'UpdateCategoryDivisionEnsure'
+            ).style.visibility = 'visible';
+          }
+        }
+      }
+
+      async function updateCategory() {
+        const newCategoryName = document.getElementById('categoryName').value;
+        const updateCategory = document.getElementById('update_category').value;
+
+        const response = await fetch('/updateCategory', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            newCategoryName,
+            updateCategory,
+          }),
+        });
+
+        if (response.status == 200) {
+          document.getElementById('updateCategoryFinalMessage').innerHTML =
+            'Category successfully edited';
+
+          document.getElementById(
+            'updateCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
+        } else {
+          document.getElementById('updateCategoryFinalMessage').innerHTML =
+            'Error editing category. Try Again!';
+
+          document.getElementById(
+            'updateCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
         }
       }
 

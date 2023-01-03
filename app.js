@@ -1820,6 +1820,23 @@ app.post('/removeCategory', async (req, res) => {
   }
 });
 
+app.post('/updateCategory', (req, res) => {
+  try {
+    const updateCategory = req.body.updateCategory;
+    const newCategoryName = req.body.newCategoryName;
+
+    let temp;
+    temp = Options[updateCategory];
+    Options[newCategoryName] = temp;
+    delete Options[updateCategory];
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
 app.post('/addSubCategory', async (req, res) => {
   try {
     const addingSubCategory = req.body.addingSubCategory;
@@ -3713,6 +3730,6 @@ app.get('/logout', (req, res) => {
 
 app.listen(2000, () => {
   console.log(
-    'Data Entry tool running on port 2000. Go to Browser and search for localhost:8000 to open.'
+    'Data Entry tool running on port 2000. Go to Browser and search for postgres:2000 to open.'
   );
 });
