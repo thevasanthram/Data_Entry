@@ -140,12 +140,12 @@ input:checked ~ .dot {
 
 /* !................... Style for Update Section................. */
 
-.update_container{
+.update_container {
   margin: 2px;
   padding: 5px;
   transition: all 0.5s ease-in-out;
 }
-.update_subContainer{
+.update_subContainer {
   position: relative;
   margin: auto;
   width: 70%;
@@ -154,7 +154,7 @@ input:checked ~ .dot {
   border-radius: 10px;
   transition: all 0.5s ease-in-out;
 }
-.update_title{
+.update_title {
   color: goldenrod;
   text-align: center;
   margin: 1%;
@@ -162,13 +162,20 @@ input:checked ~ .dot {
   font-size: large;
   font-weight: 600;
 }
-.update_btn_container{
+.update_btn_container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   padding: 5px;
-  margin: 2% ;
+  margin: 2%;
   gap: 1rem;
+}
+
+#subCategoryName {
+  text-align: center;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  color: rgb(70, 69, 69);
 }
 
 /* !.............. Popup for delete Sub-category............ */
@@ -190,7 +197,7 @@ input:checked ~ .dot {
 }
 
 .removeSubCategoryModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 2%;
   border: 1px solid #888;
@@ -222,7 +229,7 @@ input:checked ~ .dot {
   justify-content: space-evenly;
   width: 90%;
 }
-#remove_sub_category{
+#remove_sub_category {
   text-align: center;
   border-radius: 5px;
   background-color: #eeeeee;
@@ -247,7 +254,7 @@ input:checked ~ .dot {
 }
 
 .removeSubCategoryEnsureModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -321,7 +328,7 @@ input:checked ~ .dot {
 }
 
 .UpdateSubCategoryModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 2%;
   border: 1px solid #888;
@@ -331,7 +338,7 @@ input:checked ~ .dot {
   text-align: center;
   transition: all 0.5s ease-in-out;
 }
-#update_sub_category{
+#update_sub_category {
   text-align: center;
   border-radius: 5px;
   background-color: #eeeeee;
@@ -358,7 +365,7 @@ input:checked ~ .dot {
   justify-content: space-evenly;
   width: 85%;
 }
-#Update_sub_category{
+#Update_sub_category {
   text-align: center;
   border-radius: 5px;
   background-color: #eeeeee;
@@ -382,7 +389,7 @@ input:checked ~ .dot {
 }
 
 .UpdateSubCategoryEnsureModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -455,7 +462,7 @@ input:checked ~ .dot {
 }
 
 .addSubCategoryModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 2%;
   border: 1px solid #888;
@@ -465,7 +472,7 @@ input:checked ~ .dot {
   text-align: center;
   transition: all 0.5s ease-in-out;
 }
-#add_sub_category{
+#add_sub_category {
   text-align: center;
   border-radius: 5px;
   background-color: #eeeeee;
@@ -511,7 +518,7 @@ input:checked ~ .dot {
 }
 
 .addSubCategoryEnsureModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -617,7 +624,7 @@ input:checked ~ .dot {
     width: 80%;
   }
 
-/* !..........Remove Sub Category Popup........... */
+  /* !..........Remove Sub Category Popup........... */
 
   .removeSubCategoryModalContent {
     width: 65%;
@@ -627,7 +634,7 @@ input:checked ~ .dot {
     width: 95%;
   }
 
-/* !..........Update Sub Category Popup........... */
+  /* !..........Update Sub Category Popup........... */
 
   .UpdateSubCategoryModalContent {
     width: 65%;
@@ -637,7 +644,7 @@ input:checked ~ .dot {
     width: 95%;
   }
 
-/* !..........Add Sub Category Popup........... */
+  /* !..........Add Sub Category Popup........... */
 
   .addSubCategoryModalContent {
     width: 65%;
@@ -805,7 +812,7 @@ input:checked ~ .dot {
   }
   /* ! ............Update Section........... */
 
-  .update_subContainer{
+  .update_subContainer {
     width: 85%;
   }
   .update_btn_container {
@@ -824,8 +831,8 @@ input:checked ~ .dot {
     margin: 2% 0% 2% 0%;
   }
 
-/* !.............Popup for remove Sub category.............. */
-  #remove_sub_category{
+  /* !.............Popup for remove Sub category.............. */
+  #remove_sub_category {
     width: 95%;
     border-radius: 5px;
     background-color: #eeeeee;
@@ -847,12 +854,12 @@ input:checked ~ .dot {
   #removeCategoryFinalDivisionHolder {
     width: 95%;
   }
-/* !.............Popup for updating Sub category.............. */
+  /* !.............Popup for updating Sub category.............. */
   .UpdateSubCategoryModalContent {
     width: 75%;
     min-height: 24%;
   }
-  #update_sub_category{
+  #update_sub_category {
     width: 90%;
     border-radius: 5px;
     background-color: #eeeeee;
@@ -877,13 +884,13 @@ input:checked ~ .dot {
     width: 65%;
   }
 
-/* !.............Popup for Adding Sub category.............. */
- 
+  /* !.............Popup for Adding Sub category.............. */
+
   .addSubCategoryModalContent {
     width: 75%;
     min-height: 24%;
   }
-  #add_sub_category{
+  #add_sub_category {
     width: 90%;
     border-radius: 5px;
     background-color: #eeeeee;
