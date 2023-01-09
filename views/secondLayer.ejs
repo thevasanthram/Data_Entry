@@ -264,10 +264,11 @@
     <div id="UpdateSubCategoryDivision">
       <div class="UpdateSubCategoryModalContent">
         <div id="UpdateSubCategoryDivisionHolder"  >
+          <form id="updateSubCategoryForm">
           <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Edit Sub-Category</p>
           <div id="UpdateSubCategoryInput"  >
             <p style="font-weight: 500;" >Select Sub-Category -></p>
-            <select name="update_sub_category" id="update_sub_category" > 
+            <select name="update_sub_category" id="update_sub_category" required> 
               <% for(let i = 0 ; i < ShortlistedCategoryOptions.length ; i++){ %>
                 <option onclick=""
                   value="<%= ShortlistedCategoryOptions[i]%>"
@@ -283,11 +284,19 @@
               <%}%>
             </select>
           </div>
+          <div id="UpdateSubCategoryInput">
+            <p style="font-weight: 500;" >Sub-Category Name</p>
+            <input type="text" name="subCategoryName" id="subCategoryName">
+          </div>
+          </form>
+          <div>
+            <p id="UpdateSubCategoryErrorMsg"></p>
+          </div>
           <div id="UpdateSubCategoryButton">
             <button  style="display: block;" 
             class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 
             font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-            onclick="removeUser()">Update</button>
+            onclick="validateSubCategoryUpdation()">Update</button>
             <button  style="display: block;" 
             class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
             rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
@@ -565,6 +574,34 @@
         }else{
           document.getElementById('removeSubCategoryFinalMessage').innerHTML = 'Error removing Sub-category. Try Again!'
           document.getElementById('removeSubCategoryDivisionSuccess').style.visibility = 'visible'
+        }
+      }
+
+      function validateSubCategoryUpdation() {
+        const updateSubCategoryForm = document.getElementById('updateSubCategoryForm');
+        if (!updateSubCategoryForm.checkValidity()) {
+          if (updateSubCategoryForm.reportValidity) {
+            updateSubCategoryForm.reportValidity();
+          } else {
+            alert(msg.ieErrorForm);
+          }
+        } else {
+          if (
+            bodyNumberOptions.includes(
+              document.getElementById('subCategoryName').value
+            )
+          ) {
+            document.getElementById('UpdateSubCategoryErrorMsg').innerHTML =
+              'Sub-Category already exists';
+
+            setTimeout(() => {
+              document.getElementById('UpdateSubCategoryErrorMsg').innerHTML = '';
+            }, 3000);
+          } else {
+            document.getElementById(
+              'UpdateCategoryDivisionEnsure'
+            ).style.visibility = 'visible';
+          }
         }
       }
 
