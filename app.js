@@ -1874,6 +1874,23 @@ app.post('/removeSubCategory', (req, res) => {
   }
 });
 
+app.post('/updateSubCategory', (req, res) => {
+  try {
+    const updateSubCategory = req.body.updateSubCategory;
+    const newSubCategoryName = req.body.newSubCategoryName;
+
+    let temp;
+    temp = Options[updateSubCategory];
+    Options[newSubCategoryName] = temp;
+    delete Options[updateSubCategory];
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
 app.post('/secondlayer', authenticateToken, (req, res) => {
   try {
     console.log('second layer');
