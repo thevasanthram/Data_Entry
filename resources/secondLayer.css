@@ -140,12 +140,12 @@ input:checked ~ .dot {
 
 /* !................... Style for Update Section................. */
 
-.update_container{
+.update_container {
   margin: 2px;
   padding: 5px;
   transition: all 0.5s ease-in-out;
 }
-.update_subContainer{
+.update_subContainer {
   position: relative;
   margin: auto;
   width: 70%;
@@ -154,7 +154,7 @@ input:checked ~ .dot {
   border-radius: 10px;
   transition: all 0.5s ease-in-out;
 }
-.update_title{
+.update_title {
   color: goldenrod;
   text-align: center;
   margin: 1%;
@@ -162,13 +162,20 @@ input:checked ~ .dot {
   font-size: large;
   font-weight: 600;
 }
-.update_btn_container{
+.update_btn_container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   padding: 5px;
-  margin: 2% ;
+  margin: 2%;
   gap: 1rem;
+}
+
+#subCategoryName {
+  text-align: center;
+  border-radius: 5px;
+  background-color: #eeeeee;
+  color: rgb(70, 69, 69);
 }
 
 /* !.............. Popup for delete Sub-category............ */
@@ -190,13 +197,15 @@ input:checked ~ .dot {
 }
 
 .removeSubCategoryModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 2%;
   border: 1px solid #888;
   width: 35%;
   min-height: 25%;
   border-radius: 10px;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
 }
 
 #removeSubCategoryButton {
@@ -218,9 +227,9 @@ input:checked ~ .dot {
   align-items: center;
   gap: 1rem;
   justify-content: space-evenly;
-  width: 85%;
+  width: 90%;
 }
-#remove_sub_category{
+#remove_sub_category {
   text-align: center;
   border-radius: 5px;
   background-color: #eeeeee;
@@ -245,7 +254,7 @@ input:checked ~ .dot {
 }
 
 .removeSubCategoryEnsureModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -255,6 +264,8 @@ input:checked ~ .dot {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
 }
 #removeSubCategoryDivisionEnsureHolder {
   display: flex;
@@ -293,6 +304,7 @@ input:checked ~ .dot {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   transition: all 0.5s ease-in-out;
 }
 
@@ -316,15 +328,17 @@ input:checked ~ .dot {
 }
 
 .UpdateSubCategoryModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 2%;
   border: 1px solid #888;
   width: 35%;
   min-height: 25%;
   border-radius: 10px;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
 }
-#update_sub_category{
+#update_sub_category {
   text-align: center;
   border-radius: 5px;
   background-color: #eeeeee;
@@ -351,7 +365,7 @@ input:checked ~ .dot {
   justify-content: space-evenly;
   width: 85%;
 }
-#Update_sub_category{
+#Update_sub_category {
   text-align: center;
   border-radius: 5px;
   background-color: #eeeeee;
@@ -372,11 +386,10 @@ input:checked ~ .dot {
   justify-content: center;
   align-items: center;
   z-index: 2;
-  transition: all 0.5s ease-in-out;
 }
 
 .UpdateSubCategoryEnsureModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -386,6 +399,8 @@ input:checked ~ .dot {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
 }
 #UpdateSubCategoryDivisionEnsureHolder {
   display: flex;
@@ -424,6 +439,7 @@ input:checked ~ .dot {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   transition: all 0.5s ease-in-out;
 }
 /* !.......... Popup for  Adding Sub-category......... */
@@ -446,15 +462,17 @@ input:checked ~ .dot {
 }
 
 .addSubCategoryModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 2%;
   border: 1px solid #888;
   width: 35%;
   min-height: 25%;
   border-radius: 10px;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
 }
-#add_sub_category{
+#add_sub_category {
   text-align: center;
   border-radius: 5px;
   background-color: #eeeeee;
@@ -500,7 +518,7 @@ input:checked ~ .dot {
 }
 
 .addSubCategoryEnsureModalContent {
-  background-color: #84A9AC;
+  background-color: #84a9ac;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
@@ -510,6 +528,8 @@ input:checked ~ .dot {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  text-align: center;
+  transition: all 0.5s ease-in-out;
 }
 #addSubCategoryDivisionEnsureHolder {
   display: flex;
@@ -548,6 +568,7 @@ input:checked ~ .dot {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   transition: all 0.5s ease-in-out;
 }
 
@@ -601,10 +622,9 @@ input:checked ~ .dot {
   }
   .update_subContainer {
     width: 80%;
-    min-height: 20vh;
   }
 
-/* !..........Remove Sub Category Popup........... */
+  /* !..........Remove Sub Category Popup........... */
 
   .removeSubCategoryModalContent {
     width: 65%;
@@ -614,7 +634,7 @@ input:checked ~ .dot {
     width: 95%;
   }
 
-/* !..........Update Sub Category Popup........... */
+  /* !..........Update Sub Category Popup........... */
 
   .UpdateSubCategoryModalContent {
     width: 65%;
@@ -624,7 +644,7 @@ input:checked ~ .dot {
     width: 95%;
   }
 
-/* !..........Add Sub Category Popup........... */
+  /* !..........Add Sub Category Popup........... */
 
   .addSubCategoryModalContent {
     width: 65%;
@@ -649,7 +669,7 @@ input:checked ~ .dot {
     align-items: center;
     gap: 1rem;
     justify-content: space-evenly;
-    width: 85%;
+    width: 95%;
   }
   #remove_sub_category {
     width: 90%;
@@ -774,7 +794,7 @@ input:checked ~ .dot {
   }
   #mode_status {
     margin-right: 0.5rem;
-    padding: 5px;
+    padding: 2px;
   }
   .form-content {
     cursor: pointer;
@@ -792,7 +812,7 @@ input:checked ~ .dot {
   }
   /* ! ............Update Section........... */
 
-  .update_subContainer{
+  .update_subContainer {
     width: 85%;
   }
   .update_btn_container {
@@ -811,8 +831,8 @@ input:checked ~ .dot {
     margin: 2% 0% 2% 0%;
   }
 
-/* !.............Popup for remove Sub category.............. */
-  #remove_sub_category{
+  /* !.............Popup for remove Sub category.............. */
+  #remove_sub_category {
     width: 95%;
     border-radius: 5px;
     background-color: #eeeeee;
@@ -824,15 +844,22 @@ input:checked ~ .dot {
   }
   .removeSubCategoryModalContent {
     width: 75%;
-    min-height: 24%;
   }
-
-/* !.............Popup for updating Sub category.............. */
+  .removeCategoryEnsureModalContent {
+    width: 65%;
+  }
+  .removeCategoryDivisionSuccessModalContent {
+    width: 65%;
+  }
+  #removeCategoryFinalDivisionHolder {
+    width: 95%;
+  }
+  /* !.............Popup for updating Sub category.............. */
   .UpdateSubCategoryModalContent {
     width: 75%;
     min-height: 24%;
   }
-  #update_sub_category{
+  #update_sub_category {
     width: 90%;
     border-radius: 5px;
     background-color: #eeeeee;
@@ -842,14 +869,28 @@ input:checked ~ .dot {
     justify-content: space-evenly;
     gap: 5px;
   }
+  .updateInput_container {
+    display: flex;
+    flex-direction: column;
+    gap: 0rem;
+  }
+  #UpdateCategoryFinalDivisionHolder {
+    width: 95%;
+  }
+  .UpdateCategoryEnsureModalContent {
+    width: 65%;
+  }
+  .updateCategoryDivisionSuccessModalContent {
+    width: 65%;
+  }
 
-/* !.............Popup for Adding Sub category.............. */
- 
+  /* !.............Popup for Adding Sub category.............. */
+
   .addSubCategoryModalContent {
     width: 75%;
     min-height: 24%;
   }
-  #add_sub_category{
+  #add_sub_category {
     width: 90%;
     border-radius: 5px;
     background-color: #eeeeee;
@@ -858,6 +899,19 @@ input:checked ~ .dot {
     display: flex;
     justify-content: space-evenly;
     gap: 5px;
+  }
+  .addCategoryEnsureModalContent {
+    width: 65%;
+    text-align: center;
+  }
+  #addCategoryFinalDivisionHolder {
+    width: 95%;
+  }
+  .addCategoryDivisionSuccessModalContent {
+    width: 65%;
+  }
+  #addCategoryButton {
+    gap: 15px;
   }
 }
 

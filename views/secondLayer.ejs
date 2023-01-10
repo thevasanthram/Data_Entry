@@ -120,10 +120,10 @@
         <div id="removeSubCategoryDivisionHolder"  >
           <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Remove Sub-Category</p>
           <div id="removeSubCategoryInput"  >
-            <p style="font-weight: 500;" >Select Sub-Category-></p>
+            <p style="font-weight: 500;" >Select Sub-Category:</p>
             <select name="remove_sub_category" id="remove_sub_category" > 
               <% for(let i = 0 ; i < ShortlistedCategoryOptions.length ; i++){ %>
-                <option onclick=""
+                <option
                   value="<%= ShortlistedCategoryOptions[i]%>"
                   class="sub_category_options"
                   <% if((ShortlistedCategoryOptions.length % 2) == 0){ %>
@@ -141,7 +141,7 @@
             <button  style="display: block;" 
             class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 
             font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-            onclick="removeUser()">Remove</button>
+            onclick="(() => document.getElementById('removeSubCategoryDivisionEnsure').style.visibility = 'visible')()">Remove</button>
             <button  style="display: block;" 
             class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
             rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
@@ -168,13 +168,36 @@
         </div>
       </div>
     </div>
+
+    <div id="removeSubCategoryDivisionSuccess">
+      <div class="removeSubCategoryrDivisionSuccessModalContent">
+        <div id="removeSubCategoryFinalDivisionHolder">
+          <p
+            style="
+              font-weight: 700;
+              margin: 1%;
+              padding: 1%;
+              font-size: large;
+            "
+            id="removeSubCategoryFinalMessage"
+          ></p>
+          <div>
+            <button
+              onclick="(() => document.getElementById('secondLayerForm').submit())()"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- !........... Popups for Adding of Sub-Category........... -->
     <div id="addSubCategoryDivision">
       <div class="addSubCategoryModalContent">
         <div id="addSubCategoryDivisionHolder"  >
           <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Add Sub-Category</p>
           <div id="addSubCategoryInput"  >
-            <p style="font-weight: 500;" >Add Sub-Category-></p>
+            <p style="font-weight: 500;" >Add Sub-Category:</p>
             <form id="addSubCategoryForm">
               <input type="text" value="" id="add_sub_category" required>
             </form>
@@ -241,10 +264,11 @@
     <div id="UpdateSubCategoryDivision">
       <div class="UpdateSubCategoryModalContent">
         <div id="UpdateSubCategoryDivisionHolder"  >
+          <form id="updateSubCategoryForm">
           <p style="font-weight: 700; margin:1%; padding:1%; font-size:large;" >Edit Sub-Category</p>
           <div id="UpdateSubCategoryInput"  >
             <p style="font-weight: 500;" >Select Sub-Category -></p>
-            <select name="update_sub_category" id="update_sub_category" > 
+            <select name="update_sub_category" id="update_sub_category" required> 
               <% for(let i = 0 ; i < ShortlistedCategoryOptions.length ; i++){ %>
                 <option onclick=""
                   value="<%= ShortlistedCategoryOptions[i]%>"
@@ -260,11 +284,19 @@
               <%}%>
             </select>
           </div>
+          <div id="UpdateSubCategoryInput">
+            <p style="font-weight: 500;" >Sub-Category Name</p>
+            <input type="text" name="subCategoryName" id="subCategoryName">
+          </div>
+          </form>
+          <div>
+            <p id="UpdateSubCategoryErrorMsg"></p>
+          </div>
           <div id="UpdateSubCategoryButton">
             <button  style="display: block;" 
             class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 
             font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-            onclick="removeUser()">Update</button>
+            onclick="validateSubCategoryUpdation()">Update</button>
             <button  style="display: block;" 
             class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
             rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
@@ -507,18 +539,69 @@
 
         if (data.status == 'success') {
           document.getElementById('addSubCategoryFinalMessage').innerHTML =
-            'Category successfully added';
+            'Sub-Category successfully added';
 
           document.getElementById(
             'addSubCategoryDivisionSuccess'
           ).style.visibility = 'visible';
         } else {
           document.getElementById('addSubCategoryFinalMessage').innerHTML =
-            'Error adding category. Try Again!';
+            'Error adding Sub-Category. Try Again!';
 
           document.getElementById(
             'addSubCategoryDivisionSuccess'
           ).style.visibility = 'visible';
+        }
+      }
+      
+      async function removeSubCategoryFinal(){
+        const remove_sub_category = document.getElementById('remove_sub_category').value
+
+        const response = await fetch('/removeSubCategory',{ 
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            removeSubCategory: remove_sub_category,
+            Category: "<%= selectedCategory %>"
+          })
+        })
+
+        if(response.status == 200){
+          document.getElementById('removeSubCategoryFinalMessage').innerHTML = 'Sub-Category removed successfully'
+          document.getElementById('removeSubCategoryDivisionSuccess').style.visibility = 'visible'
+        }else{
+          document.getElementById('removeSubCategoryFinalMessage').innerHTML = 'Error removing Sub-category. Try Again!'
+          document.getElementById('removeSubCategoryDivisionSuccess').style.visibility = 'visible'
+        }
+      }
+
+      function validateSubCategoryUpdation() {
+        const updateSubCategoryForm = document.getElementById('updateSubCategoryForm');
+        if (!updateSubCategoryForm.checkValidity()) {
+          if (updateSubCategoryForm.reportValidity) {
+            updateSubCategoryForm.reportValidity();
+          } else {
+            alert(msg.ieErrorForm);
+          }
+        } else {
+          if (
+            bodyNumberOptions.includes(
+              document.getElementById('subCategoryName').value
+            )
+          ) {
+            document.getElementById('UpdateSubCategoryErrorMsg').innerHTML =
+              'Sub-Category already exists';
+
+            setTimeout(() => {
+              document.getElementById('UpdateSubCategoryErrorMsg').innerHTML = '';
+            }, 3000);
+          } else {
+            document.getElementById(
+              'UpdateCategoryDivisionEnsure'
+            ).style.visibility = 'visible';
+          }
         }
       }
 

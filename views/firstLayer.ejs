@@ -64,7 +64,7 @@
             alt="Go Back"
             onclick="document.getElementById('followerForm').submit();"
           />
-          <p id="title-name">Select Category :</p>
+          <p id="title-name">Select Category:</p>
         </div>
         <!-- Toggle Switch for online / offline -->
         <div id="toggle" class="mt-10 ml-8">
@@ -151,7 +151,7 @@
               Remove Category
             </p>
             <div id="removeCategoryInput">
-              <p style="font-weight: 500">Select Category -></p>
+              <p style="font-weight: 500">Select Category:</p>
               <select name="category" id="category">
                 <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
                 <option
@@ -169,7 +169,7 @@
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="removeUser()"
+                onclick="(() => document.getElementById('removeCategoryDivisionEnsure').style.visibility = 'visible')()"
               >
                 Remove
               </button>
@@ -203,7 +203,7 @@
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="removeUserFinal()"
+                onclick="removeCategory()"
               >
                 Remove
               </button>
@@ -213,6 +213,29 @@
                 onclick="(() => {document.getElementById('removeCategoryDivisionEnsure').style.visibility = 'hidden'})()"
               >
                 Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="removeCategoryDivisionSuccess">
+        <div class="removeCategoryDivisionSuccessModalContent">
+          <div id="removeCategoryFinalDivisionHolder" >
+            <p style="
+                font-weight: 700;
+                margin: 1%;
+                padding: 1%;
+                font-size: large;
+              "
+              id="removeCategoryFinalMessage"
+            ></p>
+            <div>
+              <button class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+                rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
+                onclick="(() => document.getElementById('firstLayerForm').submit())()"
+              >
+                OK
               </button>
             </div>
           </div>
@@ -233,13 +256,16 @@
               Add Category
             </p>
             <div id="addCategoryInput">
-              <p style="font-weight: 500">Add Category-></p>
-              <form id="addCategoryForm">
+              <p style="font-weight: 500">Add Category:</p>
+              <form id="addCategoryForm" style="text-align: center;">
                 <input type="text" value="" id="add_category" required />
               </form>
             </div>
             <div>
-              <p id="addCategoryErrorMsg"></p>
+              <p
+                id="addCategoryErrorMsg"
+                style="font-weight: 500; color: #f00000"
+              ></p>
             </div>
             <div id="addCategoryButton">
               <button
@@ -296,8 +322,8 @@
       </div>
 
       <div id="addCategoryDivisionSuccess">
-        <div class="addCategoryrDivisionSuccessModalContent">
-          <div id="addCategoryFinalDivisionHolder">
+        <div class="addCategoryDivisionSuccessModalContent" >
+          <div id="addCategoryFinalDivisionHolder" >
             <p
               style="
                 font-weight: 700;
@@ -308,7 +334,8 @@
               id="addCategoryFinalMessage"
             ></p>
             <div>
-              <button
+              <button class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium 
+                rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
                 onclick="(() => document.getElementById('firstLayerForm').submit())()"
               >
                 OK
@@ -322,6 +349,7 @@
       <div id="UpdateCategoryDivision">
         <div class="UpdateCategoryModalContent">
           <div id="UpdateCategoryDivisionHolder">
+            <form id="updateCategoryForm"></form>
             <p
               style="
                 font-weight: 700;
@@ -350,14 +378,14 @@
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="removeUser()"
+                onclick="validateCategoryUpdation()"
               >
                 Update
               </button>
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="(() => {document.getElementById('UpdateCategoryDivision').style.visibility = 'hidden'})()"
+                onclick="(() => document.getElementById('UpdateCategoryDivision').style.visibility = 'hidden')()"
               >
                 Cancel
               </button>
@@ -384,7 +412,7 @@
               <button
                 style="display: block"
                 class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-                onclick="removeUserFinal()"
+                onclick="updateCategory()"
               >
                 Remove
               </button>
@@ -394,6 +422,29 @@
                 onclick="(() => {document.getElementById('UpdateCategoryDivisionEnsure').style.visibility = 'hidden'})()"
               >
                 Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="updateCategoryDivisionSuccess">
+        <div class="updateCategoryDivisionSuccessModalContent">
+          <div id="updateCategoryFinalDivisionHolder">
+            <p
+              style="
+                font-weight: 700;
+                margin: 1%;
+                padding: 1%;
+                font-size: large;
+              "
+              id="updateCategoryFinalMessage"
+            ></p>
+            <div>
+              <button
+                onclick="(() => document.getElementById('firstLayerForm').submit())()"
+              >
+                OK
               </button>
             </div>
           </div>
@@ -558,6 +609,66 @@
         }
       }
 
+      function validateCategoryUpdation() {
+        const updateCategoryForm = document.getElementById('updateCategoryForm');
+        if (!updateCategoryForm.checkValidity()) {
+          if (updateCategoryForm.reportValidity) {
+            updateCategoryForm.reportValidity();
+          } else {
+            alert(msg.ieErrorForm);
+          }
+        } else {
+          if (
+            bodyNumberOptions.includes(
+              document.getElementById('categoryName').value
+            )
+          ) {
+            document.getElementById('updateCategoryErrorMsg').innerHTML =
+              'Category already exists';
+
+            setTimeout(() => {
+              document.getElementById('updateCategoryErrorMsg').innerHTML = '';
+            }, 3000);
+          } else {
+            document.getElementById(
+              'UpdateCategoryDivisionEnsure'
+            ).style.visibility = 'visible';
+          }
+        }
+      }
+
+      async function updateCategory() {
+        const newCategoryName = document.getElementById('categoryName').value;
+        const updateCategory = document.getElementById('update_category').value;
+
+        const response = await fetch('/updateCategory', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            newCategoryName,
+            updateCategory,
+          }),
+        });
+
+        if (response.status == 200) {
+          document.getElementById('updateCategoryFinalMessage').innerHTML =
+            'Category successfully edited';
+
+          document.getElementById(
+            'updateCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
+        } else {
+          document.getElementById('updateCategoryFinalMessage').innerHTML =
+            'Error editing category. Try Again!';
+
+          document.getElementById(
+            'updateCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
+        }
+      }
+
       async function addCategory() {
         const newCategory = document.getElementById('add_category').value;
 
@@ -586,6 +697,35 @@
 
           document.getElementById(
             'addCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
+        }
+      }
+
+      async function removeCategory() {
+        const category = document.getElementById('category').value;
+        console.log('category: ', category);
+
+        const response = await fetch('/removeCategory', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            category,
+          }),
+        });
+
+        if (response.status == 200) {
+          document.getElementById('removeCategoryFinalMessage').innerHTML =
+            'Category removed successfully';
+          document.getElementById(
+            'removeCategoryDivisionSuccess'
+          ).style.visibility = 'visible';
+        } else {
+          document.getElementById('removeCategoryFinalMessage').innerHTML =
+            'Error removing Category. Try Again!';
+          document.getElementById(
+            'removeCategoryDivisionSuccess'
           ).style.visibility = 'visible';
         }
       }

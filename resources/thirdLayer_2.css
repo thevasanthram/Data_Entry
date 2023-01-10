@@ -76,6 +76,37 @@
   #go-back-icon {
     max-width: 7.5%;
   }
+  /* !.........Remove Defect-Category Popup.......... */
+  .removeDefectsModalContent {
+    width: 45%;
+    min-height: 24%;
+    border-radius: 10px;
+  }
+  #removeDefectsInput {
+    gap: 0.75rem;
+    width: 100%;
+  }
+  /* !.........Update Defect-Category Popup.......... */
+  .UpdateDefectsModalContent {
+    width: 45%;
+    min-height: 24%;
+    border-radius: 10px;
+  }
+  #UpdateDefectsInput {
+    gap: 0.75rem;
+    width: 95%;
+  }
+  /* !.........Add Defect-Category Popup.......... */
+  .addDefectsModalContent {
+    width: 50%;
+    min-height: 24%;
+    border-radius: 10px;
+  }
+  #addDefectsInput {
+    gap: 0.75rem;
+    width: 95%;
+  }
+  /* !............... */
   .save_reset_container {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -337,14 +368,43 @@
   /* ! Update Section */
   .update_subContainer {
     width: 80%;
-    min-height: 20vh;
   }
+  /* !..........Remove Sub Category Popup........... */
+
+  .removeDefectsModalContent {
+    width: 65%;
+    min-height: 24%;
+  }
+  #removeDefectsInput {
+    width: 95%;
+  }
+
+/* !..........Update Sub Category Popup........... */
+
+  .UpdateDefectsModalContent {
+    width: 65%;
+    min-height: 24%;
+  }
+  #UpdateDefectsInput {
+    width: 95%;
+  }
+
+/* !..........Add Sub Category Popup........... */
+
+  .addDefectsModalContent {
+    width: 70%;
+    min-height: 24%;
+  }
+  #addDefectsInput {
+    width: 95%;
+  }
+/* !........................................... */
   .defect-category-content {
     grid-template-columns: 1fr 1fr 1fr;
     max-width: 80%;
     position: relative;
     left: 10%;
-}
+  }
   .defect-category {
     align-items: center;
     justify-content: center;
@@ -593,6 +653,36 @@
     font-size: 0.6rem;
     font-weight: 500;
   }
+/* !..........edit/remove/update............. */
+  #UpdateDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  #UpdateDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  #removeDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+@media screen and (max-width:540px) {
+  .update_subContainer {
+    width: 85%;
+  }
+  #addDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
 }
 /* *.......................Media Query for width 30rem..................... */
 @media screen and (max-width: 500px) {
@@ -689,9 +779,6 @@
   }
   /* ! ............Update Section........... */
 
-  .update_subContainer{
-    width: 85%;
-  }
   .update_btn_container {
     display: grid;
     grid-template-columns: 1fr;
@@ -699,12 +786,83 @@
     margin: 2%;
     gap: 0.5rem;
   }
+  /* !.............Popup for remove Defects category.............. */
+  #remove_sub_category{
+    width: 95%;
+    border-radius: 5px;
+    background-color: #eeeeee;
+  }
+  #removeDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  #removeDefectsButton {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+  }
+  .removeDefectsModalContent {
+    width: 75%;
+    min-height: 24%;
+  }
+
+/* !.............Popup for updating Defects category.............. */
+  .UpdateDefectsModalContent {
+    width: 75%;
+    min-height: 24%;
+  }
+  #update_sub_category{
+    width: 90%;
+    border-radius: 5px;
+    background-color: #eeeeee;
+  }
+  #UpdateDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .inputDefect_container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  #UpdateDefectsButton {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+  }
+
+/* !.............Popup for Adding Defects category.............. */
+ 
+  .addDefectsModalContent {
+    width: 75%;
+    min-height: 24%;
+  }
+  #add_sub_category{
+    width: 90%;
+    border-radius: 5px;
+    background-color: #eeeeee;
+  }
+  #addDefectsInput {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  #addDefectsButton {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+  }
+  /* !................................................ */
   .defect-category-content {
     grid-template-columns: 1fr 1fr 1fr;
     max-width: 90%;
     position: relative;
     left: 5%;
-}
+  }
   .defect-category {
     align-items: center;
     justify-content: center;

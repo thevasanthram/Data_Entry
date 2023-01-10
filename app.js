@@ -1806,26 +1806,34 @@ app.post('/addCategory', async (req, res) => {
   }
 });
 
-app.post('removeCategory', async (req, res) => {
+app.post('/removeCategory', async (req, res) => {
   try {
-    const removingCategory = req.body.removingCategory;
+    const removingCategory = req.body.category;
 
     delete Options[removingCategory];
 
-    res.send(
-      JSON.stringify({
-        status: 'success',
-      })
-    );
+    res.sendStatus(200);
   } catch (err) {
     console.log(err);
 
-    res.send(
-      JSON.stringify({
-        status: 'failure',
-        reason: 'backend error',
-      })
-    );
+    res.sendStatus(400);
+  }
+});
+
+app.post('/updateCategory', (req, res) => {
+  try {
+    const updateCategory = req.body.updateCategory;
+    const newCategoryName = req.body.newCategoryName;
+
+    let temp;
+    temp = Options[updateCategory];
+    Options[newCategoryName] = temp;
+    delete Options[updateCategory];
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
   }
 });
 
@@ -1849,6 +1857,37 @@ app.post('/addSubCategory', async (req, res) => {
         reason: 'backend error',
       })
     );
+  }
+});
+
+app.post('/removeSubCategory', (req, res) => {
+  try {
+    const removeSubCategory = req.body.removeSubCategory;
+    const Category = req.body.Category;
+
+    delete Options[Category][removeSubCategory];
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
+  }
+});
+
+app.post('/updateSubCategory', (req, res) => {
+  try {
+    const updateSubCategory = req.body.updateSubCategory;
+    const newSubCategoryName = req.body.newSubCategoryName;
+
+    let temp;
+    temp = Options[updateSubCategory];
+    Options[newSubCategoryName] = temp;
+    delete Options[updateSubCategory];
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(400);
   }
 });
 
@@ -3708,6 +3747,6 @@ app.get('/logout', (req, res) => {
 
 app.listen(2000, () => {
   console.log(
-    'Data Entry tool running on port 2000. Go to Browser and search for localhost:8000 to open.'
+    'Data Entry tool running on port 2000. Go to Browser and search for postgres:2000 to open.'
   );
 });
