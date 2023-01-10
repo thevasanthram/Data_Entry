@@ -25,7 +25,6 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- <script src="../resources/tailwind.config.js"></script> -->
   </head>
   <body>
     <div>
@@ -39,7 +38,6 @@
             onclick="document.getElementById('followerForm').submit();"
           />
           <div class="heading">Data Entry System</div>
-          <p class="selected-message">Body Number : <%= currentBodyNumber %></p>
         </div>
         <form id="btn" action="/logout" method="get" class="logoutButton">
           <div class="admin" id="user-mode-name"><%= currentUser %></div>
@@ -65,36 +63,6 @@
             onclick="document.getElementById('followerForm').submit();"
           />
           <p id="title-name">Select Category:</p>
-        </div>
-        <!-- Toggle Switch for online / offline -->
-        <div id="toggle" class="mt-10 ml-8">
-          <div class="flex w-full mb-8">
-            <label
-              id="label_switch"
-              for="toggle_switch"
-              class="flex items-center cursor-pointer"
-              style="justify-content: center"
-            >
-              <div class="relative">
-                <input
-                  type="checkbox"
-                  id="toggle_switch"
-                  class="sr-only mode"
-                  onclick="dynamicText()"
-                />
-                <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
-                <div
-                  class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"
-                ></div>
-              </div>
-              <div
-                class="ml-2 text-gray-300 font-medium text-2xl"
-                id="mode_status"
-              >
-                Online
-              </div>
-            </label>
-          </div>
         </div>
       </div>
       <div class="update_container">
