@@ -1,22 +1,30 @@
-version: "3.9"  # optional since v1.27.0
+version: '3.7'
+
 services:
-  api:
-    build:
-      dockerfile: Dockerfile
-      context: .
-    depends_on:
-      - postgres
-    environment:
-      DATABASE_URL: postgres://user:password@postgres:5432/db
-      NODE_ENV: developement
-      PORT: 3000
+  node_app:
+    image: data-entry-system-doc
+    restart: always
+    #May or may not be needed
+    # command: sh -c "sleep 10s"; npm start
     ports:
-      - "8000:8000"
-  postgres:
-    image: postgres:14.0
+      - "4000:2000"
+    network_mode: "host"
+    hostname: localhost
+    depends_on:
+      - postgres_sql
+
+
+  postgres_sql:
+    image: postgres:latest
+    container_name: alpine-postgres
+    restart: always
+    network_mode: "host"
+    hostname: localhost
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=data_entry_systems
+    volumes: 
+      - ~/dbdata:/var/lib/postgresql/data
