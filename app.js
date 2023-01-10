@@ -3725,12 +3725,15 @@ app.post('/updateSection', authenticateToken, async (req, res) => {
     const accessibleReport = response.rows[0].accessible_charts;
     const emp_Status = response.rows[0].status;
 
+    const bodyNumberOptions = Object.keys(Options);
+
     res.render(path.join(__dirname, '/views/updateSection.ejs'), {
       currentUser,
       currentEmpID,
       companyName,
       emp_ChartAccess: accessibleReport,
       emp_Status,
+      bodyNumberOptions,
     });
   } catch (err) {
     console.log(err);
