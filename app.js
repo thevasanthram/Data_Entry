@@ -3740,6 +3740,99 @@ app.post('/updateSection', authenticateToken, async (req, res) => {
   }
 });
 
+app.post('/updateSection-II', (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
+    const selectedCategory = req.body.selectedCategory;
+
+    res.render(path.join(__dirname, '/views/updateSubCategory.ejs'), {
+      currentUser,
+      currentEmpID,
+      companyName,
+      selectedCategory,
+      ShortlistedCategoryOptions: Object.keys(Options[selectedCategory]),
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post('/updateSection-III', (req, res) => {
+  try {
+    const currentUser = req.body.currentUser;
+    const currentEmpID = req.body.currentEmpID;
+    const companyName = req.body.companyName;
+    const selectedCategory = req.body.selectedCategory;
+    const selectedSubCategory = req.body.selectedSubCategory;
+
+    const defectObject = {
+      surface: {
+        name: 'Surface',
+        subdefects: {
+          dent: 'Dent',
+          bump: 'Bump',
+          burrs: 'Burrs',
+          spatters: 'Spatters',
+          others: 'Others',
+        },
+      },
+      bodyFitting: {
+        name: 'Body Fitting',
+        subdefects: {
+          'body-fitting-1': 'Body Fitting 1',
+          'body-fitting-2': 'Body Fitting 2',
+          'body-fitting-others': 'Body Fitting Others',
+        },
+      },
+      missingWrongPart: {
+        name: 'Missing & Wrong Part',
+        subdefects: {
+          'missing-part': 'Missing Part',
+          'wrong-part': 'Wrong Part',
+        },
+      },
+      welding: {
+        name: 'Welding',
+        subdefects: {
+          'welding-part-1': 'Welding Part 1',
+          'welding-part-2': 'Welding Part 2',
+          'welding-part-3': 'Welding Part 3',
+          'welding-part-others': 'Welding Part Others',
+        },
+      },
+      waterLeak: {
+        name: 'Water Leak',
+        subdefects: {
+          'water-leak-1': 'Water Leak 1',
+          'water-leak-2': 'Water Leak 2',
+          'water-leak-others': 'Water Leak Others',
+        },
+      },
+    };
+
+    let categoryId = selectedCategory.replace(/ /g, '_');
+    let subcategoryId = selectedSubCategory.replace(/ /g, '');
+
+    res.render(path.join(__dirname, '/views/updateZones.ejs'), {
+      currentUser,
+      currentEmpID,
+      companyName,
+      selectedCategory,
+      selectedSubCategory,
+      ShortlistedSubCategoryOptions: Object.keys(
+        Options[selectedCategory][selectedSubCategory]
+      ),
+      defectObject,
+      categoryId,
+      subcategoryId,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 app.get('/logout', (req, res) => {
   try {
     res.redirect('/');

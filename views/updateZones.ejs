@@ -40,8 +40,8 @@
           />
           <div class="heading">Data Entry System</div>
           <p class="selected-message">
-            Body Number : <%= currentBodyNumber %> | Category : <%=
-            selectedCategory %> | Sub-Category : <%= selectedSubCategory %>
+            Category : <%= selectedCategory %> | Sub-Category : <%=
+            selectedSubCategory %>
           </p>
         </div>
         <form id="btn" action="/logout" method="get" class="logoutButton">
@@ -68,36 +68,6 @@
             onclick="document.getElementById('secondLayerForm').submit();"
           />
           <p id="title-name">Select Defect :</p>
-        </div>
-        <!-- Toggle Switch for online / offline -->
-        <div id="toggle" class="mt-6 ml-6">
-          <div class="flex w-full mb-6">
-            <label
-              id="label_switch"
-              for="toggle_switch"
-              class="flex items-center cursor-pointer"
-              style="justify-content: center"
-            >
-              <div class="relative">
-                <input
-                  type="checkbox"
-                  id="toggle_switch"
-                  class="sr-only mode"
-                  onclick="dynamicText()"
-                />
-                <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
-                <div
-                  class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"
-                ></div>
-              </div>
-              <div
-                class="ml-2 text-gray-300 font-medium text-2xl"
-                id="mode_status"
-              >
-                Online
-              </div>
-            </label>
-          </div>
         </div>
       </div>
       <!-- !.............. Update Category Section.......... -->
@@ -706,7 +676,7 @@
           />
           <input type="hidden" class="token" name="token" value="" />
         </form>
-        <form action="/firstlayer" method="post" id="firstLayerform">
+        <form action="updateSection-II" method="post" id="updateSectionIIForm">
           <input
             type="hidden"
             id="currentUser"
@@ -724,60 +694,13 @@
             id="companyName"
             name="companyName"
             value="<%= companyName %>"
-          />
-          <input
-            type="hidden"
-            id="currentBodyNumber"
-            name="currentBodyNumber"
-            value="<%= currentBodyNumber %>"
-          />
-          <input
-            type="hidden"
-            id="defectBodyNumberStatus"
-            name="defectBodyNumberStatus"
-            value="<%= defectBodyNumberStatus %>"
-          />
-          <input type="hidden" class="token" name="token" value="" />
-        </form>
-        <form action="/secondlayer" method="post" id="secondLayerForm">
-          <input
-            type="hidden"
-            id="currentUser"
-            name="currentUser"
-            value="<%= currentUser %>"
-          />
-          <input
-            type="hidden"
-            id="currentEmpID"
-            name="currentEmpID"
-            value="<%= currentEmpID %>"
-          />
-          <input
-            type="hidden"
-            id="companyName"
-            name="companyName"
-            value="<%= companyName %>"
-          />
-          <input
-            type="hidden"
-            id="currentBodyNumber"
-            name="currentBodyNumber"
-            value="<%= currentBodyNumber %>"
-          />
-          <input
-            type="hidden"
-            id="defectBodyNumberStatus"
-            name="defectBodyNumberStatus"
-            value="<%= defectBodyNumberStatus %>"
           />
           <input
             type="hidden"
             id="selectedCategory"
             name="selectedCategory"
-            value="<%= selectedCategory %>"
+            value=""
           />
-          <input type="hidden" name="mode" id="mode" value="" />
-          <input type="hidden" class="token" name="token" value="" />
         </form>
       </div>
     </div>
@@ -790,27 +713,6 @@
       Object.values(tokenElements).map((tokenElement) => {
         tokenElement.value = localStorage.getItem('token');
       });
-
-      modeDOM = document.getElementsByClassName('mode')[0];
-      var mode = '<%= mode %>';
-      if (mode == 'online') {
-        modeDOM.checked = true;
-        document.getElementById('mode_status').innerHTML = 'Online';
-      } else {
-        modeDOM.checked = false;
-        document.getElementById('mode_status').innerHTML = 'Offline';
-      }
-      function dynamicText() {
-        if (!modeDOM.checked) {
-          modeDOM.checked = false;
-          document.getElementById('mode_status').innerHTML = 'Offline';
-          mode = 'offline';
-        } else {
-          modeDOM.checked = true;
-          document.getElementById('mode_status').innerHTML = 'Online';
-          mode = 'online';
-        }
-      }
 
       async function transmit(selectedSubCategory) {
         var mode = 'online';
@@ -963,8 +865,6 @@
             currentUser: '<%= currentUser %>',
             currentEmpID: '<%= currentEmpID %>',
             companyName: '<%= companyName %>',
-            currentBodyNumber: '<%= currentBodyNumber %>',
-            defectBodyNumberStatus: '<%= defectBodyNumberStatus %>',
             selectedCategory: '<%= selectedCategory %>',
             selectedSubCategory: '<%= selectedSubCategory %>',
           }),
@@ -1018,8 +918,6 @@
               currentUser: '<%= currentUser %>',
               currentEmpID: '<%= currentEmpID %>',
               companyName: '<%= companyName %>',
-              currentBodyNumber: '<%= currentBodyNumber %>',
-              defectBodyNumberStatus: '<%= defectBodyNumberStatus %>',
               selectedCategory: '<%= selectedCategory %>',
               selectedSubCategory: '<%= selectedSubCategory %>',
             }),

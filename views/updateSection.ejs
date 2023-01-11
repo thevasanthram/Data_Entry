@@ -250,19 +250,54 @@
       />
       <input type="hidden" class="token" name="token" value="" />
     </form>
+    <form action="/updateSection" method="post" id="updateSectionForm">
+      <input
+        type="hidden"
+        id="currentUser"
+        name="currentUser"
+        value="<%= currentUser %>"
+      />
+      <input
+        type="hidden"
+        id="currentEmpID"
+        name="currentEmpID"
+        value="<%= currentEmpID %>"
+      />
+      <input
+        type="hidden"
+        id="companyName"
+        name="companyName"
+        value="<%= companyName %>"
+      />
+      <input type="hidden" class="token" name="token" value="" />
+    </form>
+    <form action="updateSection-II" method="post" id="updateSectionIIForm">
+      <input
+        type="hidden"
+        id="currentUser"
+        name="currentUser"
+        value="<%= currentUser %>"
+      />
+      <input
+        type="hidden"
+        id="currentEmpID"
+        name="currentEmpID"
+        value="<%= currentEmpID %>"
+      />
+      <input
+        type="hidden"
+        id="companyName"
+        name="companyName"
+        value="<%= companyName %>"
+      />
+      <input
+        type="hidden"
+        id="selectedCategory"
+        name="selectedCategory"
+        value=""
+      />
+    </form>
 
-    <div id="title-name-content">
-      <div class="sub_container">
-        <img
-          src="./icons/arrow.png"
-          title="Back"
-          id="go-back-icon"
-          alt="Go Back"
-          onclick="document.getElementById('followerForm').submit();"
-        />
-        <p id="title-name">Select Category:</p>
-      </div>
-    </div>
     <div class="update_container">
       <div class="update_subContainer">
         <h1 class="update_title">UPDATE CATEGORY SECTION</h1>
@@ -392,7 +427,7 @@
           <div>
             <button
               class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="(() => document.getElementById('firstLayerForm').submit())()"
+              onclick="(() => document.getElementById('updateSectionForm').submit())()"
             >
               OK
             </button>
@@ -489,7 +524,7 @@
           <div>
             <button
               class="text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-2 mb-2"
-              onclick="(() => document.getElementById('firstLayerForm').submit())()"
+              onclick="(() => document.getElementById('updateSectionForm').submit())()"
             >
               OK
             </button>
@@ -502,26 +537,36 @@
     <div id="UpdateCategoryDivision">
       <div class="UpdateCategoryModalContent">
         <div id="UpdateCategoryDivisionHolder">
-          <form id="updateCategoryForm"></form>
-          <p
-            style="font-weight: 700; margin: 1%; padding: 1%; font-size: large"
-          >
-            Edit Category
-          </p>
-          <div id="UpdateCategoryInput">
-            <p style="font-weight: 500">Select Category -></p>
-            <select name="update_category" id="update_category">
-              <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
-              <option
-                class="category_options"
-                id="update_category_option_<%= i+1 %>"
-                value="<%= bodyNumberOptions[i]%>"
-              >
-                <%= bodyNumberOptions[i]%>
-              </option>
-              <%}%>
-            </select>
-          </div>
+          <form id="updateCategoryForm">
+            <p
+              style="
+                font-weight: 700;
+                margin: 1%;
+                padding: 1%;
+                font-size: large;
+              "
+            >
+              Edit Category
+            </p>
+            <div id="UpdateCategoryInput">
+              <p style="font-weight: 500">Select Category -></p>
+              <select name="update_category" id="update_category">
+                <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
+                <option
+                  class="category_options"
+                  id="update_category_option_<%= i+1 %>"
+                  value="<%= bodyNumberOptions[i]%>"
+                >
+                  <%= bodyNumberOptions[i]%>
+                </option>
+                <%}%>
+              </select>
+            </div>
+            <div>
+              <p style="font-weight: 500">Category Name -></p>
+              <input type="text" id="categoryName" required />
+            </div>
+          </form>
           <div id="UpdateCategoryButton">
             <button
               type="button"
@@ -587,7 +632,7 @@
           ></p>
           <div>
             <button
-              onclick="(() => document.getElementById('firstLayerForm').submit())()"
+              onclick="(() => document.getElementById('updateSectionForm').submit())()"
             >
               OK
             </button>
@@ -601,6 +646,8 @@
       console.log('token: ', localStorage.getItem('token'));
 
       const tokenElements = document.getElementsByClassName('token');
+
+      const bodyNumberOptions = '<%= bodyNumberOptions %>';
 
       Object.values(tokenElements).map((tokenElement) => {
         tokenElement.value = localStorage.getItem('token');
@@ -684,8 +731,11 @@
       }
 
       async function transmit(selectedGroup) {
-        // const secondLayerForm = document.getElementById('secondLayerForm');
-        // secondLayerForm.submit();
+        document.getElementById('selectedCategory').value = selectedGroup;
+        const updateSectionIIForm = document.getElementById(
+          'updateSectionIIForm'
+        );
+        updateSectionIIForm.submit();
       }
 
       function validateCategory() {
