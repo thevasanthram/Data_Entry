@@ -297,7 +297,11 @@
         value=""
       />
     </form>
-
+    <div id="title-name-content">
+      <div class="sub_container">
+        <p id="title-name">Select Sub-Category</p>
+      </div>
+  </div>
     <div class="update_container">
       <div class="update_subContainer">
         <h1 class="update_title">UPDATE CATEGORY SECTION</h1>
@@ -549,7 +553,7 @@
               Edit Category
             </p>
             <div id="UpdateCategoryInput">
-              <p style="font-weight: 500">Select Category -></p>
+              <p style="font-weight: 500">Select Category:</p>
               <select name="update_category" id="update_category">
                 <% for(let i = 0 ; i < bodyNumberOptions.length ; i++){ %>
                 <option
@@ -562,9 +566,9 @@
                 <%}%>
               </select>
             </div>
-            <div>
-              <p style="font-weight: 500">Category Name -></p>
-              <input type="text" id="categoryName" required />
+            <div id="UpdateCategoryInput">
+              <p style="font-weight: 500">Category Name:</p>
+              <input type="text" id="categoryName" style="border-radius: 5px;" required />
             </div>
           </form>
           <div id="UpdateCategoryButton">

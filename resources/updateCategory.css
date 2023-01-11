@@ -361,7 +361,7 @@
     align-items: center;
     gap: 1rem;
     justify-content: space-evenly;
-    width: 95%;
+    width: 85%;
   }
   .updateInput_container {
     display: flex;
