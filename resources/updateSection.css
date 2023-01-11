@@ -812,7 +812,7 @@ input:checked ~ .dot {
   align-items: center;
   justify-content: center;
 }
-#UpdateCategoryDivisionSuccess {
+#updateCategoryDivisionSuccess {
   visibility: hidden; /* Hidden by default */
   position: fixed; /* Stay in place */
   left: 0;
@@ -826,10 +826,9 @@ input:checked ~ .dot {
   justify-content: center;
   align-items: center;
   z-index: 3;
-  transition: all 0.5s ease-in-out;
 }
 
-.UpdateCategoryDivisionSuccessModalContent {
+.updateCategoryDivisionSuccessModalContent {
   background-color: #00ab41;
   margin: auto;
   padding: 0px;

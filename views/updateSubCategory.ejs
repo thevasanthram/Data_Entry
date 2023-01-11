@@ -35,6 +35,7 @@
           onclick="document.getElementById('followerForm').submit();"
         />
           <div class="heading">Data Entry System</div>
+          <p class="selected-message">Category : <%= selectedCategory %></p>
         </div>
         <form id="btn" action="/logout" method="get" class="logoutButton">
           <div class="admin" id="user-mode-name"><%= currentUser %></div>
@@ -57,7 +58,7 @@
             title="Back"
             id="go-back-icon"
             alt="Go Back"
-            onclick="document.getElementById('firstLayerForm').submit();"
+            onclick="document.getElementById('updateSectionForm').submit();"
           />
           <p id="title-name">Select Sub-Category :</p>
         </div>
@@ -165,7 +166,7 @@
           ></p>
           <div>
             <button
-              onclick="(() => document.getElementById('secondLayerForm').submit())()"
+              onclick="(() => document.getElementById('updateSectionIIForm').submit())()"
             >
               OK
             </button>
@@ -233,7 +234,7 @@
             ></p>
             <div>
               <button
-                onclick="(() => document.getElementById('secondLayerForm').submit())()"
+                onclick="(() => document.getElementById('updateSectionIIForm').submit())()"
               >
                 OK
               </button>
@@ -327,40 +328,28 @@
       />
       <input type="hidden" class="token" name="token" value="" />
     </form>
-    <form action="/firstlayer" method="post" id="firstLayerForm">
-        <input
-          type="hidden"
-          id="currentUser"
-          name="currentUser"
-          value="<%= currentUser %>"
-        />
-        <input
-          type="hidden"
-          id="currentEmpID"
-          name="currentEmpID"
-          value="<%= currentEmpID %>"
-        />
-        <input
-          type="hidden"
-          id="companyName"
-          name="companyName"
-          value="<%= companyName %>"
-        />
-        <input
-          type="hidden"
-          id="currentBodyNumber"
-          name="currentBodyNumber"
-          value="<%= currentBodyNumber %>"
-        />
-        <input
-          type="hidden"
-          id="defectBodyNumberStatus"
-          name="defectBodyNumberStatus"
-          value="<%= defectBodyNumberStatus %>"
-        />
-        <input type="hidden" class="token" name="token" value="" />
+    <form action="/updateSection" method="post" id="updateSectionForm">
+      <input
+        type="hidden"
+        id="currentUser"
+        name="currentUser"
+        value="<%= currentUser %>"
+      />
+      <input
+        type="hidden"
+        id="currentEmpID"
+        name="currentEmpID"
+        value="<%= currentEmpID %>"
+      />
+      <input
+        type="hidden"
+        id="companyName"
+        name="companyName"
+        value="<%= companyName %>"
+      />
+      <input type="hidden" class="token" name="token" value="" />
     </form>
-    <form action="/secondlayer" method="post" id="secondLayerForm">
+    <form action="updateSection-II" method="post" id="updateSectionIIForm">
       <input
         type="hidden"
         id="currentUser"
@@ -381,26 +370,12 @@
       />
       <input
         type="hidden"
-        id="currentBodyNumber"
-        name="currentBodyNumber"
-        value="<%= currentBodyNumber %>"
-      />
-      <input
-        type="hidden"
-        id="defectBodyNumberStatus"
-        name="defectBodyNumberStatus"
-        value="<%= defectBodyNumberStatus %>"
-      />
-      <input
-        type="hidden"
         id="selectedCategory"
         name="selectedCategory"
-        value="<%= selectedCategory %>"
+        value=""
       />
-      <input type="hidden" name="mode" id="mode" value="" />
-      <input type="hidden" class="token" name="token" value="" />
     </form>
-    <form action="/thirdlayer" method="post" id="thirdLayerForm">
+    <form action="/updateSection-III" method="post" id="updateSectionIIIForm">
       <input
         type="hidden"
         name="selectedSubCategory"
@@ -415,20 +390,12 @@
         name="companyName"
         value="<%= companyName %>"
       />
-      <input type="hidden" id="currentBodyNumber" name="currentBodyNumber" value="<%= currentBodyNumber %>" />
-      <input
-        type="hidden"
-        id="defectBodyNumberStatus"
-        name="defectBodyNumberStatus"
-        value="<%= defectBodyNumberStatus %>"
-      />
       <input
         type="hidden"
         id="selectedCategory"
         name="selectedCategory"
         value="<%= selectedCategory %>"
       />
-      <input type="hidden" name="mode" id="mode" value="" />
       <input type="hidden" class="token" name="token" value="" />
     </form>
   </div>
@@ -444,33 +411,10 @@
         tokenElement.value = localStorage.getItem('token');
       });
 
-      modeDOM = document.getElementsByClassName('mode')[0];
-      if('<%= mode %>' == 'online'){
-        modeDOM.checked = true;
-        document.getElementById('mode_status').innerHTML = 'Online'
-      }else{
-        modeDOM.checked = false;
-        document.getElementById('mode_status').innerHTML = 'Offline'
-      }
-      function dynamicText() {
-        if (!modeDOM.checked) {
-          modeDOM.checked = false;
-          document.getElementById('mode_status').innerHTML = 'Offline';
-        } else {
-          modeDOM.checked = true;
-          document.getElementById('mode_status').innerHTML = 'Online';
-        }
-      }
-
       async function transmit(selectedSubCategory) {
-        var mode = 'online';
-        if (!modeDOM.checked) {
-          mode = 'offline';
-        }
-        const thirdLayerForm = document.getElementById('thirdLayerForm');
+        const updateSectionIIIForm = document.getElementById('updateSectionIIIForm');
         document.getElementById('selectedSubCategory').value = selectedSubCategory;
-        document.getElementById('mode').value = mode;
-        thirdLayerForm.submit();
+        updateSectionIIIForm.submit();
       }
 
       function validateSubCategory() {
