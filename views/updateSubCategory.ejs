@@ -35,6 +35,7 @@
           onclick="document.getElementById('followerForm').submit();"
         />
           <div class="heading">Data Entry System</div>
+          <p class="selected-message">Body Number : <%= currentBodyNumber %> | Category : <%= selectedCategory %></p>
         </div>
         <form id="btn" action="/logout" method="get" class="logoutButton">
           <div class="admin" id="user-mode-name"><%= currentUser %></div>
@@ -61,6 +62,23 @@
           />
           <p id="title-name">Select Sub-Category :</p>
         </div>
+      <!-- Toggle Switch for online / offline -->
+      <div id="toggle" class="mt-6 ml-6" >
+        <div class="flex w-full mb-6"> 
+          <label for="toggle_switch" class="flex items-center cursor-pointer"
+          style="justify-content:center ;">
+            <div class="relative">
+              <input type="checkbox" id="toggle_switch" class="sr-only mode" onclick="dynamicText()">
+              <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+              <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+            </div>
+            <div class="ml-2 text-gray-300 font-medium text-2xl  "
+            id="mode_status">
+              Online
+            </div>
+          </label>
+        </div>
+      </div>
     </div>
     <div class="update_container">
       <div class="update_subContainer">
@@ -328,37 +346,37 @@
       <input type="hidden" class="token" name="token" value="" />
     </form>
     <form action="/firstlayer" method="post" id="firstLayerForm">
-        <input
-          type="hidden"
-          id="currentUser"
-          name="currentUser"
-          value="<%= currentUser %>"
-        />
-        <input
-          type="hidden"
-          id="currentEmpID"
-          name="currentEmpID"
-          value="<%= currentEmpID %>"
-        />
-        <input
-          type="hidden"
-          id="companyName"
-          name="companyName"
-          value="<%= companyName %>"
-        />
-        <input
-          type="hidden"
-          id="currentBodyNumber"
-          name="currentBodyNumber"
-          value="<%= currentBodyNumber %>"
-        />
-        <input
-          type="hidden"
-          id="defectBodyNumberStatus"
-          name="defectBodyNumberStatus"
-          value="<%= defectBodyNumberStatus %>"
-        />
-        <input type="hidden" class="token" name="token" value="" />
+      <input
+        type="hidden"
+        id="currentUser"
+        name="currentUser"
+        value="<%= currentUser %>"
+      />
+      <input
+        type="hidden"
+        id="currentEmpID"
+        name="currentEmpID"
+        value="<%= currentEmpID %>"
+      />
+      <input
+        type="hidden"
+        id="companyName"
+        name="companyName"
+        value="<%= companyName %>"
+      />
+      <input
+        type="hidden"
+        id="currentBodyNumber"
+        name="currentBodyNumber"
+        value="<%= currentBodyNumber %>"
+      />
+      <input
+        type="hidden"
+        id="defectBodyNumberStatus"
+        name="defectBodyNumberStatus"
+        value="<%= defectBodyNumberStatus %>"
+      />
+      <input type="hidden" class="token" name="token" value="" />
     </form>
     <form action="/secondlayer" method="post" id="secondLayerForm">
       <input
