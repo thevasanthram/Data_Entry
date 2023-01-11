@@ -1390,7 +1390,7 @@ app.post('/newUser', async (req, res) => {
           from: 'sanjeevmajhi036@gmail.com',
           to: empEmail,
           subject: 'Invitation to create new user',
-          text: `Check this link and fill the form \n http://13.231.146.190:2000/verifyUser \n Credentials \n ID: ${empID} \n Password: ${empPassword}`,
+          text: `Check this link and fill the form \n http://54.248.63.212:2000/verifyUser \n Credentials \n ID: ${empID} \n Password: ${empPassword}`,
         };
 
         mailTransporter.sendMail(mailDetails, async function (err, data) {
