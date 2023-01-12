@@ -94,13 +94,15 @@
   }
   .sub_container {
     display: flex;
-    justify-content: start;
+    width: 80%;
+    /* justify-content: center; */
     margin: 1%;
-    gap: 2rem;
+    position: relative;
+    gap: 30%;
     align-items: center;
   }
   #go-back-icon {
-    max-width: 7%;
+    max-width: 5%;
   }
   
   #go-back-icon:hover {
